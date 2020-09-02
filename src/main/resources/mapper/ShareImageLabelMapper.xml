@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.dao.ShareImageLabelMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.bean.ShareImageLabel">
+    <id column="image_label_id" jdbcType="INTEGER" property="imageLabelId" />
+    <result column="image_label_accName" jdbcType="VARCHAR" property="imageLabelAccname" />
+    <result column="image_label_hang" jdbcType="VARCHAR" property="imageLabelHang" />
+    <result column="image_label_createTime" jdbcType="VARCHAR" property="imageLabelCreatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    image_label_id, image_label_accName, image_label_hang, image_label_createTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_share_image_label
+    where image_label_id = #{imageLabelId,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.atguigu.bean.ShareImageLabel">
+    insert into tb_share_image_label (image_label_id, image_label_accName, 
+      image_label_hang, image_label_createTime)
+    values (#{imageLabelId,jdbcType=INTEGER}, #{imageLabelAccname,jdbcType=VARCHAR}, 
+      #{imageLabelHang,jdbcType=VARCHAR}, #{imageLabelCreatetime,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.ShareImageLabel">
+    update tb_share_image_label
+    set image_label_accName = #{imageLabelAccname,jdbcType=VARCHAR},
+      image_label_hang = #{imageLabelHang,jdbcType=VARCHAR},
+      image_label_createTime = #{imageLabelCreatetime,jdbcType=VARCHAR}
+    where image_label_id = #{imageLabelId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- insertSelective -->
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="imageLabelId"  parameterType="com.atguigu.bean.ShareImageLabel">
+    insert into tb_share_image_label
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="imageLabelId != null">
+        image_label_id,
+      </if>
+      <if test="imageLabelAccname != null">
+        image_label_accName,
+      </if>
+      <if test="imageLabelHang != null">
+        image_label_hang,
+      </if>
+      <if test="imageLabelCreatetime != null">
+        image_label_createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="imageLabelId != null">
+        #{imageLabelId,jdbcType=INTEGER},
+      </if>
+      <if test="imageLabelAccname != null">
+        #{imageLabelAccname,jdbcType=VARCHAR},
+      </if>
+      <if test="imageLabelHang != null">
+        #{imageLabelHang,jdbcType=VARCHAR},
+      </if>
+      <if test="imageLabelCreatetime != null">
+        #{imageLabelCreatetime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <!-- deleteByPrimaryKey -->  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_share_image_label
+    where image_label_id = #{imageLabelId,jdbcType=INTEGER}
+  </delete>
+  <!-- updateByPrimaryKeySelective -->    
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.ShareImageLabel">
+    update tb_share_image_label
+    <set>
+      <if test="imageLabelAccname != null">
+        image_label_accName = #{imageLabelAccname,jdbcType=VARCHAR},
+      </if>
+      <if test="imageLabelHang != null">
+        image_label_hang = #{imageLabelHang,jdbcType=VARCHAR},
+      </if>
+      <if test="imageLabelCreatetime != null">
+        image_label_createTime = #{imageLabelCreatetime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where image_label_id = #{imageLabelId,jdbcType=INTEGER}
+  </update>
+  
+</mapper>
