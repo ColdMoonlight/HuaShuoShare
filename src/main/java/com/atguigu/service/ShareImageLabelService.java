@@ -1,5 +1,7 @@
 package com.atguigu.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.atguigu.bean.ShareImageLabel;
@@ -40,6 +42,11 @@ public class ShareImageLabelService {
 	 * */
 	public void deleteByPrimaryKey(Integer imageLabelId) {
 		shareImageLabelMapper.deleteByPrimaryKey(imageLabelId);
+	}
+
+	public List<ShareImageLabel> selectImageLabelAll() {
+		List<ShareImageLabel>  shareImageLabelList = shareImageLabelMapper.selectImageLabelAll();
+		return shareImageLabelList;
 	}
 
 }

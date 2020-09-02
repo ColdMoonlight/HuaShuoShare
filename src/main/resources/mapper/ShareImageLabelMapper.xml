@@ -83,5 +83,10 @@
     </set>
     where image_label_id = #{imageLabelId,jdbcType=INTEGER}
   </update>
+  <!-- selectImageLabelAll -->
+  <select id="selectImageLabelAll" parameterType="com.atguigu.bean.ShareImageLabel" resultMap="BaseResultMap">
+    select *
+    from tb_share_image_label
+  </select>
   
 </mapper>

@@ -1,5 +1,7 @@
 package com.atguigu.dao;
 
+import java.util.List;
+
 import com.atguigu.bean.ShareImageLabel;
 
 public interface ShareImageLabelMapper {
@@ -15,5 +17,7 @@ public interface ShareImageLabelMapper {
     int deleteByPrimaryKey(Integer imageLabelId);
     
     int updateByPrimaryKeySelective(ShareImageLabel record);
+
+	List<ShareImageLabel> selectImageLabelAll();
     
 }
