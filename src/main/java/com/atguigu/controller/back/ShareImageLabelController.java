@@ -65,6 +65,24 @@ public class ShareImageLabelController {
 		}
 	}
 	
+	/**
+	 * 1.0	onuse	20191225	检查
+	 * to分类MlbackAreafreight列表页面
+	 * @param jsp
+	 * @return 
+	 * */
+	@RequestMapping("/toImageLabelDownloadPage")
+	public String toImageLabelDownloadPage(HttpSession session) throws Exception{
+		
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+		if(mlbackAdmin==null){
+			//SysUsers对象为空
+			return "back/mlbackAdminLogin";
+		}else{
+			return "back/imageLabelDownloadPage";
+		}
+	}
+	
 //	/**2.0	onuse	20191225	检查
 //	 * 分类MlbackAreafreight列表分页list数据
 //	 * @param pn

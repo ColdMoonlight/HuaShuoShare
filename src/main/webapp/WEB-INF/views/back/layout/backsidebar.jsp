@@ -22,19 +22,19 @@
 			</a>
 			<ul class="c-child-menu">
 				<li class="c-sidebar-nav-item">
-					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlfrontPayInfo/toMlbackPayInfoList">
+					<a class="c-sidebar-nav-link" href="${APP_PATH}/ShareImageLabel/toImageLabelPage">
 						<span class="c-sidebar-nav-icon"></span>
 						<span class="c-text">图片标签</span>
 					</a>
 				</li>
 				<li class="c-sidebar-nav-item">
-					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlfrontPayInfo/toMlbackPayInfoList">
+					<a class="c-sidebar-nav-link" href="${APP_PATH}/ShareImageLabel/toImageLabelUploadPage">
 						<span class="c-sidebar-nav-icon"></span>
 						<span class="c-text">图片上传</span>
 					</a>
 				</li>
 				<li class="c-sidebar-nav-item">
-					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlfrontPayInfo/toMlbackPayInfoList">
+					<a class="c-sidebar-nav-link" href="${APP_PATH}/ShareImageLabel/toImageLabelDownloadPage">
 						<span class="c-sidebar-nav-icon"></span>
 						<span class="c-text">图片下载</span>
 					</a>
