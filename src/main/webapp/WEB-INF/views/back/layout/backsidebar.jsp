@@ -24,7 +24,19 @@
 				<li class="c-sidebar-nav-item">
 					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlfrontPayInfo/toMlbackPayInfoList">
 						<span class="c-sidebar-nav-icon"></span>
-						<span class="c-text">images</span>
+						<span class="c-text">图片标签</span>
+					</a>
+				</li>
+				<li class="c-sidebar-nav-item">
+					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlfrontPayInfo/toMlbackPayInfoList">
+						<span class="c-sidebar-nav-icon"></span>
+						<span class="c-text">图片上传</span>
+					</a>
+				</li>
+				<li class="c-sidebar-nav-item">
+					<a class="c-sidebar-nav-link" href="${APP_PATH}/MlfrontPayInfo/toMlbackPayInfoList">
+						<span class="c-sidebar-nav-icon"></span>
+						<span class="c-text">图片下载</span>
 					</a>
 				</li>
 			</ul>
