@@ -22,12 +22,23 @@ import com.atguigu.common.Msg;
 @RequestMapping("/BackHome")
 public class BackHomeController {
 	
+	
+	/**
+	 * zsh 200730
+	 * 中控台首页
+	 * */
+	@RequestMapping("/tologin")
+	public String tologin(HttpSession session) throws Exception{
+		
+		return "back/mlbackAdminLogin";
+	}
+	
 	/**
 	 * zsh 200730
 	 * 中控台首页
 	 * */
 	@RequestMapping("/BackHomePage")
-	public String tologin(HttpSession session) throws Exception{
+	public String backHome(HttpSession session) throws Exception{
 		
 		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
 		if(mlbackAdmin==null){
