@@ -1,52 +1,45 @@
 package com.atguigu.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.atguigu.bean.MlbackAdmin;
-import com.atguigu.dao.MlbackAdminMapper;
-
+import com.atguigu.bean.ShareImageLabel;
+import com.atguigu.dao.ShareImageLabelMapper;
 
 @Service
 public class ShareImageLabelService {
 	
 	
 	@Autowired
-	MlbackAdminMapper mlbackAdminMapper;
-
-	/**
-	 * @author Shinelon
-	 * @param MlbackAdmin
-	 * @exception 查看用户信息是否存在
-	 * 
-	 * */
-	public List<MlbackAdmin> selectMlbackAdmin(MlbackAdmin mlbackAdmin) {
-		List<MlbackAdmin>  MlbackAdminList = mlbackAdminMapper.selectMlbackAdmin(mlbackAdmin);
-		return MlbackAdminList;
-	}
+	ShareImageLabelMapper shareImageLabelMapper;
 	
 	/**
 	 * @author Shinelon
-	 * @param MlbackAdmin
-	 * @exception add方法用户信息是否存在
+	 * @param ShareImageLabel
+	 * @exception add方法
 	 * 
 	 * */
-	public int insertSelective(MlbackAdmin mlbackAdmin) {
-		int intReslut = mlbackAdminMapper.insertSelective(mlbackAdmin);
+	public int insertSelective(ShareImageLabel shareImageLabel) {
+		int intReslut = shareImageLabelMapper.insertSelective(shareImageLabel);
 		return intReslut;
 	}
 	
 	/**
 	 * @author Shinelon
-	 * @param 
-	 * @exception 查看全部用户信息
-	 * 
+	 * @param ShareImageLabel
+	 * @exception	update方法
 	 * */
-	public int updateByAdminAccnameSelective(MlbackAdmin mlbackAdmin) {
-		int intReslut = mlbackAdminMapper.updateByAdminAccnameSelective(mlbackAdmin);
+	public int updateByPrimaryKeySelective(ShareImageLabel shareImageLabel) {
+		int intReslut = shareImageLabelMapper.updateByPrimaryKeySelective(shareImageLabel);
 		return intReslut;
+	}
+	
+	/**
+	 * @author Shinelon
+	 * @param ShareImageLabel
+	 * @exception	update方法
+	 * */
+	public void deleteByPrimaryKey(Integer imageLabelId) {
+		shareImageLabelMapper.deleteByPrimaryKey(imageLabelId);
 	}
 
 }

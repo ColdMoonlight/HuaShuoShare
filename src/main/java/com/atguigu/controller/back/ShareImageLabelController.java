@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
+import com.atguigu.bean.ShareImageLabel;
 import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.atguigu.common.TokenCache;
@@ -104,32 +105,32 @@ public class ShareImageLabelController {
 //			return Msg.success().add("pageInfo", page);
 ////		}
 //	}
-//	
-//	/**3.0	onuse	20191225	检查
-//	 * MlbackAreafreight	save
-//	 * @param MlbackAreafreight
-//	 */
-//	@RequestMapping(value="/save",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg saveSelective(HttpServletResponse rep,HttpServletRequest res,@RequestBody MlbackAreafreight mlbackAreafreight){
-//		//接受参数信息
-//		System.out.println("mlbackAreafreight:"+mlbackAreafreight);
-//		//取出id
-//		Integer areafreightId = mlbackAreafreight.getAreafreightId();
-//		String nowTime = DateUtil.strTime14s();
-//		if(areafreightId==null){
-//			//无id，insert
-//			mlbackAreafreightService.insertSelective(mlbackAreafreight);
-//			//System.out.println("后台操作:insert,mlbackAreafreight,success+intResult："+intResult);
-//			return Msg.success().add("resMsg", "插入成功");
-//		}else{
-//			//有id，update
-//			mlbackAreafreightService.updateByPrimaryKeySelective(mlbackAreafreight);
-//			//System.out.println("后台操作:update,mlbackAreafreight,success+intResult："+intResult);
-//			return Msg.success().add("resMsg", "更新成功");
-//			
-//		}		
-//	}
+	
+	/**3.0	onuse	20191225	检查
+	 * MlbackAreafreight	save
+	 * @param MlbackAreafreight
+	 */
+	@RequestMapping(value="/save",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg saveSelective(HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageLabel shareImageLabel){
+		//接受参数信息
+		System.out.println("shareImageLabel:"+shareImageLabel);
+		//取出id
+		Integer imageLabelId = shareImageLabel.getImageLabelId();
+		String nowTime = DateUtil.strTime14s();
+		shareImageLabel.setImageLabelCreatetime(nowTime);
+		if(imageLabelId==null){
+			//无id，insert
+			shareImageLabelService.insertSelective(shareImageLabel);
+			//System.out.println("后台操作:insert,mlbackAreafreight,success+intResult："+intResult);
+			return Msg.success().add("resMsg", "插入成功").add("shareImageLabel", shareImageLabel);
+		}else{
+			//有id，update
+			shareImageLabelService.updateByPrimaryKeySelective(shareImageLabel);
+			//System.out.println("后台操作:update,mlbackAreafreight,success+intResult："+intResult);
+			return Msg.success().add("resMsg", "更新成功").add("shareImageLabel", shareImageLabel);
+		}		
+	}
 //	
 //	/**4.0	onuse	20191225	check
 //	 * MlbackAreafreight	delete
