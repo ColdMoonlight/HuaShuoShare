@@ -5,7 +5,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Login</title>
-		<jsp:include page="WEB-INF/common/backheader.jsp" flush="true"></jsp:include>
+		<jsp:include page="WEB-INF/views/back/common/backheader.jsp" flush="true"></jsp:include>
 		<!-- login style  -->
 		<style>
 			.c-app { background-color: #f5feff; }
@@ -114,7 +114,7 @@
 			</div>
 		</div>
 
-	<jsp:include page="WEB-INF/common/backfooter.jsp"></jsp:include>
+	<jsp:include page="WEB-INF/views/back/common/backfooter.jsp"></jsp:include>
 	<!-- custom script -->
 	<script>
 		$('#back-login').on('click', function(e) {
