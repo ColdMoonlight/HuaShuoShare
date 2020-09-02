@@ -16,16 +16,21 @@
     from tb_share_image_label
     where image_label_id = #{imageLabelId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_share_image_label
-    where image_label_id = #{imageLabelId,jdbcType=INTEGER}
-  </delete>
   <insert id="insert" parameterType="com.atguigu.bean.ShareImageLabel">
     insert into tb_share_image_label (image_label_id, image_label_accName, 
       image_label_hang, image_label_createTime)
     values (#{imageLabelId,jdbcType=INTEGER}, #{imageLabelAccname,jdbcType=VARCHAR}, 
       #{imageLabelHang,jdbcType=VARCHAR}, #{imageLabelCreatetime,jdbcType=VARCHAR})
   </insert>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.ShareImageLabel">
+    update tb_share_image_label
+    set image_label_accName = #{imageLabelAccname,jdbcType=VARCHAR},
+      image_label_hang = #{imageLabelHang,jdbcType=VARCHAR},
+      image_label_createTime = #{imageLabelCreatetime,jdbcType=VARCHAR}
+    where image_label_id = #{imageLabelId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- insertSelective -->
   <insert id="insertSelective" useGeneratedKeys="true" keyProperty="imageLabelId"  parameterType="com.atguigu.bean.ShareImageLabel">
     insert into tb_share_image_label
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -57,6 +62,12 @@
       </if>
     </trim>
   </insert>
+  <!-- deleteByPrimaryKey -->  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_share_image_label
+    where image_label_id = #{imageLabelId,jdbcType=INTEGER}
+  </delete>
+  <!-- updateByPrimaryKeySelective -->    
   <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.ShareImageLabel">
     update tb_share_image_label
     <set>
@@ -72,11 +83,5 @@
     </set>
     where image_label_id = #{imageLabelId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.ShareImageLabel">
-    update tb_share_image_label
-    set image_label_accName = #{imageLabelAccname,jdbcType=VARCHAR},
-      image_label_hang = #{imageLabelHang,jdbcType=VARCHAR},
-      image_label_createTime = #{imageLabelCreatetime,jdbcType=VARCHAR}
-    where image_label_id = #{imageLabelId,jdbcType=INTEGER}
-  </update>
+  
 </mapper>
