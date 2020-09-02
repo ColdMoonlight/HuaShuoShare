@@ -1,5 +1,6 @@
 package com.atguigu.controller.back;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -84,27 +85,37 @@ public class ShareImageLabelController {
 		}
 	}
 	
-//	/**2.0	onuse	20191225	检查
-//	 * 分类MlbackAreafreight列表分页list数据
-//	 * @param pn
-//	 * @return
-//	 */
-//	@RequestMapping(value="/getShareImageLabelByPage")
-//	@ResponseBody
-//	public Msg getMlbackAreafreightWithJson(
-//			@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session) {
-//		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("adminuser");
-////		if(mlbackAdmin==null){
-////			//SysUsers对象为空
-////			return Msg.fail().add("resMsg", "session中adminuser对象为空");
-////		}else{
-//			int PagNum = 20;
-//			PageHelper.startPage(pn, PagNum);
-//			List<MlbackAreafreight> mlbackAreafreightList = mlbackAreafreightService.selectMlbackAreafreightAll();
-//			PageInfo page = new PageInfo(mlbackAreafreightList, PagNum);
-//			return Msg.success().add("pageInfo", page);
-////		}
-//	}
+	/**2.0	onuse	20191225	检查
+	 * 分类MlbackAreafreight列表分页list数据
+	 * @param pn
+	 * @return
+	 */
+	@RequestMapping(value="/getShareImageLabelAll")
+	@ResponseBody
+	public Msg getShareImageLabelAll(HttpSession session) {
+
+		List<ShareImageLabel> shareImageLabelList = shareImageLabelService.selectImageLabelAll();
+//		List<ShareImageLabel> shareImageLabelOneList = new ArrayList<ShareImageLabel>();
+//		List<ShareImageLabel> shareImageLabelTwoList = new ArrayList<ShareImageLabel>();
+//		List<ShareImageLabel> shareImageLabelThreeList = new ArrayList<ShareImageLabel>();
+//		List<ShareImageLabel> shareImageLabelFourList = new ArrayList<ShareImageLabel>();
+//		List<ShareImageLabel> shareImageLabelFiveList = new ArrayList<ShareImageLabel>();
+//		for(ShareImageLabel shareImageLabel:shareImageLabelList){
+//			String imageLabelHang = shareImageLabel.getImageLabelHang();
+//			if("1".equals(imageLabelHang)){
+//				shareImageLabelOneList.add(shareImageLabel);
+//			}else if("2".equals(imageLabelHang)){
+//				shareImageLabelTwoList.add(shareImageLabel);
+//			}else if("3".equals(imageLabelHang)){
+//				shareImageLabelThreeList.add(shareImageLabel);
+//			}else if("4".equals(imageLabelHang)){
+//				shareImageLabelFourList.add(shareImageLabel);
+//			}else if("5".equals(imageLabelHang)){
+//				shareImageLabelFiveList.add(shareImageLabel);
+//			}
+//		}
+		return Msg.success().add("list", shareImageLabelList);
+	}
 	
 	/**3.0	onuse	20191225	检查
 	 * MlbackAreafreight	save
