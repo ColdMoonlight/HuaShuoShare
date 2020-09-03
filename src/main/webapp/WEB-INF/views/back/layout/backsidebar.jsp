@@ -18,25 +18,19 @@
 				<svg class="c-sidebar-nav-icon">
 					<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-cursor"></use>
 				</svg>
-				<span class="c-text">Images</span>
+				<span class="c-text">ImagesAndVideo</span>
 			</a>
 			<ul class="c-child-menu">
 				<li class="c-sidebar-nav-item">
-					<a class="c-sidebar-nav-link" href="${APP_PATH}/ShareImageLabel/toImageLabelPage">
+					<a class="c-sidebar-nav-link" href="${APP_PATH}/ShareImageInfo/toImageInfoPage">
 						<span class="c-sidebar-nav-icon"></span>
-						<span class="c-text">图片标签</span>
+						<span class="c-text">image</span>
 					</a>
 				</li>
 				<li class="c-sidebar-nav-item">
 					<a class="c-sidebar-nav-link" href="${APP_PATH}/ShareImageLabel/toImageLabelUploadPage">
 						<span class="c-sidebar-nav-icon"></span>
-						<span class="c-text">图片上传</span>
-					</a>
-				</li>
-				<li class="c-sidebar-nav-item">
-					<a class="c-sidebar-nav-link" href="${APP_PATH}/ShareImageLabel/toImageLabelDownloadPage">
-						<span class="c-sidebar-nav-icon"></span>
-						<span class="c-text">图片下载</span>
+						<span class="c-text">video</span>
 					</a>
 				</li>
 			</ul>

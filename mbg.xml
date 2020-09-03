@@ -44,8 +44,8 @@
 		<!-- megalook table指定每个表的生成策略 -->
 		<!--	tb_share
 		<table tableName="tb_share_image_label" domainObjectName="ShareImageLabel" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		<table tableName="tb_share_imageinfo" domainObjectName="ShareImageInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		-->
-		
 		
 	</context>
 </generatorConfiguration>
