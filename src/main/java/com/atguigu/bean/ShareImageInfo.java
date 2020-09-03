@@ -9,7 +9,9 @@ public class ShareImageInfo {
 
     private String tbShareImageinfoUrl;
 
-    private String tbShareImageinfoParentid;
+    private Integer tbShareImageinfoParentid;
+
+    private String tbShareImageinfoParentname;
 
     private String tbShareImageinfoDesc;
 
@@ -47,12 +49,20 @@ public class ShareImageInfo {
         this.tbShareImageinfoUrl = tbShareImageinfoUrl == null ? null : tbShareImageinfoUrl.trim();
     }
 
-    public String getTbShareImageinfoParentid() {
+    public Integer getTbShareImageinfoParentid() {
         return tbShareImageinfoParentid;
     }
 
-    public void setTbShareImageinfoParentid(String tbShareImageinfoParentid) {
-        this.tbShareImageinfoParentid = tbShareImageinfoParentid == null ? null : tbShareImageinfoParentid.trim();
+    public void setTbShareImageinfoParentid(Integer tbShareImageinfoParentid) {
+        this.tbShareImageinfoParentid = tbShareImageinfoParentid;
+    }
+
+    public String getTbShareImageinfoParentname() {
+        return tbShareImageinfoParentname;
+    }
+
+    public void setTbShareImageinfoParentname(String tbShareImageinfoParentname) {
+        this.tbShareImageinfoParentname = tbShareImageinfoParentname == null ? null : tbShareImageinfoParentname.trim();
     }
 
     public String getTbShareImageinfoDesc() {
@@ -76,14 +86,15 @@ public class ShareImageInfo {
 	}
 
 	public ShareImageInfo(Integer tbShareImageinfoId, Integer tbShareImageinfoType, String tbShareImageinfoName,
-			String tbShareImageinfoUrl, String tbShareImageinfoParentid, String tbShareImageinfoDesc,
-			String tbShareImageinfoCreatetime) {
+			String tbShareImageinfoUrl, Integer tbShareImageinfoParentid, String tbShareImageinfoParentname,
+			String tbShareImageinfoDesc, String tbShareImageinfoCreatetime) {
 		super();
 		this.tbShareImageinfoId = tbShareImageinfoId;
 		this.tbShareImageinfoType = tbShareImageinfoType;
 		this.tbShareImageinfoName = tbShareImageinfoName;
 		this.tbShareImageinfoUrl = tbShareImageinfoUrl;
 		this.tbShareImageinfoParentid = tbShareImageinfoParentid;
+		this.tbShareImageinfoParentname = tbShareImageinfoParentname;
 		this.tbShareImageinfoDesc = tbShareImageinfoDesc;
 		this.tbShareImageinfoCreatetime = tbShareImageinfoCreatetime;
 	}
@@ -93,8 +104,8 @@ public class ShareImageInfo {
 		return "ShareImageInfo [tbShareImageinfoId=" + tbShareImageinfoId + ", tbShareImageinfoType="
 				+ tbShareImageinfoType + ", tbShareImageinfoName=" + tbShareImageinfoName + ", tbShareImageinfoUrl="
 				+ tbShareImageinfoUrl + ", tbShareImageinfoParentid=" + tbShareImageinfoParentid
-				+ ", tbShareImageinfoDesc=" + tbShareImageinfoDesc + ", tbShareImageinfoCreatetime="
-				+ tbShareImageinfoCreatetime + "]";
+				+ ", tbShareImageinfoParentname=" + tbShareImageinfoParentname + ", tbShareImageinfoDesc="
+				+ tbShareImageinfoDesc + ", tbShareImageinfoCreatetime=" + tbShareImageinfoCreatetime + "]";
 	}
     
 }
