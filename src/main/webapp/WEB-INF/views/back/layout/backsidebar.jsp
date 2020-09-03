@@ -22,7 +22,7 @@
 			</a>
 			<ul class="c-child-menu">
 				<li class="c-sidebar-nav-item">
-					<a class="c-sidebar-nav-link" href="${APP_PATH}/ShareImageLabel/toImageLabelPage">
+					<a class="c-sidebar-nav-link" href="${APP_PATH}/ShareImageInfo/toImageInfoPage">
 						<span class="c-sidebar-nav-icon"></span>
 						<span class="c-text">image</span>
 					</a>
