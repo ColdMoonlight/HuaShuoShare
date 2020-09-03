@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.dao.ShareImageInfoMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.bean.ShareImageInfo">
+    <id column="tb_share_imageinfo_id" jdbcType="INTEGER" property="tbShareImageinfoId" />
+    <result column="tb_share_imageinfo_type" jdbcType="INTEGER" property="tbShareImageinfoType" />
+    <result column="tb_share_imageinfo_name" jdbcType="VARCHAR" property="tbShareImageinfoName" />
+    <result column="tb_share_imageinfo_url" jdbcType="VARCHAR" property="tbShareImageinfoUrl" />
+    <result column="tb_share_imageinfo_parentid" jdbcType="VARCHAR" property="tbShareImageinfoParentid" />
+    <result column="tb_share_imageinfo_desc" jdbcType="VARCHAR" property="tbShareImageinfoDesc" />
+    <result column="tb_share_imageinfo_createTime" jdbcType="VARCHAR" property="tbShareImageinfoCreatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tb_share_imageinfo_id, tb_share_imageinfo_type, tb_share_imageinfo_name, tb_share_imageinfo_url, 
+    tb_share_imageinfo_parentid, tb_share_imageinfo_desc, tb_share_imageinfo_createTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_share_imageinfo
+    where tb_share_imageinfo_id = #{tbShareImageinfoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_share_imageinfo
+    where tb_share_imageinfo_id = #{tbShareImageinfoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.atguigu.bean.ShareImageInfo">
+    insert into tb_share_imageinfo (tb_share_imageinfo_id, tb_share_imageinfo_type, 
+      tb_share_imageinfo_name, tb_share_imageinfo_url, 
+      tb_share_imageinfo_parentid, tb_share_imageinfo_desc, 
+      tb_share_imageinfo_createTime)
+    values (#{tbShareImageinfoId,jdbcType=INTEGER}, #{tbShareImageinfoType,jdbcType=INTEGER}, 
+      #{tbShareImageinfoName,jdbcType=VARCHAR}, #{tbShareImageinfoUrl,jdbcType=VARCHAR}, 
+      #{tbShareImageinfoParentid,jdbcType=VARCHAR}, #{tbShareImageinfoDesc,jdbcType=VARCHAR}, 
+      #{tbShareImageinfoCreatetime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.atguigu.bean.ShareImageInfo">
+    insert into tb_share_imageinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tbShareImageinfoId != null">
+        tb_share_imageinfo_id,
+      </if>
+      <if test="tbShareImageinfoType != null">
+        tb_share_imageinfo_type,
+      </if>
+      <if test="tbShareImageinfoName != null">
+        tb_share_imageinfo_name,
+      </if>
+      <if test="tbShareImageinfoUrl != null">
+        tb_share_imageinfo_url,
+      </if>
+      <if test="tbShareImageinfoParentid != null">
+        tb_share_imageinfo_parentid,
+      </if>
+      <if test="tbShareImageinfoDesc != null">
+        tb_share_imageinfo_desc,
+      </if>
+      <if test="tbShareImageinfoCreatetime != null">
+        tb_share_imageinfo_createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tbShareImageinfoId != null">
+        #{tbShareImageinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="tbShareImageinfoType != null">
+        #{tbShareImageinfoType,jdbcType=INTEGER},
+      </if>
+      <if test="tbShareImageinfoName != null">
+        #{tbShareImageinfoName,jdbcType=VARCHAR},
+      </if>
+      <if test="tbShareImageinfoUrl != null">
+        #{tbShareImageinfoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="tbShareImageinfoParentid != null">
+        #{tbShareImageinfoParentid,jdbcType=VARCHAR},
+      </if>
+      <if test="tbShareImageinfoDesc != null">
+        #{tbShareImageinfoDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="tbShareImageinfoCreatetime != null">
+        #{tbShareImageinfoCreatetime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.ShareImageInfo">
+    update tb_share_imageinfo
+    <set>
+      <if test="tbShareImageinfoType != null">
+        tb_share_imageinfo_type = #{tbShareImageinfoType,jdbcType=INTEGER},
+      </if>
+      <if test="tbShareImageinfoName != null">
+        tb_share_imageinfo_name = #{tbShareImageinfoName,jdbcType=VARCHAR},
+      </if>
+      <if test="tbShareImageinfoUrl != null">
+        tb_share_imageinfo_url = #{tbShareImageinfoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="tbShareImageinfoParentid != null">
+        tb_share_imageinfo_parentid = #{tbShareImageinfoParentid,jdbcType=VARCHAR},
+      </if>
+      <if test="tbShareImageinfoDesc != null">
+        tb_share_imageinfo_desc = #{tbShareImageinfoDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="tbShareImageinfoCreatetime != null">
+        tb_share_imageinfo_createTime = #{tbShareImageinfoCreatetime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tb_share_imageinfo_id = #{tbShareImageinfoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.ShareImageInfo">
+    update tb_share_imageinfo
+    set tb_share_imageinfo_type = #{tbShareImageinfoType,jdbcType=INTEGER},
+      tb_share_imageinfo_name = #{tbShareImageinfoName,jdbcType=VARCHAR},
+      tb_share_imageinfo_url = #{tbShareImageinfoUrl,jdbcType=VARCHAR},
+      tb_share_imageinfo_parentid = #{tbShareImageinfoParentid,jdbcType=VARCHAR},
+      tb_share_imageinfo_desc = #{tbShareImageinfoDesc,jdbcType=VARCHAR},
+      tb_share_imageinfo_createTime = #{tbShareImageinfoCreatetime,jdbcType=VARCHAR}
+    where tb_share_imageinfo_id = #{tbShareImageinfoId,jdbcType=INTEGER}
+  </update>
+</mapper>
