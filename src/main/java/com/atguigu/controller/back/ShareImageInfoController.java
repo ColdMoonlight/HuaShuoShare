@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
+import com.atguigu.bean.ShareImageInfo;
 import com.atguigu.bean.ShareImageLabel;
 import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
@@ -48,6 +49,42 @@ public class ShareImageInfoController {
 		}else{
 			return "back/imageInfoPage";
 		}
+	}
+	
+	/**3.0	20200608
+	 * MlbackCategory	initializaImageInfo
+	 * @param ShareImageInfo
+	 * @return
+	 */
+	@RequestMapping(value="/initializaImageInfo",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg initializaImageInfo(HttpServletResponse rep,HttpServletRequest res,ShareImageInfo shareImageInfo){
+		
+		//接受参数信息
+		Integer	infoParentid = shareImageInfo.getTbShareImageinfoParentid();
+		String shareImageinfoParentName=shareImageInfo.getTbShareImageinfoDesc();
+		Integer	infoParentidReq = 0;
+		String shareImageinfoParentNameReq="";
+		String desc = "新建文件夹";
+		if(infoParentid>0){
+			infoParentidReq = infoParentid;
+			shareImageinfoParentNameReq = shareImageinfoParentName;
+			desc = shareImageinfoParentName+">新建文件夹";
+		}
+		ShareImageInfo shareImageInfoReq = new ShareImageInfo();
+		//判断归属是否为none
+		shareImageInfoReq.setTbShareImageinfoParentid(infoParentidReq);
+		shareImageInfoReq.setTbShareImageinfoParentname(shareImageinfoParentName);
+		shareImageInfoReq.setTbShareImageinfoDesc(desc);
+		shareImageInfoReq.setTbShareImageinfoName("新建文件夹");
+		//取出id
+		String nowTime = DateUtil.strTime14s();
+		shareImageInfoReq.setTbShareImageinfoCreatetime(nowTime);
+		//无id,insert
+		System.out.println("插入前"+shareImageInfoReq.toString());
+		shareImageInfoService.insertSelective(shareImageInfoReq);
+		System.out.println("插入后"+shareImageInfoReq.toString());
+		return Msg.success().add("resMsg", "imageInfo初始化成功").add("shareImageInfoReq", shareImageInfoReq);
 	}
 	
 //	/**2.0	onuse	20191225	检查
