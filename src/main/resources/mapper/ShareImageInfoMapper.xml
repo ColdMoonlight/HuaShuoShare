@@ -20,10 +20,6 @@
     from tb_share_imageinfo
     where tb_share_imageinfo_id = #{tbShareImageinfoId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_share_imageinfo
-    where tb_share_imageinfo_id = #{tbShareImageinfoId,jdbcType=INTEGER}
-  </delete>
   <insert id="insert" parameterType="com.atguigu.bean.ShareImageInfo">
     insert into tb_share_imageinfo (tb_share_imageinfo_id, tb_share_imageinfo_type, 
       tb_share_imageinfo_name, tb_share_imageinfo_url, 
@@ -34,7 +30,19 @@
       #{tbShareImageinfoParentid,jdbcType=VARCHAR}, #{tbShareImageinfoDesc,jdbcType=VARCHAR}, 
       #{tbShareImageinfoCreatetime,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.atguigu.bean.ShareImageInfo">
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.ShareImageInfo">
+    update tb_share_imageinfo
+    set tb_share_imageinfo_type = #{tbShareImageinfoType,jdbcType=INTEGER},
+      tb_share_imageinfo_name = #{tbShareImageinfoName,jdbcType=VARCHAR},
+      tb_share_imageinfo_url = #{tbShareImageinfoUrl,jdbcType=VARCHAR},
+      tb_share_imageinfo_parentid = #{tbShareImageinfoParentid,jdbcType=VARCHAR},
+      tb_share_imageinfo_desc = #{tbShareImageinfoDesc,jdbcType=VARCHAR},
+      tb_share_imageinfo_createTime = #{tbShareImageinfoCreatetime,jdbcType=VARCHAR}
+    where tb_share_imageinfo_id = #{tbShareImageinfoId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- insertSelective -->
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="tbShareImageinfoId" parameterType="com.atguigu.bean.ShareImageInfo">
     insert into tb_share_imageinfo
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="tbShareImageinfoId != null">
@@ -83,6 +91,12 @@
       </if>
     </trim>
   </insert>
+  <!-- insertSelective -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_share_imageinfo
+    where tb_share_imageinfo_id = #{tbShareImageinfoId,jdbcType=INTEGER}
+  </delete>
+  <!-- updateByPrimaryKeySelective -->
   <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.ShareImageInfo">
     update tb_share_imageinfo
     <set>
@@ -105,16 +119,6 @@
         tb_share_imageinfo_createTime = #{tbShareImageinfoCreatetime,jdbcType=VARCHAR},
       </if>
     </set>
-    where tb_share_imageinfo_id = #{tbShareImageinfoId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.ShareImageInfo">
-    update tb_share_imageinfo
-    set tb_share_imageinfo_type = #{tbShareImageinfoType,jdbcType=INTEGER},
-      tb_share_imageinfo_name = #{tbShareImageinfoName,jdbcType=VARCHAR},
-      tb_share_imageinfo_url = #{tbShareImageinfoUrl,jdbcType=VARCHAR},
-      tb_share_imageinfo_parentid = #{tbShareImageinfoParentid,jdbcType=VARCHAR},
-      tb_share_imageinfo_desc = #{tbShareImageinfoDesc,jdbcType=VARCHAR},
-      tb_share_imageinfo_createTime = #{tbShareImageinfoCreatetime,jdbcType=VARCHAR}
     where tb_share_imageinfo_id = #{tbShareImageinfoId,jdbcType=INTEGER}
   </update>
 </mapper>

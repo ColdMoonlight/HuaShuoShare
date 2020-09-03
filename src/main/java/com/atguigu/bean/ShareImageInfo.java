@@ -70,4 +70,31 @@ public class ShareImageInfo {
     public void setTbShareImageinfoCreatetime(String tbShareImageinfoCreatetime) {
         this.tbShareImageinfoCreatetime = tbShareImageinfoCreatetime == null ? null : tbShareImageinfoCreatetime.trim();
     }
+
+	public ShareImageInfo() {
+		super();
+	}
+
+	public ShareImageInfo(Integer tbShareImageinfoId, Integer tbShareImageinfoType, String tbShareImageinfoName,
+			String tbShareImageinfoUrl, String tbShareImageinfoParentid, String tbShareImageinfoDesc,
+			String tbShareImageinfoCreatetime) {
+		super();
+		this.tbShareImageinfoId = tbShareImageinfoId;
+		this.tbShareImageinfoType = tbShareImageinfoType;
+		this.tbShareImageinfoName = tbShareImageinfoName;
+		this.tbShareImageinfoUrl = tbShareImageinfoUrl;
+		this.tbShareImageinfoParentid = tbShareImageinfoParentid;
+		this.tbShareImageinfoDesc = tbShareImageinfoDesc;
+		this.tbShareImageinfoCreatetime = tbShareImageinfoCreatetime;
+	}
+
+	@Override
+	public String toString() {
+		return "ShareImageInfo [tbShareImageinfoId=" + tbShareImageinfoId + ", tbShareImageinfoType="
+				+ tbShareImageinfoType + ", tbShareImageinfoName=" + tbShareImageinfoName + ", tbShareImageinfoUrl="
+				+ tbShareImageinfoUrl + ", tbShareImageinfoParentid=" + tbShareImageinfoParentid
+				+ ", tbShareImageinfoDesc=" + tbShareImageinfoDesc + ", tbShareImageinfoCreatetime="
+				+ tbShareImageinfoCreatetime + "]";
+	}
+    
 }
