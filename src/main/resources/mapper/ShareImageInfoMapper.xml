@@ -46,7 +46,7 @@
     where tb_share_imageinfo_id = #{tbShareImageinfoId,jdbcType=INTEGER}
   </update>
   <!-- insertSelective -->
-  <insert id="insertSelective" parameterType="com.atguigu.bean.ShareImageInfo">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="tbShareImageinfoId" parameterType="com.atguigu.bean.ShareImageInfo">
     insert into tb_share_imageinfo
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="tbShareImageinfoId != null">

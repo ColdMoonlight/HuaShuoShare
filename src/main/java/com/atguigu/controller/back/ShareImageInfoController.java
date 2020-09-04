@@ -52,17 +52,18 @@ public class ShareImageInfoController {
 	}
 	
 	/**3.0	20200608
-	 * MlbackCategory	initializaImageInfo
+	 * ShareImageInfo	initializaImageInfo
 	 * @param ShareImageInfo
 	 * @return
 	 */
 	@RequestMapping(value="/initializaImageInfo",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg initializaImageInfo(HttpServletResponse rep,HttpServletRequest res,ShareImageInfo shareImageInfo){
+	public Msg initializaImageInfo(HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo){
 		
 		//接受参数信息
 		Integer	infoParentid = shareImageInfo.getTbShareImageinfoParentid();
 		String shareImageinfoParentName=shareImageInfo.getTbShareImageinfoDesc();
+		Integer shareImageinfoType=shareImageInfo.getTbShareImageinfoType();
 		Integer	infoParentidReq = 0;
 		String shareImageinfoParentNameReq="";
 		String desc = "新建文件夹";
@@ -70,9 +71,14 @@ public class ShareImageInfoController {
 			infoParentidReq = infoParentid;
 			shareImageinfoParentNameReq = shareImageinfoParentName;
 			desc = shareImageinfoParentName+">新建文件夹";
+		}else{
+			infoParentidReq = 0;
+			shareImageinfoParentNameReq = "";
+			desc = "新建文件夹";
 		}
 		ShareImageInfo shareImageInfoReq = new ShareImageInfo();
 		//判断归属是否为none
+		shareImageInfoReq.setTbShareImageinfoType(shareImageinfoType);//0文件夹1图片
 		shareImageInfoReq.setTbShareImageinfoParentid(infoParentidReq);
 		shareImageInfoReq.setTbShareImageinfoParentname(shareImageinfoParentName);
 		shareImageInfoReq.setTbShareImageinfoDesc(desc);
@@ -121,31 +127,23 @@ public class ShareImageInfoController {
 //		return Msg.success().add("list", shareImageLabelList);
 //	}
 	
-//	/**3.0	onuse	20191225	检查
-//	 * MlbackAreafreight	save
-//	 * @param MlbackAreafreight
-//	 */
-//	@RequestMapping(value="/save",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg saveSelective(HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageLabel shareImageLabel){
-//		//接受参数信息
-//		System.out.println("shareImageLabel:"+shareImageLabel);
-//		//取出id
-//		Integer imageLabelId = shareImageLabel.getImageLabelId();
-//		String nowTime = DateUtil.strTime14s();
-//		shareImageLabel.setImageLabelCreatetime(nowTime);
-//		if(imageLabelId==null){
-//			//无id，insert
-//			shareImageLabelService.insertSelective(shareImageLabel);
-//			//System.out.println("后台操作:insert,mlbackAreafreight,success+intResult："+intResult);
-//			return Msg.success().add("resMsg", "插入成功").add("shareImageLabel", shareImageLabel);
-//		}else{
-//			//有id，update
-//			shareImageLabelService.updateByPrimaryKeySelective(shareImageLabel);
-//			//System.out.println("后台操作:update,mlbackAreafreight,success+intResult："+intResult);
-//			return Msg.success().add("resMsg", "更新成功").add("shareImageLabel", shareImageLabel);
-//		}		
-//	}
+	/**3.0	onuse	20191225	检查
+	 * MlbackAreafreight	save
+	 * @param MlbackAreafreight
+	 */
+	@RequestMapping(value="/save",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg saveSelective(HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo){
+		//接受参数信息
+		System.out.println("shareImageInfo:"+shareImageInfo.toString());
+		//取出id
+		String nowTime = DateUtil.strTime14s();
+		shareImageInfo.setTbShareImageinfoCreatetime(nowTime);
+		//有id，update
+		shareImageInfoService.updateByPrimaryKeySelective(shareImageInfo);
+		//System.out.println("后台操作:update,mlbackAreafreight,success+intResult："+intResult);
+		return Msg.success().add("resMsg", "更新成功").add("shareImageInfo", shareImageInfo);
+	}
 //	
 //	/**4.0	onuse	20191225	check
 //	 * MlbackAreafreight	delete
