@@ -31,7 +31,7 @@
   </update>
   
   <!-- insertSelective -->
-  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="imageLabelId"  parameterType="com.atguigu.bean.ShareImageLabel">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="imageLabelId" parameterType="com.atguigu.bean.ShareImageLabel">
     insert into tb_share_image_label
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="imageLabelId != null">
