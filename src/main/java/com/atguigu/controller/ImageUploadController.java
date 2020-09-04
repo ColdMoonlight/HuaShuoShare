@@ -73,8 +73,9 @@ public class ImageUploadController {
 		shareImageInfo.setTbShareImageinfoUrl(imageUrl);
 		shareImageInfo.setTbShareImageinfoCreatetime(nowTime);
 		shareImageInfoService.insertSelective(shareImageInfo);
+		System.out.println("shareImageInfo上传完毕"+shareImageInfo.toString());
 		
-		return Msg.success().add("resMsg", "上传").add("imageUrl", imageUrl);
+		return Msg.success().add("resMsg", "上传").add("shareImageInfo", shareImageInfo);
 	}
 
 }
