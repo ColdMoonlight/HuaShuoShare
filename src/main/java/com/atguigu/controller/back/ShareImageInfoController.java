@@ -119,7 +119,7 @@ public class ShareImageInfoController {
 		
 		List<ShareImageInfo> shareImageInfoList = shareImageInfoService.selectShareImageInfolistByPid(shareImageInfoReq);
 		
-		return Msg.success().add("shareImageInfoList", shareImageInfoList);
+		return Msg.success().add("shareImageInfoList", shareImageInfoList).add("parentIdPage", imageInfoPid);
 	}
 	
 //	/**2.0	onuse	20191225	检查
