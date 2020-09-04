@@ -51,7 +51,7 @@ public class ShareImageInfoController {
 	 */
 	@RequestMapping(value="/initializaFileNameInfo",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg initializaFileNameInfo(HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo){
+	public Msg initializaFileNameInfo(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo){
 		
 		//接受参数信息
 		Integer	infoParentid = shareImageInfo.getTbShareImageinfoParentid();
@@ -91,7 +91,7 @@ public class ShareImageInfoController {
 	 */
 	@RequestMapping(value="/updateFileName",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg updateFileName(HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo){
+	public Msg updateFileName(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo){
 		//接受参数信息
 		System.out.println("shareImageInfo:"+shareImageInfo.toString());
 		//取出id
@@ -110,7 +110,7 @@ public class ShareImageInfoController {
 	 */
 	@RequestMapping(value="/getShareImageInfoListByPid")
 	@ResponseBody
-	public Msg getShareImageInfoListByPid(HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo) {
+	public Msg getShareImageInfoListByPid(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo) {
 
 		Integer imageInfoPid = shareImageInfo.getTbShareImageinfoParentid();
 		
@@ -119,7 +119,7 @@ public class ShareImageInfoController {
 		
 		List<ShareImageInfo> shareImageInfoList = shareImageInfoService.selectShareImageInfolistByPid(shareImageInfoReq);
 		
-		return Msg.success().add("shareImageInfoList", shareImageInfoList);
+		return Msg.success().add("shareImageInfoList", shareImageInfoList).add("parentIdPage", imageInfoPid);
 	}
 	
 //	/**2.0	onuse	20191225	检查
