@@ -27,7 +27,7 @@ public class ShareImageInfoController {
 	ShareImageInfoService shareImageInfoService;
 	
 	/**
-	 * 1.0	onuse	20191225	检查
+	 * 1.0	zsh200904
 	 * to分类MlbackAreafreight列表页面
 	 * @param jsp
 	 * @return 
@@ -44,7 +44,7 @@ public class ShareImageInfoController {
 		}
 	}
 	
-	/**2.0	20200608
+	/**2.0	zsh200904
 	 * ShareImageInfo	initializaFileNameInfo
 	 * @param ShareImageInfo
 	 * @return
@@ -85,7 +85,7 @@ public class ShareImageInfoController {
 		return Msg.success().add("resMsg", "imageInfo初始化成功").add("shareImageInfoReq", shareImageInfoReq);
 	}
 	
-	/**3.0	onuse	20191225	检查
+	/**3.0	zsh200904
 	 * MlbackAreafreight	save
 	 * @param MlbackAreafreight
 	 */
@@ -103,7 +103,7 @@ public class ShareImageInfoController {
 		return Msg.success().add("resMsg", "更新成功").add("shareImageInfo", shareImageInfo);
 	}
 	
-	/**4.0	onuse	20191225	检查
+	/**4.0	zsh200904
 	 * 后台ShareImageInfo列表某一级别页list数据
 	 * @param pn
 	 * @return
@@ -122,7 +122,7 @@ public class ShareImageInfoController {
 		return Msg.success().add("shareImageInfoList", shareImageInfoList).add("parentIdPage", imageInfoPid);
 	}
 	
-//	/**2.0	onuse	20191225	检查
+//	/**2.0	zsh200904
 //	 * 分类MlbackAreafreight列表分页list数据
 //	 * @param pn
 //	 * @return
