@@ -449,6 +449,12 @@
 	width: 50%;
 }
 
+.folder-tab {
+	display: flex;
+	align-items: center;
+	flex-shrink: 0;
+}
+
 .folder-nav {
 	display: flex;
 	align-items: center;
@@ -513,8 +519,8 @@
 	background-color: #ccc;
 }
 
-.folder-tbody td.folder-operate {
-	width: auto;
+.folder-tbody td.folder-operate .btn {
+	margin: .1rem .15rem;
 }
 
 .folder-thead td,

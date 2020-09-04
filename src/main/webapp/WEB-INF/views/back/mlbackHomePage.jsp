@@ -19,8 +19,10 @@
 					<div class="folder">
 						<div class="folder-title">
 							<div class="folder-left">
-								<div class="folder-back">&lt; 返回上一级</div>
-								<div class="folder-fresh">刷新</div>
+								<div class="folder-tab">
+									<div class="folder-back">&lt; 返回上一级</div>
+									<div class="folder-fresh">刷新</div>
+								</div>
 								<div class="folder-nav">
 									<div class="folder-nav-item">我的网盘  &gt;</div>
 									<div class="folder-nav-list"></div>
@@ -56,7 +58,8 @@
 
 		<jsp:include page="common/backfooter.jsp" flush="true"></jsp:include>
 
-		<jsp:include page="modal/createFolderModal.jsp" flush="true"></jsp:include>
+		<jsp:include page="modal/renameModal.jsp" flush="true"></jsp:include>
+		<jsp:include page="modal/deleteModal.jsp" flush="true"></jsp:include>
 		<script>
 			function getCurrentParentData(callback) {
 				$('.c-mask').removeClass('hide');
@@ -89,11 +92,12 @@
 				getCurrentParentData(function(data) {
 					var html = '';
 					data.forEach(function(item, idx) {
-						html += '<tr ' + (item.tbShareImageinfoType == 0 ? 'class="folder-item"' : '') +' data-id="'+ item.tbShareImageinfoId +'" data-name="'+ item.tbShareImageinfoName +'">' +
+						html += '<tr class="folder-list-item ' + (item.tbShareImageinfoType == 0 ? 'folder' : 'file') +'" data-id="'+ item.tbShareImageinfoId +'" data-name="'+ item.tbShareImageinfoName +'">' +
 							'<td><img class="folder-img" src="'+ (item.tbShareImageinfoType == 0 ? '${APP_PATH}/static/back/img/folder.png' : ('${APP_PATH}/' + item.tbShareImageinfoUrl)) +'"><span class="folder-name">'+ item.tbShareImageinfoName +'</span></td>' +
 							'<td>'+ item.tbShareImageinfoCreatetime +'</td>' +
 							'<td class="folder-operate">' +
 								'<button class="btn btn-primary" id="folder-edit">重命名</div>' +
+								'<button class="btn btn-danger" id="folder-delete">删除</div>' +
 							'</td>' +
 						'</tr>';
 					});
@@ -190,8 +194,8 @@
 			}
 
 			var currentParent = {
-					'id': 0,
-					'name': '我的网盘'
+					"id": 0,
+					"name": '我的网盘'
 				};
 			var navList = [];
 			var folderItem = null;
@@ -200,7 +204,7 @@
 			$('.folder-create').on('click', function(e) {
 				createFolder(renderCurrentCategory);
 			});
-			$('#createFolderModal .btn-ok').on('click', function() {
+			$('#renameModal .btn-ok').on('click', function() {
 				var folderName = $('#folderName').val().trim();
 				if (!folderName) {
 					toastr.warning('文件夹名字不能为空！！！');
@@ -210,9 +214,8 @@
 					"tbShareImageinfoId": $('#folderId').val(),
 					"tbShareImageinfoName": folderName
 				}, function() {
-					$('#createFolderModal').modal('hide');
+					$('#renameModal').modal('hide');
 					folderItem.data('name', folderName).find('.folder-name').text(folderName);
-					toastr.success('创建文件夹成功！！！');
 				});
 			});
 			// upload img
@@ -238,11 +241,11 @@
 			});
 			
 			// folder event
-			$(document.body).on('click', '.folder-item', function(e) {
+			$(document.body).on('click', '.folder-list-item.folder', function(e) {
 				currentParent = {
-						'id': $(this).data('id') || 0,
-						'name': $(this).data('name') || '',
-					};
+					'id': $(this).data('id') || 0,
+					'name': $(this).data('name') || '',
+				};
 				navList.push(currentParent);
 				renderCurrentCategory();
 			});
@@ -251,22 +254,37 @@
 			// edit folder
 			$(document.body).on('click', '#folder-edit', function(e) {
 				e.stopPropagation();
-				folderItem = $(this).parents('.folder-item');
+				folderItem = $(this).parents('.folder-list-item');
 				$('#folderId').val(folderItem.data('id'));
 				$('#folderName').val(folderItem.data('name'));
 
-				$('#createFolderModal').modal('show');
+				$('#renameModal').modal('show');
+			});
+			// delete folder
+			$(document.body).on('click', '#folder-delete', function(e) {
+				e.stopPropagation();
+				folderItem = $(this).parents('.folder-list-item');
+				$('#folderId').val(folderItem.data('id'));
+				$('#folderName').val(folderItem.data('name'));
+
+				$('#deleteModal').modal('show');
 			});
 			// folder back
 			$('.folder-back').on('click', function() {
 				var lastCategory = null;
-				var len = navList.length;
 				if (!navList.length) {
 					toastr.warning("已经在根目录了！！！");
 					return ;
 				}
 				navList.pop();
-				currentParent = navList[len - 2];
+				if (navList.length) {
+					currentParent = navList[navList.length - 1];
+				} else {
+					currentParent = {
+						"id": 0,
+						"name": '我的网盘'
+					}
+				}
 				renderCurrentCategory();
 			})
 		</script>
