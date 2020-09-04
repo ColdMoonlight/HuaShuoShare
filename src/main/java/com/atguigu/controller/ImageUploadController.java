@@ -47,7 +47,7 @@ public class ImageUploadController {
 		String parentIdStr = parentid+"";
 		String imgName = ImageNameUtil.getImageInfofilename(typeName,parentIdStr,parentname);
 		
-		String uploadPath = "static/upload/img";
+		String uploadPath = "static/shareUpload/img";
 		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
 		
 		//当前服务器路径
