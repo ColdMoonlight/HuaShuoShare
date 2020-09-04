@@ -52,18 +52,17 @@ public class ShareImageInfoController {
 	}
 	
 	/**3.0	20200608
-	 * ShareImageInfo	initializaImageInfo
+	 * ShareImageInfo	initializaFileNameInfo
 	 * @param ShareImageInfo
 	 * @return
 	 */
-	@RequestMapping(value="/initializaImageInfo",method=RequestMethod.POST)
+	@RequestMapping(value="/initializaFileNameInfo",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg initializaImageInfo(HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo){
+	public Msg initializaFileNameInfo(HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo){
 		
 		//接受参数信息
 		Integer	infoParentid = shareImageInfo.getTbShareImageinfoParentid();
 		String shareImageinfoParentName=shareImageInfo.getTbShareImageinfoDesc();
-		Integer shareImageinfoType=shareImageInfo.getTbShareImageinfoType();
 		Integer	infoParentidReq = 0;
 		String shareImageinfoParentNameReq="";
 		String desc = "新建文件夹";
@@ -78,7 +77,7 @@ public class ShareImageInfoController {
 		}
 		ShareImageInfo shareImageInfoReq = new ShareImageInfo();
 		//判断归属是否为none
-		shareImageInfoReq.setTbShareImageinfoType(shareImageinfoType);//0文件夹1图片
+		shareImageInfoReq.setTbShareImageinfoType(0);//0文件夹图片
 		shareImageInfoReq.setTbShareImageinfoParentid(infoParentidReq);
 		shareImageInfoReq.setTbShareImageinfoParentname(shareImageinfoParentName);
 		shareImageInfoReq.setTbShareImageinfoDesc(desc);
