@@ -47,7 +47,7 @@ public class ImageUploadController {
 		String parentIdStr = parentid+"";
 		String imgName = ImageNameUtil.getImageInfofilename(typeName,parentIdStr,parentname);
 		
-		String uploadPath = "static/upload/img";
+		String uploadPath = "static/shareUpload/img";
 		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
 		
 		//当前服务器路径
@@ -73,8 +73,9 @@ public class ImageUploadController {
 		shareImageInfo.setTbShareImageinfoUrl(imageUrl);
 		shareImageInfo.setTbShareImageinfoCreatetime(nowTime);
 		shareImageInfoService.insertSelective(shareImageInfo);
+		System.out.println("shareImageInfo上传完毕"+shareImageInfo.toString());
 		
-		return Msg.success().add("resMsg", "上传").add("imageUrl", imageUrl);
+		return Msg.success().add("resMsg", "上传").add("shareImageInfo", shareImageInfo);
 	}
 
 }

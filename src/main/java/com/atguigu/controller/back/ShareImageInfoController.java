@@ -53,6 +53,10 @@ public class ShareImageInfoController {
 	@ResponseBody
 	public Msg initializaFileNameInfo(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo){
 		
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+		
+		System.out.println("当前的登陆客户:"+mlbackAdmin.toString());
+		
 		//接受参数信息
 		Integer	infoParentid = shareImageInfo.getTbShareImageinfoParentid();
 		String shareImageinfoParentName=shareImageInfo.getTbShareImageinfoDesc();
@@ -92,6 +96,10 @@ public class ShareImageInfoController {
 	@RequestMapping(value="/updateFileName",method=RequestMethod.POST)
 	@ResponseBody
 	public Msg updateFileName(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo){
+		
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+		
+		System.out.println("当前的登陆客户:"+mlbackAdmin.toString());
 		//接受参数信息
 		System.out.println("shareImageInfo:"+shareImageInfo.toString());
 		//取出id
@@ -111,6 +119,10 @@ public class ShareImageInfoController {
 	@RequestMapping(value="/getShareImageInfoListByPid")
 	@ResponseBody
 	public Msg getShareImageInfoListByPid(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo) {
+		
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+		
+		System.out.println("当前的登陆客户:"+mlbackAdmin.toString());
 
 		Integer imageInfoPid = shareImageInfo.getTbShareImageinfoParentid();
 		
