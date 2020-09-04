@@ -1,5 +1,6 @@
 package com.atguigu.dao;
 
+import java.util.List;
 import com.atguigu.bean.ShareImageInfo;
 
 public interface ShareImageInfoMapper {
@@ -15,5 +16,7 @@ public interface ShareImageInfoMapper {
     int deleteByPrimaryKey(Integer tbShareImageinfoId);
     
     int updateByPrimaryKeySelective(ShareImageInfo record);
-
+    
+    List<ShareImageInfo> selectShareImageInfolistByPid(ShareImageInfo record);
+    
 }

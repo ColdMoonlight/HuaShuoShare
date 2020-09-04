@@ -40,5 +40,15 @@ public class ShareImageInfoService {
 	public void deleteByPrimaryKey(Integer imageLabelId) {
 		shareImageInfoMapper.deleteByPrimaryKey(imageLabelId);
 	}
+	
+	/**
+	 * @author Shinelon
+	 * @param ShareImageInfo
+	 * @exception	selectShareImageInfolistByPid方法
+	 * */
+	public List<ShareImageInfo> selectShareImageInfolistByPid(ShareImageInfo shareImageInfo) {
+		List<ShareImageInfo> shareImageInfoList = shareImageInfoMapper.selectShareImageInfolistByPid(shareImageInfo);
+		return shareImageInfoList;
+	}
 
 }

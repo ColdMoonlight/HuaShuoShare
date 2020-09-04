@@ -135,4 +135,13 @@
     where tb_share_imageinfo_id = #{tbShareImageinfoId,jdbcType=INTEGER}
   </update>
   
+  <!-- 使用中selectCategorylistByParam -->
+  <select id="selectShareImageInfolistByPid" parameterType="com.atguigu.bean.ShareImageInfo" resultMap="BaseResultMap">
+  	select 
+  	tb_share_imageinfo_id, tb_share_imageinfo_type, tb_share_imageinfo_name, tb_share_imageinfo_url, 
+    tb_share_imageinfo_parentid, tb_share_imageinfo_parentname, tb_share_imageinfo_desc, tb_share_imageinfo_createTime 
+  	from tb_share_imageinfo where tb_share_imageinfo_parentid = #{tbShareImageinfoParentid,jdbcType=INTEGER} 
+  	order by tb_share_imageinfo_type , tb_share_imageinfo_parentid
+  </select>
+  
 </mapper>

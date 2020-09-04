@@ -1,8 +1,6 @@
 package com.atguigu.controller.back;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,16 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.ShareImageInfo;
-import com.atguigu.bean.ShareImageLabel;
-import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.atguigu.common.TokenCache;
 import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.ShareImageInfoService;
-import com.atguigu.service.ShareImageLabelService;
 import com.atguigu.utils.DateUtil;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 
 @Controller
 @RequestMapping("/ShareImageInfo")
@@ -108,6 +101,25 @@ public class ShareImageInfoController {
 		shareImageInfoService.updateByPrimaryKeySelective(shareImageInfo);
 		//System.out.println("后台操作:update,mlbackAreafreight,success+intResult："+intResult);
 		return Msg.success().add("resMsg", "更新成功").add("shareImageInfo", shareImageInfo);
+	}
+	
+	/**4.0	onuse	20191225	检查
+	 * 后台ShareImageInfo列表某一级别页list数据
+	 * @param pn
+	 * @return
+	 */
+	@RequestMapping(value="/getShareImageInfoListByPid")
+	@ResponseBody
+	public Msg getShareImageInfoListByPid(HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo) {
+
+		Integer imageInfoPid = shareImageInfo.getTbShareImageinfoParentid();
+		
+		ShareImageInfo shareImageInfoReq = new ShareImageInfo();
+		shareImageInfoReq.setTbShareImageinfoParentid(imageInfoPid);
+		
+		List<ShareImageInfo> shareImageInfoList = shareImageInfoService.selectShareImageInfolistByPid(shareImageInfoReq);
+		
+		return Msg.success().add("shareImageInfoList", shareImageInfoList);
 	}
 	
 //	/**2.0	onuse	20191225	检查
