@@ -51,7 +51,7 @@ public class ShareImageInfoController {
 		}
 	}
 	
-	/**3.0	20200608
+	/**2.0	20200608
 	 * ShareImageInfo	initializaFileNameInfo
 	 * @param ShareImageInfo
 	 * @return
@@ -92,6 +92,24 @@ public class ShareImageInfoController {
 		return Msg.success().add("resMsg", "imageInfo初始化成功").add("shareImageInfoReq", shareImageInfoReq);
 	}
 	
+	/**3.0	onuse	20191225	检查
+	 * MlbackAreafreight	save
+	 * @param MlbackAreafreight
+	 */
+	@RequestMapping(value="/updateFileName",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg updateFileName(HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo){
+		//接受参数信息
+		System.out.println("shareImageInfo:"+shareImageInfo.toString());
+		//取出id
+		String nowTime = DateUtil.strTime14s();
+		shareImageInfo.setTbShareImageinfoCreatetime(nowTime);
+		//有id，update
+		shareImageInfoService.updateByPrimaryKeySelective(shareImageInfo);
+		//System.out.println("后台操作:update,mlbackAreafreight,success+intResult："+intResult);
+		return Msg.success().add("resMsg", "更新成功").add("shareImageInfo", shareImageInfo);
+	}
+	
 //	/**2.0	onuse	20191225	检查
 //	 * 分类MlbackAreafreight列表分页list数据
 //	 * @param pn
@@ -126,23 +144,7 @@ public class ShareImageInfoController {
 //		return Msg.success().add("list", shareImageLabelList);
 //	}
 	
-	/**3.0	onuse	20191225	检查
-	 * MlbackAreafreight	save
-	 * @param MlbackAreafreight
-	 */
-	@RequestMapping(value="/save",method=RequestMethod.POST)
-	@ResponseBody
-	public Msg saveSelective(HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo){
-		//接受参数信息
-		System.out.println("shareImageInfo:"+shareImageInfo.toString());
-		//取出id
-		String nowTime = DateUtil.strTime14s();
-		shareImageInfo.setTbShareImageinfoCreatetime(nowTime);
-		//有id，update
-		shareImageInfoService.updateByPrimaryKeySelective(shareImageInfo);
-		//System.out.println("后台操作:update,mlbackAreafreight,success+intResult："+intResult);
-		return Msg.success().add("resMsg", "更新成功").add("shareImageInfo", shareImageInfo);
-	}
+
 //	
 //	/**4.0	onuse	20191225	check
 //	 * MlbackAreafreight	delete
