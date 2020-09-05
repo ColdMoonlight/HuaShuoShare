@@ -9,11 +9,11 @@ public class MlbackAdmin {
 
     private String adminOperatername;
 
-    private Integer adminPower;//0超级管理员	1操作员
+    private String adminPower;//0下载;1下载-上传2下载-上传-删除-新建
     
     private String adminPowerItemStr;//具体都有哪些视图
     
-    public MlbackAdmin(Integer adminId, String adminAccname, String adminPassword, String adminOperatername, Integer adminPower,String adminPowerItemStr) {
+    public MlbackAdmin(Integer adminId, String adminAccname, String adminPassword, String adminOperatername, String adminPower,String adminPowerItemStr) {
         this.adminId = adminId;
         this.adminAccname = adminAccname;
         this.adminPassword = adminPassword;
@@ -58,11 +58,11 @@ public class MlbackAdmin {
         this.adminOperatername = adminOperatername == null ? null : adminOperatername.trim();
     }
 
-    public Integer getAdminPower() {
+    public String getAdminPower() {
         return adminPower;
     }
 
-    public void setAdminPower(Integer adminPower) {
+    public void setAdminPower(String adminPower) {
         this.adminPower = adminPower;
     }
 
