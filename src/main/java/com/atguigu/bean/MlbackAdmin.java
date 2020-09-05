@@ -9,7 +9,7 @@ public class MlbackAdmin {
 
     private String adminOperatername;
 
-    private String adminPower;//0下载;1下载-上传2下载-上传-删除-新建
+    private String adminPower;//0下载;1下载-上传2下载-上传-删除-新建-文件夹重命名
     
     private String adminPowerItemStr;//具体都有哪些视图
     

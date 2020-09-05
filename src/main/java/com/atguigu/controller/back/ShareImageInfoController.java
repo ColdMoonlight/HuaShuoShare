@@ -56,38 +56,43 @@ public class ShareImageInfoController {
 		
 		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
 		
-		System.out.println("当前的登陆客户:"+mlbackAdmin.toString());
-		
-		//接受参数信息
-		Integer	infoParentid = shareImageInfo.getTbShareImageinfoParentid();
-		String shareImageinfoParentName=shareImageInfo.getTbShareImageinfoDesc();
-		Integer	infoParentidReq = 0;
-		String shareImageinfoParentNameReq="";
-		String desc = "新建文件夹";
-		if(infoParentid>0){
-			infoParentidReq = infoParentid;
-			shareImageinfoParentNameReq = shareImageinfoParentName;
-			desc = shareImageinfoParentName+">新建文件夹";
+		String adminPower = SessionUtil.getAdminInfo(session);
+		if("0000".equals(adminPower)){
+			return Msg.success().add("resMsg", "请重新登陆").add("adminPower", adminPower);
 		}else{
-			infoParentidReq = 0;
-			shareImageinfoParentNameReq = "";
-			desc = "新建文件夹";
+			System.out.println("当前的登陆客户:"+mlbackAdmin.toString());
+			
+			//接受参数信息
+			Integer	infoParentid = shareImageInfo.getTbShareImageinfoParentid();
+			String shareImageinfoParentName=shareImageInfo.getTbShareImageinfoDesc();
+			Integer	infoParentidReq = 0;
+			String shareImageinfoParentNameReq="";
+			String desc = "新建文件夹";
+			if(infoParentid>0){
+				infoParentidReq = infoParentid;
+				shareImageinfoParentNameReq = shareImageinfoParentName;
+				desc = shareImageinfoParentName+">新建文件夹";
+			}else{
+				infoParentidReq = 0;
+				shareImageinfoParentNameReq = "";
+				desc = "新建文件夹";
+			}
+			ShareImageInfo shareImageInfoReq = new ShareImageInfo();
+			//判断归属是否为none
+			shareImageInfoReq.setTbShareImageinfoType(0);//0文件夹图片
+			shareImageInfoReq.setTbShareImageinfoParentid(infoParentidReq);
+			shareImageInfoReq.setTbShareImageinfoParentname(shareImageinfoParentName);
+			shareImageInfoReq.setTbShareImageinfoDesc(desc);
+			shareImageInfoReq.setTbShareImageinfoName("新建文件夹");
+			//取出id
+			String nowTime = DateUtil.strTime14s();
+			shareImageInfoReq.setTbShareImageinfoCreatetime(nowTime);
+			//无id,insert
+			System.out.println("插入前"+shareImageInfoReq.toString());
+			shareImageInfoService.insertSelective(shareImageInfoReq);
+			System.out.println("插入后"+shareImageInfoReq.toString());
+			return Msg.success().add("resMsg", "imageInfo初始化成功").add("adminPower", adminPower).add("shareImageInfoReq", shareImageInfoReq);
 		}
-		ShareImageInfo shareImageInfoReq = new ShareImageInfo();
-		//判断归属是否为none
-		shareImageInfoReq.setTbShareImageinfoType(0);//0文件夹图片
-		shareImageInfoReq.setTbShareImageinfoParentid(infoParentidReq);
-		shareImageInfoReq.setTbShareImageinfoParentname(shareImageinfoParentName);
-		shareImageInfoReq.setTbShareImageinfoDesc(desc);
-		shareImageInfoReq.setTbShareImageinfoName("新建文件夹");
-		//取出id
-		String nowTime = DateUtil.strTime14s();
-		shareImageInfoReq.setTbShareImageinfoCreatetime(nowTime);
-		//无id,insert
-		System.out.println("插入前"+shareImageInfoReq.toString());
-		shareImageInfoService.insertSelective(shareImageInfoReq);
-		System.out.println("插入后"+shareImageInfoReq.toString());
-		return Msg.success().add("resMsg", "imageInfo初始化成功").add("shareImageInfoReq", shareImageInfoReq);
 	}
 	
 	/**3.0	zsh200904
@@ -98,18 +103,20 @@ public class ShareImageInfoController {
 	@ResponseBody
 	public Msg updateFileName(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo){
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
-		
-		System.out.println("当前的登陆客户:"+mlbackAdmin.toString());
-		//接受参数信息
-		System.out.println("shareImageInfo:"+shareImageInfo.toString());
-		//取出id
-		String nowTime = DateUtil.strTime14s();
-		shareImageInfo.setTbShareImageinfoCreatetime(nowTime);
-		//有id，update
-		shareImageInfoService.updateByPrimaryKeySelective(shareImageInfo);
-		//System.out.println("后台操作:update,mlbackAreafreight,success+intResult："+intResult);
-		return Msg.success().add("resMsg", "更新成功").add("shareImageInfo", shareImageInfo);
+		String adminPower = SessionUtil.getAdminInfo(session);
+		if("0000".equals(adminPower)){
+			return Msg.success().add("resMsg", "请重新登陆").add("adminPower", adminPower);
+		}else{
+			//接受参数信息
+			System.out.println("shareImageInfo:"+shareImageInfo.toString());
+			//取出id
+			String nowTime = DateUtil.strTime14s();
+			shareImageInfo.setTbShareImageinfoCreatetime(nowTime);
+			//有id，update
+			shareImageInfoService.updateByPrimaryKeySelective(shareImageInfo);
+			//System.out.println("后台操作:update,mlbackAreafreight,success+intResult："+intResult);
+			return Msg.success().add("resMsg", "更新成功").add("adminPower", adminPower).add("shareImageInfo", shareImageInfo);
+		}
 	}
 	
 	/**4.0	zsh200904
@@ -121,13 +128,10 @@ public class ShareImageInfoController {
 	@ResponseBody
 	public Msg getShareImageInfoListByPid(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo) {
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
-		
 		String adminPower = SessionUtil.getAdminInfo(session);
 		if("0000".equals(adminPower)){
 			return Msg.success().add("resMsg", "请重新登陆").add("adminPower", adminPower);
 		}else{
-			System.out.println("当前的登陆客户:"+mlbackAdmin.toString());
 			
 			Integer imageInfoPid = shareImageInfo.getTbShareImageinfoParentid();
 			ShareImageInfo shareImageInfoReq = new ShareImageInfo();
@@ -139,79 +143,22 @@ public class ShareImageInfoController {
 		}
 	}
 	
-//	/**2.0	zsh200904
-//	 * 分类MlbackAreafreight列表分页list数据
-//	 * @param pn
-//	 * @return
-//	 */
-//	@RequestMapping(value="/getShareImageLabelAll")
-//	@ResponseBody
-//	public Msg getShareInfoInfoAll(ShareImageLabel shareImageLabel,HttpSession session) {
-//		
-//		shareImageInfoService.set
-//
-//		List<ShareImageLabel> shareImageLabelList = shareImageInfoService.selectImageLabelAll();
-//		List<ShareImageLabel> shareImageLabelOneList = new ArrayList<ShareImageLabel>();
-//		List<ShareImageLabel> shareImageLabelTwoList = new ArrayList<ShareImageLabel>();
-//		List<ShareImageLabel> shareImageLabelThreeList = new ArrayList<ShareImageLabel>();
-//		List<ShareImageLabel> shareImageLabelFourList = new ArrayList<ShareImageLabel>();
-//		List<ShareImageLabel> shareImageLabelFiveList = new ArrayList<ShareImageLabel>();
-//		for(ShareImageLabel shareImageLabel:shareImageLabelList){
-//			String imageLabelHang = shareImageLabel.getImageLabelHang();
-//			if("1".equals(imageLabelHang)){
-//				shareImageLabelOneList.add(shareImageLabel);
-//			}else if("2".equals(imageLabelHang)){
-//				shareImageLabelTwoList.add(shareImageLabel);
-//			}else if("3".equals(imageLabelHang)){
-//				shareImageLabelThreeList.add(shareImageLabel);
-//			}else if("4".equals(imageLabelHang)){
-//				shareImageLabelFourList.add(shareImageLabel);
-//			}else if("5".equals(imageLabelHang)){
-//				shareImageLabelFiveList.add(shareImageLabel);
-//			}
-//		}
-//		return Msg.success().add("list", shareImageLabelList);
-//	}
-	
-
-//	
-//	/**4.0	onuse	20191225	check
-//	 * MlbackAreafreight	delete
-//	 * @param id
-//	 */
-//	@RequestMapping(value="/delete",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg delete(@RequestBody MlbackAreafreight mlbackAreafreight){
-//		//接收id信息
-//		int areafreightIdInt = mlbackAreafreight.getAreafreightId();
-//		mlbackAreafreightService.deleteByPrimaryKey(areafreightIdInt);
-//		return Msg.success().add("resMsg", "delete success");
-//	}
-//	
-//	
-//	/**
-//	 * 5.0	onuse	20191225	check
-//	 * 查看单条MlbackAreafreight详情
-//	 * @param MlbackAreafreight
-//	 * @return 
-//	 */
-//	@RequestMapping(value="/getOneMlbackAreafreightDetail",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg getOneMlbackAreafreightDetail(@RequestParam(value = "areafreightId") Integer areafreightId){
-//		
-//		//接受categoryId
-//		MlbackAreafreight mlbackAreafreightReq = new MlbackAreafreight();
-//		mlbackAreafreightReq.setAreafreightId(areafreightId);
-//		//查询本条
-//		List<MlbackAreafreight> mlbackAreafreightResList =mlbackAreafreightService.selectMlbackAreafreightByParam(mlbackAreafreightReq);
-//		MlbackAreafreight mlbackAreafreightOne = new MlbackAreafreight();
-//		if(mlbackAreafreightResList.size()>0){
-//			mlbackAreafreightOne =mlbackAreafreightResList.get(0);
-//		}else{
-//			mlbackAreafreightOne = null;
-//		}
-//		return Msg.success().add("resMsg", "查看单条mlbackAreafreight的详情细节完毕")
-//					.add("mlbackAreafreightOne", mlbackAreafreightOne);
-//	}
+	/**5.0	zsh200904
+	 * MlbackAreafreight	delete
+	 * @param id
+	 */
+	@RequestMapping(value="/delete",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg delete(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo){
+		
+		String adminPower = SessionUtil.getAdminInfo(session);
+		if("0000".equals(adminPower)){
+			return Msg.success().add("resMsg", "请重新登陆").add("adminPower", adminPower);
+		}else{
+			int shareImageinfoIdInt = shareImageInfo.getTbShareImageinfoId();
+			shareImageInfoService.deleteByPrimaryKey(shareImageinfoIdInt);
+			return Msg.success().add("resMsg", "delete success").add("adminPower", adminPower);
+		}
+	}
 	
 }
