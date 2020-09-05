@@ -15,7 +15,6 @@ import com.atguigu.bean.ShareImageInfo;
 import com.atguigu.common.Msg;
 import com.atguigu.service.ShareImageInfoService;
 import com.atguigu.utils.DateUtil;
-import com.atguigu.utils.SessionUtil;
 
 @Controller
 @RequestMapping("/ShareImageInfo")
@@ -53,7 +52,7 @@ public class ShareImageInfoController {
 		
 		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
 		
-		String adminPower = SessionUtil.getAdminInfo(session);
+		String adminPower = getAdminInfo(session);
 		if("0000".equals(adminPower)){
 			return Msg.success().add("resMsg", "请重新登陆").add("adminPower", adminPower);
 		}else{
@@ -100,7 +99,7 @@ public class ShareImageInfoController {
 	@ResponseBody
 	public Msg updateFileName(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo){
 		
-		String adminPower = SessionUtil.getAdminInfo(session);
+		String adminPower = getAdminInfo(session);
 		if("0000".equals(adminPower)){
 			return Msg.success().add("resMsg", "请重新登陆").add("adminPower", adminPower);
 		}else{
@@ -124,7 +123,7 @@ public class ShareImageInfoController {
 	@ResponseBody
 	public Msg getShareImageInfoListByPid(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo) {
 		
-		String adminPower = SessionUtil.getAdminInfo(session);
+		String adminPower = getAdminInfo(session);
 		if("0000".equals(adminPower)){
 			return Msg.success().add("resMsg", "请重新登陆").add("adminPower", adminPower);
 		}else{
@@ -146,13 +145,26 @@ public class ShareImageInfoController {
 	@ResponseBody
 	public Msg delete(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo){
 		
-		String adminPower = SessionUtil.getAdminInfo(session);
+		String adminPower = getAdminInfo(session);
 		if("0000".equals(adminPower)){
 			return Msg.success().add("resMsg", "请重新登陆").add("adminPower", adminPower);
 		}else{
 			int shareImageinfoIdInt = shareImageInfo.getTbShareImageinfoId();
 			shareImageInfoService.deleteByPrimaryKey(shareImageinfoIdInt);
 			return Msg.success().add("resMsg", "delete success").add("adminPower", adminPower);
+		}
+	}
+	
+	public String getAdminInfo(HttpSession session) {
+		
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+		
+		String adminPower = "0";
+		if(mlbackAdmin==null){
+			return "0000";
+		}else{
+			adminPower = mlbackAdmin.getAdminPower();
+			return adminPower;
 		}
 	}
 	
