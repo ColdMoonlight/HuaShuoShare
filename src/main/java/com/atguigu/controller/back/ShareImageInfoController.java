@@ -9,13 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.ShareImageInfo;
 import com.atguigu.common.Msg;
-import com.atguigu.common.TokenCache;
-import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.ShareImageInfoService;
 import com.atguigu.utils.DateUtil;
 import com.atguigu.utils.SessionUtil;
@@ -114,7 +111,6 @@ public class ShareImageInfoController {
 			shareImageInfo.setTbShareImageinfoCreatetime(nowTime);
 			//有id，update
 			shareImageInfoService.updateByPrimaryKeySelective(shareImageInfo);
-			//System.out.println("后台操作:update,mlbackAreafreight,success+intResult："+intResult);
 			return Msg.success().add("resMsg", "更新成功").add("adminPower", adminPower).add("shareImageInfo", shareImageInfo);
 		}
 	}
@@ -132,7 +128,6 @@ public class ShareImageInfoController {
 		if("0000".equals(adminPower)){
 			return Msg.success().add("resMsg", "请重新登陆").add("adminPower", adminPower);
 		}else{
-			
 			Integer imageInfoPid = shareImageInfo.getTbShareImageinfoParentid();
 			ShareImageInfo shareImageInfoReq = new ShareImageInfo();
 			shareImageInfoReq.setTbShareImageinfoParentid(imageInfoPid);
