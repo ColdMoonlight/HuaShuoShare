@@ -26,8 +26,3 @@
 		</div>
 	</div>
 </div>
-<script>
-	$('#renameModal .btn-cancel').on('click', function () {
-		$('#renameModal .btn-ok').off('click');
-	});
-</script>

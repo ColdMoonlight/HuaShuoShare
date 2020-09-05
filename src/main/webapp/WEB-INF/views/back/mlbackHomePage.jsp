@@ -95,7 +95,7 @@
 				getCurrentParentData(function(data) {
 					var html = '';
 					data.forEach(function(item, idx) {
-						html += '<div class="folder-tr folder-list-item ' + (item.tbShareImageinfoType == 0 ? 'folder' : 'file') +'" data-id="'+ item.tbShareImageinfoId +'" data-name="'+ item.tbShareImageinfoName +'">' +
+						html += '<div class="folder-tr folder-list-item ' + (item.tbShareImageinfoType == 0 ? 'folder' : 'file') +'" data-id="'+ item.tbShareImageinfoId +'" data-name="'+ item.tbShareImageinfoName +'" data-file="'+ item.tbShareImageinfoUrl +'">' +
 							'<div class="folder-td folder-content">' +
 								'<div class="folder-img" style="background-image: url('+ (item.tbShareImageinfoType == 0 ? '${APP_PATH}/static/back/img/folder.png' : ('${APP_PATH}/' + item.tbShareImageinfoUrl)) +');"></div>' +
 								'<span class="folder-name">'+ item.tbShareImageinfoName +'</span>' +
@@ -104,7 +104,7 @@
 							'<div class="folder-td folder-operate">' +
 								'<button class="btn btn-primary" id="folder-edit">重命名</button>' +
 								'<button class="btn btn-danger" id="folder-delete">删除</button>' +
-								'<button class="btn btn-info" id="folder-download">下载</button>' +
+								(item.tbShareImageinfoType == 1 ? '<button class="btn btn-info" id="folder-download">下载</button>' : '') +
 							'</div>' +
 						'</div>';
 					});
@@ -135,10 +135,10 @@
 					data: JSON.stringify(reqData),
 					success: function (data) {
 						if (data.code == 100) {
-							toastr.success(data.extend.resMsg);
+							toastr.success(data.msg);
 							callback && callback(data.extend.shareImageInfoReq);
 						} else {
-							toastr.error(data.extend.resMsg);
+							toastr.error(data.msg);
 						}
 					},
 					error: function (err) {
@@ -198,6 +198,58 @@
 						$('.c-mask').addClass('hide');
 					}
 				});
+			}
+			
+			function deleteFolderData(id, callback) {
+				var reqData = {
+					'tbShareImageinfoId':id,
+				};
+				$('.c-mask').removeClass('hide');
+				$.ajax({
+					url: "${APP_PATH}/ShareImageInfo/delete",
+					type: "post",
+					cache: false,
+					dataType: "json",
+					contentType: 'application/json',
+					data: JSON.stringify(reqData),
+					success: function (data) {
+						if (data.code == 100) {
+							toastr.success(data.extend.resMsg);
+							callback && callback();
+						} else {
+							toastr.error(data.extend.resMsg);
+						}
+					},
+					error: function (err) {
+						toastr.error(err);
+					},
+					complete: function () {
+						$('.c-mask').addClass('hide');
+					}
+				});
+			}
+			
+			function download(url, fileName) {
+				var anchor = document.createElement('a');
+                if ('download' in anchor) {
+                    anchor.href = ('${APP_PATH}/' + url);
+                    anchor.download = fileName;
+                    anchor.style.display = 'none';
+
+                    document.body.appendChild(anchor);
+
+                    anchor.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        this.removeEventListener('click', arguments.callee);
+                    });
+
+                    setTimeout(function() {
+                        anchor.click();
+                        document.body.removeChild(anchor);
+                    }, 50);
+                } else {
+                	toastr.warning('该浏览器暂不支持下载，请使用现代浏览器！');
+                }
 			}
 
 			var currentParent = {
@@ -275,6 +327,19 @@
 				$('#folderName').val(folderItem.data('name'));
 
 				$('#deleteModal').modal('show');
+			});
+			$('#deleteModal .btn-ok').on('click', function() {
+				deleteFolderData(folderItem.data('id'), function() {
+					$('#deleteModal').modal('hide');
+					renderCurrentCategory();
+				});
+			});
+			// download file
+			$(document.body).on('click', '#folder-download', function(e) {
+				e.stopPropagation();
+				folderItem = $(this).parents('.folder-list-item');
+
+				download(folderItem.data('file'), folderItem.data('name'));
 			});
 			// folder back
 			$('.folder-back').on('click', function() {

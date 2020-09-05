@@ -11,17 +11,12 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<p>Are you sure?</p>
+				<p>你确认要删除该文件夹或文件吗?</p>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-secondary btn-cancel" type="button" data-dismiss="modal">No</button>
-				<button class="btn btn-danger btn-ok" type="button">Yes</button>
+				<button class="btn btn-secondary btn-cancel" type="button" data-dismiss="modal">取消</button>
+				<button class="btn btn-danger btn-ok" type="button">确认</button>
 			</div>
 		</div>
 	</div>
 </div>
-<script>
-	$('#deleteModal .btn-cancel').on('click', function () {
-		$('#deleteModal .btn-ok').off('click');
-	});
-</script>
