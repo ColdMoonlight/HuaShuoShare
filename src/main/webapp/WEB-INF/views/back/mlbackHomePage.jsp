@@ -28,21 +28,24 @@
 									<div class="folder-nav-list"></div>
 								</div>
 							</div>
-							<div class="folder-right">
+							<div class="folder-center">
 								<div class="btn btn-primary folder-create">新建文件夹</div>
 								<div class="btn btn-secondary folder-upload">上传</div>
 							</div>
+							<div class="folder-right">
+								<div class="folder-layout"></div>
+							</div>
 						</div>
 						<div class="folder-body">
-							<table class="folder-thead">
-								<tr>
-									<td>文件名</td>
-									<td>修改时间</td>
-									<td></td>
-								</tr>
-							</table>
+							<div class="folder-thead">
+								<div class="folder-tr">
+									<div class="folder-td">文件名</div>
+									<div class="folder-td">修改时间</div>
+									<div class="folder-td"></div>
+								</div>
+							</div>
 							<div class="folder-tbody-container">
-								<table class="folder-tbody"></table>
+								<div class="folder-tbody"></div>
 							</div>
 							<div class="folder-pagination"></div>
 						</div>
@@ -92,14 +95,18 @@
 				getCurrentParentData(function(data) {
 					var html = '';
 					data.forEach(function(item, idx) {
-						html += '<tr class="folder-list-item ' + (item.tbShareImageinfoType == 0 ? 'folder' : 'file') +'" data-id="'+ item.tbShareImageinfoId +'" data-name="'+ item.tbShareImageinfoName +'">' +
-							'<td><img class="folder-img" src="'+ (item.tbShareImageinfoType == 0 ? '${APP_PATH}/static/back/img/folder.png' : ('${APP_PATH}/' + item.tbShareImageinfoUrl)) +'"><span class="folder-name">'+ item.tbShareImageinfoName +'</span></td>' +
-							'<td>'+ item.tbShareImageinfoCreatetime +'</td>' +
-							'<td class="folder-operate">' +
-								'<button class="btn btn-primary" id="folder-edit">重命名</div>' +
-								'<button class="btn btn-danger" id="folder-delete">删除</div>' +
-							'</td>' +
-						'</tr>';
+						html += '<div class="folder-tr folder-list-item ' + (item.tbShareImageinfoType == 0 ? 'folder' : 'file') +'" data-id="'+ item.tbShareImageinfoId +'" data-name="'+ item.tbShareImageinfoName +'">' +
+							'<div class="folder-td folder-content">' +
+								'<div class="folder-img" style="background-image: url('+ (item.tbShareImageinfoType == 0 ? '${APP_PATH}/static/back/img/folder.png' : ('${APP_PATH}/' + item.tbShareImageinfoUrl)) +');"></div>' +
+								'<span class="folder-name">'+ item.tbShareImageinfoName +'</span>' +
+							'</div>' +
+							'<div class="folder-td folder-time">'+ item.tbShareImageinfoCreatetime +'</div>' +
+							'<div class="folder-td folder-operate">' +
+								'<button class="btn btn-primary" id="folder-edit">重命名</button>' +
+								'<button class="btn btn-danger" id="folder-delete">删除</button>' +
+								'<button class="btn btn-info" id="folder-download">下载</button>' +
+							'</div>' +
+						'</div>';
 					});
 					$('.folder-tbody').html(html);
 				});
@@ -286,7 +293,17 @@
 					}
 				}
 				renderCurrentCategory();
-			})
+			});
+			// folder layout toggle
+			$('.folder-layout').on('click', function() {
+				if ($(this).hasClass('active')) {
+					$(this).removeClass('active');
+					$('.folder-body').removeClass('active');
+				} else {
+					$(this).addClass('active');
+					$('.folder-body').addClass('active');
+				}
+			});
 		</script>
 	</body>
 </html>

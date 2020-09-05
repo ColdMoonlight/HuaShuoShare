@@ -443,10 +443,19 @@
 }
 
 .folder-title .folder-left,
+.folder-title .folder-center,
 .folder-title .folder-right {
 	display: flex;
 	align-items: center;
+}
+
+.folder-title .folder-left {
 	width: 50%;
+}
+
+.folder-center,
+.folder-right {
+	width: 25%;
 }
 
 .folder-tab {
@@ -490,6 +499,22 @@
 	margin-left: 1rem;
 }
 
+.folder-layout {
+	width: 1.5rem;
+	height: 1.5rem;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-image: url('../img/list.png');
+	cursor: pointer;
+}
+
+.folder-layout.active {
+	background-image: url('../img/grid.png');
+}
+
+/* folder-list */
+
 .folder-body {
 	min-height: 10rem;
 	padding: .25rem;
@@ -503,6 +528,12 @@
 	width: 100%;
 }
 
+.folder-tr {
+	display: flex;
+	align-items: center;
+	padding: .25rem;
+}
+
 .folder-tbody-container {
 	max-height: 90vh;
 	overflow-y: auto;
@@ -510,23 +541,27 @@
 	border-top: 1px solid #ccc;
 }
 
-.folder-tbody tr {
+.folder-tbody .folder-tr {
 	border-bottom: 1px solid #ddd;
 	cursor: pointer;
 }
 
-.folder-tbody tr:hover {
+.folder-tbody .folder-tr:hover {
 	background-color: #ccc;
 }
 
-.folder-tbody td.folder-operate .btn {
+.folder-tbody .folder-operate .btn {
 	margin: .1rem .15rem;
 }
 
-.folder-thead td,
-.folder-tbody td {
+.folder-td {
 	width: 33.3333%;
 	padding: .25rem;
+}
+
+.folder-content {
+	display: flex;
+	align-items: center;
 }
 
 .folder-img {
@@ -534,4 +569,74 @@
 	width: 1.5rem;
 	height: 1.5rem;
 	margin-right: .5rem;
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+/* tab folder-body layout */
+.folder-body.active .folder-thead {
+	display: none;
+	visibility: hidden;
+	opacity: 0;
+}
+
+.folder-body.active .folder-tbody {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.folder-body.active .folder-tbody-container {
+	border: none;
+}
+
+.folder-body.active .folder-tr {
+	position: relative;
+	width: 8rem;
+	border: none;
+	justify-content: center;
+	border-radius: .25rem;
+}
+
+.folder-body.active .folder-content {
+	justify-content: center;
+	flex-direction: column;
+	width: auto;
+}
+
+.folder-body.active .folder-img {
+	width: 6rem;
+	height: 6rem;
+	margin: 0;
+}
+
+.folder-body.active .folder-name {
+	display: block;
+	width: 6rem;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	text-align: center;
+}
+
+.folder-body.active .folder-time {
+	display: none;
+}
+.folder-body.active .folder-operate {
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: none;
+	
+	width: auto;
+	flex-direction: column;
+	align-items: center;
+}
+
+.folder-body.active .folder-operate .btn {
+	padding: .25rem;
+	font-size: .75rem;
+}
+
+.folder-body.active .folder-tr:hover .folder-operate {
+	display: flex !important;
 }
