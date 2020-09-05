@@ -77,10 +77,10 @@
 					}),
 					success: function (data) {
 						if (data.code == 100) {
-							toastr.success(data.extend.resMsg);
+							toastr.success(data.msg);
 							callback && callback(data.extend.shareImageInfoList);
 						} else {
-							toastr.error(data.extend.resMsg);
+							toastr.error(data.msg);
 						}
 					},
 					error: function (err) {
@@ -135,10 +135,10 @@
 					data: JSON.stringify(reqData),
 					success: function (data) {
 						if (data.code == 100) {
-							toastr.success(data.msg);
+							toastr.success(data.extend.resMsg);
 							callback && callback(data.extend.shareImageInfoReq);
 						} else {
-							toastr.error(data.msg);
+							toastr.error(data.extend.resMsg);
 						}
 					},
 					error: function (err) {
