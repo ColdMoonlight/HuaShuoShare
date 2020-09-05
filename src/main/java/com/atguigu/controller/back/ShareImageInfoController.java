@@ -18,6 +18,7 @@ import com.atguigu.common.TokenCache;
 import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.ShareImageInfoService;
 import com.atguigu.utils.DateUtil;
+import com.atguigu.utils.SessionUtil;
 
 @Controller
 @RequestMapping("/ShareImageInfo")
@@ -122,16 +123,20 @@ public class ShareImageInfoController {
 		
 		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
 		
-		System.out.println("当前的登陆客户:"+mlbackAdmin.toString());
-
-		Integer imageInfoPid = shareImageInfo.getTbShareImageinfoParentid();
-		
-		ShareImageInfo shareImageInfoReq = new ShareImageInfo();
-		shareImageInfoReq.setTbShareImageinfoParentid(imageInfoPid);
-		
-		List<ShareImageInfo> shareImageInfoList = shareImageInfoService.selectShareImageInfolistByPid(shareImageInfoReq);
-		
-		return Msg.success().add("shareImageInfoList", shareImageInfoList).add("parentIdPage", imageInfoPid);
+		String adminPower = SessionUtil.getAdminInfo(session);
+		if("0000".equals(adminPower)){
+			return Msg.success().add("resMsg", "请重新登陆").add("adminPower", adminPower);
+		}else{
+			System.out.println("当前的登陆客户:"+mlbackAdmin.toString());
+			
+			Integer imageInfoPid = shareImageInfo.getTbShareImageinfoParentid();
+			ShareImageInfo shareImageInfoReq = new ShareImageInfo();
+			shareImageInfoReq.setTbShareImageinfoParentid(imageInfoPid);
+			
+			List<ShareImageInfo> shareImageInfoList = shareImageInfoService.selectShareImageInfolistByPid(shareImageInfoReq);
+			
+			return Msg.success().add("adminPower", adminPower).add("shareImageInfoList", shareImageInfoList).add("parentIdPage", imageInfoPid);
+		}
 	}
 	
 //	/**2.0	zsh200904
