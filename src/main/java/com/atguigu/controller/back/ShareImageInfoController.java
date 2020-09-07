@@ -37,6 +37,7 @@ public class ShareImageInfoController {
 			//SysUsers对象为空
 			return "back/mlbackAdminLogin";
 		}else{
+			session.setAttribute("AdminUser", mlbackAdmin);
 			return "back/imageInfoPage";
 		}
 	}
@@ -51,6 +52,7 @@ public class ShareImageInfoController {
 	public Msg initializaFileNameInfo(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo){
 		
 		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+		session.setAttribute("AdminUser", mlbackAdmin);
 		
 		String adminPower = getAdminInfo(session);
 		if("0000".equals(adminPower)){
@@ -98,6 +100,9 @@ public class ShareImageInfoController {
 	@RequestMapping(value="/updateFileName",method=RequestMethod.POST)
 	@ResponseBody
 	public Msg updateFileName(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo){
+		
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+		session.setAttribute("AdminUser", mlbackAdmin);
 		
 		String adminPower = getAdminInfo(session);
 		if("0000".equals(adminPower)){
