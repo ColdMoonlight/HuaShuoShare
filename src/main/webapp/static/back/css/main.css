@@ -638,5 +638,5 @@
 }
 
 .folder-body.active .folder-tr:hover .folder-operate {
-	display: flex !important;
+	/* display: flex !important; */
 }
