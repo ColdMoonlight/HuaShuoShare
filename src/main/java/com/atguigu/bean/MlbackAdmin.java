@@ -74,6 +74,7 @@ public class MlbackAdmin {
 		this.adminPowerItemStr = adminOperatername == null ? null : adminOperatername.trim();
 	}
 
+	
 	@Override
 	public String toString() {
 		return "MlbackAdmin [adminId=" + adminId + ", adminAccname=" + adminAccname + ", adminPassword=" + adminPassword
