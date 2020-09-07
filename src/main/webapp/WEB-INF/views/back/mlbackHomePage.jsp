@@ -29,8 +29,8 @@
 								</div>
 							</div>
 							<div class="folder-center">
-								<div class="btn btn-primary folder-create">新建文件夹</div>
-								<div class="btn btn-secondary folder-upload">上传</div>
+								<div class="btn btn-primary hide folder-create">新建文件夹</div>
+								<div class="btn btn-secondary hide folder-upload">上传</div>
 							</div>
 							<div class="folder-right">
 								<div class="folder-layout"></div>
@@ -102,16 +102,36 @@
 							'</div>' +
 							'<div class="folder-td folder-time">'+ item.tbShareImageinfoCreatetime +'</div>' +
 							'<div class="folder-td folder-operate">' +
-								'<button class="btn btn-primary" id="folder-edit">重命名</button>' +
-								'<button class="btn btn-danger" id="folder-delete">删除</button>' +
-								(item.tbShareImageinfoType == 1 ? '<button class="btn btn-info" id="folder-download">下载</button>' : '') +
+								'<button class="btn btn-primary hide folder-edit">重命名</button>' +
+								'<button class="btn btn-danger hide folder-delete">删除</button>' +
+								(item.tbShareImageinfoType == 1 ? '<button class="btn btn-info hide folder-download">下载</button>' : '') +
 							'</div>' +
 						'</div>';
 					});
 					$('.folder-tbody').html(html);
+					// setting role
+					setRole();
 				});
 				// thead nav-list
 				resetCurrentNav();
+			}
+			function setRole() {
+				if (adminPower == '0') {
+					$('.folder-download').removeClass('hide');
+				}
+				
+				if (adminPower == '1') {
+					$('.folder-upload').removeClass('hide');
+					$('.folder-download').removeClass('hide');
+				}
+				
+				if (adminPower == '2') {
+					$('.folder-upload').removeClass('hide');
+					$('.folder-download').removeClass('hide');
+					$('.folder-edit').removeClass('hide');
+					$('.folder-delete').removeClass('hide');
+					$('.folder-create').removeClass('hide');
+				}
 			}
 			function resetCurrentNav() {
 				var html = '';
@@ -258,6 +278,7 @@
 				};
 			var navList = [];
 			var folderItem = null;
+			var adminPower = '${sessionScope.AdminUser.adminPower}';
 			renderCurrentCategory();
 			// create folder
 			$('.folder-create').on('click', function(e) {
@@ -311,7 +332,7 @@
 			// fresh category
 			$('.folder-fresh').on('click', renderCurrentCategory);
 			// edit folder
-			$(document.body).on('click', '#folder-edit', function(e) {
+			$(document.body).on('click', '.folder-edit', function(e) {
 				e.stopPropagation();
 				folderItem = $(this).parents('.folder-list-item');
 				$('#folderId').val(folderItem.data('id'));
@@ -320,7 +341,7 @@
 				$('#renameModal').modal('show');
 			});
 			// delete folder
-			$(document.body).on('click', '#folder-delete', function(e) {
+			$(document.body).on('click', '.folder-delete', function(e) {
 				e.stopPropagation();
 				folderItem = $(this).parents('.folder-list-item');
 				$('#folderId').val(folderItem.data('id'));
@@ -335,7 +356,7 @@
 				});
 			});
 			// download file
-			$(document.body).on('click', '#folder-download', function(e) {
+			$(document.body).on('click', '.folder-download', function(e) {
 				e.stopPropagation();
 				folderItem = $(this).parents('.folder-list-item');
 
