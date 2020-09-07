@@ -60,8 +60,8 @@ public class MlbackAdminController {
 		List<MlbackAdmin> MlbackAdminListNameAndPwd = mlbackAdminService.selectMlbackAdmin(mlbackAdminGet);
 		if(MlbackAdminListNameAndPwd.size()>0){
 			//将登陆状态放入session对象
-			session.setAttribute(Const.ADMIN_USER, mlbackAdminGet);
-			System.out.println("CheakAdminUser--mlbackAdminGet:"+mlbackAdminGet.toString());
+			session.setAttribute(Const.ADMIN_USER, MlbackAdminListNameAndPwd.get(0).toString());
+			System.out.println("CheakAdminUser--mlbackAdminGet:"+MlbackAdminListNameAndPwd.get(0).toString());
 			TokenCache.setKey(Const.TOKEN_PREFIX+MlbackAdminReq.getAdminAccname(), "String");
 			return Msg.success().add("resMsg", "登陆成功");
 		}else{
@@ -94,8 +94,8 @@ public class MlbackAdminController {
 			//mlbackAdminGet
 			mlbackAdminGet.setAdminPassword(MlbackAdminReq.getAdminOperatername());
 			mlbackAdminService.updateByAdminAccnameSelective(mlbackAdminGet);
-			System.out.println("UpdateAdminUserInfo--mlbackAdminGet:"+mlbackAdminGet.toString());
-			session.setAttribute(Const.ADMIN_USER, mlbackAdminGet);
+			System.out.println("UpdateAdminUserInfo--mlbackAdminGet:"+MlbackAdminListNameAndPwd.get(0).toString());
+			session.setAttribute(Const.ADMIN_USER, MlbackAdminListNameAndPwd.get(0).toString());
 			return Msg.success().add("resMsg", "密码修改成功");
 		}else{
 			return Msg.fail().add("resMsg", "旧密码错误");
