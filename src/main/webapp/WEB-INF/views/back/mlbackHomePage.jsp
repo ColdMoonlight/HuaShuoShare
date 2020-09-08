@@ -6,7 +6,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>MEGALOOK ADMIN</title>
 		<jsp:include page="common/backheader.jsp" flush="true"></jsp:include>
-		<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">
+		<link rel="stylesheet" href="${APP_PATH}/static/back/lib/magnific-popup/magnific-popup.css">
 		<style> .card-body { padding-left: 0; padding-right: 0; } </style>
 	</head>
 
@@ -63,6 +63,8 @@
 
 		<jsp:include page="modal/renameModal.jsp" flush="true"></jsp:include>
 		<jsp:include page="modal/deleteModal.jsp" flush="true"></jsp:include>
+		
+		<script src="${APP_PATH}/static/back/lib/magnific-popup/jquery.magnific-popup.min.js"></script>
 		<script>
 			function getCurrentParentData(callback) {
 				$('.c-mask').removeClass('hide');
@@ -95,20 +97,44 @@
 				getCurrentParentData(function(data) {
 					var html = '';
 					data.forEach(function(item, idx) {
-						html += '<div class="folder-tr folder-list-item ' + (item.tbShareImageinfoType == 0 ? 'folder' : 'file') +'" data-id="'+ item.tbShareImageinfoId +'" data-name="'+ item.tbShareImageinfoName +'" data-file="'+ item.tbShareImageinfoUrl +'">' +
+						var imgUrl = ('${APP_PATH}/' + item.tbShareImageinfoUrl);
+						html += '<div class="folder-tr folder-list-item ' + (item.tbShareImageinfoType == 0 ? 'folder' : 'file') +'" data-id="'+ item.tbShareImageinfoId +'" data-name="'+ item.tbShareImageinfoName +'" data-file="'+ imgUrl +'">' +
 							'<div class="folder-td folder-content">' +
-								'<div class="folder-img" style="background-image: url('+ (item.tbShareImageinfoType == 0 ? '${APP_PATH}/static/back/img/folder.png' : ('${APP_PATH}/' + item.tbShareImageinfoUrl)) +');"></div>' +
+								'<div class="folder-img" href="'+ imgUrl +'">' +
+									'<img src="'+ (item.tbShareImageinfoType == 0 ? '${APP_PATH}/static/back/img/folder.png' : imgUrl) +'" data-original-src-width="2000" data-original-src-height="2000" />' +
+								'</div>' +
 								'<span class="folder-name" title="'+ item.tbShareImageinfoName +'">'+ item.tbShareImageinfoName +'</span>' +
 							'</div>' +
 							'<div class="folder-td folder-time">'+ item.tbShareImageinfoCreatetime +'</div>' +
 							'<div class="folder-td folder-operate">' +
-								'<button class="btn btn-primary hide folder-edit">重命名</button>' +
-								'<button class="btn btn-danger hide folder-delete">删除</button>' +
-								(item.tbShareImageinfoType == 1 ? '<button class="btn btn-info hide folder-download">下载</button>' : '') +
+								'<button class="btn btn-primary hide folder-edit" title="重命名">重命名</button>' +
+								'<button class="btn btn-danger hide folder-delete" title="删除">删除</button>' +
+								(item.tbShareImageinfoType == 1
+									? '<button class="btn btn-info hide folder-download" title="下载">下载</button>'
+									: '') +
 							'</div>' +
 						'</div>';
 					});
 					$('.folder-tbody').html(html);
+					// photo Popup
+					$('.folder-tbody').find('.folder-list-item.file .folder-img').magnificPopup({
+						type: 'image',
+						closeOnContentClick: true,
+						closeBtnInside: false,
+						fixedContentPos: true,
+						mainClass: 'mfp-no-margins mfp-with-zoom',
+						gallery: {
+							enabled: true,
+							navigateByImgClick: true,
+						},
+						image: {
+							verticalFit: true
+						},
+						zoom: {
+							enabled: true,
+							duration: 300
+						}
+				    });
 					// setting role
 					setRole();
 				});
@@ -196,22 +222,32 @@
 			}
 			function batchUploadImageData(files) {
 				function cursive(file) {
+					function againUpload() {
+						if (!files.length) {
+							renderCurrentCategory();
+							toastr.success(file.name + ' 上传成功！');
+							len > 1 && toastr.success('批量上传图片成功！');
+						} else {
+							cursive(files[0]);
+						}
+					}
 					var formData = new FormData();
 					formData.append('image', file);
 					formData.append('parentid', currentParent.id);
 					formData.append('parentname', currentParent.name);
-					uploadImageData(formData, function() {
-						files.shift();
-						if (!files.length) {
-							renderCurrentCategory();
-							toastr.success('批量上传图片成功！');
-						} else {
-							cursive(files[0]);
-						}
-					});
+					files.shift();
+					
+					if (file.size >= 10485760) {
+						toastr.warning(file.name + '超出最大上传10MB的限制!');
+						againUpload();
+					} else {
+						uploadImageData(formData, againUpload);						
+					}
 				}
+				var len = 0;
 				files = Array.prototype.slice.apply(files);
-				cursive(files[0]);
+				len = files.length;
+				len && cursive(files[0]);
 			}
 			function saveFolderData(reqData, callback) {
 				$('.c-mask').removeClass('hide');
@@ -271,7 +307,7 @@
 			function download(url, fileName) {
 				var anchor = document.createElement('a');
                 if ('download' in anchor) {
-                    anchor.href = ('${APP_PATH}/' + url);
+                    anchor.href = url;
                     anchor.download = fileName;
                     anchor.style.display = 'none';
 
