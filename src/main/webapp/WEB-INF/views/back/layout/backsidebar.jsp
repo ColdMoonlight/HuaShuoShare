@@ -28,7 +28,7 @@
 					</a>
 				</li>
 				<li class="c-sidebar-nav-item">
-					<a class="c-sidebar-nav-link" href="${APP_PATH}/ShareImageLabel/toImageLabelUploadPage">
+					<a class="c-sidebar-nav-link" href="${APP_PATH}/ShareImageInfo/toVideoInfoPage">
 						<span class="c-sidebar-nav-icon"></span>
 						<span class="c-text">video</span>
 					</a>
