@@ -98,26 +98,26 @@
 					var html = '';
 					data.forEach(function(item, idx) {
 						var imgUrl = ('${APP_PATH}/' + item.tbShareImageinfoUrl);
-						html += '<div class="folder-tr folder-list-item ' + (item.tbShareImageinfoType == 0 ? 'folder' : 'file') +'" href="'+ imgUrl +'" data-id="'+ item.tbShareImageinfoId +'" data-name="'+ item.tbShareImageinfoName +'" data-file="'+ imgUrl +'">' +
+						html += '<div class="folder-tr folder-list-item ' + (item.tbShareImageinfoType == 0 ? 'folder' : 'file') +'" data-id="'+ item.tbShareImageinfoId +'" data-name="'+ item.tbShareImageinfoName +'" data-file="'+ imgUrl +'">' +
 							'<div class="folder-td folder-content">' +
-								'<div class="folder-img">' +
+								'<div class="folder-img" href="'+ imgUrl +'">' +
 									'<img src="'+ (item.tbShareImageinfoType == 0 ? '${APP_PATH}/static/back/img/folder.png' : imgUrl) +'" data-original-src-width="2000" data-original-src-height="2000" />' +
 								'</div>' +
 								'<span class="folder-name" title="'+ item.tbShareImageinfoName +'">'+ item.tbShareImageinfoName +'</span>' +
 							'</div>' +
 							'<div class="folder-td folder-time">'+ item.tbShareImageinfoCreatetime +'</div>' +
 							'<div class="folder-td folder-operate">' +
-								'<button class="btn btn-primary hide folder-edit">重命名</button>' +
-								'<button class="btn btn-danger hide folder-delete">删除</button>' +
+								'<button class="btn btn-primary hide folder-edit" title="重命名">重命名</button>' +
+								'<button class="btn btn-danger hide folder-delete" title="删除">删除</button>' +
 								(item.tbShareImageinfoType == 1
-									? '<button class="btn btn-info hide folder-download">下载</button>'
+									? '<button class="btn btn-info hide folder-download" title="下载">下载</button>'
 									: '') +
 							'</div>' +
 						'</div>';
 					});
 					$('.folder-tbody').html(html);
 					// photo Popup
-					$('.folder-tbody').find('.folder-list-item.file').magnificPopup({
+					$('.folder-tbody').find('.folder-list-item.file .folder-img').magnificPopup({
 						type: 'image',
 						closeOnContentClick: true,
 						closeBtnInside: false,
