@@ -40,10 +40,9 @@ public class MlbackAdminController {
 	
 	/**
 	 * 2.0
-	 * @author zsh
+	 * @author 20200908zsh
 	 * @param MlbackAdmin
 	 * @exception 管理员帐号登陆
-	 * 20200428
 	 * */
 	@RequestMapping(value="/CheakAdminUser",method=RequestMethod.POST)
 	@ResponseBody
