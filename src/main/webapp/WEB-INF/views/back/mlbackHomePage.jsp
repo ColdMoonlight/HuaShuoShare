@@ -29,8 +29,8 @@
 								</div>
 							</div>
 							<div class="folder-center">
-								<div class="btn btn-primary folder-create">新建文件夹</div>
-								<div class="btn btn-secondary folder-upload">上传</div>
+								<div class="btn btn-primary hide folder-create">新建文件夹</div>
+								<div class="btn btn-secondary hide folder-upload">上传</div>
 							</div>
 							<div class="folder-right">
 								<div class="folder-layout"></div>
@@ -98,20 +98,40 @@
 						html += '<div class="folder-tr folder-list-item ' + (item.tbShareImageinfoType == 0 ? 'folder' : 'file') +'" data-id="'+ item.tbShareImageinfoId +'" data-name="'+ item.tbShareImageinfoName +'" data-file="'+ item.tbShareImageinfoUrl +'">' +
 							'<div class="folder-td folder-content">' +
 								'<div class="folder-img" style="background-image: url('+ (item.tbShareImageinfoType == 0 ? '${APP_PATH}/static/back/img/folder.png' : ('${APP_PATH}/' + item.tbShareImageinfoUrl)) +');"></div>' +
-								'<span class="folder-name">'+ item.tbShareImageinfoName +'</span>' +
+								'<span class="folder-name" title="'+ item.tbShareImageinfoName +'">'+ item.tbShareImageinfoName +'</span>' +
 							'</div>' +
 							'<div class="folder-td folder-time">'+ item.tbShareImageinfoCreatetime +'</div>' +
 							'<div class="folder-td folder-operate">' +
-								'<button class="btn btn-primary" id="folder-edit">重命名</button>' +
-								'<button class="btn btn-danger" id="folder-delete">删除</button>' +
-								(item.tbShareImageinfoType == 1 ? '<button class="btn btn-info" id="folder-download">下载</button>' : '') +
+								'<button class="btn btn-primary hide folder-edit">重命名</button>' +
+								'<button class="btn btn-danger hide folder-delete">删除</button>' +
+								(item.tbShareImageinfoType == 1 ? '<button class="btn btn-info hide folder-download">下载</button>' : '') +
 							'</div>' +
 						'</div>';
 					});
 					$('.folder-tbody').html(html);
+					// setting role
+					setRole();
 				});
 				// thead nav-list
 				resetCurrentNav();
+			}
+			function setRole() {
+				if (adminPower == '0') {
+					$('.folder-download').removeClass('hide');
+				}
+				
+				if (adminPower == '1') {
+					$('.folder-upload').removeClass('hide');
+					$('.folder-download').removeClass('hide');
+				}
+				
+				if (adminPower == '2') {
+					$('.folder-upload').removeClass('hide');
+					$('.folder-download').removeClass('hide');
+					$('.folder-edit').removeClass('hide');
+					$('.folder-delete').removeClass('hide');
+					$('.folder-create').removeClass('hide');
+				}
 			}
 			function resetCurrentNav() {
 				var html = '';
@@ -173,6 +193,25 @@
 						$('.c-mask').addClass('hide')
 					}
 				});
+			}
+			function batchUploadImageData(files) {
+				function cursive(file) {
+					var formData = new FormData();
+					formData.append('image', file);
+					formData.append('parentid', currentParent.id);
+					formData.append('parentname', currentParent.name);
+					uploadImageData(formData, function() {
+						files.shift();
+						if (!files.length) {
+							renderCurrentCategory();
+							toastr.success('批量上传图片成功！');
+						} else {
+							cursive(files[0]);
+						}
+					});
+				}
+				files = Array.prototype.slice.apply(files);
+				cursive(files[0]);
 			}
 			function saveFolderData(reqData, callback) {
 				$('.c-mask').removeClass('hide');
@@ -258,6 +297,7 @@
 				};
 			var navList = [];
 			var folderItem = null;
+			var adminPower = '${sessionScope.AdminUser.adminPower}';
 			renderCurrentCategory();
 			// create folder
 			$('.folder-create').on('click', function(e) {
@@ -279,23 +319,17 @@
 			});
 			// upload img
 			$('.folder-upload').on('click', function() {
-				var fileUrl = $('<input type="file" accept="image/png, image/jpeg, image/gif" />');
+				var fileUrl = $('<input type="file" accept="image/png, image/jpeg, image/gif" multiple />');
 				fileUrl.trigger('click');
 				fileUrl.on('change', function(e) {
 					var $this = $(this);
-					var file = $this[0].files[0];
-					var formData = new FormData();
-
-					if (!file) return false;
-	
-					$this.parent().find('.spinner').show();
-					$this.val('');
-	
-					formData.append('image', file);
-					formData.append('parentid', currentParent.id);
-					formData.append('parentname', currentParent.name);
-	
-					uploadImageData(formData, renderCurrentCategory);
+					var files = $this[0].files;
+					if (!files.length) {
+						return false;
+					} else {
+						batchUploadImageData(files);
+						$this.val('');					
+					}	
 				});
 			});
 			
@@ -311,7 +345,7 @@
 			// fresh category
 			$('.folder-fresh').on('click', renderCurrentCategory);
 			// edit folder
-			$(document.body).on('click', '#folder-edit', function(e) {
+			$(document.body).on('click', '.folder-edit', function(e) {
 				e.stopPropagation();
 				folderItem = $(this).parents('.folder-list-item');
 				$('#folderId').val(folderItem.data('id'));
@@ -320,7 +354,7 @@
 				$('#renameModal').modal('show');
 			});
 			// delete folder
-			$(document.body).on('click', '#folder-delete', function(e) {
+			$(document.body).on('click', '.folder-delete', function(e) {
 				e.stopPropagation();
 				folderItem = $(this).parents('.folder-list-item');
 				$('#folderId').val(folderItem.data('id'));
@@ -335,7 +369,7 @@
 				});
 			});
 			// download file
-			$(document.body).on('click', '#folder-download', function(e) {
+			$(document.body).on('click', '.folder-download', function(e) {
 				e.stopPropagation();
 				folderItem = $(this).parents('.folder-list-item');
 
