@@ -98,7 +98,7 @@
 						html += '<div class="folder-tr folder-list-item ' + (item.tbShareImageinfoType == 0 ? 'folder' : 'file') +'" data-id="'+ item.tbShareImageinfoId +'" data-name="'+ item.tbShareImageinfoName +'" data-file="'+ item.tbShareImageinfoUrl +'">' +
 							'<div class="folder-td folder-content">' +
 								'<div class="folder-img" style="background-image: url('+ (item.tbShareImageinfoType == 0 ? '${APP_PATH}/static/back/img/folder.png' : ('${APP_PATH}/' + item.tbShareImageinfoUrl)) +');"></div>' +
-								'<span class="folder-name">'+ item.tbShareImageinfoName +'</span>' +
+								'<span class="folder-name" title="'+ item.tbShareImageinfoName +'">'+ item.tbShareImageinfoName +'</span>' +
 							'</div>' +
 							'<div class="folder-td folder-time">'+ item.tbShareImageinfoCreatetime +'</div>' +
 							'<div class="folder-td folder-operate">' +
@@ -193,6 +193,25 @@
 						$('.c-mask').addClass('hide')
 					}
 				});
+			}
+			function batchUploadImageData(files) {
+				function cursive(file) {
+					var formData = new FormData();
+					formData.append('image', file);
+					formData.append('parentid', currentParent.id);
+					formData.append('parentname', currentParent.name);
+					uploadImageData(formData, function() {
+						files.shift();
+						if (!files.length) {
+							renderCurrentCategory();
+							toastr.success('批量上传图片成功！');
+						} else {
+							cursive(files[0]);
+						}
+					});
+				}
+				files = Array.prototype.slice.apply(files);
+				cursive(files[0]);
 			}
 			function saveFolderData(reqData, callback) {
 				$('.c-mask').removeClass('hide');
@@ -300,23 +319,17 @@
 			});
 			// upload img
 			$('.folder-upload').on('click', function() {
-				var fileUrl = $('<input type="file" accept="image/png, image/jpeg, image/gif" />');
+				var fileUrl = $('<input type="file" accept="image/png, image/jpeg, image/gif" multiple />');
 				fileUrl.trigger('click');
 				fileUrl.on('change', function(e) {
 					var $this = $(this);
-					var file = $this[0].files[0];
-					var formData = new FormData();
-
-					if (!file) return false;
-	
-					$this.parent().find('.spinner').show();
-					$this.val('');
-	
-					formData.append('image', file);
-					formData.append('parentid', currentParent.id);
-					formData.append('parentname', currentParent.name);
-	
-					uploadImageData(formData, renderCurrentCategory);
+					var files = $this[0].files;
+					if (!files.length) {
+						return false;
+					} else {
+						batchUploadImageData(files);
+						$this.val('');					
+					}	
 				});
 			});
 			

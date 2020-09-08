@@ -573,6 +573,14 @@
 	background-size: contain;
 	background-repeat: no-repeat;
 }
+
+.folder-name {
+	overflow: hidden;
+	display: block;
+	width: 180px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
 /* tab folder-body layout */
 .folder-body.active .folder-thead {
 	display: none;
@@ -610,11 +618,7 @@
 }
 
 .folder-body.active .folder-name {
-	display: block;
 	width: 6rem;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
 	text-align: center;
 }
 
