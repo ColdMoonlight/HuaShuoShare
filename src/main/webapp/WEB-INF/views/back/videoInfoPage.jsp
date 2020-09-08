@@ -16,7 +16,7 @@
 		<div class="c-wrapper">
 			<div class="c-body">
 				<div class="c-main">
-				Video服分享页面
+				Video共享页面
 				</div>
 			</div>
 			<jsp:include page="layout/backfooter.jsp" flush="true"></jsp:include>

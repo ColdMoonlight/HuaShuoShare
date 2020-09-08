@@ -15,7 +15,7 @@
 		<div class="c-wrapper">
 			<div class="c-body">
 				<div class="c-main">
-					
+					操作记录明细
 				</div>
 				<!-- c-mask -->
 				<div class="c-mask hide">

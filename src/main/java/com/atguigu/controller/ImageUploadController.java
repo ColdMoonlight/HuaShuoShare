@@ -33,7 +33,7 @@ public class ImageUploadController {
 	ShareImageInfoService shareImageInfoService;
 	
 	/**
-	 * 	zsh200904
+	 * 	zsh200908
 	 * */
 	@RequestMapping(value="/imageInfo",method=RequestMethod.POST)
 	@ResponseBody
