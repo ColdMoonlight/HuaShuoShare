@@ -32,7 +32,7 @@
 			</div>
 			<div class="row login-box">
 				<div class="col-md-8 col-lg-8 login-bg md-down-none">
-					<img src="${APP_PATH }/static/back/img/login-bg.jpg" />
+					<img src="${APP_PATH }/static/back/img/logo-fx.jpg" />
 				</div>
 				<div class="card col-md-4 col-lg-4">
 					<form id="login-form">
