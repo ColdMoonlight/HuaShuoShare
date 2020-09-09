@@ -16,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import com.atguigu.bean.FileEntity;
 import com.atguigu.bean.MlbackAdmin;
-import com.atguigu.bean.ShareImageInfo;
 import com.atguigu.bean.ShareVideoInfo;
 import com.atguigu.common.Msg;
 import com.atguigu.service.FileService;
@@ -236,45 +235,46 @@ public class ShareVideoInfoController {
 		
 		return Msg.success().add("resMsg", "上传").add("shareVideoInfo", shareVideoInfo);
 	}
-//	
-//	@RequestMapping(value = "/uploadProSmallVideo")
-//	@ResponseBody
-//	public Msg upload(@RequestParam(value = "file", required = false) MultipartFile multipartFile,
-//			@RequestParam("videoId")Integer videoProductId,HttpServletRequest request,HttpServletResponse response,ModelMap map) {
-//	    String message = "";
-//	    FileEntity entity = new FileEntity();
-//	    ShareVideoInfo shareVideoInfo = new ShareVideoInfo();
-//	    String logoPathDir = request.getParameter("shipin");
-//	    System.out.println("-------" + logoPathDir + "----------------------------------");
-//	    FileUploadTool fileUploadTool = new FileUploadTool();
-//	    //服务器路径+端口号http://localhost:8080/HuaShuoOnline
-//	    String basePathStr = URLLocationUtils.getbasePathStr(response,request);  //出来是真实的
-//	    try {
-//	      entity = fileUploadTool.createFile(basePathStr,logoPathDir, multipartFile, request);
-//	      if (entity != null) {
-//	        service.saveFile(entity);
-//	        message ="上传成功";
-//	        map.put("entity", entity);
-//	        map.put("result", message);
-//	      } else {
-//	        message ="上传失败";
-//	        map.put("result", message);
-//	      }
-//
-//	    } catch (Exception e) {
-//	      e.printStackTrace();
-//	    }
-//	    String videoUrl ="";
-//	    videoUrl = entity.getPath();
-//	    ShareVideoInfo shareVideoInfoReq = new ShareVideoInfo();
-//	    shareVideoInfoReq.setTbShareVideoinfoParentid(videoProductId);
-//	    shareVideoInfoReq.setTbShareVideoinfoParentname(videoFileName);//videoUrl
-//	    shareVideoInfoReq.setTbShareVideoinfoVideourl(videoUrl);
-//	    shareVideoInfoReq.setTbShareVideoinfoVideoimgurl(videoImgUrl);
-//		shareVideoInfoService.insertSelective(shareVideoInfoReq);
-//	    return Msg.success().add("resMsg", "ProVideo上传成功").add("videoUrl", videoUrl);
-//	}
-//	
+	
+	@RequestMapping(value = "/uploadVideo")
+	@ResponseBody
+	public Msg upload(@RequestParam(value = "file", required = false) MultipartFile multipartFile,
+			@RequestParam("videoId")Integer videoId,HttpServletRequest request,HttpServletResponse response,ModelMap map) {
+	    String message = "";
+	    FileEntity entity = new FileEntity();
+	    String logoPathDir = request.getParameter("shipin");
+	    System.out.println("-------" + logoPathDir + "----------------------------------");
+	    FileUploadTool fileUploadTool = new FileUploadTool();
+	    //服务器路径+端口号http://localhost:8080/HuaShuoOnline
+	    String basePathStr = URLLocationUtils.getbasePathStr(response,request);  //出来是真实的
+	    try {
+	      entity = fileUploadTool.createFile(basePathStr,logoPathDir, multipartFile, request);
+	      if (entity != null) {
+	        service.saveFile(entity);
+	        message ="上传成功";
+	        map.put("entity", entity);
+	        map.put("result", message);
+	      } else {
+	        message ="上传失败";
+	        map.put("result", message);
+	      }
+
+	    } catch (Exception e) {
+	      e.printStackTrace();
+	    }
+	    String videoUrl ="";
+	    videoUrl = entity.getPath();
+	    ShareVideoInfo shareVideoInfoReq = new ShareVideoInfo();
+	    shareVideoInfoReq.setTbShareVideoinfoId(videoId);
+	    shareVideoInfoReq.setTbShareVideoinfoSize(entity.getSize());
+	    shareVideoInfoReq.setTbShareVideoinfoPath(entity.getPath());
+	    shareVideoInfoReq.setTbShareVideoinfoTitleorig(entity.getTitleOrig());
+		shareVideoInfoReq.setTbShareVideoinfoTitlealter(entity.getTitleAlter());
+		shareVideoInfoReq.setTbShareVideoinfoVideotype(entity.getType());
+		shareVideoInfoService.updateByPrimaryKeySelective(shareVideoInfoReq);
+	    return Msg.success().add("resMsg", "ProVideo上传成功").add("videoUrl", videoUrl);
+	}
+	
 	
 	
 }
