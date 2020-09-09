@@ -6,15 +6,26 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import com.atguigu.bean.FileEntity;
 import com.atguigu.bean.MlbackAdmin;
+import com.atguigu.bean.ShareImageInfo;
 import com.atguigu.bean.ShareVideoInfo;
 import com.atguigu.common.Msg;
+import com.atguigu.service.FileService;
 import com.atguigu.service.ShareVideoInfoService;
+import com.atguigu.service.UploadService;
 import com.atguigu.utils.DateUtil;
+import com.atguigu.utils.FileUploadTool;
+import com.atguigu.utils.ImageNameUtil;
+import com.atguigu.utils.URLLocationUtils;
 
 @Controller
 @RequestMapping("/ShareVideoInfo")
@@ -23,24 +34,11 @@ public class ShareVideoInfoController {
 	@Autowired
 	ShareVideoInfoService shareVideoInfoService;
 	
-//	/**
-//	 * 1.0	zsh200904
-//	 * to分类MlbackAreafreight列表页面
-//	 * @param jsp
-//	 * @return 
-//	 * */
-//	@RequestMapping("/toImageInfoPage")
-//	public String toImageInfoPage(HttpSession session) throws Exception{
-//		
-//		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
-//		if(mlbackAdmin==null){
-//			//SysUsers对象为空
-//			return "back/mlbackAdminLogin";
-//		}else{
-//			session.setAttribute("AdminUser", mlbackAdmin);
-//			return "back/imageInfoPage";
-//		}
-//	}
+	@Autowired
+	private FileService service;
+	
+	@Autowired
+	UploadService uploadService;
 	
 	/**
 	 * 1.1	zsh200904
@@ -191,5 +189,92 @@ public class ShareVideoInfoController {
 			return adminPower;
 		}
 	}
+	
+	/**
+	 * 	zsh200908
+	 * 视频的第一帧封面图
+	 * */
+	@RequestMapping(value="/imageInfo",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg imageInfo(@RequestParam("image")CommonsMultipartFile file,
+			@RequestParam("parentid")Integer parentid,@RequestParam("parentname")String parentname,
+			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
+		
+		//判断参数,确定信息
+		String typeName = file.getOriginalFilename();
+		
+		String parentIdStr = parentid+"";
+		String imgName = ImageNameUtil.getImageInfofilename(typeName,parentIdStr,parentname);
+		
+		String uploadPath = "static/shareUpload/Video/img";
+		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
+		
+		//当前服务器路径
+		String basePathStr = URLLocationUtils.getbasePathStr(rep,res);
+        System.out.println("basePathStr:"+basePathStr);
+		
+		String imageUrl ="";
+		String sqlimageUrl="";
+		try {
+			
+			imageUrl = uploadService.uploadImage(file, uploadPath, realUploadPath,imgName);//图片原图路径
+			sqlimageUrl=basePathStr+imageUrl;
+			System.out.println("sqlimageUrl:"+sqlimageUrl);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String nowTime = DateUtil.strTime14s();
+		ShareVideoInfo shareVideoInfo = new ShareVideoInfo();
+		shareVideoInfo.setTbShareVideoinfoParentid(parentid);
+		shareVideoInfo.setTbShareVideoinfoParentname(parentname);
+		shareVideoInfo.setTbShareVideoinfoType(1);
+		shareVideoInfo.setTbShareVideoinfoName(imgName);
+		shareVideoInfo.setTbShareVideoinfoVideoimgurl(imageUrl);
+		shareVideoInfo.setTbShareVideoinfoCreatetime(nowTime);
+		shareVideoInfoService.insertSelective(shareVideoInfo);
+		System.out.println("shareVideoInfo上传完毕"+shareVideoInfo.toString());
+		
+		return Msg.success().add("resMsg", "上传").add("shareVideoInfo", shareVideoInfo);
+	}
+//	
+//	@RequestMapping(value = "/uploadProSmallVideo")
+//	@ResponseBody
+//	public Msg upload(@RequestParam(value = "file", required = false) MultipartFile multipartFile,
+//			@RequestParam("videoId")Integer videoProductId,HttpServletRequest request,HttpServletResponse response,ModelMap map) {
+//	    String message = "";
+//	    FileEntity entity = new FileEntity();
+//	    ShareVideoInfo shareVideoInfo = new ShareVideoInfo();
+//	    String logoPathDir = request.getParameter("shipin");
+//	    System.out.println("-------" + logoPathDir + "----------------------------------");
+//	    FileUploadTool fileUploadTool = new FileUploadTool();
+//	    //服务器路径+端口号http://localhost:8080/HuaShuoOnline
+//	    String basePathStr = URLLocationUtils.getbasePathStr(response,request);  //出来是真实的
+//	    try {
+//	      entity = fileUploadTool.createFile(basePathStr,logoPathDir, multipartFile, request);
+//	      if (entity != null) {
+//	        service.saveFile(entity);
+//	        message ="上传成功";
+//	        map.put("entity", entity);
+//	        map.put("result", message);
+//	      } else {
+//	        message ="上传失败";
+//	        map.put("result", message);
+//	      }
+//
+//	    } catch (Exception e) {
+//	      e.printStackTrace();
+//	    }
+//	    String videoUrl ="";
+//	    videoUrl = entity.getPath();
+//	    ShareVideoInfo shareVideoInfoReq = new ShareVideoInfo();
+//	    shareVideoInfoReq.setTbShareVideoinfoParentid(videoProductId);
+//	    shareVideoInfoReq.setTbShareVideoinfoParentname(videoFileName);//videoUrl
+//	    shareVideoInfoReq.setTbShareVideoinfoVideourl(videoUrl);
+//	    shareVideoInfoReq.setTbShareVideoinfoVideoimgurl(videoImgUrl);
+//		shareVideoInfoService.insertSelective(shareVideoInfoReq);
+//	    return Msg.success().add("resMsg", "ProVideo上传成功").add("videoUrl", videoUrl);
+//	}
+//	
+	
 	
 }

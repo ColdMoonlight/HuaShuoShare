@@ -37,8 +37,8 @@ public class ShareVideoInfoService {
 	 * @param ShareVideoInfo
 	 * @exception	update方法
 	 * */
-	public void deleteByPrimaryKey(Integer imageLabelId) {
-		shareVideoInfoMapper.deleteByPrimaryKey(imageLabelId);
+	public void deleteByPrimaryKey(Integer VideoLabelId) {
+		shareVideoInfoMapper.deleteByPrimaryKey(VideoLabelId);
 	}
 	
 	/**
