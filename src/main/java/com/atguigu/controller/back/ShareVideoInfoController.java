@@ -261,17 +261,16 @@ public class ShareVideoInfoController {
 	    } catch (Exception e) {
 	      e.printStackTrace();
 	    }
-	    String videoUrl ="";
-	    videoUrl = entity.getPath();
 	    ShareVideoInfo shareVideoInfoReq = new ShareVideoInfo();
 	    shareVideoInfoReq.setTbShareVideoinfoId(videoId);
 	    shareVideoInfoReq.setTbShareVideoinfoSize(entity.getSize());
 	    shareVideoInfoReq.setTbShareVideoinfoPath(entity.getPath());
+	    shareVideoInfoReq.setTbShareVideoinfoVideourl(entity.getPath());
 	    shareVideoInfoReq.setTbShareVideoinfoTitleorig(entity.getTitleOrig());
 		shareVideoInfoReq.setTbShareVideoinfoTitlealter(entity.getTitleAlter());
 		shareVideoInfoReq.setTbShareVideoinfoVideotype(entity.getType());
 		shareVideoInfoService.updateByPrimaryKeySelective(shareVideoInfoReq);
-	    return Msg.success().add("resMsg", "ProVideo上传成功").add("videoUrl", videoUrl);
+	    return Msg.success().add("resMsg", "ProVideo上传成功").add("shareVideoInfo", shareVideoInfoReq);
 	}
 	
 	
