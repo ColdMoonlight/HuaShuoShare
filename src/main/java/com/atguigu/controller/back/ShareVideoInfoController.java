@@ -41,9 +41,8 @@ public class ShareVideoInfoController {
 	
 	/**
 	 * 1.1	zsh200904
-	 * to分类MlbackAreafreight列表页面
-	 * @param jsp
-	 * @return 
+	 * to分类toVideoInfoPage列表页面
+	 * @return jsp
 	 * */
 	@RequestMapping("/toVideoInfoPage")
 	public String toVideoInfoPage(HttpSession session) throws Exception{

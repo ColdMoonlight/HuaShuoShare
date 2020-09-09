@@ -31,10 +31,7 @@
     from tb_share_videoinfo
     where tb_share_videoinfo_id = #{tbShareVideoinfoId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_share_videoinfo
-    where tb_share_videoinfo_id = #{tbShareVideoinfoId,jdbcType=INTEGER}
-  </delete>
+
   <insert id="insert" parameterType="com.atguigu.bean.ShareVideoInfo">
     insert into tb_share_videoinfo (tb_share_videoinfo_id, tb_share_videoinfo_type, 
       tb_share_videoinfo_name, tb_share_videoinfo_videourl, 
@@ -53,7 +50,26 @@
       #{tbShareVideoinfoPath,jdbcType=VARCHAR}, #{tbShareVideoinfoImgcreatetime,jdbcType=VARCHAR}, 
       #{tbShareVideoinfoCreatetime,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.atguigu.bean.ShareVideoInfo">
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.ShareVideoInfo">
+    update tb_share_videoinfo
+    set tb_share_videoinfo_type = #{tbShareVideoinfoType,jdbcType=INTEGER},
+      tb_share_videoinfo_name = #{tbShareVideoinfoName,jdbcType=VARCHAR},
+      tb_share_videoinfo_videourl = #{tbShareVideoinfoVideourl,jdbcType=VARCHAR},
+      tb_share_videoinfo_videoimgurl = #{tbShareVideoinfoVideoimgurl,jdbcType=VARCHAR},
+      tb_share_videoinfo_parentid = #{tbShareVideoinfoParentid,jdbcType=INTEGER},
+      tb_share_videoinfo_parentname = #{tbShareVideoinfoParentname,jdbcType=VARCHAR},
+      tb_share_videoinfo_desc = #{tbShareVideoinfoDesc,jdbcType=VARCHAR},
+      tb_share_videoinfo_titleOrig = #{tbShareVideoinfoTitleorig,jdbcType=VARCHAR},
+      tb_share_videoinfo_titleAlter = #{tbShareVideoinfoTitlealter,jdbcType=VARCHAR},
+      tb_share_videoinfo_size = #{tbShareVideoinfoSize,jdbcType=VARCHAR},
+      tb_share_videoinfo_videotype = #{tbShareVideoinfoVideotype,jdbcType=VARCHAR},
+      tb_share_videoinfo_path = #{tbShareVideoinfoPath,jdbcType=VARCHAR},
+      tb_share_videoinfo_imgcreateTime = #{tbShareVideoinfoImgcreatetime,jdbcType=VARCHAR},
+      tb_share_videoinfo_createTime = #{tbShareVideoinfoCreatetime,jdbcType=VARCHAR}
+    where tb_share_videoinfo_id = #{tbShareVideoinfoId,jdbcType=INTEGER}
+  </update>
+  <!-- insertSelective -->
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="tbShareVideoinfoId"  parameterType="com.atguigu.bean.ShareVideoInfo">
     insert into tb_share_videoinfo
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="tbShareVideoinfoId != null">
@@ -150,6 +166,7 @@
       </if>
     </trim>
   </insert>
+  <!-- updateByPrimaryKeySelective -->
   <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.ShareVideoInfo">
     update tb_share_videoinfo
     <set>
@@ -198,22 +215,20 @@
     </set>
     where tb_share_videoinfo_id = #{tbShareVideoinfoId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.ShareVideoInfo">
-    update tb_share_videoinfo
-    set tb_share_videoinfo_type = #{tbShareVideoinfoType,jdbcType=INTEGER},
-      tb_share_videoinfo_name = #{tbShareVideoinfoName,jdbcType=VARCHAR},
-      tb_share_videoinfo_videourl = #{tbShareVideoinfoVideourl,jdbcType=VARCHAR},
-      tb_share_videoinfo_videoimgurl = #{tbShareVideoinfoVideoimgurl,jdbcType=VARCHAR},
-      tb_share_videoinfo_parentid = #{tbShareVideoinfoParentid,jdbcType=INTEGER},
-      tb_share_videoinfo_parentname = #{tbShareVideoinfoParentname,jdbcType=VARCHAR},
-      tb_share_videoinfo_desc = #{tbShareVideoinfoDesc,jdbcType=VARCHAR},
-      tb_share_videoinfo_titleOrig = #{tbShareVideoinfoTitleorig,jdbcType=VARCHAR},
-      tb_share_videoinfo_titleAlter = #{tbShareVideoinfoTitlealter,jdbcType=VARCHAR},
-      tb_share_videoinfo_size = #{tbShareVideoinfoSize,jdbcType=VARCHAR},
-      tb_share_videoinfo_videotype = #{tbShareVideoinfoVideotype,jdbcType=VARCHAR},
-      tb_share_videoinfo_path = #{tbShareVideoinfoPath,jdbcType=VARCHAR},
-      tb_share_videoinfo_imgcreateTime = #{tbShareVideoinfoImgcreatetime,jdbcType=VARCHAR},
-      tb_share_videoinfo_createTime = #{tbShareVideoinfoCreatetime,jdbcType=VARCHAR}
+  <!-- deleteByPrimaryKey -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_share_videoinfo
     where tb_share_videoinfo_id = #{tbShareVideoinfoId,jdbcType=INTEGER}
-  </update>
+  </delete>
+  <!-- 使用中selectShareVideoInfolistByPid -->
+  <select id="selectShareVideoInfolistByPid" parameterType="com.atguigu.bean.ShareVideoInfo" resultMap="BaseResultMap">
+  	select 
+  	tb_share_videoinfo_id, tb_share_videoinfo_type, tb_share_videoinfo_name, tb_share_videoinfo_videourl, 
+    tb_share_videoinfo_videoimgurl, tb_share_videoinfo_parentid, tb_share_videoinfo_parentname, 
+    tb_share_videoinfo_desc, tb_share_videoinfo_titleOrig, tb_share_videoinfo_titleAlter, 
+    tb_share_videoinfo_size, tb_share_videoinfo_videotype, tb_share_videoinfo_path, tb_share_videoinfo_imgcreateTime, 
+    tb_share_videoinfo_createTime
+  	from tb_share_videoinfo where tb_share_videoinfo_parentid = #{tbShareVideoinfoParentid,jdbcType=INTEGER} 
+  	order by tb_share_videoinfo_type , tb_share_videoinfo_parentid
+  </select>
 </mapper>
