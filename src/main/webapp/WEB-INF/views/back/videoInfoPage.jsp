@@ -98,10 +98,10 @@
 					var html = '';
 					data.forEach(function(item, idx) {
 						var imgUrl = ('${APP_PATH}/' + item.tbShareVideoinfoVideoimgurl);
-						html += '<div class="folder-tr folder-list-item ' + (item.tbShareVideoinfoType == 0 ? 'folder' : 'file') +'" data-id="'+ item.tbShareVideoinfoId +'" data-name="'+ item.tbShareVideoinfoName +'" data-file="'+ imgUrl +'">' +
+						html += '<div class="folder-tr folder-list-item ' + (item.tbShareVideoinfoType == 0 ? 'folder' : 'file') +'" data-id="'+ item.tbShareVideoinfoId +'" data-name="'+ item.tbShareVideoinfoName +'" data-file="'+ item.tbShareVideoinfoVideourl +'">' +
 							'<div class="folder-td folder-content">' +
-								'<div class="folder-img" href="'+ imgUrl +'">' +
-									'<img src="'+ (item.tbShareVideoinfoType == 0 ? '${APP_PATH}/static/back/img/folder.png' : imgUrl) +'" data-original-src-width="2000" data-original-src-height="2000" />' +
+								'<div class="folder-img">' +
+									'<img src="'+ (item.tbShareVideoinfoType == 0 ? '${APP_PATH}/static/back/img/folder.png' : imgUrl) +'" />' +
 								'</div>' +
 								'<span class="folder-name" title="'+ item.tbShareVideoinfoName +'">'+ item.tbShareVideoinfoName +'</span>' +
 							'</div>' +
@@ -116,25 +116,6 @@
 						'</div>';
 					});
 					$('.folder-tbody').html(html);
-					// photo Popup
-					/* $('.folder-tbody').find('.folder-list-item.file .folder-img').magnificPopup({
-						type: 'image',
-						closeOnContentClick: true,
-						closeBtnInside: false,
-						fixedContentPos: true,
-						mainClass: 'mfp-no-margins mfp-with-zoom',
-						gallery: {
-							enabled: true,
-							navigateByImgClick: true,
-						},
-						image: {
-							verticalFit: true
-						},
-						zoom: {
-							enabled: true,
-							duration: 300
-						}
-				    }); */
 					// setting role
 					setRole();
 				});
@@ -231,7 +212,7 @@
 		            }
 		            ctx.drawImage(video, offsetLeft, offsetTop, width, height);
 		            canvas.toBlob(function(blob) {
-		            	callback(blob);
+		            	callback(new File([blob], 'poster.png', { type: 'image/png'}));
 		            }, 'image/png');
 		        }, { once: true });
 			}
@@ -410,8 +391,7 @@
 					uploadVideoData(file);
 					$this.val('');	
 				});
-			});
-			
+			});			
 			// folder event
 			$(document.body).on('click', '.folder-list-item.folder', function(e) {
 				currentParent = {
@@ -453,6 +433,13 @@
 				folderItem = $(this).parents('.folder-list-item');
 
 				download(folderItem.data('file'), folderItem.data('name'));
+			});
+			// video preview
+			$(document.body).on('click', '.folder-img', function(e) {
+				e.stopPropagation();
+				folderItem = $(this).parents('.folder-list-item');
+
+				console.log(folderItem.data('file'));
 			});
 			// folder back
 			$('.folder-back').on('click', function() {
