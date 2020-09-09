@@ -41,25 +41,6 @@ public class ShareImageInfoController {
 			return "back/imageInfoPage";
 		}
 	}
-//	
-//	/**
-//	 * 1.1	zsh200904
-//	 * to分类MlbackAreafreight列表页面
-//	 * @param jsp
-//	 * @return 
-//	 * */
-//	@RequestMapping("/toVideoInfoPage")
-//	public String toVideoInfoPage(HttpSession session) throws Exception{
-//		
-//		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
-//		if(mlbackAdmin==null){
-//			//SysUsers对象为空
-//			return "back/mlbackAdminLogin";
-//		}else{
-//			session.setAttribute("AdminUser", mlbackAdmin);
-//			return "back/videoInfoPage";
-//		}
-//	}
 	
 	/**2.0	zsh200904
 	 * ShareImageInfo	initializaFileNameInfo

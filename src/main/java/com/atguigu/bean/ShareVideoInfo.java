@@ -17,6 +17,18 @@ public class ShareVideoInfo {
 
     private String tbShareVideoinfoDesc;
 
+    private String tbShareVideoinfoTitleorig;
+
+    private String tbShareVideoinfoTitlealter;
+
+    private String tbShareVideoinfoSize;
+
+    private String tbShareVideoinfoVideotype;
+
+    private String tbShareVideoinfoPath;
+
+    private String tbShareVideoinfoImgcreatetime;
+
     private String tbShareVideoinfoCreatetime;
 
     public Integer getTbShareVideoinfoId() {
@@ -83,6 +95,54 @@ public class ShareVideoInfo {
         this.tbShareVideoinfoDesc = tbShareVideoinfoDesc == null ? null : tbShareVideoinfoDesc.trim();
     }
 
+    public String getTbShareVideoinfoTitleorig() {
+        return tbShareVideoinfoTitleorig;
+    }
+
+    public void setTbShareVideoinfoTitleorig(String tbShareVideoinfoTitleorig) {
+        this.tbShareVideoinfoTitleorig = tbShareVideoinfoTitleorig == null ? null : tbShareVideoinfoTitleorig.trim();
+    }
+
+    public String getTbShareVideoinfoTitlealter() {
+        return tbShareVideoinfoTitlealter;
+    }
+
+    public void setTbShareVideoinfoTitlealter(String tbShareVideoinfoTitlealter) {
+        this.tbShareVideoinfoTitlealter = tbShareVideoinfoTitlealter == null ? null : tbShareVideoinfoTitlealter.trim();
+    }
+
+    public String getTbShareVideoinfoSize() {
+        return tbShareVideoinfoSize;
+    }
+
+    public void setTbShareVideoinfoSize(String tbShareVideoinfoSize) {
+        this.tbShareVideoinfoSize = tbShareVideoinfoSize == null ? null : tbShareVideoinfoSize.trim();
+    }
+
+    public String getTbShareVideoinfoVideotype() {
+        return tbShareVideoinfoVideotype;
+    }
+
+    public void setTbShareVideoinfoVideotype(String tbShareVideoinfoVideotype) {
+        this.tbShareVideoinfoVideotype = tbShareVideoinfoVideotype == null ? null : tbShareVideoinfoVideotype.trim();
+    }
+
+    public String getTbShareVideoinfoPath() {
+        return tbShareVideoinfoPath;
+    }
+
+    public void setTbShareVideoinfoPath(String tbShareVideoinfoPath) {
+        this.tbShareVideoinfoPath = tbShareVideoinfoPath == null ? null : tbShareVideoinfoPath.trim();
+    }
+
+    public String getTbShareVideoinfoImgcreatetime() {
+        return tbShareVideoinfoImgcreatetime;
+    }
+
+    public void setTbShareVideoinfoImgcreatetime(String tbShareVideoinfoImgcreatetime) {
+        this.tbShareVideoinfoImgcreatetime = tbShareVideoinfoImgcreatetime == null ? null : tbShareVideoinfoImgcreatetime.trim();
+    }
+
     public String getTbShareVideoinfoCreatetime() {
         return tbShareVideoinfoCreatetime;
     }
@@ -97,7 +157,9 @@ public class ShareVideoInfo {
 
 	public ShareVideoInfo(Integer tbShareVideoinfoId, Integer tbShareVideoinfoType, String tbShareVideoinfoName,
 			String tbShareVideoinfoVideourl, String tbShareVideoinfoVideoimgurl, Integer tbShareVideoinfoParentid,
-			String tbShareVideoinfoParentname, String tbShareVideoinfoDesc, String tbShareVideoinfoCreatetime) {
+			String tbShareVideoinfoParentname, String tbShareVideoinfoDesc, String tbShareVideoinfoTitleorig,
+			String tbShareVideoinfoTitlealter, String tbShareVideoinfoSize, String tbShareVideoinfoVideotype,
+			String tbShareVideoinfoPath, String tbShareVideoinfoImgcreatetime, String tbShareVideoinfoCreatetime) {
 		super();
 		this.tbShareVideoinfoId = tbShareVideoinfoId;
 		this.tbShareVideoinfoType = tbShareVideoinfoType;
@@ -107,6 +169,12 @@ public class ShareVideoInfo {
 		this.tbShareVideoinfoParentid = tbShareVideoinfoParentid;
 		this.tbShareVideoinfoParentname = tbShareVideoinfoParentname;
 		this.tbShareVideoinfoDesc = tbShareVideoinfoDesc;
+		this.tbShareVideoinfoTitleorig = tbShareVideoinfoTitleorig;
+		this.tbShareVideoinfoTitlealter = tbShareVideoinfoTitlealter;
+		this.tbShareVideoinfoSize = tbShareVideoinfoSize;
+		this.tbShareVideoinfoVideotype = tbShareVideoinfoVideotype;
+		this.tbShareVideoinfoPath = tbShareVideoinfoPath;
+		this.tbShareVideoinfoImgcreatetime = tbShareVideoinfoImgcreatetime;
 		this.tbShareVideoinfoCreatetime = tbShareVideoinfoCreatetime;
 	}
 
@@ -117,7 +185,11 @@ public class ShareVideoInfo {
 				+ ", tbShareVideoinfoVideourl=" + tbShareVideoinfoVideourl + ", tbShareVideoinfoVideoimgurl="
 				+ tbShareVideoinfoVideoimgurl + ", tbShareVideoinfoParentid=" + tbShareVideoinfoParentid
 				+ ", tbShareVideoinfoParentname=" + tbShareVideoinfoParentname + ", tbShareVideoinfoDesc="
-				+ tbShareVideoinfoDesc + ", tbShareVideoinfoCreatetime=" + tbShareVideoinfoCreatetime + "]";
+				+ tbShareVideoinfoDesc + ", tbShareVideoinfoTitleorig=" + tbShareVideoinfoTitleorig
+				+ ", tbShareVideoinfoTitlealter=" + tbShareVideoinfoTitlealter + ", tbShareVideoinfoSize="
+				+ tbShareVideoinfoSize + ", tbShareVideoinfoVideotype=" + tbShareVideoinfoVideotype
+				+ ", tbShareVideoinfoPath=" + tbShareVideoinfoPath + ", tbShareVideoinfoImgcreatetime="
+				+ tbShareVideoinfoImgcreatetime + ", tbShareVideoinfoCreatetime=" + tbShareVideoinfoCreatetime + "]";
 	}
     
 }
