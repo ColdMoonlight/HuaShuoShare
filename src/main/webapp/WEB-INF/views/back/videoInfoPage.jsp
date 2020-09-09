@@ -66,23 +66,21 @@
 		
 		<script src="${APP_PATH}/static/back/lib/magnific-popup/jquery.magnific-popup.min.js"></script>
 		<script>
-			// 111111
 			function getCurrentParentData(callback) {
 				$('.c-mask').removeClass('hide');
 				$.ajax({
-					// url: "${APP_PATH}/ShareImageInfo/getShareImageInfoListByPid",
 					url: "${APP_PATH}/ShareVideoInfo/getShareVideoInfoListByPid",
 					type: "post",
 					cache: false,
 					dataType: "json",
 					contentType: 'application/json',
 					data: JSON.stringify({
-						'tbShareImageinfoParentid': currentParent.id
+						'tbShareVideoinfoParentid': currentParent.id
 					}),
 					success: function (data) {
 						if (data.code == 100) {
 							toastr.success(data.msg);
-							callback && callback(data.extend.shareImageInfoList);
+							callback && callback(data.extend.shareVideoInfoList);
 						} else {
 							toastr.error(data.msg);
 						}
@@ -99,19 +97,19 @@
 				getCurrentParentData(function(data) {
 					var html = '';
 					data.forEach(function(item, idx) {
-						var imgUrl = ('${APP_PATH}/' + item.tbShareImageinfoUrl);
-						html += '<div class="folder-tr folder-list-item ' + (item.tbShareImageinfoType == 0 ? 'folder' : 'file') +'" data-id="'+ item.tbShareImageinfoId +'" data-name="'+ item.tbShareImageinfoName +'" data-file="'+ imgUrl +'">' +
+						var imgUrl = ('${APP_PATH}/' + item.tbShareVideoinfoVideoimgurl);
+						html += '<div class="folder-tr folder-list-item ' + (item.tbShareVideoinfoType == 0 ? 'folder' : 'file') +'" data-id="'+ item.tbShareVideoinfoId +'" data-name="'+ item.tbShareVideoinfoName +'" data-file="'+ imgUrl +'">' +
 							'<div class="folder-td folder-content">' +
 								'<div class="folder-img" href="'+ imgUrl +'">' +
-									'<img src="'+ (item.tbShareImageinfoType == 0 ? '${APP_PATH}/static/back/img/folder.png' : imgUrl) +'" data-original-src-width="2000" data-original-src-height="2000" />' +
+									'<img src="'+ (item.tbShareVideoinfoType == 0 ? '${APP_PATH}/static/back/img/folder.png' : imgUrl) +'" data-original-src-width="2000" data-original-src-height="2000" />' +
 								'</div>' +
-								'<span class="folder-name" title="'+ item.tbShareImageinfoName +'">'+ item.tbShareImageinfoName +'</span>' +
+								'<span class="folder-name" title="'+ item.tbShareVideoinfoName +'">'+ item.tbShareVideoinfoName +'</span>' +
 							'</div>' +
-							'<div class="folder-td folder-time">'+ item.tbShareImageinfoCreatetime +'</div>' +
+							'<div class="folder-td folder-time">'+ item.tbShareVideoinfoCreatetime +'</div>' +
 							'<div class="folder-td folder-operate">' +
 								'<button class="btn btn-primary hide folder-edit" title="重命名">重命名</button>' +
 								'<button class="btn btn-danger hide folder-delete" title="删除">删除</button>' +
-								(item.tbShareImageinfoType == 1
+								(item.tbShareVideoinfoType == 1
 									? '<button class="btn btn-info hide folder-download" title="下载">下载</button>'
 									: '') +
 							'</div>' +
@@ -119,7 +117,7 @@
 					});
 					$('.folder-tbody').html(html);
 					// photo Popup
-					$('.folder-tbody').find('.folder-list-item.file .folder-img').magnificPopup({
+					/* $('.folder-tbody').find('.folder-list-item.file .folder-img').magnificPopup({
 						type: 'image',
 						closeOnContentClick: true,
 						closeBtnInside: false,
@@ -136,7 +134,7 @@
 							enabled: true,
 							duration: 300
 						}
-				    });
+				    }); */
 					// setting role
 					setRole();
 				});
@@ -170,12 +168,11 @@
 			}
 			function createFolder(callback) {
 				var reqData = {
-						'tbShareImageinfoParentid': currentParent.id,
-						'tbShareImageinfoType': 0,
+						'tbShareVideoinfoParentid': currentParent.id,
+						'tbShareVideoinfoType': 0,
 					};
 				$('.c-mask').removeClass('hide');
 				$.ajax({
-					// url: "${APP_PATH}/ShareImageInfo/initializaFileNameInfo",
 					url: "${APP_PATH}/ShareVideoInfo/initializaFileNameInfo",
 					type: "post",
 					cache: false,
@@ -185,7 +182,7 @@
 					success: function (data) {
 						if (data.code == 100) {
 							toastr.success(data.extend.resMsg);
-							callback && callback(data.extend.shareImageInfoReq);
+							callback && callback(data.extend.shareVideoInfoReq);
 						} else {
 							toastr.error(data.extend.resMsg);
 						}
@@ -198,65 +195,109 @@
 					}
 				});
 			}
-			function uploadVideoData(formData, callback) {
-				$('.c-mask').removeClass('hide');
-				$.ajax({
-					url: "${APP_PATH}/ImageUpload/imageInfo",
-					type: "post",
-					data: formData,
-					processData: false,
-					contentType: false,
-					cache: false,
-					dataType: 'json',
-					success: function (data) {
-						if (data.code == 100) {
-							callback && callback();
-						} else {
-							toastr.error('网络错误， 请稍后重试！');	
-						}
-					},
-					error: function (err) {
-						toastr.error(err);
-					},
-					complete: function () {
-						$('.c-mask').addClass('hide')
-					}
-				});
+			function generateVideoPoster(file, callback) {
+				var videoEl = document.createElement('video'),
+		            mimeType = file.type;
+		        videoEl.controls = true;
+		        videoEl.width = 200;
+		        videoEl.height = 200;
+		        videoEl.src = URL.createObjectURL(file);
+		        videoEl.currentTime = 1;
+		        videoEl.addEventListener('canplay', function(e) {
+		            var video = e.target;
+		            var canvas = document.createElement('canvas'),
+		                ctx = canvas.getContext('2d'),
+		                width = video.videoWidth,
+		                height = video.videoHeight,
+		                videoRatio = width / height,
+		                offsetLeft = 0,
+		                offsetTop = 0,
+		                outputWidth = 500,
+		                outputHeight = 500;
+		            
+		            canvas.width = outputWidth;
+		            canvas.height = outputHeight;
+		            if (videoRatio > 1) {
+		                width = outputWidth;
+		                height = parseInt(outputWidth / videoRatio);
+		                offsetTop = parseInt((outputHeight - height) / 2);
+		            } else if (videoRatio == 1) {
+		                width = outputWidth;
+		                height = outputHeight;
+		            } else {
+		                height = outputHeight;
+		                width = parseInt(outputHeight * videoRatio);
+		                offsetLeft = parseInt((outputWidth - width) / 2);
+		            }
+		            ctx.drawImage(video, offsetLeft, offsetTop, width, height);
+		            canvas.toBlob(function(blob) {
+		            	callback(blob);
+		            }, 'image/png');
+		        }, { once: true });
 			}
-			function batchUploadVideoData(files) {
-				function cursive(file) {
-					function againUpload() {
-						if (!files.length) {
-							renderCurrentCategory();
-							toastr.success(file.name + ' 上传成功！');
-							len > 1 && toastr.success('批量上传图片成功！');
-						} else {
-							cursive(files[0]);
-						}
-					}
-					var formData = new FormData();
-					formData.append('image', file);
-					formData.append('parentid', currentParent.id);
-					formData.append('parentname', currentParent.name);
-					files.shift();
-					
-					if (file.size >= 10485760) {
-						toastr.warning(file.name + '超出最大上传10MB的限制!');
-						againUpload();
-					} else {
-						uploadVideoData(formData, againUpload);						
-					}
-				}
-				var len = 0;
-				files = Array.prototype.slice.apply(files);
-				len = files.length;
-				len && cursive(files[0]);
+			function uploadVideoData(videoFile, callback) {
+				$('.c-mask').removeClass('hide');
+				generateVideoPoster(videoFile, function(data) {
+					// poster
+					var posterFormData = new FormData();
+					posterFormData.append('image', data);
+					posterFormData.append('parentid', currentParent.id);
+					posterFormData.append('parentname', currentParent.name);
+
+	            	$.ajax({
+	    				url: "${APP_PATH}/ShareVideoInfo/imageInfo",
+	    				type: "post",
+	    				data: posterFormData,
+	    				processData: false,
+	    				contentType: false,
+	    				cache: false,
+	    				dataType: 'json',
+	    				async: false,
+	    				success: function (data) {
+	    					if (data.code == 100) {
+	    						console.log('video图片上传成功');
+	    					} else {
+	    						toastr.error('网络错误， 请稍后重试！');	
+	    					}
+	    				},
+	    				error: function (err) {
+	    					toastr.error(err);
+	    				}
+	    			});
+	            	// video
+	    			var videoFormData = new FormData();
+	    			videoFormData.append('file', videoFile);
+	    			videoFormData.append('videoId', currentParent.id);
+	 
+	    			$.ajax({
+	    				url: "${APP_PATH}/ShareVideoInfo/uploadVideo",
+	    				type: "post",
+	    				data: videoFormData,
+	    				processData: false,
+	    				contentType: false,
+	    				cache: false,
+	    				dataType: 'json',
+	    				success: function (data) {
+	    					if (data.code == 100) {
+	    						console.log('video上传成功');
+	    						renderCurrentCategory();
+	    					} else {
+	    						toastr.error('网络错误， 请稍后重试！');	
+	    					}
+	    				},
+	    				error: function (err) {
+	    					toastr.error(err);
+	    				},
+	    				complete: function () {
+	    					$('.c-mask').addClass('hide');
+	    				}
+	    			});
+				});
 			}
 			function saveFolderData(reqData, callback) {
 				$('.c-mask').removeClass('hide');
 				$.ajax({
-					// url: "${APP_PATH}/ShareImageInfo/updateFileName",
-					url: "${APP_PATH}/ShareImageInfo/updateFileName",
+					url: "${APP_PATH}/ShareVideoInfo/updateFileName",
 					type: "post",
 					cache: false,
 					dataType: "json",
@@ -281,11 +322,11 @@
 			
 			function deleteFolderData(id, callback) {
 				var reqData = {
-					'tbShareImageinfoId':id,
+					'tbShareVideoinfoId':id,
 				};
 				$('.c-mask').removeClass('hide');
 				$.ajax({
-					url: "${APP_PATH}/ShareImageInfo/delete",
+					url: "${APP_PATH}/ShareVideoInfo/delete",
 					type: "post",
 					cache: false,
 					dataType: "json",
@@ -359,19 +400,15 @@
 			});
 			// upload img
 			$('.folder-upload').on('click', function() {
-				// var fileUrl = $('<input type="file" accept="image/png, image/jpeg, image/gif" multiple />');
-				var fileUrl = $('<input type="file" accept="video/mp4" />');
+				var fileUrl = $('<input type="file" accept="video/*" />');
 				
 				fileUrl.trigger('click');
 				fileUrl.on('change', function(e) {
 					var $this = $(this);
-					var files = $this[0].files;
-					if (!files.length) {
-						return false;
-					} else {
-						batchUploadVideoData(files);
-						$this.val('');					
-					}	
+					var file = $this[0].files[0];
+
+					uploadVideoData(file);
+					$this.val('');	
 				});
 			});
 			
