@@ -21,7 +21,6 @@
 			</div>
 			<jsp:include page="layout/backfooter.jsp" flush="true"></jsp:include>
 		</div>
-
 		<jsp:include page="common/backfooter.jsp" flush="true"></jsp:include>
 		<script>
 		</script>
