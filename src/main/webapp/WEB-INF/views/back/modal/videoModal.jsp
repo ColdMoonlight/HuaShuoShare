@@ -10,18 +10,7 @@
 					<span aria-hidden="true">×</span>
 				</button>
 			</div>
-			<div class="modal-body">
-				<video></video>
-			</div>
-			<div class="modal-footer">
-				<button class="btn btn-secondary btn-cancel" type="button" data-dismiss="modal">取消</button>
-				<button class="btn btn-danger btn-ok" type="button">保存</button>
-			</div>
+			<div class="modal-body"></div>
 		</div>
 	</div>
 </div>
-<script>
-	$('#videoModal .btn-cancel').on('click', function () {
-		$('#videoModal .btn-ok').off('click');
-	});
-</script>

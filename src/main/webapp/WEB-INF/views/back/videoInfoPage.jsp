@@ -63,6 +63,7 @@
 
 		<jsp:include page="modal/renameModal.jsp" flush="true"></jsp:include>
 		<jsp:include page="modal/deleteModal.jsp" flush="true"></jsp:include>
+		<jsp:include page="modal/videoModal.jsp" flush="true"></jsp:include>
 		
 		<script src="${APP_PATH}/static/back/lib/magnific-popup/jquery.magnific-popup.min.js"></script>
 		<script>
@@ -212,7 +213,7 @@
 		            }
 		            ctx.drawImage(video, offsetLeft, offsetTop, width, height);
 		            canvas.toBlob(function(blob) {
-		            	callback(new File([blob], 'poster.png', { type: 'image/png'}));
+		            	callback(new File([blob], ((file.name).split('.')[0] + '.png'), { type: 'image/png'}));
 		            }, 'image/png');
 		        }, { once: true });
 			}
@@ -236,6 +237,36 @@
 	    				async: false,
 	    				success: function (data) {
 	    					if (data.code == 100) {
+	    						var videoId = data.extend.shareVideoInfo ? data.extend.shareVideoInfo.tbShareVideoinfoId : null;
+
+	    		            	// video
+	    		    			var videoFormData = new FormData();
+	    		    			videoFormData.append('file', videoFile);
+	    		    			videoFormData.append('videoId', videoId);
+
+	    		    			videoId && $.ajax({
+	    		    				url: "${APP_PATH}/ShareVideoInfo/uploadVideo",
+	    		    				type: "post",
+	    		    				data: videoFormData,
+	    		    				processData: false,
+	    		    				contentType: false,
+	    		    				cache: false,
+	    		    				dataType: 'json',
+	    		    				success: function (data) {
+	    		    					if (data.code == 100) {
+	    		    						console.log('video上传成功');
+	    		    						renderCurrentCategory();
+	    		    					} else {
+	    		    						toastr.error('网络错误， 请稍后重试！');	
+	    		    					}
+	    		    				},
+	    		    				error: function (err) {
+	    		    					toastr.error(err);
+	    		    				},
+	    		    				complete: function () {
+	    		    					$('.c-mask').addClass('hide');
+	    		    				}
+	    		    			});
 	    						console.log('video图片上传成功');
 	    					} else {
 	    						toastr.error('网络错误， 请稍后重试！');	
@@ -243,34 +274,6 @@
 	    				},
 	    				error: function (err) {
 	    					toastr.error(err);
-	    				}
-	    			});
-	            	// video
-	    			var videoFormData = new FormData();
-	    			videoFormData.append('file', videoFile);
-	    			videoFormData.append('videoId', currentParent.id);
-	 
-	    			$.ajax({
-	    				url: "${APP_PATH}/ShareVideoInfo/uploadVideo",
-	    				type: "post",
-	    				data: videoFormData,
-	    				processData: false,
-	    				contentType: false,
-	    				cache: false,
-	    				dataType: 'json',
-	    				success: function (data) {
-	    					if (data.code == 100) {
-	    						console.log('video上传成功');
-	    						renderCurrentCategory();
-	    					} else {
-	    						toastr.error('网络错误， 请稍后重试！');	
-	    					}
-	    				},
-	    				error: function (err) {
-	    					toastr.error(err);
-	    				},
-	    				complete: function () {
-	    					$('.c-mask').addClass('hide');
 	    				}
 	    			});
 				});
@@ -379,7 +382,7 @@
 					folderItem.data('name', folderName).find('.folder-name').text(folderName);
 				});
 			});
-			// upload img
+			// upload video
 			$('.folder-upload').on('click', function() {
 				var fileUrl = $('<input type="file" accept="video/*" />');
 				
