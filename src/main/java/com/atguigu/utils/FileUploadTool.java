@@ -53,7 +53,7 @@ public class FileUploadTool {
 		}
 		if (bflag) {
 			//String logoPathDir = "/video/";String uploadPath = "static/img/productAll";
-			logoPathDir = "static/shareUpload/Video/product/";
+			logoPathDir = "static/shareUpload/Video/video/";
 			String logoRealPathDir = request.getSession().getServletContext().getRealPath(logoPathDir);
 			System.out.println("全路径不加项目名："+logoRealPathDir+"*************************");
 		//上传到本地磁盘

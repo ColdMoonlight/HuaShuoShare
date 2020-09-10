@@ -74,7 +74,6 @@ public class ShareVideoInfoController {
 			return Msg.success().add("resMsg", "请重新登陆").add("adminPower", adminPower);
 		}else{
 			System.out.println("当前的登陆客户:"+mlbackAdmin.toString());
-			
 			//接受参数信息
 			Integer	infoParentid = shareVideoInfo.getTbShareVideoinfoParentid();
 			String shareVideoinfoParentName=shareVideoInfo.getTbShareVideoinfoDesc();
