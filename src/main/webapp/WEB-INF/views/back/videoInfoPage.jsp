@@ -194,7 +194,7 @@
 		                height = video.videoHeight,
 		                offsetLeft = 0,
 		                offsetTop = 0;
-console.log(width, height)
+
 		            canvas.width = width;
 		            canvas.height = height;
 
@@ -438,7 +438,7 @@ console.log(width, height)
 				$video = $('<video style="width: 100%;" controls preload="none" poster="' + videoPoster + '">' +
 				    	'<source src="'+ videoFile +'" type="video/'+ videoFile.split('.').pop() +'" />' +
 					'</video>');
-				$('#videoModal').find('.modal-body').append($video).end().modal('show');
+				$('#videoModal').find('.modal-body').html('').append($video).end().modal('show');
 			});
 			// folder back
 			$('.folder-back').on('click', function() {
