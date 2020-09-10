@@ -49,7 +49,7 @@ public class ShareVideoInfoController {
 		
 		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
 		if(mlbackAdmin==null){
-			//SysUsers对象为空
+			//mlbackAdmin对象为空
 			return "back/mlbackAdminLogin";
 		}else{
 			session.setAttribute("AdminUser", mlbackAdmin);
