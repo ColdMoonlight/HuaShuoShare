@@ -223,9 +223,9 @@
 			function batchUploadImageData(files) {
 				function cursive(file) {
 					function againUpload() {
+						toastr.success(file.name + ' 上传成功！');
 						if (!files.length) {
 							renderCurrentCategory();
-							toastr.success(file.name + ' 上传成功！');
 							len > 1 && toastr.success('批量上传图片成功！');
 						} else {
 							cursive(files[0]);
