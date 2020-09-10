@@ -227,7 +227,7 @@ public class ShareVideoInfoController {
 		shareVideoInfo.setTbShareVideoinfoParentname(parentname);
 		shareVideoInfo.setTbShareVideoinfoType(1);
 		shareVideoInfo.setTbShareVideoinfoName(imgName);
-		shareVideoInfo.setTbShareVideoinfoVideoimgurl(imageUrl);
+		shareVideoInfo.setTbShareVideoinfoVideoimgurl(sqlimageUrl);
 		shareVideoInfo.setTbShareVideoinfoCreatetime(nowTime);
 		shareVideoInfoService.insertSelective(shareVideoInfo);
 		System.out.println("shareVideoInfo上传完毕"+shareVideoInfo.toString());
@@ -272,7 +272,5 @@ public class ShareVideoInfoController {
 		shareVideoInfoService.updateByPrimaryKeySelective(shareVideoInfoReq);
 	    return Msg.success().add("resMsg", "ProVideo上传成功").add("shareVideoInfo", shareVideoInfoReq);
 	}
-	
-	
 	
 }
