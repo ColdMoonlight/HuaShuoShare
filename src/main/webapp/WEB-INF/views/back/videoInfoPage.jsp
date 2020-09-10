@@ -98,7 +98,7 @@
 				getCurrentParentData(function(data) {
 					var html = '';
 					data.forEach(function(item, idx) {
-						var imgUrl = ('${APP_PATH}/' + item.tbShareVideoinfoVideoimgurl);
+						var imgUrl = (item.tbShareVideoinfoVideoimgurl);
 						var videoName = item.tbShareVideoinfoName.split('.')[0];
 						html += '<div class="folder-tr folder-list-item ' + (item.tbShareVideoinfoType == 0 ? 'folder' : 'file') +'" data-id="'+ item.tbShareVideoinfoId +'" data-name="'+ videoName +'" data-file="'+ item.tbShareVideoinfoVideourl +'" data-poster="'+ imgUrl +'">' +
 							'<div class="folder-td folder-content">' +
@@ -242,7 +242,7 @@
 	    		    				dataType: 'json',
 	    		    				success: function (data) {
 	    		    					if (data.code == 100) {
-	    		    						console.log('video上传成功');
+	    		    						// console.log('video上传成功');
 	    		    						renderCurrentCategory();
 	    		    					} else {
 	    		    						toastr.error('网络错误， 请稍后重试！');	
@@ -255,7 +255,7 @@
 	    		    					$('.c-mask').addClass('hide');
 	    		    				}
 	    		    			});
-	    						console.log('video图片上传成功');
+	    						// console.log('video图片上传成功');
 	    					} else {
 	    						toastr.error('网络错误， 请稍后重试！');	
 	    					}
@@ -356,20 +356,6 @@
 			$('.folder-create').on('click', function(e) {
 				createFolder(renderCurrentCategory);
 			});
-			$('#renameModal .btn-ok').on('click', function() {
-				var folderName = $('#folderName').val().trim();
-				if (!folderName) {
-					toastr.warning('文件夹名字不能为空！！！');
-					return;
-				}
-				saveFolderData({
-					"tbShareImageinfoId": $('#folderId').val(),
-					"tbShareImageinfoName": folderName
-				}, function() {
-					$('#renameModal').modal('hide');
-					folderItem.data('name', folderName).find('.folder-name').text(folderName);
-				});
-			});
 			// upload video
 			$('.folder-upload').on('click', function() {
 				var fileUrl = $('<input type="file" accept="video/*" />');
@@ -403,6 +389,22 @@
 
 				$('#renameModal').modal('show');
 			});
+			// rename folder
+			$('#renameModal .btn-ok').on('click', function() {
+				var folderName = $('#folderName').val().trim();
+				if (!folderName) {
+					toastr.warning('文件夹名字不能为空！！！');
+					return;
+				}
+				saveFolderData({
+					"tbShareVideoinfoId": $('#folderId').val(),
+					"tbShareVideoinfoName": folderName
+				}, function() {
+					$('#renameModal').modal('hide');
+					folderItem.data('name', folderName).find('.folder-name').text(folderName);
+				});
+			});
+			
 			// delete folder
 			$(document.body).on('click', '.folder-delete', function(e) {
 				e.stopPropagation();
