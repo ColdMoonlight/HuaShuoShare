@@ -428,7 +428,7 @@
 				download(folderItem.data('file'), folderItem.data('name'));
 			});
 			// video preview
-			$(document.body).on('click', '.folder-img', function(e) {
+			$(document.body).on('click', '.folder-list-item.file .folder-content', function(e) {
 				var $video = null;
 				var videoFile = null;
 				var videoPoster = null;

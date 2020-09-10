@@ -99,8 +99,8 @@
 					data.forEach(function(item, idx) {
 						var imgUrl = ('${APP_PATH}/' + item.tbShareImageinfoUrl);
 						html += '<div class="folder-tr folder-list-item ' + (item.tbShareImageinfoType == 0 ? 'folder' : 'file') +'" data-id="'+ item.tbShareImageinfoId +'" data-name="'+ item.tbShareImageinfoName +'" data-file="'+ imgUrl +'">' +
-							'<div class="folder-td folder-content">' +
-								'<div class="folder-img" href="'+ imgUrl +'">' +
+							'<div class="folder-td folder-content" href="'+ imgUrl +'">' +
+								'<div class="folder-img">' +
 									'<img src="'+ (item.tbShareImageinfoType == 0 ? '${APP_PATH}/static/back/img/folder.png' : imgUrl) +'" data-original-src-width="2000" data-original-src-height="2000" />' +
 								'</div>' +
 								'<span class="folder-name" title="'+ item.tbShareImageinfoName +'">'+ item.tbShareImageinfoName +'</span>' +
@@ -117,7 +117,7 @@
 					});
 					$('.folder-tbody').html(html);
 					// photo Popup
-					$('.folder-tbody').find('.folder-list-item.file .folder-img').magnificPopup({
+					$('.folder-tbody').find('.folder-list-item.file .folder-content').magnificPopup({
 						type: 'image',
 						closeOnContentClick: true,
 						closeBtnInside: false,
