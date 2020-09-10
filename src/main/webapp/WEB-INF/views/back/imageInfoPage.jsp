@@ -350,7 +350,7 @@
 					"tbShareImageinfoName": folderName
 				}, function() {
 					$('#renameModal').modal('hide');
-					folderItem.data('name', folderName).find('.folder-name').text(folderName);
+					folderItem.data('name', folderName).find('.folder-name').text(folderName).attr('title', folderName);
 				});
 			});
 			// upload img
