@@ -31,6 +31,7 @@
 							<div class="folder-center">
 								<div class="btn btn-primary hide folder-create">新建文件夹</div>
 								<div class="btn btn-secondary hide folder-upload">上传</div>
+								<div class="btn btn-success hide folder-move-ok">确认移动到当前目录</div>
 							</div>
 							<div class="folder-right">
 								<div class="folder-layout" title="列表展示"></div>
@@ -107,6 +108,7 @@
 							'</div>' +
 							'<div class="folder-td folder-time">'+ item.tbShareImageinfoCreatetime +'</div>' +
 							'<div class="folder-td folder-operate">' +
+								'<button class="btn btn-success hide folder-move" title="移动">移动</button>' +
 								'<button class="btn btn-primary hide folder-edit" title="重命名">重命名</button>' +
 								'<button class="btn btn-danger hide folder-delete" title="删除">删除</button>' +
 								(item.tbShareImageinfoType == 1
@@ -157,6 +159,7 @@
 					$('.folder-edit').removeClass('hide');
 					$('.folder-delete').removeClass('hide');
 					$('.folder-create').removeClass('hide');
+					$('.folder-move').removeClass('hide');
 				}
 			}
 			function resetCurrentNav() {
@@ -339,20 +342,6 @@
 			$('.folder-create').on('click', function(e) {
 				createFolder(renderCurrentCategory);
 			});
-			$('#renameModal .btn-ok').on('click', function() {
-				var folderName = $('#folderName').val().trim();
-				if (!folderName) {
-					toastr.warning('文件夹名字不能为空！！！');
-					return;
-				}
-				saveFolderData({
-					"tbShareImageinfoId": $('#folderId').val(),
-					"tbShareImageinfoName": folderName
-				}, function() {
-					$('#renameModal').modal('hide');
-					folderItem.data('name', folderName).find('.folder-name').text(folderName).attr('title', folderName);
-				});
-			});
 			// upload img
 			$('.folder-upload').on('click', function() {
 				var fileUrl = $('<input type="file" accept="image/png, image/jpeg, image/gif" multiple />');
@@ -367,8 +356,7 @@
 						$this.val('');					
 					}	
 				});
-			});
-			
+			});			
 			// folder event
 			$(document.body).on('click', '.folder-list-item.folder', function(e) {
 				currentParent = {
@@ -389,6 +377,20 @@
 
 				$('#renameModal').modal('show');
 			});
+			$('#renameModal .btn-ok').on('click', function() {
+				var folderName = $('#folderName').val().trim();
+				if (!folderName) {
+					toastr.warning('文件夹名字不能为空！！！');
+					return;
+				}
+				saveFolderData({
+					"tbShareImageinfoId": $('#folderId').val(),
+					"tbShareImageinfoName": folderName
+				}, function() {
+					$('#renameModal').modal('hide');
+					folderItem.data('name', folderName).find('.folder-name').text(folderName).attr('title', folderName);
+				});
+			});
 			// delete folder
 			$(document.body).on('click', '.folder-delete', function(e) {
 				e.stopPropagation();
@@ -401,6 +403,23 @@
 			$('#deleteModal .btn-ok').on('click', function() {
 				deleteFolderData(folderItem.data('id'), function() {
 					$('#deleteModal').modal('hide');
+					renderCurrentCategory();
+				});
+			});
+			// folder move
+			$(document.body).on('click', '.folder-move', function(e) {
+				e.stopPropagation();
+				folderItem = $(this).parents('.folder-list-item');
+				
+				$('.folder-move-ok').data('id', folderItem.data('id')).removeClass('hide');
+			});
+			$('.folder-move-ok').on('click', function() {
+				var $this = $(this);
+				saveFolderData({
+					"tbShareImageinfoId": $this.data('id'),
+					"tbShareImageinfoParentid": currentParent.id
+				}, function() {
+					$('.folder-move-ok').addClass('hide');
 					renderCurrentCategory();
 				});
 			});
