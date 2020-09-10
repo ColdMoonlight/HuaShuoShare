@@ -99,12 +99,13 @@
 					var html = '';
 					data.forEach(function(item, idx) {
 						var imgUrl = ('${APP_PATH}/' + item.tbShareVideoinfoVideoimgurl);
-						html += '<div class="folder-tr folder-list-item ' + (item.tbShareVideoinfoType == 0 ? 'folder' : 'file') +'" data-id="'+ item.tbShareVideoinfoId +'" data-name="'+ item.tbShareVideoinfoName +'" data-file="'+ item.tbShareVideoinfoVideourl +'">' +
+						var videoName = item.tbShareVideoinfoName.split('.')[0];
+						html += '<div class="folder-tr folder-list-item ' + (item.tbShareVideoinfoType == 0 ? 'folder' : 'file') +'" data-id="'+ item.tbShareVideoinfoId +'" data-name="'+ videoName +'" data-file="'+ item.tbShareVideoinfoVideourl +'" data-poster="'+ imgUrl +'">' +
 							'<div class="folder-td folder-content">' +
 								'<div class="folder-img">' +
 									'<img src="'+ (item.tbShareVideoinfoType == 0 ? '${APP_PATH}/static/back/img/folder.png' : imgUrl) +'" />' +
 								'</div>' +
-								'<span class="folder-name" title="'+ item.tbShareVideoinfoName +'">'+ item.tbShareVideoinfoName +'</span>' +
+								'<span class="folder-name" title="'+ videoName +'">'+ videoName +'</span>' +
 							'</div>' +
 							'<div class="folder-td folder-time">'+ item.tbShareVideoinfoCreatetime +'</div>' +
 							'<div class="folder-td folder-operate">' +
@@ -191,32 +192,19 @@
 		                ctx = canvas.getContext('2d'),
 		                width = video.videoWidth,
 		                height = video.videoHeight,
-		                videoRatio = width / height,
 		                offsetLeft = 0,
-		                offsetTop = 0,
-		                outputWidth = 500,
-		                outputHeight = 500;
-		            
-		            canvas.width = outputWidth;
-		            canvas.height = outputHeight;
-		            if (videoRatio > 1) {
-		                width = outputWidth;
-		                height = parseInt(outputWidth / videoRatio);
-		                offsetTop = parseInt((outputHeight - height) / 2);
-		            } else if (videoRatio == 1) {
-		                width = outputWidth;
-		                height = outputHeight;
-		            } else {
-		                height = outputHeight;
-		                width = parseInt(outputHeight * videoRatio);
-		                offsetLeft = parseInt((outputWidth - width) / 2);
-		            }
+		                offsetTop = 0;
+console.log(width, height)
+		            canvas.width = width;
+		            canvas.height = height;
+
 		            ctx.drawImage(video, offsetLeft, offsetTop, width, height);
 		            canvas.toBlob(function(blob) {
 		            	callback(new File([blob], ((file.name).split('.')[0] + '.png'), { type: 'image/png'}));
 		            }, 'image/png');
 		        }, { once: true });
 			}
+
 			function uploadVideoData(videoFile, callback) {
 				$('.c-mask').removeClass('hide');
 				generateVideoPoster(videoFile, function(data) {
@@ -385,7 +373,7 @@
 			// upload video
 			$('.folder-upload').on('click', function() {
 				var fileUrl = $('<input type="file" accept="video/*" />');
-				
+
 				fileUrl.trigger('click');
 				fileUrl.on('change', function(e) {
 					var $this = $(this);
@@ -439,10 +427,18 @@
 			});
 			// video preview
 			$(document.body).on('click', '.folder-img', function(e) {
+				var $video = null;
+				var videoFile = null;
+				var videoPoster = null;
+
 				e.stopPropagation();
 				folderItem = $(this).parents('.folder-list-item');
-
-				console.log(folderItem.data('file'));
+				videoFile = folderItem.data('file');
+				videoPoster = folderItem.data('poster');
+				$video = $('<video style="width: 100%;" controls preload="none" poster="' + videoPoster + '">' +
+				    	'<source src="'+ videoFile +'" type="video/'+ videoFile.split('.').pop() +'" />' +
+					'</video>');
+				$('#videoModal').find('.modal-body').append($video).end().modal('show');
 			});
 			// folder back
 			$('.folder-back').on('click', function() {
