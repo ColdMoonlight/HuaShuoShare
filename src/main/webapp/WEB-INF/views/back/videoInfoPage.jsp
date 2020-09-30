@@ -142,7 +142,7 @@
 					$('.folder-edit').removeClass('hide');
 					$('.folder-delete').removeClass('hide');
 					$('.folder-create').removeClass('hide');
-					$('.folder-move').removeClass('hide');
+					// $('.folder-move').removeClass('hide');
 				}
 			}
 			function resetCurrentNav() {
