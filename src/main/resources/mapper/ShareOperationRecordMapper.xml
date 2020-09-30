@@ -20,10 +20,7 @@
     from tb_share_operation_record
     where operation_record_id = #{operationRecordId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_share_operation_record
-    where operation_record_id = #{operationRecordId,jdbcType=INTEGER}
-  </delete>
+
   <insert id="insert" parameterType="com.atguigu.bean.ShareOperationRecord">
     insert into tb_share_operation_record (operation_record_id, operation_record_adminid, 
       operation_record_admin_name, operation_record_data_type, 
@@ -34,7 +31,20 @@
       #{operationRecordDataName,jdbcType=VARCHAR}, #{operationRecordDesc,jdbcType=VARCHAR}, 
       #{operationRecordCreatetime,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.atguigu.bean.ShareOperationRecord">
+
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.ShareOperationRecord">
+    update tb_share_operation_record
+    set operation_record_adminid = #{operationRecordAdminid,jdbcType=INTEGER},
+      operation_record_admin_name = #{operationRecordAdminName,jdbcType=VARCHAR},
+      operation_record_data_type = #{operationRecordDataType,jdbcType=INTEGER},
+      operation_record_data_name = #{operationRecordDataName,jdbcType=VARCHAR},
+      operation_record_desc = #{operationRecordDesc,jdbcType=VARCHAR},
+      operation_record_createTime = #{operationRecordCreatetime,jdbcType=VARCHAR}
+    where operation_record_id = #{operationRecordId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- insertSelective -->
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="operationRecordId" parameterType="com.atguigu.bean.ShareOperationRecord">
     insert into tb_share_operation_record
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="operationRecordId != null">
@@ -83,6 +93,12 @@
       </if>
     </trim>
   </insert>
+  <!-- deleteByPrimaryKey -->  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_share_operation_record
+    where operation_record_id = #{operationRecordId,jdbcType=INTEGER}
+  </delete>
+  <!-- updateByPrimaryKeySelective -->  
   <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.ShareOperationRecord">
     update tb_share_operation_record
     <set>
@@ -107,14 +123,5 @@
     </set>
     where operation_record_id = #{operationRecordId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.ShareOperationRecord">
-    update tb_share_operation_record
-    set operation_record_adminid = #{operationRecordAdminid,jdbcType=INTEGER},
-      operation_record_admin_name = #{operationRecordAdminName,jdbcType=VARCHAR},
-      operation_record_data_type = #{operationRecordDataType,jdbcType=INTEGER},
-      operation_record_data_name = #{operationRecordDataName,jdbcType=VARCHAR},
-      operation_record_desc = #{operationRecordDesc,jdbcType=VARCHAR},
-      operation_record_createTime = #{operationRecordCreatetime,jdbcType=VARCHAR}
-    where operation_record_id = #{operationRecordId,jdbcType=INTEGER}
-  </update>
+  
 </mapper>

@@ -98,7 +98,7 @@
 	        // generate tree dom
 	        function generateTree($el, data) {
 	            data.length && data.forEach(function(item) {
-	                var $item = $('<div class="tree-item" data-id="'+ item.id+'" data-name="'+ item.name +'">'+ item.name +'<span class="link">跳转</span></div>');
+	                var $item = $('<div class="tree-item" data-id="'+ item.id+'" data-name="'+ item.name +'">'+ item.name +'<span class="link">查看</span></div>');
 	                if(item.children && item.children.length) {
 	                    $item.addClass('arrow');
 	                    generateTree($item, item.children);
