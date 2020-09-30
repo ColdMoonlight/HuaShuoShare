@@ -115,16 +115,18 @@
 	        });
 	        
 			// tree arrow-dom event
-	        $(document.body).on('click', '.tree-item.arrow', function(e) {
-	            var $item = $(this);
-	            var flag = $item.hasClass('active');
+	        $(document.body).on('click', '.tree-item', function(e) {
 	            e.stopPropagation();
-	            flag ? $item.removeClass('active') : $item.addClass('active')
-
-	            $item.children().each(function(idx, sitem) {
-	            	var $sitem = $(sitem);
-	            	$sitem.hasClass('tree-item') && (flag ? $sitem.removeClass('show') : $sitem.addClass('show'));
-	            });
+	            var $item = $(this);
+	            if ($item.hasClass('arrow')) {
+		            var flag = $item.hasClass('active');
+		            flag ? $item.removeClass('active') : $item.addClass('active')
+	
+		            $item.children().each(function(idx, sitem) {
+		            	var $sitem = $(sitem);
+		            	$sitem.hasClass('tree-item') && (flag ? $sitem.removeClass('show') : $sitem.addClass('show'));
+		            });	            	
+	            }
 	        });
 
 			// tree text-dom event
