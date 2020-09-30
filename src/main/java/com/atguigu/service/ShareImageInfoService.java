@@ -51,4 +51,9 @@ public class ShareImageInfoService {
 		return shareImageInfoList;
 	}
 
+	public List<ShareImageInfo> selectShareImageInfolistAll() {
+		List<ShareImageInfo> shareImageInfoList = shareImageInfoMapper.selectShareImageInfolistAll();
+		return shareImageInfoList;
+	}
+
 }
