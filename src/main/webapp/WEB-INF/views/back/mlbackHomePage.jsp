@@ -15,7 +15,7 @@
 		<div class="c-wrapper">
 			<div class="c-body">
 				<div class="c-main">
-					<div id="tree"></div>
+					<div id="tree" class="tree"></div>
 				</div>
 				<!-- c-mask -->
 				<div class="c-mask hide">
@@ -98,9 +98,11 @@
 	        // generate tree dom
 	        function generateTree($el, data) {
 	            data.length && data.forEach(function(item) {
-	                var $item = $('<div class="tree-item">'+ item.name +'</div>');
+	                var $item = $('<div class="tree-item" data-id="'+ item.id+'" data-name="'+ item.name +'"><span class="text">'+ item.name +'</span></div>');
 	                if(item.children && item.children.length) {
-	                    $item.addClass('arrow');
+	                    // $item.addClass('arrow');
+	                	var $arrow = $('<span class="arrow"></span>');
+	                	$item.append($arrow);
 	                    generateTree($item, item.children);
 	                }
 	            	$el.append($item);
@@ -114,17 +116,39 @@
 		        generateTree($('#tree'), nData);
 	        });
 	        
-			// tree dom event
-	        $(document.body).on('click', '.tree-item.arrow', function(e) {
+			// tree arrow-dom event
+	        $(document.body).on('click', '.tree-item .arrow', function(e) {
 	            var $item = $(this);
 	            var flag = $item.hasClass('active');
 	            e.stopPropagation();
 	            flag ? $item.removeClass('active') : $item.addClass('active')
-	            $item.children().each(function(idx, sitem) {
-	                var $sitem = $(sitem);
-	                flag ? $sitem.removeClass('show') : $sitem.addClass('show');
+
+	            $item.parent().children().each(function(idx, sitem) {
+	            	var $sitem = $(sitem);
+	            	$sitem.hasClass('tree-item') && (flag ? $sitem.removeClass('show') : $sitem.addClass('show'));
 	            });
 	        });
+
+			// tree text-dom event
+			 $(document.body).on('click', '.tree-item .text', function(e) {
+				 function getListData($el) {
+					 var list = [];
+					 for (var item = $el; ; item = item.parent()) {
+						 if (item.hasClass('tree')) break;
+						 list.unshift({
+							 'id': item.data('id'),
+							 'name': item.data('name')
+						 });
+					 }
+					 return list;
+				 }
+				 var $curItem = $(this).parent();
+				 var currData = {
+						 'id': $curItem.data('id'),
+						 'name': $curItem.data('name')
+				 	};
+				 window.location.href = '${APP_PATH}/ShareImageInfo/toImageInfoPage?cur='+ JSON.stringify(currData) + '&list=' + JSON.stringify(getListData($curItem));
+			 });
 		</script>
 	</body>
 </html>

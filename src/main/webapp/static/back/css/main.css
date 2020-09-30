@@ -713,7 +713,16 @@
 .tree-item.show {
     display: block;
 }
-.tree-item.arrow::before {
+.tree-item .arrow {
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	display: inline-block;
+	width: 1rem;
+	height: 1.5rem;
+}
+.tree-item .arrow::before {
     content: '';
 
     position: absolute;
@@ -728,9 +737,14 @@
     border-bottom: .25rem solid transparent;
     border-left: .4rem solid #000;
 }
-.tree-item.arrow.active::before {
+.tree-item .arrow.active::before {
     top: .875rem;
-    border-left: .25rem solid transparent;
-    border-right: .25rem solid transparent;
     border-top: .4rem solid #000;
+    border-right: .25rem solid transparent;
+    border-bottom: unset;
+    border-left: .25rem solid transparent;
+}
+.tree-item .text {
+	display: inline-block;
+	width: 100%;
 }
