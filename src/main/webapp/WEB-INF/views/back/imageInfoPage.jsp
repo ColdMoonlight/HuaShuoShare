@@ -333,14 +333,17 @@
 			// handle link params
 			function handleHrefParam() {
 				if ('URLSearchParams' in window) {
-					var paramsObj = new URLSearchParams(window.location.search);
-					var curParam = paramsObj.get('cur');
-					var listParam = paramsObj.get('list');
-					if(curParam && listParam) {
-						currentParent = JSON.parse(curParam);
-						navList = JSON.parse(listParam);
-					} else {
-						toastr.error('当前链接所携带的参数出现异常！！！');
+					var search = window.location.search;
+					if (search) {
+						var paramsObj = new URLSearchParams(search);
+						var curParam = paramsObj.get('cur');
+						var listParam = paramsObj.get('list');
+						if(curParam && listParam) {
+							currentParent = JSON.parse(curParam);
+							navList = JSON.parse(listParam);
+						} else {
+							toastr.error('当前链接所携带的参数出现异常！！！');
+						}
 					}
 				} else {
 					toastr.warning('当前浏览器不支持‘ URLSearchParams ’，请下载最新版本的浏览器。。。');
@@ -376,7 +379,7 @@
 						$this.val('');					
 					}	
 				});
-			});			
+			});
 			// folder event
 			$(document.body).on('click', '.folder-list-item.folder', function(e) {
 				currentParent = {
@@ -430,7 +433,6 @@
 			$(document.body).on('click', '.folder-move', function(e) {
 				e.stopPropagation();
 				folderItem = $(this).parents('.folder-list-item');
-				
 				$('.folder-move-ok').data('id', folderItem.data('id')).removeClass('hide');
 			});
 			$('.folder-move-ok').on('click', function() {
@@ -466,8 +468,7 @@
 						"name": '我的网盘'
 					}
 				}
-				// renderCurrentCategory();
-				window.location.href = '${APP_PATH}/ShareImageInfo/toImageInfoPage?cur='+ JSON.stringify(currentParent) + '&list=' + JSON.stringify(navList);
+				renderCurrentCategory();
 			});
 			// folder layout toggle
 			$('.folder-layout').on('click', function() {
