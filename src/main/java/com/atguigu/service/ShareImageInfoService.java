@@ -51,6 +51,11 @@ public class ShareImageInfoService {
 		return shareImageInfoList;
 	}
 
+	/**
+	 * @author Shinelon
+	 * @param ShareImageInfo
+	 * @exception	selectShareImageInfolistAll方法
+	 * */
 	public List<ShareImageInfo> selectShareImageInfolistAll() {
 		List<ShareImageInfo> shareImageInfoList = shareImageInfoMapper.selectShareImageInfolistAll();
 		return shareImageInfoList;
