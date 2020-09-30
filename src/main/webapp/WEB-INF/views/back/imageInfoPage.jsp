@@ -330,6 +330,23 @@
                 }
 			}
 
+			// handle link params
+			function handleHrefParam() {
+				if ('URLSearchParams' in window) {
+					var paramsObj = new URLSearchParams(window.location.search);
+					var curParam = paramsObj.get('cur');
+					var listParam = paramsObj.get('list');
+					if(curParam && listParam) {
+						currentParent = JSON.parse(curParam);
+						navList = JSON.parse(listParam);
+					} else {
+						toastr.error('当前链接所携带的参数出现异常！！！');
+					}
+				} else {
+					toastr.warning('当前浏览器不支持‘ URLSearchParams ’，请下载最新版本的浏览器。。。');
+				}				
+			}
+
 			var currentParent = {
 					"id": 0,
 					"name": '我的网盘'
@@ -337,6 +354,9 @@
 			var navList = [];
 			var folderItem = null;
 			var adminPower = '${sessionScope.AdminUser.adminPower}';
+			
+			// initial
+			handleHrefParam();
 			renderCurrentCategory();
 			// create folder
 			$('.folder-create').on('click', function(e) {
@@ -446,7 +466,8 @@
 						"name": '我的网盘'
 					}
 				}
-				renderCurrentCategory();
+				// renderCurrentCategory();
+				window.location.href = '${APP_PATH}/ShareImageInfo/toImageInfoPage?cur='+ JSON.stringify(currentParent) + '&list=' + JSON.stringify(navList);
 			});
 			// folder layout toggle
 			$('.folder-layout').on('click', function() {
