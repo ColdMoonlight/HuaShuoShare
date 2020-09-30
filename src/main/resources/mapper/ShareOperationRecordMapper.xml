@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.dao.ShareOperationRecordMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.bean.ShareOperationRecord">
+    <id column="operation_record_id" jdbcType="INTEGER" property="operationRecordId" />
+    <result column="operation_record_adminid" jdbcType="INTEGER" property="operationRecordAdminid" />
+    <result column="operation_record_admin_name" jdbcType="VARCHAR" property="operationRecordAdminName" />
+    <result column="operation_record_data_type" jdbcType="INTEGER" property="operationRecordDataType" />
+    <result column="operation_record_data_name" jdbcType="VARCHAR" property="operationRecordDataName" />
+    <result column="operation_record_desc" jdbcType="VARCHAR" property="operationRecordDesc" />
+    <result column="operation_record_createTime" jdbcType="VARCHAR" property="operationRecordCreatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    operation_record_id, operation_record_adminid, operation_record_admin_name, operation_record_data_type, 
+    operation_record_data_name, operation_record_desc, operation_record_createTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_share_operation_record
+    where operation_record_id = #{operationRecordId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_share_operation_record
+    where operation_record_id = #{operationRecordId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.atguigu.bean.ShareOperationRecord">
+    insert into tb_share_operation_record (operation_record_id, operation_record_adminid, 
+      operation_record_admin_name, operation_record_data_type, 
+      operation_record_data_name, operation_record_desc, 
+      operation_record_createTime)
+    values (#{operationRecordId,jdbcType=INTEGER}, #{operationRecordAdminid,jdbcType=INTEGER}, 
+      #{operationRecordAdminName,jdbcType=VARCHAR}, #{operationRecordDataType,jdbcType=INTEGER}, 
+      #{operationRecordDataName,jdbcType=VARCHAR}, #{operationRecordDesc,jdbcType=VARCHAR}, 
+      #{operationRecordCreatetime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.atguigu.bean.ShareOperationRecord">
+    insert into tb_share_operation_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="operationRecordId != null">
+        operation_record_id,
+      </if>
+      <if test="operationRecordAdminid != null">
+        operation_record_adminid,
+      </if>
+      <if test="operationRecordAdminName != null">
+        operation_record_admin_name,
+      </if>
+      <if test="operationRecordDataType != null">
+        operation_record_data_type,
+      </if>
+      <if test="operationRecordDataName != null">
+        operation_record_data_name,
+      </if>
+      <if test="operationRecordDesc != null">
+        operation_record_desc,
+      </if>
+      <if test="operationRecordCreatetime != null">
+        operation_record_createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="operationRecordId != null">
+        #{operationRecordId,jdbcType=INTEGER},
+      </if>
+      <if test="operationRecordAdminid != null">
+        #{operationRecordAdminid,jdbcType=INTEGER},
+      </if>
+      <if test="operationRecordAdminName != null">
+        #{operationRecordAdminName,jdbcType=VARCHAR},
+      </if>
+      <if test="operationRecordDataType != null">
+        #{operationRecordDataType,jdbcType=INTEGER},
+      </if>
+      <if test="operationRecordDataName != null">
+        #{operationRecordDataName,jdbcType=VARCHAR},
+      </if>
+      <if test="operationRecordDesc != null">
+        #{operationRecordDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="operationRecordCreatetime != null">
+        #{operationRecordCreatetime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.ShareOperationRecord">
+    update tb_share_operation_record
+    <set>
+      <if test="operationRecordAdminid != null">
+        operation_record_adminid = #{operationRecordAdminid,jdbcType=INTEGER},
+      </if>
+      <if test="operationRecordAdminName != null">
+        operation_record_admin_name = #{operationRecordAdminName,jdbcType=VARCHAR},
+      </if>
+      <if test="operationRecordDataType != null">
+        operation_record_data_type = #{operationRecordDataType,jdbcType=INTEGER},
+      </if>
+      <if test="operationRecordDataName != null">
+        operation_record_data_name = #{operationRecordDataName,jdbcType=VARCHAR},
+      </if>
+      <if test="operationRecordDesc != null">
+        operation_record_desc = #{operationRecordDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="operationRecordCreatetime != null">
+        operation_record_createTime = #{operationRecordCreatetime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where operation_record_id = #{operationRecordId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.ShareOperationRecord">
+    update tb_share_operation_record
+    set operation_record_adminid = #{operationRecordAdminid,jdbcType=INTEGER},
+      operation_record_admin_name = #{operationRecordAdminName,jdbcType=VARCHAR},
+      operation_record_data_type = #{operationRecordDataType,jdbcType=INTEGER},
+      operation_record_data_name = #{operationRecordDataName,jdbcType=VARCHAR},
+      operation_record_desc = #{operationRecordDesc,jdbcType=VARCHAR},
+      operation_record_createTime = #{operationRecordCreatetime,jdbcType=VARCHAR}
+    where operation_record_id = #{operationRecordId,jdbcType=INTEGER}
+  </update>
+</mapper>
