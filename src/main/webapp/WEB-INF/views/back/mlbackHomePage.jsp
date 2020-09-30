@@ -98,11 +98,9 @@
 	        // generate tree dom
 	        function generateTree($el, data) {
 	            data.length && data.forEach(function(item) {
-	                var $item = $('<div class="tree-item" data-id="'+ item.id+'" data-name="'+ item.name +'"><span class="text">'+ item.name +'</span></div>');
+	                var $item = $('<div class="tree-item" data-id="'+ item.id+'" data-name="'+ item.name +'">'+ item.name +'<span class="link">跳转</span></div>');
 	                if(item.children && item.children.length) {
-	                    // $item.addClass('arrow');
-	                	var $arrow = $('<span class="arrow"></span>');
-	                	$item.append($arrow);
+	                    $item.addClass('arrow');
 	                    generateTree($item, item.children);
 	                }
 	            	$el.append($item);
@@ -117,20 +115,21 @@
 	        });
 	        
 			// tree arrow-dom event
-	        $(document.body).on('click', '.tree-item .arrow', function(e) {
+	        $(document.body).on('click', '.tree-item.arrow', function(e) {
 	            var $item = $(this);
 	            var flag = $item.hasClass('active');
 	            e.stopPropagation();
 	            flag ? $item.removeClass('active') : $item.addClass('active')
 
-	            $item.parent().children().each(function(idx, sitem) {
+	            $item.children().each(function(idx, sitem) {
 	            	var $sitem = $(sitem);
 	            	$sitem.hasClass('tree-item') && (flag ? $sitem.removeClass('show') : $sitem.addClass('show'));
 	            });
 	        });
 
 			// tree text-dom event
-			 $(document.body).on('click', '.tree-item .text', function(e) {
+			 $(document.body).on('click', '.tree-item .link', function(e) {
+				 e.stopPropagation();
 				 function getListData($el) {
 					 var list = [];
 					 for (var item = $el; ; item = item.parent()) {
