@@ -173,4 +173,18 @@ public class ShareImageInfoController {
 		}
 	}
 	
+	/**6.0	zsh200930
+	 * 后台ShareImageInfo列表all-list数据
+	 * @param pn
+	 * @return
+	 */
+	@RequestMapping(value="/getShareImageInfoListAll")
+	@ResponseBody
+	public Msg getShareImageInfoListAll(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo) {
+		
+		List<ShareImageInfo> shareImageInfoList = shareImageInfoService.selectShareImageInfolistAll();
+		
+		return Msg.success().add("shareImageInfoList", shareImageInfoList);
+	}
+	
 }
