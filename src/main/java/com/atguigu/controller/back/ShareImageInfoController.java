@@ -178,9 +178,9 @@ public class ShareImageInfoController {
 	 * @param pn
 	 * @return
 	 */
-	@RequestMapping(value="/getShareImageInfoListAll")
+	@RequestMapping(value="/getShareImageInfoListAll",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg getShareImageInfoListAll(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo) {
+	public Msg getShareImageInfoListAll(HttpSession session,HttpServletResponse rep,HttpServletRequest res) {
 		
 		List<ShareImageInfo> shareImageInfoList = shareImageInfoService.selectShareImageInfolistAll();
 		
