@@ -187,26 +187,4 @@ public class ShareImageInfoController {
 		return Msg.success().add("shareImageInfoList", shareImageInfoList);
 	}
 	
-	/**6.0	zsh200930
-	 * 后台ShareImageInfo列表all-list数据
-	 * @param pn
-	 * @return
-	 */
-	@RequestMapping(value="/updateFileParentId",method=RequestMethod.POST)
-	@ResponseBody
-	public Msg updateFileParentId(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo) {
-		
-		//本产品id,新parentid
-		Integer imageinfoId = shareImageInfo.getTbShareImageinfoId();
-		Integer imageinfoParentId = shareImageInfo.getTbShareImageinfoParentid();
-		
-		ShareImageInfo shareImageInfoReq = new ShareImageInfo();
-		shareImageInfoReq.setTbShareImageinfoId(imageinfoId);
-		shareImageInfoReq.setTbShareImageinfoParentid(imageinfoParentId);
-		
-		shareImageInfoService.updateByPrimaryKeySelective(shareImageInfoReq);
-		
-		return Msg.success().add("resMsg", "updateFileParentId success");
-	}
-	
 }
