@@ -175,7 +175,6 @@ public class ShareImageInfoController {
 	
 	/**6.0	zsh200930
 	 * 后台ShareImageInfo列表all-list数据
-	 * @param pn
 	 * @return
 	 */
 	@RequestMapping(value="/getShareImageInfoListAll",method=RequestMethod.POST)
