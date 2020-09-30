@@ -27,69 +27,72 @@
 
 		<jsp:include page="common/backfooter.jsp" flush="true"></jsp:include>
 		<script>
-		function getCatelogData(callback) {
-			$('.c-mask').removeClass('hide');
-			$.ajax({
-				url: "${APP_PATH}/ShareImageInfo/getShareImageInfoListAll",
-				type: "post",
-				success: function (data) {
-					if (data.code == 100) {
-						toastr.success(data.msg);
-						callback && callback(data.extend.shareImageInfoList);
-					} else {
-						toastr.error(data.msg);
+			// get catelog data
+			function getCatelogData(callback) {
+				$('.c-mask').removeClass('hide');
+				$.ajax({
+					url: "${APP_PATH}/ShareImageInfo/getShareImageInfoListAll",
+					type: "post",
+					success: function (data) {
+						if (data.code == 100) {
+							toastr.success(data.msg);
+							callback && callback(data.extend.shareImageInfoList);
+						} else {
+							toastr.error(data.msg);
+						}
+					},
+					error: function (err) {
+						toastr.error(err);
+					},
+					complete: function () {
+						$('.c-mask').addClass('hide');
 					}
-				},
-				error: function (err) {
-					toastr.error(err);
-				},
-				complete: function () {
-					$('.c-mask').addClass('hide');
+				});
+			}
+			
+			// insert data recursively
+			function findAndInsert(data, item) {
+				var len = data.length;
+				if (!len) return;
+				
+				for (var i = 0; i < len; i += 1) {
+					var cItem = data[i];
+					if (cItem.id == item.tbShareImageinfoParentid) {
+					  cItem.children.push({
+					    id: item.tbShareImageinfoId,
+					    name: item.tbShareImageinfoName,
+					    children: []
+					  });
+					  break;
+					}
+					
+					if (cItem.children && cItem.children.length) {
+						findAndInsert(cItem.children, item);
+					}
 				}
-			});
-		}
-		
-		// handle origin data
-		function findAndInsert(data, item) {
-	          var len = data.length;
-	          if (!len) return;
-	          
-	          for (var i = 0; i < len; i += 1) {
-	            var cItem = data[i];
-	            if (cItem.id == item.tbShareImageinfoParentid) {
-	              cItem.children.push({
-	                id: item.tbShareImageinfoId,
-	                name: item.tbShareImageinfoName,
-	                children: []
-	              });
-	              break;
-	            }
-
-	            if (cItem.children && cItem.children.length) {
-	              findAndInsert(cItem.children, item);
-	            }
-	          }
 	        }
+			
+			// handle origin data
 	        function generateStructureData(data) {
-	          var desData = [];
-	          var nData = [];
-
-	          data.forEach(function(item) {
-	            if (item.tbShareImageinfoParentid == 0) {
-	              desData.push({
-	                id: item.tbShareImageinfoId,
-	                name: item.tbShareImageinfoName,
-	                children: []
-	              });
-	            } else {
-	              nData.push(item);
-	            }
-	          });
-
-	          desData.length && nData.length && nData.forEach(function(item) {
-	            findAndInsert(desData, item);
-	          });
-	          return desData;
+				var desData = [];
+				var nData = [];
+				
+				data.forEach(function(item) {
+					if (item.tbShareImageinfoParentid == 0) {
+						desData.push({
+							id: item.tbShareImageinfoId,
+							name: item.tbShareImageinfoName,
+							children: []
+						});
+					} else {
+						nData.push(item);
+					}
+				});
+				
+				desData.length && nData.length && nData.forEach(function(item) {
+					findAndInsert(desData, item);
+				});
+				return desData;
 	        }
 	        
 	        // generate tree dom
@@ -100,10 +103,11 @@
 	                    $item.addClass('arrow');
 	                    generateTree($item, item.children);
 	                }
-	                $el.append($item);
+	            	$el.append($item);
 	            });
 	        }
 	        
+	        // iniital tree dom
 	        getCatelogData(function(data) {
 	        	var nData = generateStructureData(data);
 
