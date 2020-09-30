@@ -18,5 +18,7 @@ public interface ShareImageInfoMapper {
     int updateByPrimaryKeySelective(ShareImageInfo record);
     
     List<ShareImageInfo> selectShareImageInfolistByPid(ShareImageInfo record);
+
+	List<ShareImageInfo> selectShareImageInfolistAll();
     
 }
