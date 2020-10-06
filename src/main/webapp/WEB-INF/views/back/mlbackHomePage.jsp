@@ -148,7 +148,10 @@
 						 'id': $curItem.data('id'),
 						 'name': $curItem.data('name')
 				 	};
-				 window.location.href = '${APP_PATH}/ShareImageInfo/toImageInfoPage?cur='+ JSON.stringify(currData) + '&list=' + JSON.stringify(getListData($curItem));
+
+				 window.localStorage.setItem('cur', JSON.stringify(currData));
+				 window.localStorage.setItem('list', JSON.stringify(getListData($curItem)));
+				 window.location.href = '${APP_PATH}/ShareImageInfo/toImageInfoPage';
 			 });
 		</script>
 	</body>
