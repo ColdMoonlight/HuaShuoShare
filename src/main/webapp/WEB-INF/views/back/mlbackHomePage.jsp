@@ -112,6 +112,10 @@
 	        	var nData = generateStructureData(data);
 
 		        generateTree($('#tree'), nData);
+		        
+		        // reset tree
+		        $('#tree>.tree-item').addClass('active');
+		        $('#tree>.tree-item>.tree-item').addClass('show');
 	        });
 	        
 			// tree arrow-dom event
