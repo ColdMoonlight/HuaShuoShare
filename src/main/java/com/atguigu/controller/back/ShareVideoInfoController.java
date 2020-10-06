@@ -272,4 +272,17 @@ public class ShareVideoInfoController {
 	    return Msg.success().add("resMsg", "ProVideo上传成功").add("shareVideoInfo", shareVideoInfoReq);
 	}
 	
+	/**6.0	zsh201006
+	 * 后台ShareVideoInfo列表all-list数据
+	 * @return
+	 */
+	@RequestMapping(value="/getShareVideoInfoListAll",method=RequestMethod.GET)
+	@ResponseBody
+	public Msg getShareVideoInfoListAll(HttpSession session,HttpServletResponse rep,HttpServletRequest res) {
+		
+		List<ShareVideoInfo> shareVideoInfoList = shareVideoInfoService.selectShareVideoInfolistAll();
+		
+		return Msg.success().add("shareVideoInfoList", shareVideoInfoList);
+	}
+	
 }

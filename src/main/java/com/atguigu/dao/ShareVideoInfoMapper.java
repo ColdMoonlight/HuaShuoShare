@@ -19,4 +19,6 @@ public interface ShareVideoInfoMapper {
     int updateByPrimaryKeySelective(ShareVideoInfo record);
 
 	List<ShareVideoInfo> selectShareVideoInfolistByPid(ShareVideoInfo shareVideoInfo);
+
+	List<ShareVideoInfo> selectShareVideoInfolistAll();
 }
