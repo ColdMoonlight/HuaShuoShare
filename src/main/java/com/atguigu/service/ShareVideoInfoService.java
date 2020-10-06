@@ -51,6 +51,11 @@ public class ShareVideoInfoService {
 		return shareVideoInfoList;
 	}
 
+	/**
+	 * @author Shinelon
+	 * @param ShareVideoInfo
+	 * @exception	selectShareVideoInfolistAll方法
+	 * */
 	public List<ShareVideoInfo> selectShareVideoInfolistAll() {
 		List<ShareVideoInfo> shareVideoInfoList = shareVideoInfoMapper.selectShareVideoInfolistAll();
 		return shareVideoInfoList;
