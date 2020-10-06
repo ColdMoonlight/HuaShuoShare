@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import com.atguigu.bean.FileEntity;
 import com.atguigu.bean.MlbackAdmin;
+import com.atguigu.bean.ShareImageInfo;
 import com.atguigu.bean.ShareVideoInfo;
 import com.atguigu.common.Msg;
 import com.atguigu.service.FileService;
@@ -270,6 +271,19 @@ public class ShareVideoInfoController {
 		shareVideoInfoReq.setTbShareVideoinfoVideotype(entity.getType());
 		shareVideoInfoService.updateByPrimaryKeySelective(shareVideoInfoReq);
 	    return Msg.success().add("resMsg", "ProVideo上传成功").add("shareVideoInfo", shareVideoInfoReq);
+	}
+	
+	/**6.0	zsh200930
+	 * 后台ShareImageInfo列表all-list数据
+	 * @return
+	 */
+	@RequestMapping(value="/getShareVideoInfoListAll",method=RequestMethod.GET)
+	@ResponseBody
+	public Msg getShareVideoInfoListAll(HttpSession session,HttpServletResponse rep,HttpServletRequest res) {
+		
+		List<ShareVideoInfo> shareImageInfoList = shareVideoInfoService.selectShareVideoInfolistAll();
+		
+		return Msg.success().add("shareImageInfoList", shareImageInfoList);
 	}
 	
 }
