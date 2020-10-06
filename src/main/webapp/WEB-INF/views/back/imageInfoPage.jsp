@@ -332,22 +332,12 @@
 
 			// handle link params
 			function handleHrefParam() {
-				if ('URLSearchParams' in window) {
-					var search = window.location.search;
-					if (search) {
-						var paramsObj = new URLSearchParams(search);
-						var curParam = paramsObj.get('cur');
-						var listParam = paramsObj.get('list');
-						if(curParam && listParam) {
-							currentParent = JSON.parse(curParam);
-							navList = JSON.parse(listParam);
-						} else {
-							toastr.error('当前链接所携带的参数出现异常！！！');
-						}
-					}
-				} else {
-					toastr.warning('当前浏览器不支持‘ URLSearchParams ’，请下载最新版本的浏览器。。。');
-				}				
+				var curParam = window.localStorage.getItem('cur');
+				var listParam = window.localStorage.getItem('list');
+				if(curParam && listParam) {
+					currentParent = JSON.parse(curParam);
+					navList = JSON.parse(listParam);
+				}
 			}
 
 			var currentParent = {
@@ -357,7 +347,7 @@
 			var navList = [];
 			var folderItem = null;
 			var adminPower = '${sessionScope.AdminUser.adminPower}';
-			
+
 			// initial
 			handleHrefParam();
 			renderCurrentCategory();
