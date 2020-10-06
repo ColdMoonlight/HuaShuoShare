@@ -470,6 +470,11 @@
 					$('.folder-body').addClass('active');
 				}
 			});
+			// clear home-jump log
+			$(window).on('beforeunload', function() {
+				window.localStorage.removeItem('cur');
+				window.localStorage.removeItem('list');
+			});
 		</script>
 	</body>
 </html>
