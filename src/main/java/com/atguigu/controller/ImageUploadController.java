@@ -43,49 +43,41 @@ public class ImageUploadController {
 			@RequestParam("parentid")Integer parentid,@RequestParam("parentname")String parentname,
 			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
-		if(mlbackAdmin!=null){
-			System.out.println("mlbackAdmin:"+mlbackAdmin.toString());
+		//判断参数,确定信息
+		String typeName = file.getOriginalFilename();
+		
+		String parentIdStr = parentid+"";
+		String imgName = ImageNameUtil.getImageInfofilename(typeName,parentIdStr,parentname);
+		
+		String uploadPath = "static/shareUpload/img";
+		String realUploadPath = session.getServletContext().getRealPath(uploadPath);
+		
+		//当前服务器路径
+		String basePathStr = URLLocationUtils.getbasePathStr(rep,res);
+		System.out.println("basePathStr:"+basePathStr);
+		
+		String imageUrl ="";
+		String sqlimageUrl="";
+		try {
 			
-			//判断参数,确定信息
-			String typeName = file.getOriginalFilename();
-			
-			String parentIdStr = parentid+"";
-			String imgName = ImageNameUtil.getImageInfofilename(typeName,parentIdStr,parentname);
-			
-			String uploadPath = "static/shareUpload/img";
-			String realUploadPath = session.getServletContext().getRealPath(uploadPath);
-			
-			//当前服务器路径
-			String basePathStr = URLLocationUtils.getbasePathStr(rep,res);
-			System.out.println("basePathStr:"+basePathStr);
-			
-			String imageUrl ="";
-			String sqlimageUrl="";
-			try {
-				
-				imageUrl = uploadService.uploadImage(file, uploadPath, realUploadPath,imgName);//图片原图路径
-				sqlimageUrl=basePathStr+imageUrl;
-				System.out.println("sqlimageUrl:"+sqlimageUrl);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			String nowTime = DateUtil.strTime14s();
-			ShareImageInfo shareImageInfo = new ShareImageInfo();
-			shareImageInfo.setTbShareImageinfoParentid(parentid);
-			shareImageInfo.setTbShareImageinfoParentname(parentname);
-			shareImageInfo.setTbShareImageinfoType(1);
-			shareImageInfo.setTbShareImageinfoName(imgName);
-			shareImageInfo.setTbShareImageinfoUrl(imageUrl);
-			shareImageInfo.setTbShareImageinfoCreatetime(nowTime);
-			shareImageInfoService.insertSelective(shareImageInfo);
-			System.out.println("shareImageInfo上传完毕"+shareImageInfo.toString());
-			
-			return Msg.success().add("resMsg", "上传").add("shareImageInfo", shareImageInfo);
-		}else{
-			System.out.println("mlbackAdmin:"+mlbackAdmin);
-			return Msg.success().add("resMsg", "上传").add("shareImageInfo", null);
+			imageUrl = uploadService.uploadImage(file, uploadPath, realUploadPath,imgName);//图片原图路径
+			sqlimageUrl=basePathStr+imageUrl;
+			System.out.println("sqlimageUrl:"+sqlimageUrl);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		String nowTime = DateUtil.strTime14s();
+		ShareImageInfo shareImageInfo = new ShareImageInfo();
+		shareImageInfo.setTbShareImageinfoParentid(parentid);
+		shareImageInfo.setTbShareImageinfoParentname(parentname);
+		shareImageInfo.setTbShareImageinfoType(1);
+		shareImageInfo.setTbShareImageinfoName(imgName);
+		shareImageInfo.setTbShareImageinfoUrl(imageUrl);
+		shareImageInfo.setTbShareImageinfoCreatetime(nowTime);
+		shareImageInfoService.insertSelective(shareImageInfo);
+		System.out.println("shareImageInfo上传完毕"+shareImageInfo.toString());
+		
+		return Msg.success().add("resMsg", "上传").add("shareImageInfo", shareImageInfo);
 		
 	}
 

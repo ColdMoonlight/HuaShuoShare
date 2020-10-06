@@ -100,5 +100,24 @@ public class MlbackAdminController {
 			return Msg.fail().add("resMsg", "旧密码错误");
 		}
 	}
+
+	/**
+	 * 4.0
+	 * @author zsh	20200429
+	 * @param MlbackAdmin
+	 * @exception adminIfLogin
+	 * */
+	@RequestMapping(value="/adminIfLogin",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg adminIfLogin(HttpServletResponse rep,HttpServletRequest res,HttpSession session){
+		
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+		if(mlbackAdmin!=null){
+			System.out.println("mlbackAdmin:"+mlbackAdmin.toString());
+			return Msg.success().add("resMsg", "登陆中"+mlbackAdmin.toString());
+		}else{
+			return Msg.fail().add("resMsg", "无登录信息");
+		}
+	}
 	
 }
