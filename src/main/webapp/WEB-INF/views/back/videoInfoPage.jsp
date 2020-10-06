@@ -362,8 +362,10 @@
 			// upload video
 			$('.folder-upload').on('click', function() {
 				var fileUrl = $('<input type="file" accept="video/*" />');
-
-				fileUrl.trigger('click');
+				
+				checkSession(function() {
+					fileUrl.trigger('click');					
+				});
 				fileUrl.on('change', function(e) {
 					var $this = $(this);
 					var file = $this[0].files[0];
