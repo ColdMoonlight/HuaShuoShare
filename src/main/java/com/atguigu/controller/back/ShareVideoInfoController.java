@@ -276,7 +276,7 @@ public class ShareVideoInfoController {
 	 * 后台ShareVideoInfo列表all-list数据
 	 * @return
 	 */
-	@RequestMapping(value="/getShareVideoInfoListAll",method=RequestMethod.GET)
+	@RequestMapping(value="/getShareVideoInfoListAll",method=RequestMethod.POST)
 	@ResponseBody
 	public Msg getShareVideoInfoListAll(HttpSession session,HttpServletResponse rep,HttpServletRequest res) {
 		
