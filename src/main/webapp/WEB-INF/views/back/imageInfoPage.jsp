@@ -358,7 +358,9 @@
 			// upload img
 			$('.folder-upload').on('click', function() {
 				var fileUrl = $('<input type="file" accept="image/png, image/jpeg, image/gif" multiple />');
-				fileUrl.trigger('click');
+				checkSession(function() {
+					fileUrl.trigger('click');					
+				});
 				fileUrl.on('change', function(e) {
 					var $this = $(this);
 					var files = $this[0].files;
@@ -469,6 +471,11 @@
 					$(this).addClass('active').attr('title', '大图展示');
 					$('.folder-body').addClass('active');
 				}
+			});
+			// clear home-jump log
+			$(window).on('beforeunload', function() {
+				window.localStorage.removeItem('cur');
+				window.localStorage.removeItem('list');
 			});
 		</script>
 	</body>
