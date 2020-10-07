@@ -102,9 +102,9 @@ public class ShareOperationRecordController {
 	 * zsh 200730
 	 * 中控台获取付款总金额钱数,总单数
 	 * */
-	@RequestMapping(value="/getBackHomePayInfo",method=RequestMethod.POST)
+	@RequestMapping(value="/getBackHomeOperationRecord",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg getBackHomePayInfo(HttpSession session,@RequestBody ShareOperationRecord shareOperationRecord) throws Exception{
+	public Msg getBackHomeOperationRecord(HttpSession session,@RequestBody ShareOperationRecord shareOperationRecord) throws Exception{
 		
 		List<ShareOperationRecord> mlfrontPayInfoList =  shareOperationRecordService.selectShareOperationRecordByDate(shareOperationRecord);
 		List<ShareOperationRecord> mlfrontPayInfoSuccessList = new ArrayList<ShareOperationRecord>();
