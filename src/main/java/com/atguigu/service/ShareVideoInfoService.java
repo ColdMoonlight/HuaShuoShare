@@ -61,4 +61,9 @@ public class ShareVideoInfoService {
 		return shareVideoInfoList;
 	}
 
+	public List<ShareVideoInfo> selectShareVideoInfoById(ShareVideoInfo shareVideoInfoReq) {
+		List<ShareVideoInfo> shareVideoInfoList = shareVideoInfoMapper.selectShareVideoInfoById(shareVideoInfoReq);
+		return shareVideoInfoList;
+	}
+	
 }

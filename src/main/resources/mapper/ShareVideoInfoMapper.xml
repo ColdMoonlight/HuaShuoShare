@@ -240,4 +240,10 @@
   	order by tb_share_videoinfo_type , tb_share_videoinfo_parentid
   </select>
   
+  <!-- 使用中selectShareVideoInfoById -->
+  <select id="selectShareVideoInfoById" parameterType="com.atguigu.bean.ShareVideoInfo" resultMap="BaseResultMap">
+  	select * 
+  	from tb_share_videoinfo where tb_share_videoinfo_id = #{tbShareVideoinfoId,jdbcType=INTEGER}
+  </select>
+  
 </mapper>
