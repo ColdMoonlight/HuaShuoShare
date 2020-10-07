@@ -197,7 +197,6 @@ public class ShareVideoInfoController {
 			shareOperationRecord.setOperationRecordDataName(shareVideoInfo.getTbShareVideoinfoName());
 			shareOperationRecord.setOperationRecordDesc("移动");
 			shareOperationRecord.setOperationRecordCreatetime(nowTime);
-			
 			shareOperationRecordService.insertSelective(shareOperationRecord);
 			System.out.println(shareOperationRecord.toString());
 			
