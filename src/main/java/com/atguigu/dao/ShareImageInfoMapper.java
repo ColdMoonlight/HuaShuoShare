@@ -20,5 +20,7 @@ public interface ShareImageInfoMapper {
     List<ShareImageInfo> selectShareImageInfolistByPid(ShareImageInfo record);
 
 	List<ShareImageInfo> selectShareImageInfolistAll();
+
+	List<ShareImageInfo> selectShareImageInfoById(ShareImageInfo shareImageInfo);
     
 }

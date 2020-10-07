@@ -152,4 +152,10 @@
   	order by tb_share_imageinfo_type , tb_share_imageinfo_parentid
   </select>
   
+  <!-- 使用中selectShareImageInfoById -->
+  <select id="selectShareImageInfoById" parameterType="com.atguigu.bean.ShareImageInfo" resultMap="BaseResultMap">
+  	select * 
+  	from tb_share_imageinfo where tb_share_imageinfo_id = #{tbShareImageinfoId,jdbcType=INTEGER}
+  </select>
+  
 </mapper>
