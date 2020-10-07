@@ -750,10 +750,6 @@
 .dashboard-body {
 	display: flex;
 }
-.user-log-list {
-	max-height: 80vh;
-	overflow-y: auto;
-}
 .tree-box {
 	min-width: 32rem;
 }
