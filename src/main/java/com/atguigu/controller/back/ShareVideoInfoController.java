@@ -151,7 +151,12 @@ public class ShareVideoInfoController {
 			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
 			shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
 			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
-			shareOperationRecord.setOperationRecordDataType(shareVideoInfo.getTbShareVideoinfoType());
+			Integer ifVideo = shareVideoInfo.getTbShareVideoinfoType();
+			if(ifVideo>0){
+				shareOperationRecord.setOperationRecordDataType(2);
+			}else{
+				shareOperationRecord.setOperationRecordDataType(0);
+			}
 			shareOperationRecord.setOperationRecordDataName(shareVideoInfo.getTbShareVideoinfoName());
 			shareOperationRecord.setOperationRecordDesc("更新");
 			shareOperationRecord.setOperationRecordCreatetime(nowTime);
@@ -161,7 +166,7 @@ public class ShareVideoInfoController {
 		}
 	}
 	
-	/**3.1	zsh200904
+	/**3.1	zsh201007
 	 * ShareVideoInfo	remove
 	 * @param ShareVideoInfo
 	 */
@@ -249,7 +254,12 @@ public class ShareVideoInfoController {
 			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
 			shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
 			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
-			shareOperationRecord.setOperationRecordDataType(shareVideoInfoRes.getTbShareVideoinfoType());
+			Integer ifVideo = shareVideoInfo.getTbShareVideoinfoType();
+			if(ifVideo>0){
+				shareOperationRecord.setOperationRecordDataType(2);
+			}else{
+				shareOperationRecord.setOperationRecordDataType(0);
+			}
 			shareOperationRecord.setOperationRecordDataName(shareVideoInfoRes.getTbShareVideoinfoName());
 			shareOperationRecord.setOperationRecordDesc("删除");
 			shareOperationRecord.setOperationRecordCreatetime(nowTime);
