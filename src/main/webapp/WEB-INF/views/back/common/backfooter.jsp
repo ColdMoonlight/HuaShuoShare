@@ -115,9 +115,35 @@ hash:g}),0):void 0===e[c]?e[c]=!0:e[c].onload&&(e[c].abort(),delete e[c].onload,
 			}
 		});
 	}
+	
+	// daterange
+	function bindDateRangeEvent(callback) {
+		$('.daterangetimepicker').daterangepicker({
+			timePicker: true,
+			timePicker24Hour: true,
+			timePickerSeconds: true,
+			showWeekNumbers: true,
+			locale: {
+				format: format,
+			},
+			ranges: {
+		        'Today': [moment(), moment()],
+		        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+		        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+		        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+		        'This Month': [moment().startOf('month'), moment().endOf('month')],
+		        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+		    }
+		}, function(start, end, label) {
+			var startTime = moment(new Date(start)).format(format);
+			var endTime = moment(new Date(end)).format(format);
+			callback && callback(startTime, endTime, this);
+		});
+	}
 
 	// initvar
-	CURRENT_URL = window.location.href.split('#')[0],
-	$SIDEBAR_MENU = $('#sidebar-menu');
+	var CURRENT_URL = window.location.href.split('#')[0],
+		$SIDEBAR_MENU = $('#sidebar-menu'),
+		format = 'YYYY-MM-DD HH:mm:ss';
 	init_sidebar();
 </script>

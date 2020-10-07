@@ -743,11 +743,15 @@
 }
 
 /* dashboard */
+.dashboard-time {
+	width: 30%;
+	min-width: 20rem;
+}
 .dashboard-body {
 	display: flex;
 	justify-content: space-between;
 }
-@media screen and (max-width: 575px) {
+@media screen and (max-width: 1023px) {
 	.dashboard-body {
 		flex-direction: column;
 	}
@@ -757,8 +761,8 @@
 	}
 }
 
-@media screen and (min-width: 576px) {
+@media screen and (min-width: 1024px) {
 	.user-log {
-		width: 20rem;
+		width: 30rem;
 	}
 }
