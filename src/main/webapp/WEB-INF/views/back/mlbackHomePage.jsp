@@ -6,7 +6,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>MEGALOOK ADMIN</title>
 		<jsp:include page="common/backheader.jsp" flush="true"></jsp:include>
-		<style> .card-body { padding-left: 0; padding-right: 0; } </style>
+		<style> .card-body { padding-left: 0; padding-right: 0; } .tree-box { display: flex; justify-content: space-between; } .tree-block { width: 45%; min-width: 300px; overflow-x: auto;} </style>
 	</head>
 
 	<body class="c-app">
@@ -15,13 +15,15 @@
 		<div class="c-wrapper">
 			<div class="c-body">
 				<div class="c-main">
-					<div class="tree-block">
-						 <h3>Image</h3>
-						<div class="tree" data-type="image"></div>
-					</div>
-					<div class="tree-block">
-						 <h3>Video</h3>
-						<div class="tree" data-type="video"></div>
+					<div class="tree-box">
+						<div class="tree-block">
+							 <h3>Image</h3>
+							<div class="tree" data-type="image"></div>
+						</div>
+						<div class="tree-block">
+							 <h3>Video</h3>
+							<div class="tree" data-type="video"></div>
+						</div>
 					</div>
 				</div>
 				<!-- c-mask -->
