@@ -741,3 +741,24 @@
 	color: blue;
 	text-decoration: underline;
 }
+
+/* dashboard */
+.dashboard-body {
+	display: flex;
+	justify-content: space-between;
+}
+@media screen and (max-width: 575px) {
+	.dashboard-body {
+		flex-direction: column;
+	}
+	.user-log {
+		min-height: 3rem;
+		margin-top: 1rem;
+	}
+}
+
+@media screen and (min-width: 576px) {
+	.user-log {
+		width: 20rem;
+	}
+}
