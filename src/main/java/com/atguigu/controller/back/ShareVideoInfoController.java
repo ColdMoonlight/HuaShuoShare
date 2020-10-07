@@ -16,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import com.atguigu.bean.FileEntity;
 import com.atguigu.bean.MlbackAdmin;
-import com.atguigu.bean.ShareImageInfo;
 import com.atguigu.bean.ShareOperationRecord;
 import com.atguigu.bean.ShareVideoInfo;
 import com.atguigu.common.Msg;
@@ -278,6 +277,7 @@ public class ShareVideoInfoController {
 	public Msg imageInfo(@RequestParam("image")CommonsMultipartFile file,
 			@RequestParam("parentid")Integer parentid,@RequestParam("parentname")String parentname,
 			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
+
 		
 		//判断参数,确定信息
 		String typeName = file.getOriginalFilename();
@@ -319,7 +319,11 @@ public class ShareVideoInfoController {
 	@RequestMapping(value = "/uploadVideo")
 	@ResponseBody
 	public Msg upload(@RequestParam(value = "file", required = false) MultipartFile multipartFile,
-			@RequestParam("videoId")Integer videoId,HttpServletRequest request,HttpServletResponse response,ModelMap map) {
+			@RequestParam("videoId")Integer videoId,HttpServletRequest request,HttpServletResponse response,
+			HttpSession session,ModelMap map) {
+		
+		
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
 	    String message = "";
 	    FileEntity entity = new FileEntity();
 	    String logoPathDir = request.getParameter("shipin");
@@ -351,6 +355,19 @@ public class ShareVideoInfoController {
 		shareVideoInfoReq.setTbShareVideoinfoTitlealter(entity.getTitleAlter());
 		shareVideoInfoReq.setTbShareVideoinfoVideotype(entity.getType());
 		shareVideoInfoService.updateByPrimaryKeySelective(shareVideoInfoReq);
+		
+		String nowTime = DateUtil.strTime14s();
+		//存储本条造作记录
+		ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
+		shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
+		shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
+		shareOperationRecord.setOperationRecordDataType(2);
+		shareOperationRecord.setOperationRecordDataName(entity.getTitleOrig()+entity.getType());
+		shareOperationRecord.setOperationRecordDesc("上传");
+		shareOperationRecord.setOperationRecordCreatetime(nowTime);
+		shareOperationRecordService.insertSelective(shareOperationRecord);
+		System.out.println(shareOperationRecord.toString());
+		
 	    return Msg.success().add("resMsg", "ProVideo上传成功").add("shareVideoInfo", shareVideoInfoReq);
 	}
 	
