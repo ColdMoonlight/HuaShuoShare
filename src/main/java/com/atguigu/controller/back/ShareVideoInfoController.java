@@ -186,7 +186,13 @@ public class ShareVideoInfoController {
 			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
 			shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
 			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
-			shareOperationRecord.setOperationRecordDataType(shareVideoInfo.getTbShareVideoinfoType());
+			
+			Integer ifVideo = shareVideoInfo.getTbShareVideoinfoType();
+			if(ifVideo>0){
+				shareOperationRecord.setOperationRecordDataType(2);
+			}else{
+				shareOperationRecord.setOperationRecordDataType(0);
+			}
 			shareOperationRecord.setOperationRecordDataName(shareVideoInfo.getTbShareVideoinfoName());
 			shareOperationRecord.setOperationRecordDesc("移动");
 			shareOperationRecord.setOperationRecordCreatetime(nowTime);
