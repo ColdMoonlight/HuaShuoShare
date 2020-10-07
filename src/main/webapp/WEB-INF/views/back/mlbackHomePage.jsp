@@ -236,10 +236,9 @@
 	        			data.forEach(function(item) {
 	        				html += '<li class="user-log-item">' +
 									item.operationRecordAdminName +
-									'<b>&nbsp;&nbsp;' + item.operationRecordDesc +
-									'</b> 了 <b>' + (item.operationRecordDataType == 1 ? '图片' : '视频') +
-									'</b> -- ' + item.operationRecordDataName +
-									'&nbsp;&nbsp;' + item.operationRecordCreatetime +
+									'<b> ' + item.operationRecordDesc +
+									'</b> 了  <b>' + (item.operationRecordDataType == 1 ? '文件' : '文件夹') +
+									' </b> ' + item.operationRecordDataName + ' ' + item.operationRecordCreatetime +
 								'</li>';	        				
 	        			});
 	        		} else {

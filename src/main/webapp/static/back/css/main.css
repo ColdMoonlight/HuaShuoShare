@@ -751,6 +751,10 @@
 	display: flex;
 	justify-content: space-between;
 }
+.user-log-list {
+	max-height: 80vh;
+	overflow-y: auto;
+}
 @media screen and (max-width: 1023px) {
 	.dashboard-body {
 		flex-direction: column;
@@ -763,6 +767,6 @@
 
 @media screen and (min-width: 1024px) {
 	.user-log {
-		width: 30rem;
+		width: 36rem;
 	}
 }

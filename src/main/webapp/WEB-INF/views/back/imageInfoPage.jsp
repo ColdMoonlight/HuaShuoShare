@@ -99,7 +99,7 @@
 					var html = '';
 					data.forEach(function(item, idx) {
 						var imgUrl = ('${APP_PATH}/' + item.tbShareImageinfoUrl);
-						html += '<div class="folder-tr folder-list-item ' + (item.tbShareImageinfoType == 0 ? 'folder' : 'file') +'" data-id="'+ item.tbShareImageinfoId +'" data-name="'+ item.tbShareImageinfoName +'" data-file="'+ imgUrl +'">' +
+						html += '<div class="folder-tr folder-list-item ' + (item.tbShareImageinfoType == 0 ? 'folder' : 'file') +'" data-id="'+ item.tbShareImageinfoId +'" data-name="'+ item.tbShareImageinfoName +'" data-type="'+ item.tbShareImageinfoType +'" data-file="'+ imgUrl +'">' +
 							'<div class="folder-td folder-content" href="'+ imgUrl +'">' +
 								'<div class="folder-img">' +
 									'<img src="'+ (item.tbShareImageinfoType == 0 ? '${APP_PATH}/static/back/img/folder.png' : imgUrl) +'" data-original-src-width="2000" data-original-src-height="2000" />' +
@@ -198,6 +198,7 @@
 					}
 				});
 			}
+			// ajax upload
 			function uploadImageData(formData, callback) {
 				$('.c-mask').removeClass('hide');
 				$.ajax({
@@ -252,6 +253,7 @@
 				len = files.length;
 				len && cursive(files[0]);
 			}
+			// ajax rename folder-name
 			function saveFolderData(reqData, callback) {
 				$('.c-mask').removeClass('hide');
 				$.ajax({
@@ -277,7 +279,33 @@
 					}
 				});
 			}
-			
+			// ajax move folder
+			function moveFolderData(reqData, callback) {
+				$('.c-mask').removeClass('hide');
+				$.ajax({
+					url: "${APP_PATH}/ShareImageInfo/removeFileLocal",
+					type: "post",
+					cache: false,
+					dataType: "json",
+					contentType: 'application/json',
+					data: JSON.stringify(reqData),
+					success: function (data) {
+						if (data.code == 100) {
+							toastr.success(data.extend.resMsg);
+							callback && callback();
+						} else {
+							toastr.error(data.extend.resMsg);
+						}
+					},
+					error: function (err) {
+						toastr.error(err);
+					},
+					complete: function () {
+						$('.c-mask').addClass('hide');
+					}
+				});
+			}
+			// ajax delete folder
 			function deleteFolderData(id, callback) {
 				var reqData = {
 					'tbShareImageinfoId':id,
@@ -425,13 +453,15 @@
 			$(document.body).on('click', '.folder-move', function(e) {
 				e.stopPropagation();
 				folderItem = $(this).parents('.folder-list-item');
-				$('.folder-move-ok').data('id', folderItem.data('id')).removeClass('hide');
+				$('.folder-move-ok').data('id', folderItem.data('id')).data('name', folderItem.data('name')).data('type', folderItem.data('type')).removeClass('hide');
 			});
 			$('.folder-move-ok').on('click', function() {
 				var $this = $(this);
-				saveFolderData({
+				moveFolderData({
 					"tbShareImageinfoId": $this.data('id'),
-					"tbShareImageinfoParentid": currentParent.id
+					"tbShareImageinfoParentid": currentParent.id,
+					"tbShareImageinfoName": $this.data('name'),
+					"tbShareImageinfoType": $this.data('type')
 				}, function() {
 					$('.folder-move-ok').addClass('hide');
 					renderCurrentCategory();

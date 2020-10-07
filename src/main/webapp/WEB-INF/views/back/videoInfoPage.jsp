@@ -101,7 +101,7 @@
 					data.forEach(function(item, idx) {
 						var imgUrl = (item.tbShareVideoinfoVideoimgurl);
 						var videoName = item.tbShareVideoinfoName.split('.')[0];
-						html += '<div class="folder-tr folder-list-item ' + (item.tbShareVideoinfoType == 0 ? 'folder' : 'file') +'" data-id="'+ item.tbShareVideoinfoId +'" data-name="'+ videoName +'" data-file="'+ item.tbShareVideoinfoVideourl +'" data-poster="'+ imgUrl +'">' +
+						html += '<div class="folder-tr folder-list-item ' + (item.tbShareVideoinfoType == 0 ? 'folder' : 'file') +'" data-id="'+ item.tbShareVideoinfoId +'" data-name="'+ videoName +'" data-type="'+ item.tbShareVideoinfoType +'" data-file="'+ item.tbShareVideoinfoVideourl +'" data-poster="'+ imgUrl +'">' +
 							'<div class="folder-td folder-content">' +
 								'<div class="folder-img">' +
 									'<img src="'+ (item.tbShareVideoinfoType == 0 ? '${APP_PATH}/static/back/img/folder.png' : imgUrl) +'" />' +
@@ -295,6 +295,32 @@
 				});
 			}
 			
+			function moveFolderData(reqData, callback) {
+				$('.c-mask').removeClass('hide');
+				$.ajax({
+					url: "${APP_PATH}/ShareVideoInfo/removeFileLocal",
+					type: "post",
+					cache: false,
+					dataType: "json",
+					contentType: 'application/json',
+					data: JSON.stringify(reqData),
+					success: function (data) {
+						if (data.code == 100) {
+							toastr.success(data.extend.resMsg);
+							callback && callback();
+						} else {
+							toastr.error(data.extend.resMsg);
+						}
+					},
+					error: function (err) {
+						toastr.error(err);
+					},
+					complete: function () {
+						$('.c-mask').addClass('hide');
+					}
+				});
+			}
+			
 			function deleteFolderData(id, callback) {
 				var reqData = {
 					'tbShareVideoinfoId':id,
@@ -442,13 +468,15 @@
 				e.stopPropagation();
 				folderItem = $(this).parents('.folder-list-item');
 				
-				$('.folder-move-ok').data('id', folderItem.data('id')).removeClass('hide');
+				$('.folder-move-ok').data('id', folderItem.data('id')).data('name', folderItem.data('name')).data('type', folderItem.data('type')).removeClass('hide');
 			});
 			$('.folder-move-ok').on('click', function() {
 				var $this = $(this);
-				saveFolderData({
+				moveFolderData({
 					"tbShareVideoinfoId": $this.data('id'),
-					"tbShareVideoinfoParentid": currentParent.id
+					"tbShareVideoinfoParentid": currentParent.id,
+					"tbShareVideoinfoName": $this.data('name'),
+					"tbShareVideoinfoType": $this.data('type')
 				}, function() {
 					$('.folder-move-ok').addClass('hide');
 					renderCurrentCategory();
