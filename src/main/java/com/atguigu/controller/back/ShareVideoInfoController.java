@@ -161,7 +161,7 @@ public class ShareVideoInfoController {
 		}
 	}
 	
-	/**3.1	zsh200904
+	/**3.1	zsh201007
 	 * ShareVideoInfo	remove
 	 * @param ShareVideoInfo
 	 */
