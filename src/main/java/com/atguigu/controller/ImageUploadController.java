@@ -13,8 +13,10 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.ShareImageInfo;
+import com.atguigu.bean.ShareOperationRecord;
 import com.atguigu.common.Msg;
 import com.atguigu.service.ShareImageInfoService;
+import com.atguigu.service.ShareOperationRecordService;
 import com.atguigu.service.UploadService;
 import com.atguigu.utils.DateUtil;
 import com.atguigu.utils.ImageNameUtil;
@@ -34,6 +36,9 @@ public class ImageUploadController {
 	@Autowired
 	ShareImageInfoService shareImageInfoService;
 	
+	@Autowired
+	ShareOperationRecordService shareOperationRecordService;
+	
 	/**
 	 * 	zsh200908
 	 * */
@@ -42,6 +47,9 @@ public class ImageUploadController {
 	public Msg imageInfo(@RequestParam("image")CommonsMultipartFile file,
 			@RequestParam("parentid")Integer parentid,@RequestParam("parentname")String parentname,
 			HttpSession session,HttpServletResponse rep,HttpServletRequest res){
+		
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+		session.setAttribute("AdminUser", mlbackAdmin);
 		
 		//判断参数,确定信息
 		String typeName = file.getOriginalFilename();
@@ -76,6 +84,18 @@ public class ImageUploadController {
 		shareImageInfo.setTbShareImageinfoCreatetime(nowTime);
 		shareImageInfoService.insertSelective(shareImageInfo);
 		System.out.println("shareImageInfo上传完毕"+shareImageInfo.toString());
+		
+		//存储本条造作记录
+		ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
+		shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
+		shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
+		shareOperationRecord.setOperationRecordDataType(1);
+		shareOperationRecord.setOperationRecordDataName(typeName);
+		shareOperationRecord.setOperationRecordDesc("上传");
+		shareOperationRecord.setOperationRecordCreatetime(nowTime);
+		
+		shareOperationRecordService.insertSelective(shareOperationRecord);
+		System.out.println(shareOperationRecord.toString());
 		
 		return Msg.success().add("resMsg", "上传").add("shareImageInfo", shareImageInfo);
 		

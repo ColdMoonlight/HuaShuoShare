@@ -9,10 +9,12 @@
     <result column="operation_record_data_name" jdbcType="VARCHAR" property="operationRecordDataName" />
     <result column="operation_record_desc" jdbcType="VARCHAR" property="operationRecordDesc" />
     <result column="operation_record_createTime" jdbcType="VARCHAR" property="operationRecordCreatetime" />
+    <result column="operation_record_motifyTime" jdbcType="VARCHAR" property="operationRecordMotifyTime" />
+    
   </resultMap>
   <sql id="Base_Column_List">
     operation_record_id, operation_record_adminid, operation_record_admin_name, operation_record_data_type, 
-    operation_record_data_name, operation_record_desc, operation_record_createTime
+    operation_record_data_name, operation_record_desc, operation_record_createTime, operation_record_motifyTime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -25,11 +27,11 @@
     insert into tb_share_operation_record (operation_record_id, operation_record_adminid, 
       operation_record_admin_name, operation_record_data_type, 
       operation_record_data_name, operation_record_desc, 
-      operation_record_createTime)
+      operation_record_createTime, operation_record_motifyTime)
     values (#{operationRecordId,jdbcType=INTEGER}, #{operationRecordAdminid,jdbcType=INTEGER}, 
       #{operationRecordAdminName,jdbcType=VARCHAR}, #{operationRecordDataType,jdbcType=INTEGER}, 
       #{operationRecordDataName,jdbcType=VARCHAR}, #{operationRecordDesc,jdbcType=VARCHAR}, 
-      #{operationRecordCreatetime,jdbcType=VARCHAR})
+      #{operationRecordCreatetime,jdbcType=VARCHAR}, #{operationRecordMotifyTime,jdbcType=VARCHAR})
   </insert>
 
   <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.ShareOperationRecord">
@@ -39,7 +41,8 @@
       operation_record_data_type = #{operationRecordDataType,jdbcType=INTEGER},
       operation_record_data_name = #{operationRecordDataName,jdbcType=VARCHAR},
       operation_record_desc = #{operationRecordDesc,jdbcType=VARCHAR},
-      operation_record_createTime = #{operationRecordCreatetime,jdbcType=VARCHAR}
+      operation_record_createTime = #{operationRecordCreatetime,jdbcType=VARCHAR},
+      operation_record_motifyTime = #{operationRecordMotifyTime,jdbcType=VARCHAR}
     where operation_record_id = #{operationRecordId,jdbcType=INTEGER}
   </update>
   
@@ -68,6 +71,9 @@
       <if test="operationRecordCreatetime != null">
         operation_record_createTime,
       </if>
+      <if test="operationRecordMotifyTime != null">
+        operation_record_motifyTime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="operationRecordId != null">
@@ -90,6 +96,9 @@
       </if>
       <if test="operationRecordCreatetime != null">
         #{operationRecordCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="operationRecordMotifyTime != null">
+        #{operationRecordMotifyTime,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -120,8 +129,22 @@
       <if test="operationRecordCreatetime != null">
         operation_record_createTime = #{operationRecordCreatetime,jdbcType=VARCHAR},
       </if>
+      <if test="operationRecordMotifyTime != null">
+        operation_record_motifyTime = #{operationRecordMotifyTime,jdbcType=VARCHAR},
+      </if>
     </set>
     where operation_record_id = #{operationRecordId,jdbcType=INTEGER}
   </update>
+  
+  
+  <!-- selectShareOperationRecordByDate -->
+  <select id="selectShareOperationRecordByDate" parameterType="com.atguigu.bean.ShareOperationRecord" resultMap="BaseResultMap">
+    select
+    operation_record_id, operation_record_adminid, operation_record_admin_name, operation_record_data_type, 
+    operation_record_data_name, operation_record_desc, operation_record_createTime, operation_record_motifyTime
+    from tb_share_operation_record 
+    where operation_record_id>0 
+    and operation_record_createTime between #{operationRecordCreatetime,jdbcType=VARCHAR} and #{operationRecordMotifyTime,jdbcType=VARCHAR} order by operation_record_id desc
+  </select> 
   
 </mapper>
