@@ -199,29 +199,38 @@
 	        });
 
 			// tree text-dom event
-			 $(document.body).on('click', '.tree-item .link', function(e) {
-				 e.stopPropagation();
-				 function getListData($el) {
-					 var list = [];
-					 for (var item = $el; ; item = item.parent()) {
-						 if (item.hasClass('tree')) break;
-						 list.unshift({
-							 'id': item.data('id'),
-							 'name': item.data('name')
-						 });
-					 }
-					 return list;
-				 }
-				 var $curItem = $(this).parent();
-				 var currData = {
-						 'id': $curItem.data('id'),
-						 'name': $curItem.data('name')
-				 	};
+			$(document.body).on('click', '.tree-item .link', function(e) {
+				e.stopPropagation();
+				function getListData($el) {
+					var list = [];
+					for (var item = $el; ; item = item.parent()) {
+						if (item.hasClass('tree')) break;
+						list.unshift({
+							'id': item.data('id'),
+							'name': item.data('name')
+						});
+					}
+					return list;
+				}
+				var $root = $(this).parents('.tree');
+				var type = $root.data('type') || 'image';
+				var $curItem = $(this).parent();
+				var currData = {
+						'id': $curItem.data('id'),
+						'name': $curItem.data('name')
+					};
 
-				 window.localStorage.setItem('cur', JSON.stringify(currData));
-				 window.localStorage.setItem('list', JSON.stringify(getListData($curItem)));
-				 window.location.href = '${APP_PATH}/ShareImageInfo/toImageInfoPage';
-			 });
+				window.localStorage.setItem('cur', JSON.stringify(currData));
+				window.localStorage.setItem('list', JSON.stringify(getListData($curItem)));
+				
+				if (type == 'image') {
+					window.location.href = '${APP_PATH}/ShareImageInfo/toImageInfoPage';	
+				}
+				
+				if (type == 'video') {
+					window.location.href = '${APP_PATH}/ShareVideoInfo/toVideoInfoPage';	
+				}
+			});
 		</script>
 	</body>
 </html>

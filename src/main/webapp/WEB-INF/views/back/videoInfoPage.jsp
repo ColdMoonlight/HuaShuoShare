@@ -347,6 +347,16 @@
                 }
 			}
 
+			// handle link params
+			function handleHrefParam() {
+				var curParam = window.localStorage.getItem('cur');
+				var listParam = window.localStorage.getItem('list');
+				if(curParam && listParam) {
+					currentParent = JSON.parse(curParam);
+					navList = JSON.parse(listParam);
+				}
+			}
+
 			var currentParent = {
 					"id": 0,
 					"name": '我的网盘'
@@ -354,6 +364,9 @@
 			var navList = [];
 			var folderItem = null;
 			var adminPower = '${sessionScope.AdminUser.adminPower}';
+
+			// initial
+			handleHrefParam();
 			renderCurrentCategory();
 			// create folder
 			$('.folder-create').on('click', function(e) {
@@ -490,6 +503,11 @@
 					$(this).addClass('active').attr('title', '大图展示');
 					$('.folder-body').addClass('active');
 				}
+			});
+			// clear home-jump log
+			$(window).on('beforeunload', function() {
+				window.localStorage.removeItem('cur');
+				window.localStorage.removeItem('list');
 			});
 		</script>
 	</body>
