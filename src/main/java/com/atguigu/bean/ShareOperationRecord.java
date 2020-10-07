@@ -16,6 +16,8 @@ public class ShareOperationRecord {
     private String operationRecordDesc;
 	//操作时间
     private String operationRecordCreatetime;
+    //操作时间
+    private String operationRecordMotifyTime;
 
     public Integer getOperationRecordId() {
         return operationRecordId;
@@ -73,13 +75,21 @@ public class ShareOperationRecord {
         this.operationRecordCreatetime = operationRecordCreatetime == null ? null : operationRecordCreatetime.trim();
     }
 
+	public String getOperationRecordMotifyTime() {
+		return operationRecordMotifyTime;
+	}
+
+	public void setOperationRecordMotifyTime(String operationRecordMotifyTime) {
+		this.operationRecordMotifyTime = operationRecordMotifyTime == null ? null : operationRecordMotifyTime.trim();
+	}
+
 	public ShareOperationRecord() {
 		super();
 	}
 
 	public ShareOperationRecord(Integer operationRecordId, Integer operationRecordAdminid,
 			String operationRecordAdminName, Integer operationRecordDataType, String operationRecordDataName,
-			String operationRecordDesc, String operationRecordCreatetime) {
+			String operationRecordDesc, String operationRecordCreatetime, String operationRecordMotifyTime) {
 		super();
 		this.operationRecordId = operationRecordId;
 		this.operationRecordAdminid = operationRecordAdminid;
@@ -88,6 +98,7 @@ public class ShareOperationRecord {
 		this.operationRecordDataName = operationRecordDataName;
 		this.operationRecordDesc = operationRecordDesc;
 		this.operationRecordCreatetime = operationRecordCreatetime;
+		this.operationRecordMotifyTime = operationRecordMotifyTime;
 	}
 
 	@Override
@@ -96,7 +107,8 @@ public class ShareOperationRecord {
 				+ operationRecordAdminid + ", operationRecordAdminName=" + operationRecordAdminName
 				+ ", operationRecordDataType=" + operationRecordDataType + ", operationRecordDataName="
 				+ operationRecordDataName + ", operationRecordDesc=" + operationRecordDesc
-				+ ", operationRecordCreatetime=" + operationRecordCreatetime + "]";
+				+ ", operationRecordCreatetime=" + operationRecordCreatetime + ", operationRecordMotifyTime="
+				+ operationRecordMotifyTime + "]";
 	}
-    
+
 }
