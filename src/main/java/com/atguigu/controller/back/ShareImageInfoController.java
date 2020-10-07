@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.ShareImageInfo;
+import com.atguigu.bean.ShareOperationRecord;
 import com.atguigu.common.Msg;
 import com.atguigu.service.ShareImageInfoService;
+import com.atguigu.service.ShareOperationRecordService;
 import com.atguigu.utils.DateUtil;
 
 @Controller
@@ -22,6 +24,9 @@ public class ShareImageInfoController {
 	
 	@Autowired
 	ShareImageInfoService shareImageInfoService;
+	
+	@Autowired
+	ShareOperationRecordService shareOperationRecordService;
 	
 	/**
 	 * 1.0	zsh200904
@@ -89,6 +94,18 @@ public class ShareImageInfoController {
 			System.out.println("插入前"+shareImageInfoReq.toString());
 			shareImageInfoService.insertSelective(shareImageInfoReq);
 			System.out.println("插入后"+shareImageInfoReq.toString());
+			
+			//存储本条造作记录--新增文件夹名字
+			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
+			shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
+			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
+			shareOperationRecord.setOperationRecordDataType(0);
+			shareOperationRecord.setOperationRecordDataName("新建文件夹");
+			shareOperationRecord.setOperationRecordDesc("新建");
+			shareOperationRecord.setOperationRecordCreatetime(nowTime);
+			
+			shareOperationRecordService.insertSelective(shareOperationRecord);
+			
 			return Msg.success().add("resMsg", "imageInfo初始化成功").add("adminPower", adminPower).add("shareImageInfoReq", shareImageInfoReq);
 		}
 	}
@@ -115,6 +132,19 @@ public class ShareImageInfoController {
 			shareImageInfo.setTbShareImageinfoCreatetime(nowTime);
 			//有id，update
 			shareImageInfoService.updateByPrimaryKeySelective(shareImageInfo);
+			
+			//存储本条造作记录--新增文件夹名字
+			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
+			shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
+			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
+			shareOperationRecord.setOperationRecordDataType(0);
+			shareOperationRecord.setOperationRecordDataName(shareImageInfo.getTbShareImageinfoName());
+			shareOperationRecord.setOperationRecordDesc("更新");
+			shareOperationRecord.setOperationRecordCreatetime(nowTime);
+			
+			shareOperationRecordService.insertSelective(shareOperationRecord);
+			System.out.println(shareOperationRecord.toString());
+			
 			return Msg.success().add("resMsg", "更新成功").add("adminPower", adminPower).add("shareImageInfo", shareImageInfo);
 		}
 	}
@@ -156,6 +186,19 @@ public class ShareImageInfoController {
 		}else{
 			int shareImageinfoIdInt = shareImageInfo.getTbShareImageinfoId();
 			shareImageInfoService.deleteByPrimaryKey(shareImageinfoIdInt);
+			
+			//存储本条造作记录--删除文件夹名字
+			MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+			String nowTime = DateUtil.strTime14s();
+			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
+			shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
+			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
+			shareOperationRecord.setOperationRecordDataType(shareImageInfo.getTbShareImageinfoType());
+			shareOperationRecord.setOperationRecordDataName(shareImageInfo.getTbShareImageinfoName());
+			shareOperationRecord.setOperationRecordDesc("删除");
+			shareOperationRecord.setOperationRecordCreatetime(nowTime);
+			
+			shareOperationRecordService.insertSelective(shareOperationRecord);
 			return Msg.success().add("resMsg", "delete success").add("adminPower", adminPower);
 		}
 	}
