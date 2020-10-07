@@ -766,9 +766,3 @@
 		margin-top: 1rem;
 	}
 }
-
-@media screen and (min-width: 1024px) {
-	.user-log {
-		width: 36rem;
-	}
-}
