@@ -428,7 +428,7 @@
 			$(document.body).on('click', '.folder-edit', function(e) {
 				e.stopPropagation();
 				folderItem = $(this).parents('.folder-list-item');
-				$('#folderId').val(folderItem.data('id'));
+				$('#folderId').val(folderItem.data('id')).data('type', folderItem.data('type'));
 				$('#folderName').val(folderItem.data('name'));
 
 				$('#renameModal').modal('show');
@@ -442,7 +442,8 @@
 				}
 				saveFolderData({
 					"tbShareVideoinfoId": $('#folderId').val(),
-					"tbShareVideoinfoName": folderName
+					"tbShareVideoinfoName": folderName,
+					"tbShareVideoinfoType": $('#folderId').data('type')
 				}, function() {
 					$('#renameModal').modal('hide');
 					folderItem.data('name', folderName).find('.folder-name').text(folderName).attr('title', folderName);
