@@ -741,3 +741,32 @@
 	color: blue;
 	text-decoration: underline;
 }
+
+/* dashboard */
+.dashboard-time {
+	width: 30%;
+	min-width: 20rem;
+}
+.dashboard-body {
+	display: flex;
+	justify-content: space-between;
+}
+.user-log-list {
+	max-height: 80vh;
+	overflow-y: auto;
+}
+@media screen and (max-width: 1023px) {
+	.dashboard-body {
+		flex-direction: column;
+	}
+	.user-log {
+		min-height: 3rem;
+		margin-top: 1rem;
+	}
+}
+
+@media screen and (min-width: 1024px) {
+	.user-log {
+		width: 36rem;
+	}
+}
