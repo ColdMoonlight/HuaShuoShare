@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>图片</title>
+		<title>视频</title>
 		<jsp:include page="common/backheader.jsp" flush="true"></jsp:include>
 		<link rel="stylesheet" href="${APP_PATH}/static/back/lib/magnific-popup/magnific-popup.css">
 		<style> .card-body { padding-left: 0; padding-right: 0; } </style>
