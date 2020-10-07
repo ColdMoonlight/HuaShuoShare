@@ -230,6 +230,17 @@
 	        
 	        // generate user log
 	        function generateUserLog() {
+	        	function getFileType(type) {
+	        		if (type == 0) {
+	        			return '文件夹';
+	        		} else if (type == 1) {
+	        			return '图片';
+	        		} else if (type == 2) {
+	        			return '视频';
+	        		} else {
+	        			return '文件夹';
+	        		}
+	        	}
 	        	getUserLog(function(data) {
 	        		var html = '';
 	        		if (data.length) {
@@ -237,9 +248,9 @@
 	        				html += '<li class="user-log-item">' +
 									item.operationRecordAdminName +
 									'<b> ' + item.operationRecordDesc +
-									'</b> 了  <b>' + (item.operationRecordDataType == 1 ? '文件' : '文件夹') +
+									'</b> 了  <b>' + getFileType(item.operationRecordDataType) +
 									' </b> ' + item.operationRecordDataName + ' ' + item.operationRecordCreatetime +
-								'</li>';	        				
+								'</li>';
 	        			});
 	        		} else {
 	        			html = '<i>该时间范围内没有任何操作。。。</i>';

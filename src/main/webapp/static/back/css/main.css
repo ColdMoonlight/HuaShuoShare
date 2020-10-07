@@ -750,10 +750,6 @@
 .dashboard-body {
 	display: flex;
 }
-.user-log-list {
-	max-height: 80vh;
-	overflow-y: auto;
-}
 .tree-box {
 	min-width: 32rem;
 }
@@ -764,11 +760,5 @@
 	.user-log {
 		min-height: 3rem;
 		margin-top: 1rem;
-	}
-}
-
-@media screen and (min-width: 1024px) {
-	.user-log {
-		width: 36rem;
 	}
 }
