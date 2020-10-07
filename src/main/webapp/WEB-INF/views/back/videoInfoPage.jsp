@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>图片</title>
+		<title>视频</title>
 		<jsp:include page="common/backheader.jsp" flush="true"></jsp:include>
 		<link rel="stylesheet" href="${APP_PATH}/static/back/lib/magnific-popup/magnific-popup.css">
 		<style> .card-body { padding-left: 0; padding-right: 0; } </style>
@@ -142,7 +142,7 @@
 					$('.folder-edit').removeClass('hide');
 					$('.folder-delete').removeClass('hide');
 					$('.folder-create').removeClass('hide');
-					// $('.folder-move').removeClass('hide');
+					$('.folder-move').removeClass('hide');
 				}
 			}
 			function resetCurrentNav() {
@@ -347,6 +347,16 @@
                 }
 			}
 
+			// handle link params
+			function handleHrefParam() {
+				var curParam = window.localStorage.getItem('cur');
+				var listParam = window.localStorage.getItem('list');
+				if(curParam && listParam) {
+					currentParent = JSON.parse(curParam);
+					navList = JSON.parse(listParam);
+				}
+			}
+
 			var currentParent = {
 					"id": 0,
 					"name": '我的网盘'
@@ -354,6 +364,9 @@
 			var navList = [];
 			var folderItem = null;
 			var adminPower = '${sessionScope.AdminUser.adminPower}';
+
+			// initial
+			handleHrefParam();
 			renderCurrentCategory();
 			// create folder
 			$('.folder-create').on('click', function(e) {
@@ -362,8 +375,10 @@
 			// upload video
 			$('.folder-upload').on('click', function() {
 				var fileUrl = $('<input type="file" accept="video/*" />');
-
-				fileUrl.trigger('click');
+				
+				checkSession(function() {
+					fileUrl.trigger('click');					
+				});
 				fileUrl.on('change', function(e) {
 					var $this = $(this);
 					var file = $this[0].files[0];
@@ -488,6 +503,11 @@
 					$(this).addClass('active').attr('title', '大图展示');
 					$('.folder-body').addClass('active');
 				}
+			});
+			// clear home-jump log
+			$(window).on('beforeunload', function() {
+				window.localStorage.removeItem('cur');
+				window.localStorage.removeItem('list');
 			});
 		</script>
 	</body>
