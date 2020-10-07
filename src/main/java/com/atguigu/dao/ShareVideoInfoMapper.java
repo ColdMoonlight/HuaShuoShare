@@ -21,4 +21,6 @@ public interface ShareVideoInfoMapper {
 	List<ShareVideoInfo> selectShareVideoInfolistByPid(ShareVideoInfo shareVideoInfo);
 
 	List<ShareVideoInfo> selectShareVideoInfolistAll();
+
+	List<ShareVideoInfo> selectShareVideoInfoById(ShareVideoInfo shareVideoInfoReq);
 }

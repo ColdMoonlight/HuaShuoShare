@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import com.atguigu.bean.FileEntity;
 import com.atguigu.bean.MlbackAdmin;
+import com.atguigu.bean.ShareImageInfo;
 import com.atguigu.bean.ShareOperationRecord;
 import com.atguigu.bean.ShareVideoInfo;
 import com.atguigu.common.Msg;
@@ -105,7 +106,6 @@ public class ShareVideoInfoController {
 			String nowTime = DateUtil.strTime14s();
 			shareVideoInfoReq.setTbShareVideoinfoCreatetime(nowTime);
 			//无id,insert
-			System.out.println("插入前"+shareVideoInfoReq.toString());
 			shareVideoInfoService.insertSelective(shareVideoInfoReq);
 			System.out.println("插入后"+shareVideoInfoReq.toString());
 			
@@ -145,9 +145,8 @@ public class ShareVideoInfoController {
 			//取出id
 			String nowTime = DateUtil.strTime14s();
 			shareVideoInfo.setTbShareVideoinfoCreatetime(nowTime);
-			//有id，update
+			//有id,update
 			shareVideoInfoService.updateByPrimaryKeySelective(shareVideoInfo);
-			
 			
 			//存储本条造作记录
 			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
@@ -157,9 +156,7 @@ public class ShareVideoInfoController {
 			shareOperationRecord.setOperationRecordDataName(shareVideoInfo.getTbShareVideoinfoName());
 			shareOperationRecord.setOperationRecordDesc("更新");
 			shareOperationRecord.setOperationRecordCreatetime(nowTime);
-			
 			shareOperationRecordService.insertSelective(shareOperationRecord);
-			System.out.println(shareOperationRecord.toString());
 			
 			return Msg.success().add("resMsg", "更新成功").add("adminPower", adminPower).add("shareVideoInfo", shareVideoInfo);
 		}
@@ -185,9 +182,7 @@ public class ShareVideoInfoController {
 			//取出id
 			String nowTime = DateUtil.strTime14s();
 			shareVideoInfo.setTbShareVideoinfoCreatetime(nowTime);
-			//有id，update
 			shareVideoInfoService.updateByPrimaryKeySelective(shareVideoInfo);
-			
 			//存储本条造作记录
 			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
 			shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
@@ -197,8 +192,6 @@ public class ShareVideoInfoController {
 			shareOperationRecord.setOperationRecordDesc("移动");
 			shareOperationRecord.setOperationRecordCreatetime(nowTime);
 			shareOperationRecordService.insertSelective(shareOperationRecord);
-			System.out.println(shareOperationRecord.toString());
-			
 			return Msg.success().add("resMsg", "更新成功").add("adminPower", adminPower).add("shareVideoInfo", shareVideoInfo);
 		}
 	}
@@ -239,6 +232,25 @@ public class ShareVideoInfoController {
 			return Msg.success().add("resMsg", "请重新登陆").add("adminPower", adminPower);
 		}else{
 			int shareVideoInfoIdInt = shareVideoInfo.getTbShareVideoinfoId();
+			
+			//查回要删除的数据
+			ShareVideoInfo shareVideoInfoReq = new ShareVideoInfo();
+			shareVideoInfoReq.setTbShareVideoinfoId(shareVideoInfoIdInt);
+			List<ShareVideoInfo> shareVideoInfoList = shareVideoInfoService.selectShareVideoInfoById(shareVideoInfoReq);
+			ShareVideoInfo shareVideoInfoRes = shareVideoInfoList.get(0);
+			//存储本条造作记录--删除文件夹名字
+			MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+			String nowTime = DateUtil.strTime14s();
+			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
+			shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
+			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
+			shareOperationRecord.setOperationRecordDataType(shareVideoInfoRes.getTbShareVideoinfoType());
+			shareOperationRecord.setOperationRecordDataName(shareVideoInfoRes.getTbShareVideoinfoName());
+			shareOperationRecord.setOperationRecordDesc("删除");
+			shareOperationRecord.setOperationRecordCreatetime(nowTime);
+			shareOperationRecordService.insertSelective(shareOperationRecord);
+			//操作完毕,执行删除
+			
 			shareVideoInfoService.deleteByPrimaryKey(shareVideoInfoIdInt);
 			return Msg.success().add("resMsg", "delete success").add("adminPower", adminPower);
 		}

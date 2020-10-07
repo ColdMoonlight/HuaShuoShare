@@ -91,7 +91,6 @@ public class ShareImageInfoController {
 			String nowTime = DateUtil.strTime14s();
 			shareImageInfoReq.setTbShareImageinfoCreatetime(nowTime);
 			//无id,insert
-			System.out.println("插入前"+shareImageInfoReq.toString());
 			shareImageInfoService.insertSelective(shareImageInfoReq);
 			System.out.println("插入后"+shareImageInfoReq.toString());
 			
@@ -103,7 +102,6 @@ public class ShareImageInfoController {
 			shareOperationRecord.setOperationRecordDataName("新建文件夹");
 			shareOperationRecord.setOperationRecordDesc("新建");
 			shareOperationRecord.setOperationRecordCreatetime(nowTime);
-			
 			shareOperationRecordService.insertSelective(shareOperationRecord);
 			
 			return Msg.success().add("resMsg", "imageInfo初始化成功").add("adminPower", adminPower).add("shareImageInfoReq", shareImageInfoReq);
@@ -169,9 +167,7 @@ public class ShareImageInfoController {
 			//取出id
 			String nowTime = DateUtil.strTime14s();
 			shareImageInfo.setTbShareImageinfoCreatetime(nowTime);
-			//有id,update
 			shareImageInfoService.updateByPrimaryKeySelective(shareImageInfo);
-			
 			//存储本条造作记录--新增文件夹名字
 			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
 			shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
@@ -180,10 +176,7 @@ public class ShareImageInfoController {
 			shareOperationRecord.setOperationRecordDataName(shareImageInfo.getTbShareImageinfoName());
 			shareOperationRecord.setOperationRecordDesc("移动");
 			shareOperationRecord.setOperationRecordCreatetime(nowTime);
-			
 			shareOperationRecordService.insertSelective(shareOperationRecord);
-			System.out.println(shareOperationRecord.toString());
-			
 			return Msg.success().add("resMsg", "更新成功").add("adminPower", adminPower).add("shareImageInfo", shareImageInfo);
 		}
 	}
@@ -204,9 +197,7 @@ public class ShareImageInfoController {
 			Integer imageInfoPid = shareImageInfo.getTbShareImageinfoParentid();
 			ShareImageInfo shareImageInfoReq = new ShareImageInfo();
 			shareImageInfoReq.setTbShareImageinfoParentid(imageInfoPid);
-			
 			List<ShareImageInfo> shareImageInfoList = shareImageInfoService.selectShareImageInfolistByPid(shareImageInfoReq);
-			
 			return Msg.success().add("adminPower", adminPower).add("shareImageInfoList", shareImageInfoList).add("parentIdPage", imageInfoPid);
 		}
 	}
@@ -224,7 +215,7 @@ public class ShareImageInfoController {
 			return Msg.success().add("resMsg", "请重新登陆").add("adminPower", adminPower);
 		}else{
 			int shareImageinfoIdInt = shareImageInfo.getTbShareImageinfoId();
-			
+			//查回要删除的数据
 			ShareImageInfo shareImageInfoReq = new ShareImageInfo();
 			shareImageInfoReq.setTbShareImageinfoId(shareImageinfoIdInt);
 			List<ShareImageInfo> shareImageInfoList = shareImageInfoService.selectShareImageInfoById(shareImageInfoReq);
