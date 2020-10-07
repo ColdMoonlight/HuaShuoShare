@@ -109,7 +109,6 @@ public class ShareVideoInfoController {
 			shareVideoInfoService.insertSelective(shareVideoInfoReq);
 			System.out.println("插入后"+shareVideoInfoReq.toString());
 			
-			
 			//存储本条造作记录
 			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
 			shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
@@ -193,7 +192,7 @@ public class ShareVideoInfoController {
 			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
 			shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
 			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
-			shareOperationRecord.setOperationRecordDataType(0);
+			shareOperationRecord.setOperationRecordDataType(shareVideoInfo.getTbShareVideoinfoType());
 			shareOperationRecord.setOperationRecordDataName(shareVideoInfo.getTbShareVideoinfoName());
 			shareOperationRecord.setOperationRecordDesc("移动");
 			shareOperationRecord.setOperationRecordCreatetime(nowTime);
