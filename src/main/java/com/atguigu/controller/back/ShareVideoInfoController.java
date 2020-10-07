@@ -16,9 +16,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import com.atguigu.bean.FileEntity;
 import com.atguigu.bean.MlbackAdmin;
+import com.atguigu.bean.ShareOperationRecord;
 import com.atguigu.bean.ShareVideoInfo;
 import com.atguigu.common.Msg;
 import com.atguigu.service.FileService;
+import com.atguigu.service.ShareOperationRecordService;
 import com.atguigu.service.ShareVideoInfoService;
 import com.atguigu.service.UploadService;
 import com.atguigu.utils.DateUtil;
@@ -32,6 +34,9 @@ public class ShareVideoInfoController {
 	
 	@Autowired
 	ShareVideoInfoService shareVideoInfoService;
+	
+	@Autowired
+	ShareOperationRecordService shareOperationRecordService;
 	
 	@Autowired
 	private FileService service;
@@ -103,6 +108,20 @@ public class ShareVideoInfoController {
 			System.out.println("插入前"+shareVideoInfoReq.toString());
 			shareVideoInfoService.insertSelective(shareVideoInfoReq);
 			System.out.println("插入后"+shareVideoInfoReq.toString());
+			
+			
+			//存储本条造作记录
+			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
+			shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
+			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
+			shareOperationRecord.setOperationRecordDataType(0);
+			shareOperationRecord.setOperationRecordDataName("新建文件夹");
+			shareOperationRecord.setOperationRecordDesc("新建");
+			shareOperationRecord.setOperationRecordCreatetime(nowTime);
+			
+			shareOperationRecordService.insertSelective(shareOperationRecord);
+			System.out.println(shareOperationRecord.toString());
+			
 			return Msg.success().add("resMsg", "imageInfo初始化成功").add("adminPower", adminPower).add("shareVideoInfoReq", shareVideoInfoReq);
 		}
 	}
@@ -129,6 +148,20 @@ public class ShareVideoInfoController {
 			shareVideoInfo.setTbShareVideoinfoCreatetime(nowTime);
 			//有id，update
 			shareVideoInfoService.updateByPrimaryKeySelective(shareVideoInfo);
+			
+			
+			//存储本条造作记录
+			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
+			shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
+			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
+			shareOperationRecord.setOperationRecordDataType(0);
+			shareOperationRecord.setOperationRecordDataName(shareVideoInfo.getTbShareVideoinfoName());
+			shareOperationRecord.setOperationRecordDesc("更新");
+			shareOperationRecord.setOperationRecordCreatetime(nowTime);
+			
+			shareOperationRecordService.insertSelective(shareOperationRecord);
+			System.out.println(shareOperationRecord.toString());
+			
 			return Msg.success().add("resMsg", "更新成功").add("adminPower", adminPower).add("shareVideoInfo", shareVideoInfo);
 		}
 	}
