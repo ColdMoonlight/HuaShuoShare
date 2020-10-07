@@ -153,7 +153,7 @@ public class ShareVideoInfoController {
 			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
 			shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
 			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
-			shareOperationRecord.setOperationRecordDataType(0);
+			shareOperationRecord.setOperationRecordDataType(shareVideoInfo.getTbShareVideoinfoType());
 			shareOperationRecord.setOperationRecordDataName(shareVideoInfo.getTbShareVideoinfoName());
 			shareOperationRecord.setOperationRecordDesc("更新");
 			shareOperationRecord.setOperationRecordCreatetime(nowTime);
