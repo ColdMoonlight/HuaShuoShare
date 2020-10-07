@@ -130,7 +130,7 @@ public class ShareImageInfoController {
 			//取出id
 			String nowTime = DateUtil.strTime14s();
 			shareImageInfo.setTbShareImageinfoCreatetime(nowTime);
-			//有id，update
+			//有id,update
 			shareImageInfoService.updateByPrimaryKeySelective(shareImageInfo);
 			
 			//存储本条造作记录--新增文件夹名字
@@ -140,6 +140,45 @@ public class ShareImageInfoController {
 			shareOperationRecord.setOperationRecordDataType(0);
 			shareOperationRecord.setOperationRecordDataName(shareImageInfo.getTbShareImageinfoName());
 			shareOperationRecord.setOperationRecordDesc("更新");
+			shareOperationRecord.setOperationRecordCreatetime(nowTime);
+			
+			shareOperationRecordService.insertSelective(shareOperationRecord);
+			System.out.println(shareOperationRecord.toString());
+			
+			return Msg.success().add("resMsg", "更新成功").add("adminPower", adminPower).add("shareImageInfo", shareImageInfo);
+		}
+	}
+	
+	/**3.1	zsh200904
+	 * MlbackAreafreight	remove
+	 * @param MlbackAreafreight
+	 */
+	@RequestMapping(value="/removeFileLocal",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg removeFileLocal(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo){
+		
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+		session.setAttribute("AdminUser", mlbackAdmin);
+		
+		String adminPower = getAdminInfo(session);
+		if("0000".equals(adminPower)){
+			return Msg.success().add("resMsg", "请重新登陆").add("adminPower", adminPower);
+		}else{
+			//接受参数信息
+			System.out.println("shareImageInfo:"+shareImageInfo.toString());
+			//取出id
+			String nowTime = DateUtil.strTime14s();
+			shareImageInfo.setTbShareImageinfoCreatetime(nowTime);
+			//有id,update
+			shareImageInfoService.updateByPrimaryKeySelective(shareImageInfo);
+			
+			//存储本条造作记录--新增文件夹名字
+			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
+			shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
+			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
+			shareOperationRecord.setOperationRecordDataType(0);
+			shareOperationRecord.setOperationRecordDataName(shareImageInfo.getTbShareImageinfoName());
+			shareOperationRecord.setOperationRecordDesc("移动");
 			shareOperationRecord.setOperationRecordCreatetime(nowTime);
 			
 			shareOperationRecordService.insertSelective(shareOperationRecord);
@@ -185,20 +224,24 @@ public class ShareImageInfoController {
 			return Msg.success().add("resMsg", "请重新登陆").add("adminPower", adminPower);
 		}else{
 			int shareImageinfoIdInt = shareImageInfo.getTbShareImageinfoId();
-			shareImageInfoService.deleteByPrimaryKey(shareImageinfoIdInt);
 			
+			ShareImageInfo shareImageInfoReq = new ShareImageInfo();
+			shareImageInfoReq.setTbShareImageinfoId(shareImageinfoIdInt);
+			List<ShareImageInfo> shareImageInfoList = shareImageInfoService.selectShareImageInfoById(shareImageInfoReq);
+			ShareImageInfo shareImageInfoRes = shareImageInfoList.get(0);
 			//存储本条造作记录--删除文件夹名字
 			MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
 			String nowTime = DateUtil.strTime14s();
 			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
 			shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
 			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
-			shareOperationRecord.setOperationRecordDataType(shareImageInfo.getTbShareImageinfoType());
-			shareOperationRecord.setOperationRecordDataName(shareImageInfo.getTbShareImageinfoName());
+			shareOperationRecord.setOperationRecordDataType(shareImageInfoRes.getTbShareImageinfoType());
+			shareOperationRecord.setOperationRecordDataName(shareImageInfoRes.getTbShareImageinfoName());
 			shareOperationRecord.setOperationRecordDesc("删除");
 			shareOperationRecord.setOperationRecordCreatetime(nowTime);
-			
 			shareOperationRecordService.insertSelective(shareOperationRecord);
+			//操作完毕,执行删除
+			shareImageInfoService.deleteByPrimaryKey(shareImageinfoIdInt);
 			return Msg.success().add("resMsg", "delete success").add("adminPower", adminPower);
 		}
 	}

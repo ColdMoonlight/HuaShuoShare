@@ -166,6 +166,45 @@ public class ShareVideoInfoController {
 		}
 	}
 	
+	/**3.1	zsh200904
+	 * ShareVideoInfo	remove
+	 * @param ShareVideoInfo
+	 */
+	@RequestMapping(value="/removeFileLocal",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg removeFileLocal(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareVideoInfo shareVideoInfo){
+		
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+		session.setAttribute("AdminUser", mlbackAdmin);
+		
+		String adminPower = getAdminInfo(session);
+		if("0000".equals(adminPower)){
+			return Msg.success().add("resMsg", "请重新登陆").add("adminPower", adminPower);
+		}else{
+			//接受参数信息
+			System.out.println("shareVideoInfo:"+shareVideoInfo.toString());
+			//取出id
+			String nowTime = DateUtil.strTime14s();
+			shareVideoInfo.setTbShareVideoinfoCreatetime(nowTime);
+			//有id，update
+			shareVideoInfoService.updateByPrimaryKeySelective(shareVideoInfo);
+			
+			//存储本条造作记录
+			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
+			shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
+			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
+			shareOperationRecord.setOperationRecordDataType(0);
+			shareOperationRecord.setOperationRecordDataName(shareVideoInfo.getTbShareVideoinfoName());
+			shareOperationRecord.setOperationRecordDesc("移动");
+			shareOperationRecord.setOperationRecordCreatetime(nowTime);
+			
+			shareOperationRecordService.insertSelective(shareOperationRecord);
+			System.out.println(shareOperationRecord.toString());
+			
+			return Msg.success().add("resMsg", "更新成功").add("adminPower", adminPower).add("shareVideoInfo", shareVideoInfo);
+		}
+	}
+	
 	/**4.0	zsh200904
 	 * 后台ShareVideoInfo列表某一级别页list数据
 	 * @param pn
