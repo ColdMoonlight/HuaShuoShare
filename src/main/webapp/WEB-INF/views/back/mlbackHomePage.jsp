@@ -124,8 +124,8 @@
 							</div>
 							<!-- cal-right -->
 							<div class="dashboard-visit">
-								<h4>用户访问次数</h4>
-								<div class="dashboar-visit-count">--</div>
+								<h4>用户访问(人/次)</h4>
+								<div class="dashboard-visit-count">--</div>
 							</div>
 						</div>
 						
@@ -373,7 +373,10 @@
 								[resData.fileAddNum, resData.fileUpdateNum, resData.fileRemoveNum, resData.fileDelNum],
 								[resData.imgUploadNum, resData.imgDownloadNum, resData.imgRemoveNum, resData.imgDelNum],
 								[resData.videoUploadNum, resData.videoDownloadNum, resData.videoRemoveNum, resData.videoDelNum],
-							], resData.peopleNum);
+							], {
+								people: resData.peopleNum,
+								count: resData.allOperateNum
+							});
 						} else {
 							toastr.error(data.extend.resMsg);
 						}
@@ -386,8 +389,8 @@
 	        
 	        // render all user-log
 	        function renderAlluserLogData() {
-	        	getCalUserLogData(function(data, count) {
-	        		$('.dashboar-visit-count').text(count);
+	        	getCalUserLogData(function(data, pData) {
+	        		$('.dashboard-visit-count').text(pData.people + '/' + pData.count);
 		        	for (var i = 0; i <= 2; i += 1) {
 		        		for (var j = 0; j <= 5; j += 1) {
 			    	        $('.dashboard-cal-item').eq(i).find('.dashboard-cal-child-item').eq(j).find('.text').text(data[i][j]);	        				

@@ -751,6 +751,9 @@
 	width: 30%;
 	min-width: 20rem;
 }
+.dashboard-cal {
+	margin-top: 1rem;
+}
 .dashboard-cal,
 .dashboard-handle {
 	display: flex;
@@ -771,6 +774,17 @@
 	border: 1px solid #ccc;
 	border-radius: .5rem;
 }
+.dashboard-visit {
+	display: flex;
+	flex-direction: column;
+	justicy-content: center;
+	aling-items: center;
+}
+.dashboard-visit-count {
+	flex-grow: 1;
+	font-size: 3rem;
+	text-align: center;
+}
 .dashboard-cal-childs {
 	margin-top: 1rem;
 }
@@ -789,20 +803,16 @@
 	}
 }
 @media screen and (min-width: 1024px) {
-	.daashbaord-left {
-		width: 35%;
+	.dashboard-left {
+		width: 40%;
 	}
 	.dashboard-right {
-		width: 55%;
+		width: 60%;
 	}
 	.dashboard-handle {
 		width: 75%;
 	}
 	.dashboard-visit {
 		width: 24%;
-	}
-	.tree-box,
-	.user-log {
-		width: 49%;
 	}
 }
