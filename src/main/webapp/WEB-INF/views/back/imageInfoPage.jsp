@@ -335,6 +335,16 @@
 				});
 			}
 			
+			function postDownloadImgLog(reqData) {
+				$.ajax({
+					url: "${APP_PATH}/CaclResources/caclDownloadImg",
+					type: "post",
+					contentType: 'application/json',
+					data: JSON.stringify(reqData),
+					success: function (data) {}
+				});
+			}
+			
 			function download(url, fileName) {
 				var anchor = document.createElement('a');
                 if ('download' in anchor) {
@@ -487,8 +497,14 @@
 				var $this = $(this);
 				checkSession(function() {
 					folderItem = $this.parents('.folder-list-item');
-	
-					download(folderItem.data('file'), folderItem.data('name'));
+					var fileName = folderItem.data('name');
+					// log
+					postDownloadImgLog({
+						 "operationRecordDataType": 1,
+						 "operationRecordDataName": fileName
+					});
+					// event
+					download(folderItem.data('file'), fileName);
 				});
 			});
 			// folder back

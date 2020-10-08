@@ -349,6 +349,16 @@
 					}
 				});
 			}
+			// ajax download video log
+			function postDownloadVideoLog(reqData) {
+				$.ajax({
+					url: "${APP_PATH}/CaclResources/caclDownloadVideo",
+					type: "post",
+					contentType: 'application/json',
+					data: JSON.stringify(reqData),
+					success: function (data) {}
+				});
+			}
 			
 			function download(url, fileName) {
 				var anchor = document.createElement('a');
@@ -501,8 +511,14 @@
 				var $this = $(this);
 				checkSession(function() {
 					folderItem = $this.parents('.folder-list-item');
-	
-					download(folderItem.data('file'), folderItem.data('name'));
+					var fileName = folderItem.data('name');
+					// log
+					postDownloadVideoLog({
+						 "operationRecordDataType": 2,
+						 "operationRecordDataName": fileName
+					});
+					// event	
+					download(folderItem.data('file'), fileName);
 				});
 			});
 			// video preview
