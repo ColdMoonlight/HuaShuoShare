@@ -1,5 +1,6 @@
 package com.atguigu.controller.back;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -108,23 +109,28 @@ public class CaclResourcesController {
 	@ResponseBody
 	public Msg caclNumByDateAndDesc(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareOperationRecord shareOperationRecordInto){
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
-		session.setAttribute("AdminUser", mlbackAdmin);
-		
-		String adminPower = getAdminInfo(session);
-		if("0000".equals(adminPower)){
-			return Msg.success().add("resMsg", "请重新登陆").add("adminPower", adminPower);
-		}else{
-			System.out.println("当前的登陆客户:"+mlbackAdmin.toString());
-			//查询时间端参数,动作0-文件夹/1-img/2-video,描述字段(0上传,1下载,2新建,3更新,4移动,5删除)
-			ShareOperationRecord shareOperationRecordReq = new ShareOperationRecord();
-			shareOperationRecordReq.setOperationRecordDataType(shareOperationRecordInto.getOperationRecordDataType());
-			shareOperationRecordReq.setOperationRecordDesc(shareOperationRecordInto.getOperationRecordDesc());
-			shareOperationRecordReq.setOperationRecordCreatetime(shareOperationRecordInto.getOperationRecordCreatetime());
-			shareOperationRecordReq.setOperationRecordMotifyTime(shareOperationRecordInto.getOperationRecordMotifyTime());
-			List<ShareOperationRecord> shareOperationRecordList =  shareOperationRecordService.selectShareOperationRecordByDateAndType(shareOperationRecordReq);
-			return Msg.success().add("resMsg", "imageInfo初始化成功").add("adminPower", adminPower).add("shareOperationRecordList", shareOperationRecordList);
+		//查询时间端参数,动作0-文件夹/1-img/2-video,描述字段(0上传,1下载,2新建,3更新,4移动,5删除)
+		ShareOperationRecord shareOperationRecordReq = new ShareOperationRecord();
+		shareOperationRecordReq.setOperationRecordCreatetime(shareOperationRecordInto.getOperationRecordCreatetime());
+		shareOperationRecordReq.setOperationRecordMotifyTime(shareOperationRecordInto.getOperationRecordMotifyTime());
+		List<ShareOperationRecord> shareOperationRecordList =  shareOperationRecordService.selectShareOperationRecordByDateAndType(shareOperationRecordReq);
+		List<ShareOperationRecord> fileList = new ArrayList<ShareOperationRecord>();
+		List<ShareOperationRecord> imgList = new ArrayList<ShareOperationRecord>();
+		List<ShareOperationRecord> videoList = new ArrayList<ShareOperationRecord>();
+		for(ShareOperationRecord shareOperationRecordOne:shareOperationRecordList){
+			Integer type = shareOperationRecordOne.getOperationRecordDataType();
+			if(type==0){
+				fileList.add(shareOperationRecordOne);
+			}else if(type==1){
+				imgList.add(shareOperationRecordOne);
+			}else if(type==2){
+				videoList.add(shareOperationRecordOne);
+			}
 		}
+		System.out.println("shareOperationRecordFileList.size():"+fileList.size());
+		System.out.println("shareOperationRecordImgList.size():"+imgList.size());
+		System.out.println("shareOperationRecordVideoList.size():"+videoList.size());
+		return Msg.success().add("resMsg", "imageInfo初始化成功").add("fileList", fileList).add("imgList", imgList).add("videoList", videoList);
 	}
 	
 }
