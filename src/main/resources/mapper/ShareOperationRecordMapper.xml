@@ -144,7 +144,8 @@
     operation_record_data_name, operation_record_desc, operation_record_createTime, operation_record_motifyTime
     from tb_share_operation_record 
     where operation_record_id>0 
-    and operation_record_createTime between #{operationRecordCreatetime,jdbcType=VARCHAR} and #{operationRecordMotifyTime,jdbcType=VARCHAR} order by operation_record_id desc
+    and operation_record_createTime between #{operationRecordCreatetime,jdbcType=VARCHAR} and #{operationRecordMotifyTime,jdbcType=VARCHAR} 
+    order by operation_record_id desc limit 100
   </select> 
   
   <!-- selectShareOperationRecordByDate -->
