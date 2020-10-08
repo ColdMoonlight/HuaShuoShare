@@ -40,8 +40,8 @@ public class ShareOperationRecordController {
 	}
 
 	/**
-	 * zsh 200730
-	 * 中控台获取付款总金额钱数,总单数
+	 * 2.0	zsh 201008
+	 * 中控台获取操作记录明细
 	 * */
 	@RequestMapping(value="/getBackHomeOperationRecord",method=RequestMethod.POST)
 	@ResponseBody
