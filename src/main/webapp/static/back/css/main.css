@@ -743,9 +743,9 @@
 }
 
 /* dashboard */
-.dashboard-time {
+/* .dashboard-time {
 	text-align: right;
-}
+} */
 .dashboard-time>.form-control {
 	display: inline-block;
 	width: 30%;

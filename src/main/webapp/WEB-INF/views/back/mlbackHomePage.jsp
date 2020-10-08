@@ -7,7 +7,7 @@
 		<title>MEGALOOK ADMIN</title>
 		<jsp:include page="common/backheader.jsp" flush="true"></jsp:include>
 		<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">
-		<style> .card-body { padding-left: 0; padding-right: 0; } .c-main { display: flex; } </style>
+		<style> .card-body { padding-left: 0; padding-right: 0; } @media screen and (min-width: 1024px) { .c-main { display: flex; } } </style>
 	</head>
 
 	<body class="c-app">
