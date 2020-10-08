@@ -146,15 +146,15 @@ public class CaclResourcesController {
 		}
 		//描述字段(0上传,1下载,2新建,3更新,4移动,5删除)
 		System.out.println("shareOperationRecordImgList.size():"+imgList.size());
-		Integer imgAddNum = 0;
-		Integer imgUpdateNum = 0;
+		Integer imgUploadNum = 0;
+		Integer imgDownloadNum = 0;
 		Integer imgRemoveNum = 0;
 		Integer imgDelNum = 0;
 		for(ShareOperationRecord shareOperationRecordImg:imgList){
 			if("上传".equals(shareOperationRecordImg.getOperationRecordDesc())){
-				imgAddNum++;
+				imgUploadNum++;
 			}else if("下载".equals(shareOperationRecordImg.getOperationRecordDesc())){
-				imgUpdateNum++;
+				imgDownloadNum++;
 			}else if("移动".equals(shareOperationRecordImg.getOperationRecordDesc())){
 				imgRemoveNum++;
 			}else if("删除".equals(shareOperationRecordImg.getOperationRecordDesc())){
@@ -162,15 +162,15 @@ public class CaclResourcesController {
 			}
 		}
 		System.out.println("shareOperationRecordVideoList.size():"+videoList.size());
-		Integer videoAddNum = 0;
-		Integer videoUpdateNum = 0;
+		Integer videoUploadNum = 0;
+		Integer videoDownloadNum = 0;
 		Integer videoRemoveNum = 0;
 		Integer videoDelNum = 0;
 		for(ShareOperationRecord shareOperationRecordVideo:videoList){
 			if("上传".equals(shareOperationRecordVideo.getOperationRecordDesc())){
-				videoAddNum++;
+				videoUploadNum++;
 			}else if("下载".equals(shareOperationRecordVideo.getOperationRecordDesc())){
-				videoUpdateNum++;
+				videoDownloadNum++;
 			}else if("移动".equals(shareOperationRecordVideo.getOperationRecordDesc())){
 				videoRemoveNum++;
 			}else if("删除".equals(shareOperationRecordVideo.getOperationRecordDesc())){
@@ -179,8 +179,8 @@ public class CaclResourcesController {
 		}
 		return Msg.success().add("resMsg", "各个操作基础数据查询完毕")
 				.add("fileAddNum", fileAddNum).add("fileUpdateNum", fileUpdateNum).add("fileRemoveNum", fileRemoveNum).add("fileDelNum", fileDelNum)
-				.add("imgAddNum", imgAddNum).add("imgUpdateNum", imgUpdateNum).add("imgRemoveNum", imgRemoveNum).add("imgDelNum", imgDelNum)
-				.add("videoAddNum", videoAddNum).add("videoUpdateNum", videoUpdateNum).add("videoRemoveNum", videoRemoveNum).add("videoDelNum", videoDelNum);
+				.add("imgUploadNum", imgUploadNum).add("imgDownloadNum", imgDownloadNum).add("imgRemoveNum", imgRemoveNum).add("imgDelNum", imgDelNum)
+				.add("videoUploadNum", videoUploadNum).add("videoDownloadNum", videoDownloadNum).add("videoRemoveNum", videoRemoveNum).add("videoDelNum", videoDelNum);
 	}
 	
 }
