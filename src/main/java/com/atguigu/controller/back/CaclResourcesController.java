@@ -177,7 +177,7 @@ public class CaclResourcesController {
 				videoDelNum++;
 			}
 		}
-		return Msg.success().add("resMsg", "各个操作基础数据查询完毕")
+		return Msg.success().add("resMsg", "各个操作基础数据查询完毕").add("allOperateNum", shareOperationRecordList.size())
 				.add("fileAddNum", fileAddNum).add("fileUpdateNum", fileUpdateNum).add("fileRemoveNum", fileRemoveNum).add("fileDelNum", fileDelNum)
 				.add("imgUploadNum", imgUploadNum).add("imgDownloadNum", imgDownloadNum).add("imgRemoveNum", imgRemoveNum).add("imgDelNum", imgDelNum)
 				.add("videoUploadNum", videoUploadNum).add("videoDownloadNum", videoDownloadNum).add("videoRemoveNum", videoRemoveNum).add("videoDelNum", videoDelNum);
