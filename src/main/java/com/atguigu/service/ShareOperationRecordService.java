@@ -56,4 +56,9 @@ public class ShareOperationRecordService {
 		return ShareOperationRecordList;
 	}
 
+	public List<ShareOperationRecord> selectShareOperationRecordByGroup(ShareOperationRecord shareOperationRecordReq) {
+		List<ShareOperationRecord> ShareOperationRecordList = shareOperationRecordMapper.selectShareOperationRecordByGroup(shareOperationRecordReq);
+		return ShareOperationRecordList;
+	}
+
 }

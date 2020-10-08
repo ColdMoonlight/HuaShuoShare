@@ -114,6 +114,7 @@ public class CaclResourcesController {
 		shareOperationRecordReq.setOperationRecordCreatetime(shareOperationRecordInto.getOperationRecordCreatetime());
 		shareOperationRecordReq.setOperationRecordMotifyTime(shareOperationRecordInto.getOperationRecordMotifyTime());
 		List<ShareOperationRecord> shareOperationRecordList =  shareOperationRecordService.selectShareOperationRecordByDateAndType(shareOperationRecordReq);
+		
 		List<ShareOperationRecord> fileList = new ArrayList<ShareOperationRecord>();
 		List<ShareOperationRecord> imgList = new ArrayList<ShareOperationRecord>();
 		List<ShareOperationRecord> videoList = new ArrayList<ShareOperationRecord>();
@@ -177,7 +178,10 @@ public class CaclResourcesController {
 				videoDelNum++;
 			}
 		}
-		return Msg.success().add("resMsg", "各个操作基础数据查询完毕").add("allOperateNum", shareOperationRecordList.size())
+		
+		List<ShareOperationRecord> peopleList =  shareOperationRecordService.selectShareOperationRecordByGroup(shareOperationRecordReq);
+		
+		return Msg.success().add("resMsg", "各个操作基础数据查询完毕").add("allOperateNum", shareOperationRecordList.size()).add("peopleNum", peopleList.size())
 				.add("fileAddNum", fileAddNum).add("fileUpdateNum", fileUpdateNum).add("fileRemoveNum", fileRemoveNum).add("fileDelNum", fileDelNum)
 				.add("imgUploadNum", imgUploadNum).add("imgDownloadNum", imgDownloadNum).add("imgRemoveNum", imgRemoveNum).add("imgDelNum", imgDelNum)
 				.add("videoUploadNum", videoUploadNum).add("videoDownloadNum", videoDownloadNum).add("videoRemoveNum", videoRemoveNum).add("videoDelNum", videoDelNum);
