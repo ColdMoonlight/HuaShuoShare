@@ -107,23 +107,6 @@ public class ShareOperationRecordController {
 	public Msg getBackHomeOperationRecord(HttpSession session,@RequestBody ShareOperationRecord shareOperationRecord) throws Exception{
 		
 		List<ShareOperationRecord> mlfrontPayInfoList =  shareOperationRecordService.selectShareOperationRecordByDate(shareOperationRecord);
-		List<ShareOperationRecord> mlfrontPayInfoSuccessList = new ArrayList<ShareOperationRecord>();
-//		Integer payInfoStatus = 0;
-//		if(mlfrontPayInfoList.size()>0){
-//			
-//			for(MlfrontPayInfo mlfrontPayInfoOne:mlfrontPayInfoList){
-//				payInfoStatus = mlfrontPayInfoOne.getPayinfoStatus();
-//				//0未支付//1支付成功//2审单完毕//3发货完毕 //4已退款
-//				if(1==payInfoStatus){
-//					mlfrontPayInfoSuccessList.add(mlfrontPayInfoOne);
-//				}else if(2==payInfoStatus){
-//					mlfrontPayInfoSuccessList.add(mlfrontPayInfoOne);
-//				}else if(3==payInfoStatus){
-//					mlfrontPayInfoSuccessList.add(mlfrontPayInfoOne);
-//				}
-//			}
-//		}
-//		Integer allGoToPayNum = mlfrontPayInfoList.size();
 		System.out.println("mlfrontPayInfoList.size():"+mlfrontPayInfoList.size());
 		return Msg.success().add("resMsg", "单位时间所查信息").add("mlfrontPayInfoList", mlfrontPayInfoList);
 	}
