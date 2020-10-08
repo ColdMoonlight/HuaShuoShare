@@ -67,6 +67,7 @@
 		
 		<script src="${APP_PATH}/static/back/lib/magnific-popup/jquery.magnific-popup.min.js"></script>
 		<script>
+			// ajax get current list
 			function getCurrentParentData(callback) {
 				$('.c-mask').removeClass('hide');
 				$.ajax({
@@ -94,6 +95,7 @@
 					}
 				});
 			}
+			// callback render current list
 			function renderCurrentCategory() {
 				getCurrentParentData(function(data) {
 					var html = '';
@@ -143,6 +145,7 @@
 				// thead nav-list
 				resetCurrentNav();
 			}
+			// callback setting user role
 			function setRole() {
 				if (adminPower == '0') {
 					$('.folder-download').removeClass('hide');
@@ -162,6 +165,7 @@
 					$('.folder-move').removeClass('hide');
 				}
 			}
+			// callback reset curent nav
 			function resetCurrentNav() {
 				var html = '';
 				navList.forEach(function(item, idx) {
@@ -169,6 +173,7 @@
 				});
 				$('.folder-nav-list').html(html);
 			}
+			// ajax create folder
 			function createFolder(callback) {
 				var reqData = {
 						'tbShareImageinfoParentid': currentParent.id,
@@ -198,7 +203,7 @@
 					}
 				});
 			}
-			// ajax upload
+			// ajax upload img
 			function uploadImageData(formData, callback) {
 				$('.c-mask').removeClass('hide');
 				$.ajax({
@@ -224,6 +229,7 @@
 					}
 				});
 			}
+			// callback batches upload imgs
 			function batchUploadImageData(files) {
 				function cursive(file) {
 					function againUpload() {
@@ -334,7 +340,7 @@
 					}
 				});
 			}
-			
+			// ajax download img log
 			function postDownloadImgLog(reqData) {
 				$.ajax({
 					url: "${APP_PATH}/CaclResources/caclDownloadImg",
@@ -344,7 +350,7 @@
 					success: function (data) {}
 				});
 			}
-			
+			// callback download img
 			function download(url, fileName) {
 				var anchor = document.createElement('a');
                 if ('download' in anchor) {
@@ -367,7 +373,6 @@
                 	toastr.warning('该浏览器暂不支持下载，请使用现代浏览器！');
                 }
 			}
-
 			// handle link params
 			function handleHrefParam() {
 				var curParam = window.localStorage.getItem('cur');
