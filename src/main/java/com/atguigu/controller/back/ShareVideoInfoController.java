@@ -254,7 +254,7 @@ public class ShareVideoInfoController {
 			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
 			shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
 			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
-			Integer ifVideo = shareVideoInfo.getTbShareVideoinfoType();
+			Integer ifVideo = shareVideoInfoRes.getTbShareVideoinfoType();
 			if(ifVideo>0){
 				shareOperationRecord.setOperationRecordDataType(2);
 			}else{
