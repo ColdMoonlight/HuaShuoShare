@@ -130,7 +130,7 @@ public class CaclResourcesController {
 		System.out.println("shareOperationRecordFileList.size():"+fileList.size());
 		System.out.println("shareOperationRecordImgList.size():"+imgList.size());
 		System.out.println("shareOperationRecordVideoList.size():"+videoList.size());
-		return Msg.success().add("resMsg", "imageInfo初始化成功").add("fileList", fileList).add("imgList", imgList).add("videoList", videoList);
+		return Msg.success().add("resMsg", "各个操作基础数据查询完毕").add("fileList", fileList).add("imgList", imgList).add("videoList", videoList);
 	}
 	
 }
