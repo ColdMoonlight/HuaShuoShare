@@ -754,7 +754,6 @@
 .dashboard-cal {
 	margin-top: 1rem;
 }
-.dashboard-cal,
 .dashboard-handle {
 	display: flex;
 	justify-content: space-between;
@@ -797,6 +796,10 @@
 	margin: 0 auto;
 }
 @media screen and (max-width: 1023px) {
+	.dashboard-visit,
+	.dashboard-right {
+		margin-top: 1rem;
+	}
 	.user-log {
 		min-height: 3rem;
 		margin-top: 1rem;
@@ -808,6 +811,11 @@
 	}
 	.dashboard-right {
 		width: 60%;
+	}
+	.dashboard-cal {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 	}
 	.dashboard-handle {
 		width: 75%;
