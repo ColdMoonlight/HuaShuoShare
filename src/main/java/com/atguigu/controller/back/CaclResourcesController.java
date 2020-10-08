@@ -60,7 +60,7 @@ public class CaclResourcesController {
 	/**2.0	zsh201008
 	 * ShareOperationRecord	caclDownloadVideo
 	 * @param ShareOperationRecord
-	 * @return
+	 * @return	Msg
 	 */
 	@RequestMapping(value="/caclDownloadVideo",method=RequestMethod.POST)
 	@ResponseBody
