@@ -127,10 +127,60 @@ public class CaclResourcesController {
 				videoList.add(shareOperationRecordOne);
 			}
 		}
+		//描述字段(0上传,1下载,2新建,3更新,4移动,5删除)
 		System.out.println("shareOperationRecordFileList.size():"+fileList.size());
+		Integer fileAddNum = 0;
+		Integer fileUpdateNum = 0;
+		Integer fileRemoveNum = 0;
+		Integer fileDelNum = 0;
+		for(ShareOperationRecord shareOperationRecordFile:fileList){
+			if("新建".equals(shareOperationRecordFile.getOperationRecordDesc())){
+				fileAddNum++;
+			}else if("更新".equals(shareOperationRecordFile.getOperationRecordDesc())){
+				fileUpdateNum++;
+			}else if("移动".equals(shareOperationRecordFile.getOperationRecordDesc())){
+				fileRemoveNum++;
+			}else if("删除".equals(shareOperationRecordFile.getOperationRecordDesc())){
+				fileDelNum++;
+			}
+		}
+		//描述字段(0上传,1下载,2新建,3更新,4移动,5删除)
 		System.out.println("shareOperationRecordImgList.size():"+imgList.size());
+		Integer imgAddNum = 0;
+		Integer imgUpdateNum = 0;
+		Integer imgRemoveNum = 0;
+		Integer imgDelNum = 0;
+		for(ShareOperationRecord shareOperationRecordImg:imgList){
+			if("上传".equals(shareOperationRecordImg.getOperationRecordDesc())){
+				imgAddNum++;
+			}else if("下载".equals(shareOperationRecordImg.getOperationRecordDesc())){
+				imgUpdateNum++;
+			}else if("移动".equals(shareOperationRecordImg.getOperationRecordDesc())){
+				imgRemoveNum++;
+			}else if("删除".equals(shareOperationRecordImg.getOperationRecordDesc())){
+				imgDelNum++;
+			}
+		}
 		System.out.println("shareOperationRecordVideoList.size():"+videoList.size());
-		return Msg.success().add("resMsg", "imageInfo初始化成功").add("fileList", fileList).add("imgList", imgList).add("videoList", videoList);
+		Integer videoAddNum = 0;
+		Integer videoUpdateNum = 0;
+		Integer videoRemoveNum = 0;
+		Integer videoDelNum = 0;
+		for(ShareOperationRecord shareOperationRecordVideo:videoList){
+			if("上传".equals(shareOperationRecordVideo.getOperationRecordDesc())){
+				videoAddNum++;
+			}else if("下载".equals(shareOperationRecordVideo.getOperationRecordDesc())){
+				videoUpdateNum++;
+			}else if("移动".equals(shareOperationRecordVideo.getOperationRecordDesc())){
+				videoRemoveNum++;
+			}else if("删除".equals(shareOperationRecordVideo.getOperationRecordDesc())){
+				videoDelNum++;
+			}
+		}
+		return Msg.success().add("resMsg", "各个操作基础数据查询完毕")
+				.add("fileAddNum", fileAddNum).add("fileUpdateNum", fileUpdateNum).add("fileRemoveNum", fileRemoveNum).add("fileDelNum", fileDelNum)
+				.add("imgAddNum", imgAddNum).add("imgUpdateNum", imgUpdateNum).add("imgRemoveNum", imgRemoveNum).add("imgDelNum", imgDelNum)
+				.add("videoAddNum", videoAddNum).add("videoUpdateNum", videoUpdateNum).add("videoRemoveNum", videoRemoveNum).add("videoDelNum", videoDelNum);
 	}
 	
 }
