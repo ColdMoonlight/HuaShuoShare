@@ -163,4 +163,14 @@
     </if>
     order by operation_record_id desc
   </select> 
+  
+  <!-- selectShareOperationRecordByGroup -->
+  <select id="selectShareOperationRecordByGroup" parameterType="com.atguigu.bean.ShareOperationRecord" resultMap="BaseResultMap">
+    select
+    operation_record_id, operation_record_adminid, operation_record_admin_name 
+    from tb_share_operation_record 
+    where operation_record_id>0 
+    and operation_record_createTime between #{operationRecordCreatetime,jdbcType=VARCHAR} and #{operationRecordMotifyTime,jdbcType=VARCHAR} 
+    group by operation_record_adminid
+  </select> 
 </mapper>

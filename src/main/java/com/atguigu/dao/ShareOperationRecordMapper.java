@@ -22,4 +22,6 @@ public interface ShareOperationRecordMapper {
 	List<ShareOperationRecord> selectShareOperationRecordByDate(ShareOperationRecord shareOperationRecord);
 
 	List<ShareOperationRecord> selectShareOperationRecordByDateAndType(ShareOperationRecord shareOperationRecord);
+
+	List<ShareOperationRecord> selectShareOperationRecordByGroup(ShareOperationRecord shareOperationRecordReq);
 }
