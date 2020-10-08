@@ -146,4 +146,13 @@ hash:g}),0):void 0===e[c]?e[c]=!0:e[c].onload&&(e[c].abort(),delete e[c].onload,
 		$SIDEBAR_MENU = $('#sidebar-menu'),
 		format = 'YYYY-MM-DD HH:mm:ss';
 	init_sidebar();
+	/* c-menu event */
+	$('.c-menu').on('click', function() {
+		var $sidebarMenu = $('#sidebar-menu');
+		if ($sidebarMenu.hasClass('show')) {
+			$sidebarMenu.removeClass('show').removeAttr('style');
+		} else {
+			$sidebarMenu.addClass('show').css('left', 0);
+		}
+	});
 </script>
