@@ -46,14 +46,14 @@ public class ShareOperationRecordService {
 		return ShareOperationRecordList;
 	}
 	
-//	/**
-//	 * @author Shinelon
-//	 * @param ShareOperationRecord
-//	 * @exception	selectShareOperationRecordlistByPid方法
-//	 * */
-//	public List<ShareOperationRecord> selectShareOperationRecordlistByPid(ShareOperationRecord shareOperationRecord) {
-//		List<ShareOperationRecord> ShareOperationRecordList = shareOperationRecordMapper.selectShareOperationRecordlistByPid(shareOperationRecord);
-//		return ShareOperationRecordList;
-//	}
+	/**
+	 * @author Shinelon
+	 * @param ShareOperationRecord
+	 * @exception	selectShareOperationRecordByDateAndType方法
+	 * */
+	public List<ShareOperationRecord> selectShareOperationRecordByDateAndType(ShareOperationRecord shareOperationRecord) {
+		List<ShareOperationRecord> ShareOperationRecordList = shareOperationRecordMapper.selectShareOperationRecordByDateAndType(shareOperationRecord);
+		return ShareOperationRecordList;
+	}
 
 }

@@ -1,5 +1,7 @@
 package com.atguigu.controller.back;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -60,7 +62,7 @@ public class CaclResourcesController {
 	/**2.0	zsh201008
 	 * ShareOperationRecord	caclDownloadVideo
 	 * @param ShareOperationRecord
-	 * @return
+	 * @return	Msg
 	 */
 	@RequestMapping(value="/caclDownloadVideo",method=RequestMethod.POST)
 	@ResponseBody
@@ -96,6 +98,32 @@ public class CaclResourcesController {
 		}else{
 			adminPower = mlbackAdmin.getAdminPower();
 			return adminPower;
+		}
+	}
+	
+	/**
+	 * cacl下载量
+	 * */
+	@RequestMapping(value="/caclNumByDateAndDesc",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg caclNumByDateAndDesc(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareOperationRecord shareOperationRecordInto){
+		
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+		session.setAttribute("AdminUser", mlbackAdmin);
+		
+		String adminPower = getAdminInfo(session);
+		if("0000".equals(adminPower)){
+			return Msg.success().add("resMsg", "请重新登陆").add("adminPower", adminPower);
+		}else{
+			System.out.println("当前的登陆客户:"+mlbackAdmin.toString());
+			//查询时间端参数,动作0-文件夹/1-img/2-video,描述字段(0上传,1下载,2新建,3更新,4移动,5删除)
+			ShareOperationRecord shareOperationRecordReq = new ShareOperationRecord();
+			shareOperationRecordReq.setOperationRecordDataType(shareOperationRecordInto.getOperationRecordDataType());
+			shareOperationRecordReq.setOperationRecordDesc(shareOperationRecordInto.getOperationRecordDesc());
+			shareOperationRecordReq.setOperationRecordCreatetime(shareOperationRecordInto.getOperationRecordCreatetime());
+			shareOperationRecordReq.setOperationRecordMotifyTime(shareOperationRecordInto.getOperationRecordMotifyTime());
+			List<ShareOperationRecord> shareOperationRecordList =  shareOperationRecordService.selectShareOperationRecordByDateAndType(shareOperationRecordReq);
+			return Msg.success().add("resMsg", "imageInfo初始化成功").add("adminPower", adminPower).add("shareOperationRecordList", shareOperationRecordList);
 		}
 	}
 	

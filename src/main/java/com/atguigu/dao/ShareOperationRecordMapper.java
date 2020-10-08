@@ -20,4 +20,6 @@ public interface ShareOperationRecordMapper {
     int updateByPrimaryKeySelective(ShareOperationRecord record);
 
 	List<ShareOperationRecord> selectShareOperationRecordByDate(ShareOperationRecord shareOperationRecord);
+
+	List<ShareOperationRecord> selectShareOperationRecordByDateAndType(ShareOperationRecord shareOperationRecord);
 }
