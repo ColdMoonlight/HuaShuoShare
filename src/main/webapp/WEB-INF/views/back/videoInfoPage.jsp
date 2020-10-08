@@ -68,6 +68,7 @@
 		
 		<script src="${APP_PATH}/static/back/lib/magnific-popup/jquery.magnific-popup.min.js"></script>
 		<script>
+			// ajax get current list
 			function getCurrentParentData(callback) {
 				$('.c-mask').removeClass('hide');
 				$.ajax({
@@ -95,6 +96,7 @@
 					}
 				});
 			}
+			// callback render current list
 			function renderCurrentCategory() {
 				getCurrentParentData(function(data) {
 					var html = '';
@@ -126,6 +128,7 @@
 				// thead nav-list
 				resetCurrentNav();
 			}
+			// callback setting user role
 			function setRole() {
 				if (adminPower == '0') {
 					$('.folder-download').removeClass('hide');
@@ -145,6 +148,7 @@
 					$('.folder-move').removeClass('hide');
 				}
 			}
+			// callback reset curent nav
 			function resetCurrentNav() {
 				var html = '';
 				navList.forEach(function(item, idx) {
@@ -152,6 +156,7 @@
 				});
 				$('.folder-nav-list').html(html);
 			}
+			// ajax create folder
 			function createFolder(callback) {
 				var reqData = {
 						'tbShareVideoinfoParentid': currentParent.id,
@@ -181,6 +186,7 @@
 					}
 				});
 			}
+			// ajax upload img
 			function generateVideoPoster(file, callback) {
 				var videoEl = document.createElement('video'),
 		            mimeType = file.type;
@@ -207,7 +213,7 @@
 		            }, 'image/png');
 		        }, { once: true });
 			}
-
+			// callback batches upload imgs
 			function uploadVideoData(videoFile, callback) {
 				$('.c-mask').removeClass('hide');
 				generateVideoPoster(videoFile, function(data) {
@@ -269,6 +275,7 @@
 	    			});
 				});
 			}
+			// ajax rename folder-name
 			function saveFolderData(reqData, callback) {
 				$('.c-mask').removeClass('hide');
 				$.ajax({
@@ -294,7 +301,7 @@
 					}
 				});
 			}
-			
+			// ajax move folder
 			function moveFolderData(reqData, callback) {
 				$('.c-mask').removeClass('hide');
 				$.ajax({
@@ -320,7 +327,7 @@
 					}
 				});
 			}
-			
+			// ajax delete folder
 			function deleteFolderData(id, callback) {
 				var reqData = {
 					'tbShareVideoinfoId':id,
@@ -359,7 +366,7 @@
 					success: function (data) {}
 				});
 			}
-			
+			// callback download img			
 			function download(url, fileName) {
 				var anchor = document.createElement('a');
                 if ('download' in anchor) {
@@ -382,7 +389,6 @@
                 	toastr.warning('该浏览器暂不支持下载，请使用现代浏览器！');
                 }
 			}
-
 			// handle link params
 			function handleHrefParam() {
 				var curParam = window.localStorage.getItem('cur');
