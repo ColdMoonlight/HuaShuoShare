@@ -7,7 +7,7 @@
 		<title>MEGALOOK ADMIN</title>
 		<jsp:include page="common/backheader.jsp" flush="true"></jsp:include>
 		<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">
-		<style> .card-body { padding-left: 0; padding-right: 0; } </style>
+		<style> .card-body { padding-left: 0; padding-right: 0; } .c-main { display: flex; } </style>
 	</head>
 
 	<body class="c-app">
@@ -16,15 +16,7 @@
 		<div class="c-wrapper">
 			<div class="c-body">
 				<div class="c-main">
-					<div class="dashboard-title">
-						<div class="dashboard-time">
-							<input hidden id="search-create-time" />
-							<input hidden id="search-confirm-time" />
-							<input class="form-control daterangetimepicker" id="search-time" type="text">
-						</div>
-					</div>
-					
-					<div class="dashboard-body">					
+					<div class="dashboard-left">					
 						<div class="tree-box">
 							<div class="tree-block">
 								 <h3>Image</h3>
@@ -35,6 +27,109 @@
 								<div class="tree" data-type="video"></div>
 							</div>
 						</div>
+					</div>
+					<div class="dashboard-right">
+						<div class="dashboard-time">
+							<input hidden id="search-create-time" />
+							<input hidden id="search-confirm-time" />
+							<input class="form-control daterangetimepicker" id="search-time" type="text">
+						</div>
+						<div class="dashboard-cal">
+							<!-- cal left -->
+							<div class="dashboard-handle">
+								<div class="dashboard-cal-item">
+									<h4>文件夹</h4>
+									<div class="dashboard-cal-childs">									
+										<div class="dashboard-cal-child-item">
+											<span class="title">新建：</span>
+											<span class="text">--</span>
+										</div>
+										
+										<div class="dashboard-cal-child-item">
+											<span class="title">更新：</span>
+											<span class="text">--</span>
+										</div>
+										
+										<div class="dashboard-cal-child-item">
+											<span class="title">移动：</span>
+											<span class="text">--</span>
+										</div>
+										
+										<div class="dashboard-cal-child-item">
+											<span class="title">删除：</span>
+											<span class="text">--</span>
+										</div>								
+									</div>
+								</div>
+	
+								<div class="dashboard-cal-item">
+									<h4>图片</h4>
+									<div class="dashboard-cal-childs">								
+										<div class="dashboard-cal-child-item">
+											<span class="title">上传：</span>
+											<span class="text">--</span>
+										</div>
+										
+										<div class="dashboard-cal-child-item">
+											<span class="title">下载：</span>
+											<span class="text">--</span>
+										</div>
+										
+										<!-- <div class="dashboard-cal-child-item">
+											<span class="title">更新：</span>
+											<span class="text">--</span>
+										</div> -->
+										
+										<div class="dashboard-cal-child-item">
+											<span class="title">移动：</span>
+											<span class="text">--</span>
+										</div>
+										
+										<div class="dashboard-cal-child-item">
+											<span class="title">删除：</span>
+											<span class="text">--</span>
+										</div>
+									</div>
+								</div>
+	
+								<div class="dashboard-cal-item">
+									<h4>视频</h4>
+									<div class="dashboard-cal-childs">								
+										<div class="dashboard-cal-child-item">
+											<span class="title">上传：</span>
+											<span class="text">--</span>
+										</div>
+										
+										<div class="dashboard-cal-child-item">
+											<span class="title">下载：</span>
+											<span class="text">--</span>
+										</div>
+										
+										<!-- <div class="dashboard-cal-child-item">
+											<span class="title">更新：</span>
+											<span class="text">--</span>
+										</div> -->
+										
+										<div class="dashboard-cal-child-item">
+											<span class="title">移动：</span>
+											<span class="text">--</span>
+										</div>
+										
+										<div class="dashboard-cal-child-item">
+											<span class="title">删除：</span>
+											<span class="text">--</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- cal-right -->
+							<div class="dashboard-visit">
+								<h4>用户访问次数</h4>
+								<div class="dashboar-visit-count">--</div>
+							</div>
+						</div>
+						
+						<!-- user-log list -->
 						<div class="user-log">
 							<h3 class="title">操作记录</h3>
 							<div class="body">
@@ -260,12 +355,54 @@
 	        	});
 	        }
 	        
+	        // ajax get user log cals data
+	        function getCalUserLogData(callback) {
+	        	$.ajax({
+					url: "${APP_PATH}/CaclResources/caclNumByDateAndDesc",
+					type: "post",
+					dataType: "json",
+					contentType: 'application/json',
+					data: JSON.stringify({
+						"operationRecordCreatetime": $('#search-create-time').val(),
+					    "operationRecordMotifyTime": $('#search-confirm-time').val()
+					}),
+					success: function (data) {
+						if (data.code == 100) {
+							var resData = data.extend;
+							callback && callback([
+								[resData.fileAddNum, resData.fileUpdateNum, resData.fileRemoveNum, resData.fileDelNum],
+								[resData.imgUploadNum, resData.imgDownloadNum, resData.imgRemoveNum, resData.imgDelNum],
+								[resData.videoUploadNum, resData.videoDownloadNum, resData.videoRemoveNum, resData.videoDelNum],
+							], resData.peopleNum);
+						} else {
+							toastr.error(data.extend.resMsg);
+						}
+					},
+					error: function () {
+						toastr.error('获取数据失败，请稍后刷新页面重试！！');
+					}
+				});
+	        }
+	        
+	        // render all user-log
+	        function renderAlluserLogData() {
+	        	getCalUserLogData(function(data, count) {
+	        		$('.dashboar-visit-count').text(count);
+		        	for (var i = 0; i <= 2; i += 1) {
+		        		for (var j = 0; j <= 5; j += 1) {
+			    	        $('.dashboard-cal-item').eq(i).find('.dashboard-cal-child-item').eq(j).find('.text').text(data[i][j]);	        				
+		        		}
+		        	}    	
+	        	});
+	        }
+	        
 	        // combine search for dashboard
 	        function searchTimeEvent(startTime, endTime) {
 	        	$('#search-create-time').val(startTime);
 				$('#search-confirm-time').val(endTime);
+				renderAlluserLogData();
 				generateUserLog();
-	        }
+	        }	        
 
 	        // iniital tree dom
 	        var date = new Date();
@@ -282,11 +419,11 @@
 	            if ($item.hasClass('arrow')) {
 		            var flag = $item.hasClass('active');
 		            flag ? $item.removeClass('active') : $item.addClass('active')
-	
+
 		            $item.children().each(function(idx, sitem) {
 		            	var $sitem = $(sitem);
 		            	$sitem.hasClass('tree-item') && (flag ? $sitem.removeClass('show') : $sitem.addClass('show'));
-		            });	            	
+		            });	
 	            }
 	        });
 

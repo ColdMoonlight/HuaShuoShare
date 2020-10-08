@@ -111,7 +111,9 @@
 							'<div class="folder-td folder-time">'+ item.tbShareImageinfoCreatetime +'</div>' +
 							'<div class="folder-td folder-operate">' +
 								'<button class="btn btn-success hide folder-move" title="移动">移动</button>' +
-								'<button class="btn btn-primary hide folder-edit" title="重命名">重命名</button>' +
+								(item.tbShareImageinfoType == 0 ?
+									'<button class="btn btn-primary hide folder-edit" title="重命名">重命名</button>'
+									: '') +
 								'<button class="btn btn-danger hide folder-delete" title="删除">删除</button>' +
 								(item.tbShareImageinfoType == 1
 									? '<button class="btn btn-info hide folder-download" title="下载">下载</button>'
