@@ -178,7 +178,7 @@ public class CaclResourcesController {
 				videoDelNum++;
 			}
 		}
-		
+		//查询当前时间段内的总操作人数
 		List<ShareOperationRecord> peopleList =  shareOperationRecordService.selectShareOperationRecordByGroup(shareOperationRecordReq);
 		
 		return Msg.success().add("resMsg", "各个操作基础数据查询完毕").add("allOperateNum", shareOperationRecordList.size()).add("peopleNum", peopleList.size())
