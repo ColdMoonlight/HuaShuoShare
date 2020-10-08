@@ -335,6 +335,16 @@
 				});
 			}
 			
+			function postDownloadImgLog(reqData) {
+				$.ajax({
+					url: "${APP_PATH}/CaclResources/caclDownloadImg",
+					type: "post",
+					contentType: 'application/json',
+					data: JSON.stringify(reqData),
+					success: function (data) {}
+				});
+			}
+			
 			function download(url, fileName) {
 				var anchor = document.createElement('a');
                 if ('download' in anchor) {
@@ -381,14 +391,18 @@
 			renderCurrentCategory();
 			// create folder
 			$('.folder-create').on('click', function(e) {
-				createFolder(renderCurrentCategory);
+				checkSession(function() {
+					createFolder(renderCurrentCategory);
+				});
 			});
 			// upload img
 			$('.folder-upload').on('click', function() {
 				var fileUrl = $('<input type="file" accept="image/png, image/jpeg, image/gif" multiple />');
+
 				checkSession(function() {
 					fileUrl.trigger('click');					
 				});
+
 				fileUrl.on('change', function(e) {
 					var $this = $(this);
 					var files = $this[0].files;
@@ -414,11 +428,14 @@
 			// edit folder
 			$(document.body).on('click', '.folder-edit', function(e) {
 				e.stopPropagation();
-				folderItem = $(this).parents('.folder-list-item');
-				$('#folderId').val(folderItem.data('id')).data('type', folderItem.data('type'));
-				$('#folderName').val(folderItem.data('name'));
-
-				$('#renameModal').modal('show');
+				var $this = $(this);
+				checkSession(function() {
+					folderItem = $this.parents('.folder-list-item');
+					$('#folderId').val(folderItem.data('id')).data('type', folderItem.data('type'));
+					$('#folderName').val(folderItem.data('name'));
+	
+					$('#renameModal').modal('show');
+				});
 			});
 			$('#renameModal .btn-ok').on('click', function() {
 				var folderName = $('#folderName').val().trim();
@@ -438,11 +455,14 @@
 			// delete folder
 			$(document.body).on('click', '.folder-delete', function(e) {
 				e.stopPropagation();
-				folderItem = $(this).parents('.folder-list-item');
-				$('#folderId').val(folderItem.data('id'));
-				$('#folderName').val(folderItem.data('name'));
-
-				$('#deleteModal').modal('show');
+				var $this = $(this);
+				checkSession(function() {
+					folderItem = $this.parents('.folder-list-item');
+					$('#folderId').val(folderItem.data('id'));
+					$('#folderName').val(folderItem.data('name'));
+	
+					$('#deleteModal').modal('show');
+				});
 			});
 			$('#deleteModal .btn-ok').on('click', function() {
 				deleteFolderData(folderItem.data('id'), function() {
@@ -453,8 +473,11 @@
 			// folder move
 			$(document.body).on('click', '.folder-move', function(e) {
 				e.stopPropagation();
-				folderItem = $(this).parents('.folder-list-item');
-				$('.folder-move-ok').data('id', folderItem.data('id')).data('name', folderItem.data('name')).data('type', folderItem.data('type')).removeClass('hide');
+				var $this = $(this);
+				checkSession(function() {
+					folderItem = $this.parents('.folder-list-item');
+					$('.folder-move-ok').data('id', folderItem.data('id')).data('name', folderItem.data('name')).data('type', folderItem.data('type')).removeClass('hide');
+				});
 			});
 			$('.folder-move-ok').on('click', function() {
 				var $this = $(this);
@@ -471,27 +494,38 @@
 			// download file
 			$(document.body).on('click', '.folder-download', function(e) {
 				e.stopPropagation();
-				folderItem = $(this).parents('.folder-list-item');
-
-				download(folderItem.data('file'), folderItem.data('name'));
+				var $this = $(this);
+				checkSession(function() {
+					folderItem = $this.parents('.folder-list-item');
+					var fileName = folderItem.data('name');
+					// log
+					postDownloadImgLog({
+						 "operationRecordDataType": 1,
+						 "operationRecordDataName": fileName
+					});
+					// event
+					download(folderItem.data('file'), fileName);
+				});
 			});
 			// folder back
 			$('.folder-back').on('click', function() {
-				var lastCategory = null;
-				if (!navList.length) {
-					toastr.warning("已经在根目录了！！！");
-					return ;
-				}
-				navList.pop();
-				if (navList.length) {
-					currentParent = navList[navList.length - 1];
-				} else {
-					currentParent = {
-						"id": 0,
-						"name": '我的网盘'
+				checkSession(function() {
+					var lastCategory = null;
+					if (!navList.length) {
+						toastr.warning("已经在根目录了！！！");
+						return ;
 					}
-				}
-				renderCurrentCategory();
+					navList.pop();
+					if (navList.length) {
+						currentParent = navList[navList.length - 1];
+					} else {
+						currentParent = {
+							"id": 0,
+							"name": '我的网盘'
+						}
+					}
+					renderCurrentCategory();
+				});
 			});
 			// folder layout toggle
 			$('.folder-layout').on('click', function() {
