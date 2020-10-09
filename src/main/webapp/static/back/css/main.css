@@ -752,18 +752,16 @@
 .dashboard-handle {
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
+	align-items: stretch;
 }
 .dashboard-cal-item {
 	width: 30%;
 }
-.dashboard-cal-item>h4,
-.dashboard-visit>h4 {
+.dashboard-cal-item>h4 {
 	text-align: center;
 }
 .dashboard-cal-item,
 .dashboard-visit {
-	height: 10rem;
 	padding: 1rem;
 	border: 1px solid #ccc;
 	border-radius: .5rem;
@@ -771,8 +769,8 @@
 .dashboard-visit {
 	display: flex;
 	flex-direction: column;
-	justicy-content: center;
-	aling-items: center;
+	justify-content: center;
+	align-items: center;
 }
 .dashboard-visit-count {
 	flex-grow: 1;
@@ -819,7 +817,7 @@
 	}
 	.dashboard-cal {
 		display: flex;
-		align-items: center;
+		align-items: stretch;
 	}
 	.dashboard-handle {
 		width: 70%;
