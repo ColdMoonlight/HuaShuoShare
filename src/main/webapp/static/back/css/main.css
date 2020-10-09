@@ -453,11 +453,6 @@
 	width: 50%;
 }
 
-.folder-center,
-.folder-right {
-	width: 25%;
-}
-
 .folder-center .btn+.btn  {
 	margin-left: 1rem;
 }
@@ -799,6 +794,9 @@
 	padding-left: 1.5rem;
 }
 @media screen and (max-width: 1023px) {
+	.folder-nav {
+		display: none;
+	}
 	.dashboard-visit,
 	.dashboard-right {
 		margin-top: 1rem;
@@ -809,6 +807,10 @@
 	}
 }
 @media screen and (min-width: 1024px) {
+	.folder-center,
+	.folder-right {
+		width: 25%;
+	}
 	.dashboard-left {
 		width: 40%;
 	}
