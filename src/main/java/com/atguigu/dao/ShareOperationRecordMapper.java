@@ -12,7 +12,7 @@ public interface ShareOperationRecordMapper {
 
     int updateByPrimaryKey(ShareOperationRecord record);
     
-    //-------------
+    //------------
     int insertSelective(ShareOperationRecord record);
     
     int deleteByPrimaryKey(Integer operationRecordId);
