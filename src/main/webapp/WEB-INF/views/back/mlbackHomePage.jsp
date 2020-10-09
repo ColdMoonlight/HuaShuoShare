@@ -134,7 +134,7 @@
 							<h3 class="title">操作记录</h3>
 							<div class="body">
 								<ul class="user-log-list"></ul>
-								<div class="user-log-tip text-right hide" style="font-style: italic;">最多查看100条记录</div>
+								<div class="user-log-tip text-right hide" style="font-style: italic; padding: 0 1rem;">最多查看<b>100</b>条记录</div>
 							</div>
 						</div>
 					</div>
