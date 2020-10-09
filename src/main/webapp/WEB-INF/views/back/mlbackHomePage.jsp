@@ -351,6 +351,7 @@
 	        			$('.user-log-tip').removeClass('hide');
 	        		} else {
 	        			html = '<i>该时间范围内没有任何操作。。。</i>';
+	        			$('.user-log-tip').addClass('hide');
 	        		}
 
         			$('.user-log-list').html(html);
