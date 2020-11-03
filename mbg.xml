@@ -49,5 +49,12 @@
 		<table tableName="tb_share_operation_record" domainObjectName="ShareOperationRecord" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		-->
 		
+		<!--	tb_email
+		<table tableName="tb_email_paysuccess" domainObjectName="EmailPaySuccess" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		<table tableName="tb_email_payRetuensuccess" domainObjectName="EmailPayPalRetuenSuccess" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		<table tableName="tb_email_address" domainObjectName="EmailAddress" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		<table tableName="tb_email_user" domainObjectName="EmailUser" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		-->
+		
 	</context>
 </generatorConfiguration>
