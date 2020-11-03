@@ -33,6 +33,13 @@
 						<span class="c-text">video</span>
 					</a>
 				</li>
+				<li class="c-sidebar-nav-item">
+					<a class="c-sidebar-nav-link" href="${APP_PATH}/EmailUpDown/DownloadPage">
+						<span class="c-sidebar-nav-icon"></span>
+						<span class="c-text">download</span>
+					</a>
+				</li>
+				<!-- download -->
 			</ul>
 		</li>
 		<!-- videos -->
