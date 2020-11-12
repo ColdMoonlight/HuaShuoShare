@@ -68,7 +68,7 @@ public class EmailUpDownController {
 		rep.setContentType("application/octet-stream");
 		
 		String nowTime = DateUtil.strTime14();
-		rep.setHeader("Content-Disposition", "attachment;filename="+nowTime+"payinfoSuccess.xls");
+		rep.setHeader("Content-Disposition", "attachment;filename="+nowTime+"paySuccess.xls");
 		
 		HSSFWorkbook wb = new HSSFWorkbook();
 		
@@ -154,7 +154,7 @@ public class EmailUpDownController {
 		
 		rep.setContentType("application/octet-stream");
 		String nowTime = DateUtil.strTime14();
-		rep.setHeader("Content-Disposition", "attachment;filename="+nowTime+"addressEmailunPay.xls");
+		rep.setHeader("Content-Disposition", "attachment;filename="+nowTime+"addressEmail-UnPay.xls");
 		
 		HSSFWorkbook wb = new HSSFWorkbook();
 		HSSFSheet sheet = wb.createSheet("sheet0");
@@ -265,7 +265,7 @@ public class EmailUpDownController {
 		rep.setContentType("application/octet-stream");
 		
 		String nowTime = DateUtil.strTime14();
-		rep.setHeader("Content-Disposition", "attachment;filename="+nowTime+"payinfoIf.xls");
+		rep.setHeader("Content-Disposition", "attachment;filename="+nowTime+"UserEmail.xls");
 		
 		HSSFWorkbook wb = new HSSFWorkbook();
 		HSSFSheet sheet = wb.createSheet("sheet0");
