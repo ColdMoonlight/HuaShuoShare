@@ -1,19 +1,19 @@
 package com.atguigu.bean;
 
 public class ShareUpdate {
-    private Integer tbShareUpdateId;
+    private Integer tbShareUpdateId;	//更新通告id
 
-    private String tbShareUpdateName;
+    private String tbShareUpdateName;	//更新通告
 
-    private String tbShareUpdateDetail;
+    private String tbShareUpdateDetail;	//通告明细
 
     private String tbShareUpdateCreatetime;
 
     private String tbShareUpdateModifytime;
 
-    private Integer tbShareUpdateAdminid;
+    private Integer tbShareUpdateAdminid;	//更新操作人员id
 
-    private String tbShareUpdateAdminname;
+    private String tbShareUpdateAdminname;	//更新操作人员部门归属
 
     public Integer getTbShareUpdateId() {
         return tbShareUpdateId;
@@ -70,4 +70,31 @@ public class ShareUpdate {
     public void setTbShareUpdateAdminname(String tbShareUpdateAdminname) {
         this.tbShareUpdateAdminname = tbShareUpdateAdminname == null ? null : tbShareUpdateAdminname.trim();
     }
+
+	public ShareUpdate() {
+		super();
+	}
+
+	public ShareUpdate(Integer tbShareUpdateId, String tbShareUpdateName, String tbShareUpdateDetail,
+			String tbShareUpdateCreatetime, String tbShareUpdateModifytime, Integer tbShareUpdateAdminid,
+			String tbShareUpdateAdminname) {
+		super();
+		this.tbShareUpdateId = tbShareUpdateId;
+		this.tbShareUpdateName = tbShareUpdateName;
+		this.tbShareUpdateDetail = tbShareUpdateDetail;
+		this.tbShareUpdateCreatetime = tbShareUpdateCreatetime;
+		this.tbShareUpdateModifytime = tbShareUpdateModifytime;
+		this.tbShareUpdateAdminid = tbShareUpdateAdminid;
+		this.tbShareUpdateAdminname = tbShareUpdateAdminname;
+	}
+
+	@Override
+	public String toString() {
+		return "ShareUpdate [tbShareUpdateId=" + tbShareUpdateId + ", tbShareUpdateName=" + tbShareUpdateName
+				+ ", tbShareUpdateDetail=" + tbShareUpdateDetail + ", tbShareUpdateCreatetime="
+				+ tbShareUpdateCreatetime + ", tbShareUpdateModifytime=" + tbShareUpdateModifytime
+				+ ", tbShareUpdateAdminid=" + tbShareUpdateAdminid + ", tbShareUpdateAdminname="
+				+ tbShareUpdateAdminname + "]";
+	}
+    
 }
