@@ -16,7 +16,7 @@
 		<div class="c-wrapper">
 			<div class="c-body">
 				<div class="c-main">
-					<div class="dashboard-left">					
+					<div class="dashboard-left">
 						<div class="tree-box">
 							<div class="tree-block">
 								 <h3>Image</h3>
@@ -29,103 +29,110 @@
 						</div>
 					</div>
 					<div class="dashboard-right">
-						<div class="dashboard-time">
-							<input hidden id="search-create-time" />
-							<input hidden id="search-confirm-time" />
-							<input class="form-control daterangetimepicker" id="search-time" type="text">
+						<div class="flex-grid">
+							<div class="dashboard-log"></div>
+							<div class="dashboard-msg"></div>
 						</div>
-						<div class="dashboard-cal">
-							<!-- cal left -->
-							<div class="dashboard-handle">
-								<div class="dashboard-cal-item">
-									<h4>文件夹</h4>
-									<div class="dashboard-cal-childs">									
-										<div class="dashboard-cal-child-item">
-											<span class="title">新建：</span>
-											<span class="text">--</span>
-										</div>
-										
-										<div class="dashboard-cal-child-item">
-											<span class="title">更新：</span>
-											<span class="text">--</span>
-										</div>
-										
-										<div class="dashboard-cal-child-item">
-											<span class="title">移动：</span>
-											<span class="text">--</span>
-										</div>
-										
-										<div class="dashboard-cal-child-item">
-											<span class="title">删除：</span>
-											<span class="text">--</span>
-										</div>								
-									</div>
-								</div>
-	
-								<div class="dashboard-cal-item">
-									<h4>图片</h4>
-									<div class="dashboard-cal-childs">								
-										<div class="dashboard-cal-child-item">
-											<span class="title">上传：</span>
-											<span class="text">--</span>
-										</div>
-										
-										<div class="dashboard-cal-child-item">
-											<span class="title">下载：</span>
-											<span class="text">--</span>
-										</div>
-										
-										<!-- <div class="dashboard-cal-child-item">
-											<span class="title">更新：</span>
-											<span class="text">--</span>
-										</div> -->
-										
-										<div class="dashboard-cal-child-item">
-											<span class="title">移动：</span>
-											<span class="text">--</span>
-										</div>
-										
-										<div class="dashboard-cal-child-item">
-											<span class="title">删除：</span>
-											<span class="text">--</span>
-										</div>
-									</div>
-								</div>
-	
-								<div class="dashboard-cal-item">
-									<h4>视频</h4>
-									<div class="dashboard-cal-childs">								
-										<div class="dashboard-cal-child-item">
-											<span class="title">上传：</span>
-											<span class="text">--</span>
-										</div>
-										
-										<div class="dashboard-cal-child-item">
-											<span class="title">下载：</span>
-											<span class="text">--</span>
-										</div>
-										
-										<!-- <div class="dashboard-cal-child-item">
-											<span class="title">更新：</span>
-											<span class="text">--</span>
-										</div> -->
-										
-										<div class="dashboard-cal-child-item">
-											<span class="title">移动：</span>
-											<span class="text">--</span>
-										</div>
-										
-										<div class="dashboard-cal-child-item">
-											<span class="title">删除：</span>
-											<span class="text">--</span>
-										</div>
-									</div>
-								</div>
+						<div class="dashboard-anlysis">
+							<div class="dashboard-time">
+								<input hidden id="search-create-time" />
+								<input hidden id="search-confirm-time" />
+								<input class="form-control daterangetimepicker" id="search-time" type="text">
 							</div>
-							<!-- cal-right -->
-							<div class="dashboard-visit">
-								<h4>用户访问(人/次)</h4>
-								<div class="dashboard-visit-count">--</div>
+
+							<div class="dashboard-cal">
+								<!-- cal left -->
+								<div class="dashboard-handle">
+									<div class="dashboard-cal-item">
+										<h4>文件夹</h4>
+										<div class="dashboard-cal-childs">									
+											<div class="dashboard-cal-child-item">
+												<span class="title">新建：</span>
+												<span class="text">--</span>
+											</div>
+											
+											<div class="dashboard-cal-child-item">
+												<span class="title">更新：</span>
+												<span class="text">--</span>
+											</div>
+											
+											<div class="dashboard-cal-child-item">
+												<span class="title">移动：</span>
+												<span class="text">--</span>
+											</div>
+											
+											<div class="dashboard-cal-child-item">
+												<span class="title">删除：</span>
+												<span class="text">--</span>
+											</div>								
+										</div>
+									</div>
+		
+									<div class="dashboard-cal-item">
+										<h4>图片</h4>
+										<div class="dashboard-cal-childs">								
+											<div class="dashboard-cal-child-item">
+												<span class="title">上传：</span>
+												<span class="text">--</span>
+											</div>
+											
+											<div class="dashboard-cal-child-item">
+												<span class="title">下载：</span>
+												<span class="text">--</span>
+											</div>
+											
+											<!-- <div class="dashboard-cal-child-item">
+												<span class="title">更新：</span>
+												<span class="text">--</span>
+											</div> -->
+											
+											<div class="dashboard-cal-child-item">
+												<span class="title">移动：</span>
+												<span class="text">--</span>
+											</div>
+											
+											<div class="dashboard-cal-child-item">
+												<span class="title">删除：</span>
+												<span class="text">--</span>
+											</div>
+										</div>
+									</div>
+		
+									<div class="dashboard-cal-item">
+										<h4>视频</h4>
+										<div class="dashboard-cal-childs">								
+											<div class="dashboard-cal-child-item">
+												<span class="title">上传：</span>
+												<span class="text">--</span>
+											</div>
+											
+											<div class="dashboard-cal-child-item">
+												<span class="title">下载：</span>
+												<span class="text">--</span>
+											</div>
+											
+											<!-- <div class="dashboard-cal-child-item">
+												<span class="title">更新：</span>
+												<span class="text">--</span>
+											</div> -->
+											
+											<div class="dashboard-cal-child-item">
+												<span class="title">移动：</span>
+												<span class="text">--</span>
+											</div>
+											
+											<div class="dashboard-cal-child-item">
+												<span class="title">删除：</span>
+												<span class="text">--</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- cal-right -->
+								<div class="dashboard-visit">
+									<h4>用户访问(人/次)</h4>
+									<div class="dashboard-visit-count">--</div>
+								</div>
 							</div>
 						</div>
 						

@@ -788,6 +788,13 @@
 	width: 70%;
 	margin: 0 auto;
 }
+.dashboard-log,
+.dashboard-msg {
+	min-height: 300px;
+}
+.dash-board-analysis {
+	margin-top: 1rem;
+}
 .user-log-list {
 	padding-left: 1.5rem;
 }
@@ -810,10 +817,20 @@
 		width: 25%;
 	}
 	.dashboard-left {
-		width: 40%;
+		width: 30%;
+		overflow-x: auto;
 	}
 	.dashboard-right {
-		width: 60%;
+		width: 70%;
+	}
+	.flex-grid {	
+		display: flex;
+	}
+	.dashboard-log,
+	.dashboard-msg {
+		flex-shrink: 0;
+		flex-grow: 0;
+		width: 50%;
 	}
 	.dashboard-cal {
 		display: flex;
