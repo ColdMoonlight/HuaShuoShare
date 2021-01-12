@@ -16,15 +16,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.atguigu.bean.EmailAddress;
+import com.atguigu.bean.EmailNoneed;
 import com.atguigu.bean.EmailPayPalRetuenSuccess;
 import com.atguigu.bean.EmailPaySuccess;
 import com.atguigu.bean.EmailUser;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.service.EmailAddressService;
+import com.atguigu.service.EmailNoneedService;
 import com.atguigu.service.EmailPayPalRetuenSuccessService;
 import com.atguigu.service.EmailPaySuccessService;
 import com.atguigu.service.EmailUserService;
 import com.atguigu.utils.DateUtil;
+import com.atguigu.utils.EmailUnneedUtil;
 
 @Controller
 @RequestMapping("/EmailUpDown")
@@ -42,6 +45,8 @@ public class EmailUpDownController {
 	@Autowired
 	EmailUserService emailUserService;//全部注册
 	
+	@Autowired
+	EmailNoneedService emailNoneedService;
 	
 	/**
 	 * zsh 200730
@@ -108,13 +113,20 @@ public class EmailUpDownController {
 			}
 		}
 		
+		//筛选被放弃的邮箱
+		List<String> ressuccessList = new ArrayList<String>();
+		EmailNoneed emailNoneedReq = new EmailNoneed();
+		List<EmailNoneed> emailNoneedList = emailNoneedService.selectALl(emailNoneedReq);
+		
+		ressuccessList = EmailUnneedUtil.removeNoUseEmail(successList,emailNoneedList);
+		
 		cell.setCellValue("num");
 	    cell = row.createCell(1);
 		cell.setCellValue("billingEmail");
 	    cell = row.createCell(2);
 	    
-	    for (int i = 0; i < successList.size(); i++) {
-	    	String successEmail = successList.get(i);
+	    for (int i = 0; i < ressuccessList.size(); i++) {
+	    	String successEmail = ressuccessList.get(i);
 	        row = sheet.createRow(i+1);
 	        row.createCell(0).setCellValue(i+1);
 	        row.createCell(1).setCellValue(successEmail+"");
@@ -235,13 +247,21 @@ public class EmailUpDownController {
 			}
 		}
 		
+		//筛选被放弃的邮箱
+		List<String> ressuccessList = new ArrayList<String>();
+		EmailNoneed emailNoneedReq = new EmailNoneed();
+		List<EmailNoneed> emailNoneedList = emailNoneedService.selectALl(emailNoneedReq);
+		
+		ressuccessList = EmailUnneedUtil.removeNoUseEmail(nowAddressList,emailNoneedList);
+		
+		
 		cell.setCellValue("num");
 	    cell = row.createCell(1);
 		cell.setCellValue("添加支付信息未付款的Email");
 	    cell = row.createCell(2);
 	    
-	    for (int i = 0; i < nowAddressList.size(); i++) {
-	    	String addressEmail = nowAddressList.get(i);
+	    for (int i = 0; i < ressuccessList.size(); i++) {
+	    	String addressEmail = ressuccessList.get(i);
 	        row = sheet.createRow(i+1);
 	        row.createCell(0).setCellValue(i+1);
 	        row.createCell(1).setCellValue(addressEmail+"");
@@ -388,13 +408,20 @@ public class EmailUpDownController {
 			}
 		}
 		//-------------------------------------------------------------------------------
+		//筛选被放弃的邮箱
+		List<String> ressuccessList = new ArrayList<String>();
+		EmailNoneed emailNoneedReq = new EmailNoneed();
+		List<EmailNoneed> emailNoneedList = emailNoneedService.selectALl(emailNoneedReq);
+		
+		ressuccessList = EmailUnneedUtil.removeNoUseEmail(userList,emailNoneedList);
+		
 		cell.setCellValue("num");
 	    cell = row.createCell(1);
 		cell.setCellValue("仅注册-未加购-未购买");
 	    cell = row.createCell(2);
-	    System.out.println("筛选出的userEmail的数量"+userList.size());
-	    for (int i = 0; i < userList.size(); i++) {
-	    	String userEmail = userList.get(i);
+	    System.out.println("筛选出的userEmail的数量"+ressuccessList.size());
+	    for (int i = 0; i < ressuccessList.size(); i++) {
+	    	String userEmail = ressuccessList.get(i);
 	        row = sheet.createRow(i+1);
 	        row.createCell(0).setCellValue(i+1);
 	        row.createCell(1).setCellValue(userEmail+"");
