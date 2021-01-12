@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.dao.ShareDemandMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.bean.ShareDemand">
+    <id column="tb_share_demand_id" jdbcType="INTEGER" property="tbShareDemandId" />
+    <result column="tb_share_demand_name" jdbcType="VARCHAR" property="tbShareDemandName" />
+    <result column="tb_share_demand_detail" jdbcType="VARCHAR" property="tbShareDemandDetail" />
+    <result column="tb_share_demand_createTime" jdbcType="VARCHAR" property="tbShareDemandCreatetime" />
+    <result column="tb_share_demand_modifyTime" jdbcType="VARCHAR" property="tbShareDemandModifytime" />
+    <result column="tb_share_demand_adminId" jdbcType="INTEGER" property="tbShareDemandAdminid" />
+    <result column="tb_share_demand_adminName" jdbcType="VARCHAR" property="tbShareDemandAdminname" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tb_share_demand_id, tb_share_demand_name, tb_share_demand_detail, tb_share_demand_createTime, 
+    tb_share_demand_modifyTime, tb_share_demand_adminId, tb_share_demand_adminName
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_share_demand
+    where tb_share_demand_id = #{tbShareDemandId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_share_demand
+    where tb_share_demand_id = #{tbShareDemandId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.atguigu.bean.ShareDemand">
+    insert into tb_share_demand (tb_share_demand_id, tb_share_demand_name, 
+      tb_share_demand_detail, tb_share_demand_createTime, 
+      tb_share_demand_modifyTime, tb_share_demand_adminId, 
+      tb_share_demand_adminName)
+    values (#{tbShareDemandId,jdbcType=INTEGER}, #{tbShareDemandName,jdbcType=VARCHAR}, 
+      #{tbShareDemandDetail,jdbcType=VARCHAR}, #{tbShareDemandCreatetime,jdbcType=VARCHAR}, 
+      #{tbShareDemandModifytime,jdbcType=VARCHAR}, #{tbShareDemandAdminid,jdbcType=INTEGER}, 
+      #{tbShareDemandAdminname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.atguigu.bean.ShareDemand">
+    insert into tb_share_demand
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tbShareDemandId != null">
+        tb_share_demand_id,
+      </if>
+      <if test="tbShareDemandName != null">
+        tb_share_demand_name,
+      </if>
+      <if test="tbShareDemandDetail != null">
+        tb_share_demand_detail,
+      </if>
+      <if test="tbShareDemandCreatetime != null">
+        tb_share_demand_createTime,
+      </if>
+      <if test="tbShareDemandModifytime != null">
+        tb_share_demand_modifyTime,
+      </if>
+      <if test="tbShareDemandAdminid != null">
+        tb_share_demand_adminId,
+      </if>
+      <if test="tbShareDemandAdminname != null">
+        tb_share_demand_adminName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tbShareDemandId != null">
+        #{tbShareDemandId,jdbcType=INTEGER},
+      </if>
+      <if test="tbShareDemandName != null">
+        #{tbShareDemandName,jdbcType=VARCHAR},
+      </if>
+      <if test="tbShareDemandDetail != null">
+        #{tbShareDemandDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="tbShareDemandCreatetime != null">
+        #{tbShareDemandCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="tbShareDemandModifytime != null">
+        #{tbShareDemandModifytime,jdbcType=VARCHAR},
+      </if>
+      <if test="tbShareDemandAdminid != null">
+        #{tbShareDemandAdminid,jdbcType=INTEGER},
+      </if>
+      <if test="tbShareDemandAdminname != null">
+        #{tbShareDemandAdminname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.ShareDemand">
+    update tb_share_demand
+    <set>
+      <if test="tbShareDemandName != null">
+        tb_share_demand_name = #{tbShareDemandName,jdbcType=VARCHAR},
+      </if>
+      <if test="tbShareDemandDetail != null">
+        tb_share_demand_detail = #{tbShareDemandDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="tbShareDemandCreatetime != null">
+        tb_share_demand_createTime = #{tbShareDemandCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="tbShareDemandModifytime != null">
+        tb_share_demand_modifyTime = #{tbShareDemandModifytime,jdbcType=VARCHAR},
+      </if>
+      <if test="tbShareDemandAdminid != null">
+        tb_share_demand_adminId = #{tbShareDemandAdminid,jdbcType=INTEGER},
+      </if>
+      <if test="tbShareDemandAdminname != null">
+        tb_share_demand_adminName = #{tbShareDemandAdminname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tb_share_demand_id = #{tbShareDemandId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.ShareDemand">
+    update tb_share_demand
+    set tb_share_demand_name = #{tbShareDemandName,jdbcType=VARCHAR},
+      tb_share_demand_detail = #{tbShareDemandDetail,jdbcType=VARCHAR},
+      tb_share_demand_createTime = #{tbShareDemandCreatetime,jdbcType=VARCHAR},
+      tb_share_demand_modifyTime = #{tbShareDemandModifytime,jdbcType=VARCHAR},
+      tb_share_demand_adminId = #{tbShareDemandAdminid,jdbcType=INTEGER},
+      tb_share_demand_adminName = #{tbShareDemandAdminname,jdbcType=VARCHAR}
+    where tb_share_demand_id = #{tbShareDemandId,jdbcType=INTEGER}
+  </update>
+</mapper>
