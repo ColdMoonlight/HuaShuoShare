@@ -20,10 +20,6 @@
     from tb_share_update
     where tb_share_update_id = #{tbShareUpdateId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_share_update
-    where tb_share_update_id = #{tbShareUpdateId,jdbcType=INTEGER}
-  </delete>
   <insert id="insert" parameterType="com.atguigu.bean.ShareUpdate">
     insert into tb_share_update (tb_share_update_id, tb_share_update_name, 
       tb_share_update_detail, tb_share_update_createTime, 
@@ -34,7 +30,19 @@
       #{tbShareUpdateModifytime,jdbcType=VARCHAR}, #{tbShareUpdateAdminid,jdbcType=INTEGER}, 
       #{tbShareUpdateAdminname,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.atguigu.bean.ShareUpdate">
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.ShareUpdate">
+    update tb_share_update
+    set tb_share_update_name = #{tbShareUpdateName,jdbcType=VARCHAR},
+      tb_share_update_detail = #{tbShareUpdateDetail,jdbcType=VARCHAR},
+      tb_share_update_createTime = #{tbShareUpdateCreatetime,jdbcType=VARCHAR},
+      tb_share_update_modifyTime = #{tbShareUpdateModifytime,jdbcType=VARCHAR},
+      tb_share_update_adminId = #{tbShareUpdateAdminid,jdbcType=INTEGER},
+      tb_share_update_adminName = #{tbShareUpdateAdminname,jdbcType=VARCHAR}
+    where tb_share_update_id = #{tbShareUpdateId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- insertSelective -->  
+  <insert id="insertSelective"  useGeneratedKeys="true" keyProperty="tbShareUpdateId" parameterType="com.atguigu.bean.ShareUpdate">
     insert into tb_share_update
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="tbShareUpdateId != null">
@@ -83,6 +91,12 @@
       </if>
     </trim>
   </insert>
+  <!-- deleteByPrimaryKey -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_share_update
+    where tb_share_update_id = #{tbShareUpdateId,jdbcType=INTEGER}
+  </delete>
+  <!-- updateByPrimaryKeySelective -->
   <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.ShareUpdate">
     update tb_share_update
     <set>
@@ -107,14 +121,17 @@
     </set>
     where tb_share_update_id = #{tbShareUpdateId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.ShareUpdate">
-    update tb_share_update
-    set tb_share_update_name = #{tbShareUpdateName,jdbcType=VARCHAR},
-      tb_share_update_detail = #{tbShareUpdateDetail,jdbcType=VARCHAR},
-      tb_share_update_createTime = #{tbShareUpdateCreatetime,jdbcType=VARCHAR},
-      tb_share_update_modifyTime = #{tbShareUpdateModifytime,jdbcType=VARCHAR},
-      tb_share_update_adminId = #{tbShareUpdateAdminid,jdbcType=INTEGER},
-      tb_share_update_adminName = #{tbShareUpdateAdminname,jdbcType=VARCHAR}
-    where tb_share_update_id = #{tbShareUpdateId,jdbcType=INTEGER}
-  </update>
+  <!-- 使用中selectShareUpdateById -->
+  <select id="selectShareUpdateById" parameterType="com.atguigu.bean.ShareUpdate" resultMap="BaseResultMap">
+  	select 
+  	tb_share_update_id, tb_share_update_name, tb_share_update_detail, tb_share_update_createTime, 
+    tb_share_update_modifyTime, tb_share_update_adminId, tb_share_update_adminName 
+  	from tb_share_update where tb_share_update_id = #{tbShareUpdateId,jdbcType=INTEGER}
+  </select>
+  <!-- 使用中selectShareUpdatelistAll -->
+  <select id="selectShareUpdatelistAll" parameterType="com.atguigu.bean.ShareUpdate" resultMap="BaseResultMap">
+  	select *
+  	from tb_share_update where tb_share_update_id = #{tbShareUpdateId,jdbcType=INTEGER}
+  </select>
+  
 </mapper>
