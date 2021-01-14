@@ -32,9 +32,9 @@ public class ShareUpdateController {
 	 * @param ShareUpdate
 	 * @return
 	 */
-	@RequestMapping(value="/initializaFileNameInfo",method=RequestMethod.POST)
+	@RequestMapping(value="/initializaUpdateInfo",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg initializaFileNameInfo(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareUpdate shareUpdate){
+	public Msg initializaUpdateInfo(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareUpdate shareUpdate){
 		
 		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
 		session.setAttribute("AdminUser", mlbackAdmin);
