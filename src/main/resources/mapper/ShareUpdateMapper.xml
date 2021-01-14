@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.dao.ShareUpdateMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.bean.ShareUpdate">
+    <id column="tb_share_update_id" jdbcType="INTEGER" property="tbShareUpdateId" />
+    <result column="tb_share_update_name" jdbcType="VARCHAR" property="tbShareUpdateName" />
+    <result column="tb_share_update_detail" jdbcType="VARCHAR" property="tbShareUpdateDetail" />
+    <result column="tb_share_update_createTime" jdbcType="VARCHAR" property="tbShareUpdateCreatetime" />
+    <result column="tb_share_update_modifyTime" jdbcType="VARCHAR" property="tbShareUpdateModifytime" />
+    <result column="tb_share_update_adminId" jdbcType="INTEGER" property="tbShareUpdateAdminid" />
+    <result column="tb_share_update_adminName" jdbcType="VARCHAR" property="tbShareUpdateAdminname" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tb_share_update_id, tb_share_update_name, tb_share_update_detail, tb_share_update_createTime, 
+    tb_share_update_modifyTime, tb_share_update_adminId, tb_share_update_adminName
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_share_update
+    where tb_share_update_id = #{tbShareUpdateId,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.atguigu.bean.ShareUpdate">
+    insert into tb_share_update (tb_share_update_id, tb_share_update_name, 
+      tb_share_update_detail, tb_share_update_createTime, 
+      tb_share_update_modifyTime, tb_share_update_adminId, 
+      tb_share_update_adminName)
+    values (#{tbShareUpdateId,jdbcType=INTEGER}, #{tbShareUpdateName,jdbcType=VARCHAR}, 
+      #{tbShareUpdateDetail,jdbcType=VARCHAR}, #{tbShareUpdateCreatetime,jdbcType=VARCHAR}, 
+      #{tbShareUpdateModifytime,jdbcType=VARCHAR}, #{tbShareUpdateAdminid,jdbcType=INTEGER}, 
+      #{tbShareUpdateAdminname,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.ShareUpdate">
+    update tb_share_update
+    set tb_share_update_name = #{tbShareUpdateName,jdbcType=VARCHAR},
+      tb_share_update_detail = #{tbShareUpdateDetail,jdbcType=VARCHAR},
+      tb_share_update_createTime = #{tbShareUpdateCreatetime,jdbcType=VARCHAR},
+      tb_share_update_modifyTime = #{tbShareUpdateModifytime,jdbcType=VARCHAR},
+      tb_share_update_adminId = #{tbShareUpdateAdminid,jdbcType=INTEGER},
+      tb_share_update_adminName = #{tbShareUpdateAdminname,jdbcType=VARCHAR}
+    where tb_share_update_id = #{tbShareUpdateId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- insertSelective -->  
+  <insert id="insertSelective"  useGeneratedKeys="true" keyProperty="tbShareUpdateId" parameterType="com.atguigu.bean.ShareUpdate">
+    insert into tb_share_update
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tbShareUpdateId != null">
+        tb_share_update_id,
+      </if>
+      <if test="tbShareUpdateName != null">
+        tb_share_update_name,
+      </if>
+      <if test="tbShareUpdateDetail != null">
+        tb_share_update_detail,
+      </if>
+      <if test="tbShareUpdateCreatetime != null">
+        tb_share_update_createTime,
+      </if>
+      <if test="tbShareUpdateModifytime != null">
+        tb_share_update_modifyTime,
+      </if>
+      <if test="tbShareUpdateAdminid != null">
+        tb_share_update_adminId,
+      </if>
+      <if test="tbShareUpdateAdminname != null">
+        tb_share_update_adminName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tbShareUpdateId != null">
+        #{tbShareUpdateId,jdbcType=INTEGER},
+      </if>
+      <if test="tbShareUpdateName != null">
+        #{tbShareUpdateName,jdbcType=VARCHAR},
+      </if>
+      <if test="tbShareUpdateDetail != null">
+        #{tbShareUpdateDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="tbShareUpdateCreatetime != null">
+        #{tbShareUpdateCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="tbShareUpdateModifytime != null">
+        #{tbShareUpdateModifytime,jdbcType=VARCHAR},
+      </if>
+      <if test="tbShareUpdateAdminid != null">
+        #{tbShareUpdateAdminid,jdbcType=INTEGER},
+      </if>
+      <if test="tbShareUpdateAdminname != null">
+        #{tbShareUpdateAdminname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <!-- deleteByPrimaryKey -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_share_update
+    where tb_share_update_id = #{tbShareUpdateId,jdbcType=INTEGER}
+  </delete>
+  <!-- updateByPrimaryKeySelective -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.ShareUpdate">
+    update tb_share_update
+    <set>
+      <if test="tbShareUpdateName != null">
+        tb_share_update_name = #{tbShareUpdateName,jdbcType=VARCHAR},
+      </if>
+      <if test="tbShareUpdateDetail != null">
+        tb_share_update_detail = #{tbShareUpdateDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="tbShareUpdateCreatetime != null">
+        tb_share_update_createTime = #{tbShareUpdateCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="tbShareUpdateModifytime != null">
+        tb_share_update_modifyTime = #{tbShareUpdateModifytime,jdbcType=VARCHAR},
+      </if>
+      <if test="tbShareUpdateAdminid != null">
+        tb_share_update_adminId = #{tbShareUpdateAdminid,jdbcType=INTEGER},
+      </if>
+      <if test="tbShareUpdateAdminname != null">
+        tb_share_update_adminName = #{tbShareUpdateAdminname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tb_share_update_id = #{tbShareUpdateId,jdbcType=INTEGER}
+  </update>
+  <!-- 使用中selectShareUpdateById -->
+  <select id="selectShareUpdateById" parameterType="com.atguigu.bean.ShareUpdate" resultMap="BaseResultMap">
+  	select 
+  	tb_share_update_id, tb_share_update_name, tb_share_update_detail, tb_share_update_createTime, 
+    tb_share_update_modifyTime, tb_share_update_adminId, tb_share_update_adminName 
+  	from tb_share_update where tb_share_update_id = #{tbShareUpdateId,jdbcType=INTEGER}
+  </select>
+  <!-- 使用中selectShareUpdatelistAll -->
+  <select id="selectShareUpdatelistAll" parameterType="com.atguigu.bean.ShareUpdate" resultMap="BaseResultMap">
+  	select *
+  	from tb_share_update where tb_share_update_id = #{tbShareUpdateId,jdbcType=INTEGER}
+  </select>
+  
+</mapper>

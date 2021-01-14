@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.dao.EmailNoneedMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.bean.EmailNoneed">
+    <id column="emailNoneed_id" jdbcType="INTEGER" property="emailnoneedId" />
+    <result column="emailNoneed_email" jdbcType="VARCHAR" property="emailnoneedEmail" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    emailNoneed_id, emailNoneed_email
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_email_noneed
+    where emailNoneed_id = #{emailnoneedId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_email_noneed
+    where emailNoneed_id = #{emailnoneedId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.atguigu.bean.EmailNoneed">
+    insert into tb_email_noneed (emailNoneed_id, emailNoneed_email)
+    values (#{emailnoneedId,jdbcType=INTEGER}, #{emailnoneedEmail,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.atguigu.bean.EmailNoneed">
+    insert into tb_email_noneed
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="emailnoneedId != null">
+        emailNoneed_id,
+      </if>
+      <if test="emailnoneedEmail != null">
+        emailNoneed_email,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="emailnoneedId != null">
+        #{emailnoneedId,jdbcType=INTEGER},
+      </if>
+      <if test="emailnoneedEmail != null">
+        #{emailnoneedEmail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.EmailNoneed">
+    update tb_email_noneed
+    <set>
+      <if test="emailnoneedEmail != null">
+        emailNoneed_email = #{emailnoneedEmail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where emailNoneed_id = #{emailnoneedId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.EmailNoneed">
+    update tb_email_noneed
+    set emailNoneed_email = #{emailnoneedEmail,jdbcType=VARCHAR}
+    where emailNoneed_id = #{emailnoneedId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- selectALl -->
+  <select id="selectALl" parameterType="com.atguigu.bean.EmailNoneed" resultMap="BaseResultMap">
+    select * 
+    from tb_email_noneed GROUP BY emailNoneed_email
+  </select>
+</mapper>
