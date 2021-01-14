@@ -790,6 +790,7 @@
 }
 .dashboard-log,
 .dashboard-msg {
+	position: relative;
 	min-height: 500px;
 	padding: 1rem;
 	margin-bottom: 1rem;
@@ -802,6 +803,24 @@
 .user-log-list,
 .msg-log-list {
 	padding-left: 1.5rem;
+}
+.db-log-item {
+	padding: .25rem;
+	font-size: .875rem;
+	color: #333;
+}
+#btn-add-msg {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	
+	padding: .5rem 1rem;
+	color: #6d6d6d;
+	
+	cursor: pointer;
+}
+#btn-add-msg:hover {
+	color: #333;
 }
 @media screen and (max-width: 1023px) {
 	.folder-nav {
@@ -848,5 +867,45 @@
 	.dashboard-visit {
 		width: 25%;
 		margin-left: 3.5%;
+	}
+}
+
+/* init-loading  */
+.init-loading {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+.init-loading:before {	
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	display: inline-block;
+	margin-left: -25px;
+	margin-top: -25px;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	border-top: 2px solid #333;
+	border-right: 2px solid transparent;
+	animation: spinner .6s linear infinite;
+	z-index: 1;
+}
+
+@-webkit-keyframes spinner {
+	to {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes spinner {
+	to {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
 	}
 }
