@@ -31,34 +31,21 @@
 					<div class="dashboard-right">
 						<div class="flex-grid">
 							<div class="dashboard-log">
-								<!-- add log -->
 								<div class="add-log">
 									<h3 class="title">添加公告</h3>
+									<div id="btn-other-msg">来一条</div>
 									<div class="body">
-										<form style="padding: 1rem; margin-top: 1rem; background-color: #fff; border-radius: .75rem;">
-											<div class="form-group">
-												<label class="col-form-label" for="tbShareUpdateName">Titile</label>
-												<div class="controls">
-													<input class="form-control" id="tbShareUpdateName" type="text" />
-												</div>
-											</div>
-											<div class="form-group">
-												<label class="col-form-label" for="tbShareUpdateDetail">Description</label>
-												<div class="controls">
-													<input class="form-control" id="tbShareUpdateDetail" type="text" />
-												</div>
-											</div>
-											<button class="btn btn-primary">提交</button>
-										</form>
+										<div class="init-loading"></div>
+										<div class="other-log-list"></div>
 									</div>
 								</div>
 							</div>
 							<div class="dashboard-msg">
 								<h3 class="title">更新公告</h3>
+								<div id="btn-add-msg">来一条</div>
 								<div class="body">
-									<ul class="msg-log-list"></ul>
-									<div class="user-log-tip text-right hide" style="font-style: italic; padding: 0 1rem;">最多可查看<b>100</b>条记录，更多记录请联系技术人员</br>
-									</div>
+									<div class="init-loading"></div>
+									<div class="msg-log-list"></div>
 								</div>
 							</div>
 						</div>
@@ -79,17 +66,17 @@
 												<span class="title">新建：</span>
 												<span class="text">--</span>
 											</div>
-											
+
 											<div class="dashboard-cal-child-item">
 												<span class="title">更新：</span>
 												<span class="text">--</span>
 											</div>
-											
+
 											<div class="dashboard-cal-child-item">
 												<span class="title">移动：</span>
 												<span class="text">--</span>
 											</div>
-											
+
 											<div class="dashboard-cal-child-item">
 												<span class="title">删除：</span>
 												<span class="text">--</span>
@@ -129,7 +116,7 @@
 
 									<div class="dashboard-cal-item">
 										<h4>视频</h4>
-										<div class="dashboard-cal-childs">								
+										<div class="dashboard-cal-childs">
 											<div class="dashboard-cal-child-item">
 												<span class="title">上传：</span>
 												<span class="text">--</span>
@@ -149,7 +136,7 @@
 												<span class="title">移动：</span>
 												<span class="text">--</span>
 											</div>
-											
+
 											<div class="dashboard-cal-child-item">
 												<span class="title">删除：</span>
 												<span class="text">--</span>
@@ -182,6 +169,8 @@
 			</div>
 			<jsp:include page="layout/backfooter.jsp" flush="true"></jsp:include>
 		</div>
+
+		<jsp:include page="modal/shareTipModal.jsp" flush="true"></jsp:include>
 
 		<jsp:include page="common/backfooter.jsp" flush="true"></jsp:include>
 		<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/moment.min.js"></script>
@@ -444,15 +433,74 @@
 				$('#search-confirm-time').val(endTime);
 				renderAlluserLogData();
 				generateUserLog();
-	        }	        
+	        }
+	        
+	        // 获取最新公告信息
+	        function getAllTips() {
+	        	function renderAllTips(data) {
+	        		var htmlStr = '';
+	        		if (data.length) {
+	        			data.forEach(function(item, idx) {
+	        				htmlStr += '<div class="db-log-item"><b>*</b>' + item.tbShareUpdateDetail + '</div>';
+	        			});
+	        		} else {
+	        			htmlStr = '<p style="font-size: .875rem; color: #3c3c3c; margin-top: 3rem; font-style: italic;">这里空空如也，没有任何记录...</p>';
+	        		}
+	        		$('.msg-log-list').html(htmlStr);
+	        	}
+				$.ajax({
+					url: "${APP_PATH}/ShareUpdate/getShareUpdateListAll",
+					type: "post",
+					dataType: "json",
+					success: function (data) {
+						if (data.code == 100) {
+							renderAllTips(data.extend.shareUpdateList);
+						}
+						console.log(data.extend.resMsg);
+					},
+					error: function (err) {
+						toastr.error(err);
+					},
+					complete: function() {
+						$('.dashboard-msg .init-loading').addClass('hide');
+					}
+				});
+	        }
+
+	        // 保存一条公告
+	        function saveOneTip(reqData, callback) {
+				$('.c-mask').removeClass('hide');
+				$.ajax({
+					url: "${APP_PATH}/ShareUpdate/initializaUpdateInfo",
+					type: "post",
+					dataType: "json",
+					contentType: 'application/json',
+					data: JSON.stringify(reqData),
+					success: function (data) {
+						if (data.code == 100) {
+							toastr.success(data.extend.resMsg);
+							callback && callback();
+						} else {
+							toastr.error(data.extend.resMsg);
+						}
+					},
+					error: function (err) {
+						toastr.error(err);
+					},
+					complete: function () {
+						$('.c-mask').addClass('hide');
+					}
+				});
+	        }
 
 	        // iniital tree dom
 	        var date = new Date();
 			var ymd = date.getFullYear() + '-' + (date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate());
 
 	        generateTreeList();
-	        searchTimeEvent(ymd + ' 00:00:00', ymd + ' 23:59:59');
+	        getAllTips();
 	        
+	        searchTimeEvent(ymd + ' 00:00:00', ymd + ' 23:59:59');	        
 			bindDateRangeEvent(searchTimeEvent);
 			// tree arrow-dom event
 	        $(document.body).on('click', '.tree-item', function(e) {
@@ -501,6 +549,36 @@
 				if (type == 'video') {
 					window.location.href = '${APP_PATH}/ShareVideoInfo/toVideoInfoPage';	
 				}
+			});
+
+			// 添加公告
+			$('#btn-add-msg').on('click', function() {
+				$('#shareTipModal').modal('show');
+			});
+
+			$('#shareTipModal .btn-ok').on('click', function() {
+				var tipTitle = $('#tbShareUpdateName').val().trim();
+				var tipDesc = $('#tbShareUpdateDetail').val().trim();
+
+				if (!tipTitle) {
+					toastr.warning('公告标题不能为空！！！');
+					return;
+				}
+
+				if (!tipDesc) {
+					toastr.warning('公告描述（详情）不能为空！！！');
+					return;
+				}
+
+				// save
+				saveOneTip({
+					"tbShareUpdateName": tipTitle,
+				    "tbShareUpdateDetail": tipDesc
+				}, function() {
+					$('#shareTipModal').modal('hide');
+					$('.dashboard-msg .init-loading').removeClass('hide');
+					getAllTips();
+				});
 			});
 		</script>
 	</body>
