@@ -131,7 +131,7 @@
   <!-- 使用中selectShareUpdatelistAll -->
   <select id="selectShareUpdatelistAll" parameterType="com.atguigu.bean.ShareUpdate" resultMap="BaseResultMap">
   	select *
-  	from tb_share_update where tb_share_update_id = #{tbShareUpdateId,jdbcType=INTEGER}
+  	from tb_share_update 
   	order by tb_share_update_id desc limit 5
   </select>
   
