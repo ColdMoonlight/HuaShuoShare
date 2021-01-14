@@ -27,7 +27,7 @@ public class ShareUpdateController {
 	@Autowired
 	ShareOperationRecordService shareOperationRecordService;
 	
-	/**2.0	zsh200904
+	/**2.0	zsh210114
 	 * ShareUpdate	initializaFileNameInfo
 	 * @param ShareUpdate
 	 * @return
