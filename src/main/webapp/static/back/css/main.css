@@ -788,7 +788,19 @@
 	width: 70%;
 	margin: 0 auto;
 }
-.user-log-list {
+.dashboard-log,
+.dashboard-msg {
+	min-height: 500px;
+	padding: 1rem;
+	margin-bottom: 1rem;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+}
+.dash-board-analysis {
+	margin-top: 1rem;
+}
+.user-log-list,
+.msg-log-list {
 	padding-left: 1.5rem;
 }
 @media screen and (max-width: 1023px) {
@@ -810,10 +822,21 @@
 		width: 25%;
 	}
 	.dashboard-left {
-		width: 40%;
+		width: 30%;
+		overflow-x: auto;
 	}
 	.dashboard-right {
-		width: 60%;
+		width: 70%;
+	}
+	.flex-grid {	
+		display: flex;
+	}
+	.dashboard-log,
+	.dashboard-msg {
+		flex-shrink: 1;
+		flex-grow: 0;
+		width: 50%;
+		margin-right: 1rem;
 	}
 	.dashboard-cal {
 		display: flex;
