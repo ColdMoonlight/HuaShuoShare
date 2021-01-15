@@ -32,9 +32,9 @@ public class ShareDemandController {
 	 * @param ShareDemand
 	 * @return
 	 */
-	@RequestMapping(value="/initializaUpdateInfo",method=RequestMethod.POST)
+	@RequestMapping(value="/initializaDemandInfo",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg initializaUpdateInfo(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareDemand ShareDemand){
+	public Msg initializaDemandInfo(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareDemand ShareDemand){
 		
 		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
 		session.setAttribute("AdminUser", mlbackAdmin);
@@ -45,10 +45,10 @@ public class ShareDemandController {
 		}else{
 			System.out.println("当前的登陆客户:"+mlbackAdmin.toString());
 			//接受参数信息
-			Integer	updateId = ShareDemand.getTbShareDemandId();
+			Integer	demandId = ShareDemand.getTbShareDemandId();
 			String nowTime = DateUtil.strTime14s();
 			ShareDemand.setTbShareDemandModifytime(nowTime);
-			if(updateId==null){
+			if(demandId==null){
 				ShareDemand.setTbShareDemandCreatetime(nowTime);
 				ShareDemand.setTbShareDemandAdminid(mlbackAdmin.getAdminId());
 				ShareDemand.setTbShareDemandAdminname(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
