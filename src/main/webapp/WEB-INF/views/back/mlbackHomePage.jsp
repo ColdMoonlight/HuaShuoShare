@@ -30,21 +30,21 @@
 					</div>
 					<div class="dashboard-right">
 						<div class="flex-grid">
-							<div class="dashboard-need">
-								<h3 class="title">需求</h3>
-								<div class="btn-modal" id="btn-add-need">来一条</div>
-								<div class="body">
-									<div class="init-loading"></div>
-									<div class="need-list"></div>
-									<div class="text-right" style="position: absolute; bottom: 1rem; right: 1rem; font-style: italic;">仅显示最近<b>&nbsp;&nbsp;5&nbsp;</b>条记录</div>
-								</div>
-							</div>
 							<div class="dashboard-msg">
 								<h3 class="title">公告</h3>
-								<div class="btn-modal" id="btn-add-msg">来一条</div>
+								<div class="btn-modal" id="btn-add-msg">我来通知一下</div>
 								<div class="body">
 									<div class="init-loading"></div>
 									<div class="msg-log-list"></div>
+									<div class="text-right" style="position: absolute; bottom: 1rem; right: 1rem; font-style: italic;">仅显示最近<b>&nbsp;&nbsp;5&nbsp;</b>条记录</div>
+								</div>
+							</div>
+							<div class="dashboard-need">
+								<h3 class="title">需求</h3>
+								<div class="btn-modal" id="btn-add-need">我有意见要提</div>
+								<div class="body">
+									<div class="init-loading"></div>
+									<div class="need-list"></div>
 									<div class="text-right" style="position: absolute; bottom: 1rem; right: 1rem; font-style: italic;">仅显示最近<b>&nbsp;&nbsp;5&nbsp;</b>条记录</div>
 								</div>
 							</div>
@@ -442,7 +442,7 @@
 	        		var htmlStr = '';
 	        		if (data.length) {
 	        			data.forEach(function(item, idx) {
-	        				htmlStr += '<div class="db-log-item"><b> * </b>' + item.tbShareUpdateDetail + '</div>';
+	        				htmlStr += '<div class="db-log-item"><b> * </b>' + item.tbShareUpdateId + ' - ' + item.tbShareUpdateDetail + '</div>';
 	        			});
 	        		} else {
 	        			htmlStr = '<p style="font-size: .875rem; color: #3c3c3c; margin-top: 3rem; font-style: italic;">这里空空如也，没有任何记录...</p>';
@@ -500,7 +500,7 @@
 	        		var htmlStr = '';
 	        		if (data.length) {
 	        			data.forEach(function(item, idx) {
-	        				htmlStr += '<div class="db-log-item"><b> * </b>' + item.tbShareDemandDetail + '</div>';
+	        				htmlStr += '<div class="db-log-item"><b> * </b>' + item.tbShareDemandId + ' - ' + item.tbShareDemandDetail + '</div>';
 	        			});
 	        		} else {
 	        			htmlStr = '<p style="font-size: .875rem; color: #3c3c3c; margin-top: 3rem; font-style: italic;">这里空空如也，没有任何记录...</p>';
