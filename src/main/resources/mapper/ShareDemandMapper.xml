@@ -20,10 +20,7 @@
     from tb_share_demand
     where tb_share_demand_id = #{tbShareDemandId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_share_demand
-    where tb_share_demand_id = #{tbShareDemandId,jdbcType=INTEGER}
-  </delete>
+
   <insert id="insert" parameterType="com.atguigu.bean.ShareDemand">
     insert into tb_share_demand (tb_share_demand_id, tb_share_demand_name, 
       tb_share_demand_detail, tb_share_demand_createTime, 
@@ -34,6 +31,21 @@
       #{tbShareDemandModifytime,jdbcType=VARCHAR}, #{tbShareDemandAdminid,jdbcType=INTEGER}, 
       #{tbShareDemandAdminname,jdbcType=VARCHAR})
   </insert>
+  
+
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.ShareDemand">
+    update tb_share_demand
+    set tb_share_demand_name = #{tbShareDemandName,jdbcType=VARCHAR},
+      tb_share_demand_detail = #{tbShareDemandDetail,jdbcType=VARCHAR},
+      tb_share_demand_createTime = #{tbShareDemandCreatetime,jdbcType=VARCHAR},
+      tb_share_demand_modifyTime = #{tbShareDemandModifytime,jdbcType=VARCHAR},
+      tb_share_demand_adminId = #{tbShareDemandAdminid,jdbcType=INTEGER},
+      tb_share_demand_adminName = #{tbShareDemandAdminname,jdbcType=VARCHAR}
+    where tb_share_demand_id = #{tbShareDemandId,jdbcType=INTEGER}
+  </update>
+  
+  
+  <!-- insertSelective -->
   <insert id="insertSelective" parameterType="com.atguigu.bean.ShareDemand">
     insert into tb_share_demand
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -83,6 +95,12 @@
       </if>
     </trim>
   </insert>
+  <!-- deleteByPrimaryKey -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_share_demand
+    where tb_share_demand_id = #{tbShareDemandId,jdbcType=INTEGER}
+  </delete>
+  <!-- updateByPrimaryKeySelective -->
   <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.ShareDemand">
     update tb_share_demand
     <set>
@@ -107,14 +125,17 @@
     </set>
     where tb_share_demand_id = #{tbShareDemandId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.ShareDemand">
-    update tb_share_demand
-    set tb_share_demand_name = #{tbShareDemandName,jdbcType=VARCHAR},
-      tb_share_demand_detail = #{tbShareDemandDetail,jdbcType=VARCHAR},
-      tb_share_demand_createTime = #{tbShareDemandCreatetime,jdbcType=VARCHAR},
-      tb_share_demand_modifyTime = #{tbShareDemandModifytime,jdbcType=VARCHAR},
-      tb_share_demand_adminId = #{tbShareDemandAdminid,jdbcType=INTEGER},
-      tb_share_demand_adminName = #{tbShareDemandAdminname,jdbcType=VARCHAR}
-    where tb_share_demand_id = #{tbShareDemandId,jdbcType=INTEGER}
-  </update>
+  <!-- 使用中selectShareUpdateById -->
+  <select id="selectShareDemandById" parameterType="com.atguigu.bean.ShareDemand" resultMap="BaseResultMap">
+  	select 
+  	tb_share_demand_id, tb_share_demand_name, tb_share_demand_detail, tb_share_demand_createTime, 
+    tb_share_demand_modifyTime, tb_share_demand_adminId, tb_share_demand_adminName 
+  	from tb_share_demand where tb_share_demand_id = #{tbShareDemandId,jdbcType=INTEGER}
+  </select>
+  <!-- 使用中selectShareUpdatelistAll -->
+  <select id="selectShareDemandlistAll" parameterType="com.atguigu.bean.ShareDemand" resultMap="BaseResultMap">
+  	select *
+  	from tb_share_demand 
+  	order by tb_share_demand_id desc limit 5
+  </select>
 </mapper>
