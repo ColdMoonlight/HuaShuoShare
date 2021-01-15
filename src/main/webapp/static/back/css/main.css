@@ -788,10 +788,10 @@
 	width: 70%;
 	margin: 0 auto;
 }
-.dashboard-log,
+.dashboard-need,
 .dashboard-msg {
 	position: relative;
-	min-height: 500px;
+	min-height: 300px;
 	padding: 1rem;
 	margin-bottom: 1rem;
 	border: 1px solid #ccc;
@@ -800,8 +800,7 @@
 .dash-board-analysis {
 	margin-top: 1rem;
 }
-.user-log-list,
-.msg-log-list {
+.user-log-list {
 	padding-left: 1.5rem;
 }
 .db-log-item {
@@ -809,7 +808,7 @@
 	font-size: .875rem;
 	color: #333;
 }
-#btn-add-msg {
+.btn-modal {
 	position: absolute;
 	top: 1rem;
 	right: 1rem;
@@ -819,7 +818,7 @@
 	
 	cursor: pointer;
 }
-#btn-add-msg:hover {
+.btn-modal:hover {
 	color: #333;
 }
 @media screen and (max-width: 1023px) {
@@ -850,7 +849,7 @@
 	.flex-grid {	
 		display: flex;
 	}
-	.dashboard-log,
+	.dashboard-need,
 	.dashboard-msg {
 		flex-shrink: 1;
 		flex-grow: 0;

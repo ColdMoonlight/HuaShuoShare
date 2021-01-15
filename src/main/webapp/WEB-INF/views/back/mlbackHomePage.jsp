@@ -30,22 +30,22 @@
 					</div>
 					<div class="dashboard-right">
 						<div class="flex-grid">
-							<div class="dashboard-log">
-								<div class="add-log">
-									<h3 class="title">添加公告</h3>
-									<div id="btn-other-msg">来一条</div>
-									<div class="body">
-										<div class="init-loading"></div>
-										<div class="other-log-list"></div>
-									</div>
+							<div class="dashboard-need">
+								<h3 class="title">需求</h3>
+								<div class="btn-modal" id="btn-add-need">来一条</div>
+								<div class="body">
+									<div class="init-loading"></div>
+									<div class="need-list"></div>
+									<div class="text-right" style="position: absolute; bottom: 1rem; right: 1rem; font-style: italic;">仅显示最近<b>&nbsp;&nbsp;5&nbsp;</b>条记录</div>
 								</div>
 							</div>
 							<div class="dashboard-msg">
-								<h3 class="title">更新公告</h3>
-								<div id="btn-add-msg">来一条</div>
+								<h3 class="title">公告</h3>
+								<div class="btn-modal" id="btn-add-msg">来一条</div>
 								<div class="body">
 									<div class="init-loading"></div>
 									<div class="msg-log-list"></div>
+									<div class="text-right" style="position: absolute; bottom: 1rem; right: 1rem; font-style: italic;">仅显示最近<b>&nbsp;&nbsp;5&nbsp;</b>条记录</div>
 								</div>
 							</div>
 						</div>
@@ -171,6 +171,7 @@
 		</div>
 
 		<jsp:include page="modal/shareTipModal.jsp" flush="true"></jsp:include>
+		<jsp:include page="modal/shareNeedModal.jsp" flush="true"></jsp:include>
 
 		<jsp:include page="common/backfooter.jsp" flush="true"></jsp:include>
 		<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/moment.min.js"></script>
@@ -441,7 +442,7 @@
 	        		var htmlStr = '';
 	        		if (data.length) {
 	        			data.forEach(function(item, idx) {
-	        				htmlStr += '<div class="db-log-item"><b>*</b>' + item.tbShareUpdateDetail + '</div>';
+	        				htmlStr += '<div class="db-log-item"><b> * </b>' + item.tbShareUpdateDetail + '</div>';
 	        			});
 	        		} else {
 	        			htmlStr = '<p style="font-size: .875rem; color: #3c3c3c; margin-top: 3rem; font-style: italic;">这里空空如也，没有任何记录...</p>';
@@ -493,12 +494,71 @@
 				});
 	        }
 
+	        // 获取最新需求信息
+	        function getAllNeeds() {
+	        	function renderAllNeeds(data) {
+	        		var htmlStr = '';
+	        		if (data.length) {
+	        			data.forEach(function(item, idx) {
+	        				htmlStr += '<div class="db-log-item"><b> * </b>' + item.tbShareDemandDetail + '</div>';
+	        			});
+	        		} else {
+	        			htmlStr = '<p style="font-size: .875rem; color: #3c3c3c; margin-top: 3rem; font-style: italic;">这里空空如也，没有任何记录...</p>';
+	        		}
+	        		$('.need-list').html(htmlStr);
+	        	}
+				$.ajax({
+					url: "${APP_PATH}/ShareDemand/getShareDemandListAll",
+					type: "post",
+					dataType: "json",
+					success: function (data) {
+						if (data.code == 100) {
+							renderAllNeeds(data.extend.ShareDemandList);
+						}
+						console.log(data.extend.resMsg);
+					},
+					error: function (err) {
+						toastr.error(err);
+					},
+					complete: function() {
+						$('.dashboard-need .init-loading').addClass('hide');
+					}
+				});
+	        }
+
+	        // 保存一条需求
+	        function saveOneNeed(reqData, callback) {
+				$('.c-mask').removeClass('hide');
+				$.ajax({
+					url: "${APP_PATH}/ShareDemand/initializaDemandInfo",
+					type: "post",
+					dataType: "json",
+					contentType: 'application/json',
+					data: JSON.stringify(reqData),
+					success: function (data) {
+						if (data.code == 100) {
+							toastr.success(data.extend.resMsg);
+							callback && callback();
+						} else {
+							toastr.error(data.extend.resMsg);
+						}
+					},
+					error: function (err) {
+						toastr.error(err);
+					},
+					complete: function () {
+						$('.c-mask').addClass('hide');
+					}
+				});
+	        }
+
 	        // iniital tree dom
 	        var date = new Date();
 			var ymd = date.getFullYear() + '-' + (date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate());
 
 	        generateTreeList();
 	        getAllTips();
+	        getAllNeeds();
 	        
 	        searchTimeEvent(ymd + ' 00:00:00', ymd + ' 23:59:59');	        
 			bindDateRangeEvent(searchTimeEvent);
@@ -578,6 +638,36 @@
 					$('#shareTipModal').modal('hide');
 					$('.dashboard-msg .init-loading').removeClass('hide');
 					getAllTips();
+				});
+			});
+
+			// 添加需求
+			$('#btn-add-need').on('click', function() {
+				$('#shareNeedModal').modal('show');
+			});
+
+			$('#shareNeedModal .btn-ok').on('click', function() {
+				var tipTitle = $('#tbShareDemandName').val().trim();
+				var tipDesc = $('#tbShareDemandDetail').val().trim();
+
+				if (!tipTitle) {
+					toastr.warning('公告标题不能为空！！！');
+					return;
+				}
+
+				if (!tipDesc) {
+					toastr.warning('公告描述（详情）不能为空！！！');
+					return;
+				}
+
+				// save
+				saveOneNeed({
+					"tbShareDemandName": tipTitle,
+				    "tbShareDemandDetail": tipDesc
+				}, function() {
+					$('#shareNeedModal').modal('hide');
+					$('.dashboard-need .init-loading').removeClass('hide');
+					getAllNeeds();
 				});
 			});
 		</script>
