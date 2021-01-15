@@ -27,7 +27,7 @@ public class ShareUpdateController {
 	@Autowired
 	ShareOperationRecordService shareOperationRecordService;
 	
-	/**2.0	zsh210114
+	/**1.0	zsh210114
 	 * ShareUpdate	initializaFileNameInfo
 	 * @param ShareUpdate
 	 * @return
@@ -63,7 +63,7 @@ public class ShareUpdateController {
 		}
 	}
 	
-	/**5.0	zsh200904
+	/**2.0	zsh200904
 	 * MlbackAreafreight	delete
 	 * @param id
 	 */
@@ -95,7 +95,7 @@ public class ShareUpdateController {
 		}
 	}
 	
-	/**6.0	zsh200930
+	/**3.0	zsh200930
 	 * 后台ShareUpdate列表all-list数据
 	 * @return
 	 */
