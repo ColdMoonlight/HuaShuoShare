@@ -13,15 +13,15 @@
 			<div class="modal-body">
 				<form>
 					<div class="form-group">
-						<label class="col-form-label" for="tbShareUpdateName">Titile</label>
+						<label class="col-form-label" for="tbShareUpdateName">Title</label>
 						<div class="controls">
-							<input class="form-control" id="tbShareUpdateName" type="text" />
+							<input class="form-control" id="tbShareUpdateName" type="text" placeholder="概要" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-form-label" for="tbShareUpdateDetail">Description</label>
 						<div class="controls">							
-							<textarea class="form-control" id="tbShareUpdateDetail" rows="3"></textarea>
+							<textarea class="form-control" id="tbShareUpdateDetail" placeholder="该字段为展示字段，请详细填写" rows="3"></textarea>
 						</div>
 					</div>
 				</form>
