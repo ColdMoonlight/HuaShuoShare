@@ -614,6 +614,8 @@
 			// 添加公告
 			$('#btn-add-msg').on('click', function() {
 				$('#shareTipModal').modal('show');
+				$('#tbShareUpdateName').val('');
+				$('#tbShareUpdateDetail').val('');
 			});
 
 			$('#shareTipModal .btn-ok').on('click', function() {
@@ -644,6 +646,8 @@
 			// 添加需求
 			$('#btn-add-need').on('click', function() {
 				$('#shareNeedModal').modal('show');
+				$('#tbShareDemandName').val('');
+				$('#tbShareDemandDetail').val('');
 			});
 
 			$('#shareNeedModal .btn-ok').on('click', function() {
