@@ -1,5 +1,7 @@
 package com.atguigu.dao;
 
+import java.util.List;
+
 import com.atguigu.bean.ShareDemand;
 
 public interface ShareDemandMapper {
@@ -14,4 +16,8 @@ public interface ShareDemandMapper {
     int updateByPrimaryKeySelective(ShareDemand record);
 
     int updateByPrimaryKey(ShareDemand record);
+
+	List<ShareDemand> selectShareDemandById(ShareDemand shareDemand);
+
+	List<ShareDemand> selectShareDemandlistAll();
 }

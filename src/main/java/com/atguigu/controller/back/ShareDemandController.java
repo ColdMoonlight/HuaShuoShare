@@ -11,30 +11,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
-import com.atguigu.bean.ShareUpdate;
+import com.atguigu.bean.ShareDemand;
 import com.atguigu.common.Msg;
-import com.atguigu.service.ShareUpdateService;
+import com.atguigu.service.ShareDemandService;
 import com.atguigu.service.ShareOperationRecordService;
 import com.atguigu.utils.DateUtil;
 
 @Controller
-@RequestMapping("/ShareUpdate")
-public class ShareUpdateController {
+@RequestMapping("/ShareDemand")
+public class ShareDemandController {
 	
 	@Autowired
-	ShareUpdateService shareUpdateService;
+	ShareDemandService shareDemandService;
 	
 	@Autowired
 	ShareOperationRecordService shareOperationRecordService;
 	
 	/**2.0	zsh210114
-	 * ShareUpdate	initializaFileNameInfo
-	 * @param ShareUpdate
+	 * ShareDemand	initializaFileNameInfo
+	 * @param ShareDemand
 	 * @return
 	 */
 	@RequestMapping(value="/initializaUpdateInfo",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg initializaUpdateInfo(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareUpdate shareUpdate){
+	public Msg initializaUpdateInfo(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareDemand ShareDemand){
 		
 		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
 		session.setAttribute("AdminUser", mlbackAdmin);
@@ -45,21 +45,21 @@ public class ShareUpdateController {
 		}else{
 			System.out.println("当前的登陆客户:"+mlbackAdmin.toString());
 			//接受参数信息
-			Integer	updateId = shareUpdate.getTbShareUpdateId();
+			Integer	updateId = ShareDemand.getTbShareDemandId();
 			String nowTime = DateUtil.strTime14s();
-			shareUpdate.setTbShareUpdateModifytime(nowTime);
+			ShareDemand.setTbShareDemandModifytime(nowTime);
 			if(updateId==null){
-				shareUpdate.setTbShareUpdateCreatetime(nowTime);
-				shareUpdate.setTbShareUpdateAdminid(mlbackAdmin.getAdminId());
-				shareUpdate.setTbShareUpdateAdminname(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
+				ShareDemand.setTbShareDemandCreatetime(nowTime);
+				ShareDemand.setTbShareDemandAdminid(mlbackAdmin.getAdminId());
+				ShareDemand.setTbShareDemandAdminname(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
 				//无id,insert
-				shareUpdateService.insertSelective(shareUpdate);
+				shareDemandService.insertSelective(ShareDemand);
 			}else{
 				//有id,update
-				shareUpdateService.updateByPrimaryKeySelective(shareUpdate);
+				shareDemandService.updateByPrimaryKeySelective(ShareDemand);
 			}
 			
-			return Msg.success().add("resMsg", "Update初始化成功").add("adminPower", adminPower).add("shareUpdateRes", shareUpdate);
+			return Msg.success().add("resMsg", "Update初始化成功").add("adminPower", adminPower).add("ShareDemandRes", ShareDemand);
 		}
 	}
 	
@@ -69,15 +69,15 @@ public class ShareUpdateController {
 	 */
 	@RequestMapping(value="/delete",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg delete(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareUpdate shareUpdate){
+	public Msg delete(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareDemand ShareDemand){
 		
 		String adminPower = getAdminInfo(session);
 		if("0000".equals(adminPower)){
 			return Msg.success().add("resMsg", "请重新登陆").add("adminPower", adminPower);
 		}else{
-			int shareUpdateIdInt = shareUpdate.getTbShareUpdateId();
+			int ShareDemandIdInt = ShareDemand.getTbShareDemandId();
 			//操作完毕,执行删除
-			shareUpdateService.deleteByPrimaryKey(shareUpdateIdInt);
+			shareDemandService.deleteByPrimaryKey(ShareDemandIdInt);
 			return Msg.success().add("resMsg", "delete success").add("adminPower", adminPower);
 		}
 	}
@@ -96,16 +96,16 @@ public class ShareUpdateController {
 	}
 	
 	/**6.0	zsh200930
-	 * 后台ShareUpdate列表all-list数据
+	 * 后台ShareDemand列表all-list数据
 	 * @return
 	 */
-	@RequestMapping(value="/getShareUpdateListAll",method=RequestMethod.POST)
+	@RequestMapping(value="/getShareDemandListAll",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg getShareUpdateListAll(HttpSession session,HttpServletResponse rep,HttpServletRequest res) {
+	public Msg getShareDemandListAll(HttpSession session,HttpServletResponse rep,HttpServletRequest res) {
 		
-		List<ShareUpdate> shareUpdateList = shareUpdateService.selectShareUpdatelistAll();
+		List<ShareDemand> ShareDemandList = shareDemandService.selectShareDemandlistAll();
 		
-		return Msg.success().add("shareUpdateList", shareUpdateList);
+		return Msg.success().add("ShareDemandList", ShareDemandList);
 	}
 	
 }
