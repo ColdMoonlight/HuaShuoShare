@@ -27,7 +27,7 @@ public class ShareDemandController {
 	@Autowired
 	ShareOperationRecordService shareOperationRecordService;
 	
-	/**2.0	zsh210114
+	/**2.0	zsh210115
 	 * ShareDemand	initializaFileNameInfo
 	 * @param ShareDemand
 	 * @return
@@ -63,7 +63,7 @@ public class ShareDemandController {
 		}
 	}
 	
-	/**5.0	zsh200904
+	/**5.0	zsh210115
 	 * MlbackAreafreight	delete
 	 * @param id
 	 */
@@ -95,7 +95,7 @@ public class ShareDemandController {
 		}
 	}
 	
-	/**6.0	zsh200930
+	/**6.0	zsh210115
 	 * 后台ShareDemand列表all-list数据
 	 * @return
 	 */
