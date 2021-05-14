@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
+import com.atguigu.bean.ShareOperationRecord;
 import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.atguigu.common.TokenCache;
 import com.atguigu.service.MlbackAdminService;
+import com.atguigu.service.ShareOperationRecordService;
+import com.atguigu.utils.DateUtil;
 
 @Controller
 @RequestMapping("/MlbackAdmin")
@@ -23,6 +26,9 @@ public class MlbackAdminController {
 	
 	@Autowired
 	MlbackAdminService mlbackAdminService;
+	
+	@Autowired
+	ShareOperationRecordService shareOperationRecordService;
 	
 	/**
 	 * 1.0
@@ -62,6 +68,18 @@ public class MlbackAdminController {
 			session.setAttribute("AdminUser", MlbackAdminListNameAndPwd.get(0));
 			System.out.println("CheakAdminUser--mlbackAdminGet:"+MlbackAdminListNameAndPwd.get(0).toString());
 			TokenCache.setKey(Const.TOKEN_PREFIX+MlbackAdminReq.getAdminAccname(), "String");
+			
+			
+			String nowTime = DateUtil.strTime14s();
+			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
+			shareOperationRecord.setOperationRecordAdminid(mlbackAdminGetresList.get(0).getAdminId());
+			shareOperationRecord.setOperationRecordAdminName(mlbackAdminGetresList.get(0).getAdminAccname()+"--"+mlbackAdminGetresList.get(0).getAdminOperatername());
+			shareOperationRecord.setOperationRecordDataType(0);
+			shareOperationRecord.setOperationRecordDataName("登录成功");
+			shareOperationRecord.setOperationRecordDesc("登录");
+			shareOperationRecord.setOperationRecordCreatetime(nowTime);
+			shareOperationRecordService.insertSelective(shareOperationRecord);
+			
 			return Msg.success().add("resMsg", "登陆成功");
 		}else{
 			return Msg.fail().add("resMsg", "密码错误登录失败");
