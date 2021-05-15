@@ -1,8 +1,6 @@
 package com.atguigu.controller.back;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -11,18 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.ShareImageLabel;
-import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
-import com.atguigu.common.TokenCache;
-import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.ShareImageLabelService;
 import com.atguigu.utils.DateUtil;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 
 @Controller
 @RequestMapping("/ShareImageLabel")
