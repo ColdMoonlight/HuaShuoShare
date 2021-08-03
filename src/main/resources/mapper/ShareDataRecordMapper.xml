@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.dao.ShareDataRecordMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.bean.ShareDataRecord">
+    <id column="dataRecord_id" jdbcType="INTEGER" property="datarecordId" />
+    <result column="dataRecord_type" jdbcType="INTEGER" property="datarecordType" />
+    <result column="dataRecord_typeDetail" jdbcType="VARCHAR" property="datarecordTypedetail" />
+    <result column="dataRecord_explain" jdbcType="VARCHAR" property="datarecordExplain" />
+    <result column="dataRecord_adminId" jdbcType="INTEGER" property="datarecordAdminid" />
+    <result column="dataRecord_adminName" jdbcType="VARCHAR" property="datarecordAdminname" />
+    <result column="dataRecord_createTime" jdbcType="VARCHAR" property="datarecordCreatetime" />
+    <result column="dataRecord_motifyTime" jdbcType="VARCHAR" property="datarecordMotifytime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    dataRecord_id, dataRecord_type, dataRecord_typeDetail, dataRecord_explain, dataRecord_adminId, 
+    dataRecord_adminName, dataRecord_createTime, dataRecord_motifyTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_share_datarecord
+    where dataRecord_id = #{datarecordId,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insert" parameterType="com.atguigu.bean.ShareDataRecord">
+    insert into tb_share_datarecord (dataRecord_id, dataRecord_type, dataRecord_typeDetail, 
+      dataRecord_explain, dataRecord_adminId, dataRecord_adminName, 
+      dataRecord_createTime, dataRecord_motifyTime
+      )
+    values (#{datarecordId,jdbcType=INTEGER}, #{datarecordType,jdbcType=INTEGER}, #{datarecordTypedetail,jdbcType=VARCHAR}, 
+      #{datarecordExplain,jdbcType=VARCHAR}, #{datarecordAdminid,jdbcType=INTEGER}, #{datarecordAdminname,jdbcType=VARCHAR}, 
+      #{datarecordCreatetime,jdbcType=VARCHAR}, #{datarecordMotifytime,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.ShareDataRecord">
+    update tb_share_datarecord
+    set dataRecord_type = #{datarecordType,jdbcType=INTEGER},
+      dataRecord_typeDetail = #{datarecordTypedetail,jdbcType=VARCHAR},
+      dataRecord_explain = #{datarecordExplain,jdbcType=VARCHAR},
+      dataRecord_adminId = #{datarecordAdminid,jdbcType=INTEGER},
+      dataRecord_adminName = #{datarecordAdminname,jdbcType=VARCHAR},
+      dataRecord_createTime = #{datarecordCreatetime,jdbcType=VARCHAR},
+      dataRecord_motifyTime = #{datarecordMotifytime,jdbcType=VARCHAR}
+    where dataRecord_id = #{datarecordId,jdbcType=INTEGER}
+  </update>
+  <!-- insertSelective -->
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="datarecordId" parameterType="com.atguigu.bean.ShareDataRecord">
+    insert into tb_share_datarecord
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="datarecordId != null">
+        dataRecord_id,
+      </if>
+      <if test="datarecordType != null">
+        dataRecord_type,
+      </if>
+      <if test="datarecordTypedetail != null">
+        dataRecord_typeDetail,
+      </if>
+      <if test="datarecordExplain != null">
+        dataRecord_explain,
+      </if>
+      <if test="datarecordAdminid != null">
+        dataRecord_adminId,
+      </if>
+      <if test="datarecordAdminname != null">
+        dataRecord_adminName,
+      </if>
+      <if test="datarecordCreatetime != null">
+        dataRecord_createTime,
+      </if>
+      <if test="datarecordMotifytime != null">
+        dataRecord_motifyTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="datarecordId != null">
+        #{datarecordId,jdbcType=INTEGER},
+      </if>
+      <if test="datarecordType != null">
+        #{datarecordType,jdbcType=INTEGER},
+      </if>
+      <if test="datarecordTypedetail != null">
+        #{datarecordTypedetail,jdbcType=VARCHAR},
+      </if>
+      <if test="datarecordExplain != null">
+        #{datarecordExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="datarecordAdminid != null">
+        #{datarecordAdminid,jdbcType=INTEGER},
+      </if>
+      <if test="datarecordAdminname != null">
+        #{datarecordAdminname,jdbcType=VARCHAR},
+      </if>
+      <if test="datarecordCreatetime != null">
+        #{datarecordCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="datarecordMotifytime != null">
+        #{datarecordMotifytime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <!-- deleteByPrimaryKey -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_share_datarecord
+    where dataRecord_id = #{datarecordId,jdbcType=INTEGER}
+  </delete>
+  <!-- updateByPrimaryKeySelective -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.ShareDataRecord">
+    update tb_share_datarecord
+    <set>
+      <if test="datarecordType != null">
+        dataRecord_type = #{datarecordType,jdbcType=INTEGER},
+      </if>
+      <if test="datarecordTypedetail != null">
+        dataRecord_typeDetail = #{datarecordTypedetail,jdbcType=VARCHAR},
+      </if>
+      <if test="datarecordExplain != null">
+        dataRecord_explain = #{datarecordExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="datarecordAdminid != null">
+        dataRecord_adminId = #{datarecordAdminid,jdbcType=INTEGER},
+      </if>
+      <if test="datarecordAdminname != null">
+        dataRecord_adminName = #{datarecordAdminname,jdbcType=VARCHAR},
+      </if>
+      <if test="datarecordCreatetime != null">
+        dataRecord_createTime = #{datarecordCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="datarecordMotifytime != null">
+        dataRecord_motifyTime = #{datarecordMotifytime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dataRecord_id = #{datarecordId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- selectMlbackCouponGetAll -->
+  <select id="selectShareDataRecordGetAll" parameterType="com.atguigu.bean.ShareDataRecord" resultMap="BaseResultMap">
+    select *
+    from tb_share_datarecord order by dataRecord_id desc
+  </select>
+  
+</mapper>
