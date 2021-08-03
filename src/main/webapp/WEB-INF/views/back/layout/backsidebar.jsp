@@ -42,6 +42,13 @@
 				<!-- download -->
 			</ul>
 		</li>
-		<!-- videos -->
+		<li class="c-sidebar-nav-item">
+			<a class="c-sidebar-nav-link" href="${APP_PATH}/ShareDataRecord/toShareDataRecordPage">
+				<svg class="c-sidebar-nav-icon">
+					<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-cursor"></use>
+				</svg>
+				<span class="c-text">Record</span>
+			</a>
+		</li>
 	</ul>
 </div>
