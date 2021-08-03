@@ -50,6 +50,10 @@
 		<table tableName="tb_share_update" domainObjectName="ShareUpdate" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		<table tableName="tb_share_demand" domainObjectName="ShareDemand" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		-->
+		<!-- 数据统计模块-->
+		<!--	tb_share
+		<table tableName="tb_share_dataRecord" domainObjectName="ShareDataRecord" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		-->
 		<!--	tb_email
 		<table tableName="tb_email_noneed" domainObjectName="EmailNoneed" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		<table tableName="tb_email_paysuccess" domainObjectName="EmailPaySuccess" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
