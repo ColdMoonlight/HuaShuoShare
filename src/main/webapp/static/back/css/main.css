@@ -50,6 +50,30 @@
 	padding: 1rem;
 	min-height: 100vh;
 }
+.c-init,.c-create {
+	width: 100%;
+}
+.c-main .card {
+	min-height: 10rem;
+    padding: 1rem;
+}
+/* table title */
+.c-option {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.c-option-title {
+	font-weight: 600;
+	font-size: 1.6rem;	
+}
+.table-responsive-sm { overflow-x: auto; }
+.c-table,
+.c-form {
+	margin-top: 1rem;
+	border-radius: .5rem;
+	overflow: hidden;
+}
 /* sidebar */
 .c-sidebar-nav,
 .c-child-menu {
