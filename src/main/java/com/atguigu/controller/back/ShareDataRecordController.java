@@ -75,7 +75,7 @@ public class ShareDataRecordController {
 	 */
 	@RequestMapping(value="/initializaDataRecordInfo",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg initializaDataRecordInfo(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareDataRecord ShareDataRecord){
+	public Msg initializaDataRecordInfo(HttpSession session,HttpServletResponse rep,HttpServletRequest res){
 		
 		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
 		session.setAttribute("AdminUser", mlbackAdmin);
@@ -85,20 +85,14 @@ public class ShareDataRecordController {
 			return Msg.success().add("resMsg", "请重新登陆").add("adminPower", adminPower);
 		}else{
 			System.out.println("当前的登陆客户:"+mlbackAdmin.toString());
+			ShareDataRecord ShareDataRecord = new ShareDataRecord();
 			//接受参数信息
-			Integer	datarecordId = ShareDataRecord.getDatarecordId();
 			String nowTime = DateUtil.strTime14s();
 			ShareDataRecord.setDatarecordMotifytime(nowTime);
-			if(datarecordId==null){
-				ShareDataRecord.setDatarecordCreatetime(nowTime);
-				ShareDataRecord.setDatarecordAdminid(mlbackAdmin.getAdminId());
-				ShareDataRecord.setDatarecordAdminname(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
-				//无id,insert
-				shareDataRecordService.insertSelective(ShareDataRecord);
-			}else{
-				//有id,update
-				shareDataRecordService.updateByPrimaryKeySelective(ShareDataRecord);
-			}
+			ShareDataRecord.setDatarecordCreatetime(nowTime);
+			ShareDataRecord.setDatarecordAdminid(mlbackAdmin.getAdminId());
+			ShareDataRecord.setDatarecordAdminname(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
+			shareDataRecordService.insertSelective(ShareDataRecord);
 			
 			return Msg.success().add("resMsg", "Update初始化成功").add("adminPower", adminPower).add("ShareDataRecordRes", ShareDataRecord);
 		}
@@ -166,7 +160,5 @@ public class ShareDataRecordController {
 		
 		return Msg.success().add("ShareDemandList", ShareDemandList);
 	}
-	
-	
 	
 }
