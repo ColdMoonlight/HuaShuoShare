@@ -18,7 +18,7 @@ public interface ShareDataRecordMapper {
     
     int updateByPrimaryKeySelective(ShareDataRecord record);
     
-    //查询全部的操作条件
+    //查询全部
 	List<ShareDataRecord> selectShareDataRecordGetAll();
 
 	List<com.atguigu.bean.ShareDataRecord> selectShareDataRecordById(ShareDataRecord shareDataRecord);

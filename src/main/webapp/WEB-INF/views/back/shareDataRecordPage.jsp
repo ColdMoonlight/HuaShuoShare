@@ -27,9 +27,10 @@
 										<thead>
 											<tr>
 												<th>id</th>
-												<th>type</th>
-												<th>detail</th>
-												<th>desc</th>
+												<th>持有人</th>
+												<th>账号类型</th>
+												<th>账号明细</th>
+												<th>账号用途</th>
 											</tr>
 										</thead>
 										<tbody></tbody>
@@ -58,7 +59,7 @@
 									</div>
 									<div class="card-body">
 										<div class="form-group">
-											<label class="col-form-label" for="datarecordType">Type</label>
+											<label class="col-form-label" for="datarecordType">持有信息的类型(手机号/email)</label>
 											<div class="controls">
 												<select class="form-control" id="datarecordType" />
 													<option value="-1">请选择...</option>
@@ -68,15 +69,21 @@
 											</div>
 										</div>										
 										<div class="form-group">
-											<label class="col-form-label" for="datarecordTypedetail">Details</label>
+											<label class="col-form-label" for="datarecordTypedetail">持有明细(手机号/email)</label>
 											<div class="controls">
-												<input class="form-control" id="datarecordTypedetail" type="text" />
+												<input class="form-control" id="datarecordTypedetail" type="text"  placeholder="手机号、邮箱号"/>
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-form-label" for="datarecordExplain">Description</label>
+											<label class="col-form-label" for="datarecordExplain">绑定的位置</label>
 											<div class="controls">
-												<input class="form-control" id="datarecordExplain" type="text" />
+												<input class="form-control" id="datarecordExplain" type="text"  placeholder="用于哪里绑定"/>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-form-label" for="datarecordAdminname">持有人</label>
+											<div class="controls">
+												<input class="form-control" id="datarecordAdminname" type="text"  placeholder="持有人"/>
 											</div>
 										</div>
 									</div>
@@ -151,6 +158,7 @@
 			$('#datarecordType').val('-1');
 			$('#datarecordTypedetail').val('');
 			$('#datarecordExplain').val('');
+			$('#datarecordAdminname').val('');
 		}
 		// getFormdData
 		function getFormData() {
@@ -159,6 +167,7 @@
 			data.datarecordType = parseInt($('#datarecordType').val());
 			data.datarecordTypedetail = $('#datarecordTypedetail').val();
 			data.datarecordExplain = $('#datarecordExplain').val();
+			data.datarecordAdminname = $('#datarecordAdminname').val();
 
 			return data;
 		}
@@ -169,6 +178,7 @@
 			$('#datarecordType').val(data.datarecordType || '-1');
 			$('#datarecordTypedetail').val(data.datarecordTypedetail);
 			$('#datarecordExplain').val(data.datarecordExplain);
+			$('#datarecordAdminname').val(data.datarecordAdminname);
 		}
 		// callback get id
 		function getRecordId(callback) {
@@ -291,6 +301,7 @@
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				htmlStr += '<tr><td>' + data[i].datarecordId + '</td>' +
+					'<td>' + data[i].datarecordAdminname + '</td>' +
 					'<td>' + getTypeName(data[i].datarecordType) + '</td>' +
 					'<td>' + data[i].datarecordTypedetail + '</td>' +
 					'<td>' + data[i].datarecordExplain + '</td>' +
