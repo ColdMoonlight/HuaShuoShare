@@ -90,8 +90,8 @@ public class ShareDataRecordController {
 			String nowTime = DateUtil.strTime14s();
 			ShareDataRecord.setDatarecordMotifytime(nowTime);
 			ShareDataRecord.setDatarecordCreatetime(nowTime);
-			ShareDataRecord.setDatarecordAdminid(mlbackAdmin.getAdminId());
-			ShareDataRecord.setDatarecordAdminname(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
+//			ShareDataRecord.setDatarecordAdminid(mlbackAdmin.getAdminId());
+//			ShareDataRecord.setDatarecordAdminname(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
 			shareDataRecordService.insertSelective(ShareDataRecord);
 			
 			return Msg.success().add("resMsg", "Update初始化成功").add("adminPower", adminPower).add("ShareDataRecordRes", ShareDataRecord);
