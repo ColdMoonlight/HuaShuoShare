@@ -50,7 +50,11 @@ public class ShareDataRecordController {
 		}
 	}
 	
-	
+	/**2.0	zsh210804
+	 * ShareDataRecord	getShareDataRecordByPage
+	 * @param ShareDataRecord
+	 * @return
+	 */
 	@RequestMapping(value="/getShareDataRecordByPage")
 	@ResponseBody
 	public Msg getShareDataRecordByPage(@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session) {
@@ -67,9 +71,9 @@ public class ShareDataRecordController {
 //		}
 	}
 	
-	/**1.0	zsh210115
-	 * ShareDemand	initializaFileNameInfo
-	 * @param ShareDemand
+	/**3.0	zsh210115
+	 * ShareDataRecord	initializaFileNameInfo
+	 * @param ShareDataRecord
 	 * @return
 	 */
 	@RequestMapping(value="/initializaDataRecordInfo",method=RequestMethod.POST)
@@ -97,8 +101,8 @@ public class ShareDataRecordController {
 		}
 	}
 	
-	/**2.0	zsh210115
-	 * MlbackAreafreight	delete
+	/**4.0	zsh210804
+	 * ShareDataRecord	delete
 	 * @param id
 	 */
 	@RequestMapping(value="/delete",method=RequestMethod.POST)
@@ -117,9 +121,9 @@ public class ShareDataRecordController {
 	}
 	
 	
-	/**3.0	onuse	20191225	检查
-	 * MlbackAreafreight	save
-	 * @param MlbackAreafreight
+	/**5.0	onuse	zsh210804	检查
+	 * ShareDataRecord	save
+	 * @param ShareDataRecord
 	 */
 	@RequestMapping(value="/save",method=RequestMethod.POST)
 	@ResponseBody
@@ -147,8 +151,8 @@ public class ShareDataRecordController {
 		}
 	}
 	
-	/**5.0	zsh210115
-	 * 后台ShareDemand列表all-list数据
+	/**6.0	zsh210804
+	 * 后台ShareDataRecord列表all-list数据
 	 * @return
 	 */
 	@RequestMapping(value="/getShareDataRecordDetailById",method=RequestMethod.POST)
