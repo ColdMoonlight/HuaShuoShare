@@ -1,17 +1,18 @@
 package com.atguigu.bean;
 
 public class ShareDataRecord {
-    private Integer datarecordId;
+	
+    private Integer datarecordId;	//主键
 
-    private Integer datarecordType;
+    private Integer datarecordType;	//类型手机或邮件
 
-    private String datarecordTypedetail;
+    private String datarecordTypedetail;	//手机用在哪里、邮件用在哪里
 
-    private String datarecordExplain;
+    private String datarecordExplain;	//用途
 
     private Integer datarecordAdminid;
 
-    private String datarecordAdminname;
+    private String datarecordAdminname;	//使用者
 
     private String datarecordCreatetime;
 
