@@ -125,7 +125,10 @@
 		var isCreate = false;
 
 		// init
-		getRecordsData()
+		getRecordsData();
+		$(document.body).on('click', '#table-pagination li', function (e) {
+			getRecordsData();
+		});
 		// create collection
 		$('.btn-create').on('click', function () {
 			$('.c-create .c-option-title').text('Create Record');
