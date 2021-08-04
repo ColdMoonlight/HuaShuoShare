@@ -32,6 +32,7 @@
 												<th>持有人</th>
 												<th>账号明细</th>
 												<th>账号用途</th>
+												<th>操作</th>
 											</tr>
 										</thead>
 										<tbody></tbody>
@@ -148,6 +149,17 @@
 				$('#datarecordId').val('');
 			});
 		});
+		// edit collection
+		$(document.body).on('click', '.btn-edit', function (e) {
+			var datarecordId = $(this).data('id');
+			getOneRecordData({
+				datarecordId: datarecordId
+			}, function(resData) {
+			 	$('.c-create .c-option-title').text('Edit Reocrd');
+				showCreateBlock();
+				initFormData(resData);
+			});	
+		});
 		// cancel collection save
 		$('.c-create .btn-cancel').on('click', function () {
 			if (isCreate) {
@@ -161,6 +173,12 @@
 			}
 
 			showInitBlock();
+		});
+		$(window).on('beforeunload', function() {
+			var datarecordId = $('#datarecordId').val();
+			isCreate && datarecordId && deleteRecordData({
+				datarecordId: datarecordId,
+			});
 		});
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
@@ -228,6 +246,31 @@
 				}
 			});
 		}
+		// callback get one record
+		function getOneRecordData(reqData) {
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/ShareDataRecord/getShareDataRecordDetailById",
+				type: "post",
+				data: JSON.stringify(reqData),
+				dataType: 'json',
+				contentType: 'application/json',
+				success: function (data) {
+					if (data.code == 100) {
+						callback(data.extend.shareDataRecordOne);
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function () {
+					toastr.error('Failed to get Record, please refresh the page to get again！');
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
 		// callback get all data
 		function getRecordsData() {
 			$('.c-mask').show();
@@ -246,31 +289,6 @@
 					if (data.code == 100) {
 						renderTable(data.extend.dataRecordInfo.list);
 						renderTablePagination(data.extend.dataRecordInfo);
-						toastr.success(data.extend.resMsg);
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function () {
-					toastr.error('Failed to get Record, please refresh the page to get again！');
-				},
-				complete: function () {
-					$('.c-mask').hide();
-				}
-			});
-		}
-		// callback get one data
-		function getOneRecordData(reqData, callback) {
-			$('.c-mask').show();
-			$.ajax({
-				url: "${APP_PATH}/MlbackActShowPro/getOneMlbackActShowProDetail",
-				type: "post",
-				data: JSON.stringify(reqData),
-				dataType: 'json',
-				contentType: 'application/json',
-				success: function (data) {
-					if (data.code == 100) {
-						callback(data.extend.mlbackActShowProOne);
 						toastr.success(data.extend.resMsg);
 					} else {
 						toastr.error(data.extend.resMsg);
@@ -310,6 +328,33 @@
 				}
 			});
 		}
+		// callback delete collection-id
+		function deleteRecordData(reqData, callback) {
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/ShareDataRecord/delete",
+				type: "post",
+				cache: false,
+				dataType: "json",
+				contentType: 'application/json',
+				data: JSON.stringify(reqData),
+				success: function (data) {
+					if (data.code == 100) {
+						toastr.success(data.extend.resMsg);
+						callback();
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function (err) {
+					toastr.error(err);
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		
 		// init table-list
 		function renderTable(data) {
 			function getTypeName(type) {
@@ -329,7 +374,13 @@
 					'<td>' + data[i].datarecordAdminname + '</td>' +
 					'<td>' + data[i].datarecordTypedetail + '</td>' +
 					'<td>' + data[i].datarecordExplain + '</td>' +
-					'</tr>';
+					'<td>' +
+						'<button class="btn btn-primary btn-edit" data-id="' + data[i].datarecordId + '">' +
+							'<svg class="c-icon">' +
+								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-pencil"></use>' +
+							'</svg>' +
+						'</button>' +
+					'</td></tr>';
 			}
 			$('.c-table-table tbody').html(htmlStr);
 		}
