@@ -157,5 +157,4 @@
     from tb_share_datarecord where dataRecord_id = #{datarecordId,jdbcType=INTEGER}
   </select>
   
-  
 </mapper>
