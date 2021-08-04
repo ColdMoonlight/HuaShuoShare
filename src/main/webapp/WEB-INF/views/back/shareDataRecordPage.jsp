@@ -214,7 +214,7 @@
 		function initFormData(data) {
 			// init
 			$('#datarecordId').val(data.datarecordId);
-			$('#datarecordType').val(data.datarecordType || '-1');
+			$('#datarecordType').val(''+data.datarecordType || '-1');
 			$('#datarecordTypedetail').val(data.datarecordTypedetail);
 			$('#datarecordExplain').val(data.datarecordExplain);
 			$('#datarecordAdminname').val(data.datarecordAdminname);
@@ -247,7 +247,7 @@
 			});
 		}
 		// callback get one record
-		function getOneRecordData(reqData) {
+		function getOneRecordData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
 				url: "${APP_PATH}/ShareDataRecord/getShareDataRecordDetailById",
