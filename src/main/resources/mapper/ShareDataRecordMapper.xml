@@ -8,12 +8,13 @@
     <result column="dataRecord_explain" jdbcType="VARCHAR" property="datarecordExplain" />
     <result column="dataRecord_adminId" jdbcType="INTEGER" property="datarecordAdminid" />
     <result column="dataRecord_adminName" jdbcType="VARCHAR" property="datarecordAdminname" />
+    <result column="dataRecord_department" jdbcType="VARCHAR" property="datarecordDepartment" />
     <result column="dataRecord_createTime" jdbcType="VARCHAR" property="datarecordCreatetime" />
     <result column="dataRecord_motifyTime" jdbcType="VARCHAR" property="datarecordMotifytime" />
   </resultMap>
   <sql id="Base_Column_List">
     dataRecord_id, dataRecord_type, dataRecord_typeDetail, dataRecord_explain, dataRecord_adminId, 
-    dataRecord_adminName, dataRecord_createTime, dataRecord_motifyTime
+    dataRecord_adminName,dataRecord_department, dataRecord_createTime, dataRecord_motifyTime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -24,11 +25,11 @@
 
   <insert id="insert" parameterType="com.atguigu.bean.ShareDataRecord">
     insert into tb_share_datarecord (dataRecord_id, dataRecord_type, dataRecord_typeDetail, 
-      dataRecord_explain, dataRecord_adminId, dataRecord_adminName, 
+      dataRecord_explain, dataRecord_adminId, dataRecord_adminName, dataRecord_department,
       dataRecord_createTime, dataRecord_motifyTime
       )
     values (#{datarecordId,jdbcType=INTEGER}, #{datarecordType,jdbcType=INTEGER}, #{datarecordTypedetail,jdbcType=VARCHAR}, 
-      #{datarecordExplain,jdbcType=VARCHAR}, #{datarecordAdminid,jdbcType=INTEGER}, #{datarecordAdminname,jdbcType=VARCHAR}, 
+      #{datarecordExplain,jdbcType=VARCHAR}, #{datarecordAdminid,jdbcType=INTEGER}, #{datarecordAdminname,jdbcType=VARCHAR}, #{datarecordDepartment,jdbcType=VARCHAR}, 
       #{datarecordCreatetime,jdbcType=VARCHAR}, #{datarecordMotifytime,jdbcType=VARCHAR}
       )
   </insert>
@@ -40,6 +41,7 @@
       dataRecord_explain = #{datarecordExplain,jdbcType=VARCHAR},
       dataRecord_adminId = #{datarecordAdminid,jdbcType=INTEGER},
       dataRecord_adminName = #{datarecordAdminname,jdbcType=VARCHAR},
+      dataRecord_department = #{datarecordDepartment,jdbcType=VARCHAR}, 
       dataRecord_createTime = #{datarecordCreatetime,jdbcType=VARCHAR},
       dataRecord_motifyTime = #{datarecordMotifytime,jdbcType=VARCHAR}
     where dataRecord_id = #{datarecordId,jdbcType=INTEGER}
@@ -66,6 +68,9 @@
       <if test="datarecordAdminname != null">
         dataRecord_adminName,
       </if>
+      <if test="datarecordDepartment != null">
+        dataRecord_department,
+      </if>
       <if test="datarecordCreatetime != null">
         dataRecord_createTime,
       </if>
@@ -91,6 +96,9 @@
       </if>
       <if test="datarecordAdminname != null">
         #{datarecordAdminname,jdbcType=VARCHAR},
+      </if>
+      <if test="datarecordDepartment != null">
+        #{datarecordDepartment,jdbcType=VARCHAR},
       </if>
       <if test="datarecordCreatetime != null">
         #{datarecordCreatetime,jdbcType=VARCHAR},
@@ -123,6 +131,9 @@
       </if>
       <if test="datarecordAdminname != null">
         dataRecord_adminName = #{datarecordAdminname,jdbcType=VARCHAR},
+      </if>
+      <if test="datarecordDepartment != null">
+        dataRecord_department = #{datarecordDepartment,jdbcType=VARCHAR}, 
       </if>
       <if test="datarecordCreatetime != null">
         dataRecord_createTime = #{datarecordCreatetime,jdbcType=VARCHAR},

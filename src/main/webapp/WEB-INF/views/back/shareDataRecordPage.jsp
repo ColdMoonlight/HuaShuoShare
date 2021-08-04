@@ -27,8 +27,9 @@
 										<thead>
 											<tr>
 												<th>id</th>
-												<th>持有人</th>
+												<th>部门</th>
 												<th>账号类型</th>
+												<th>持有人</th>
 												<th>账号明细</th>
 												<th>账号用途</th>
 											</tr>
@@ -84,6 +85,24 @@
 											<label class="col-form-label" for="datarecordAdminname">持有人</label>
 											<div class="controls">
 												<input class="form-control" id="datarecordAdminname" type="text"  placeholder="持有人"/>
+											</div>
+										</div>
+										<!-- <div class="form-group">
+											<label class="col-form-label" for="datarecordType">部门</label>
+											<div class="controls">
+												<select class="form-control" id="datarecordType" />
+													<option value="部门">请选择...</option>
+													<option value="国际站">国际站</option>
+													<option value="国际站">亚马逊</option>
+													<option value="国际站">国际站</option>
+													<option value="1">独立站</option>
+												</select>
+											</div>
+										</div>	 -->
+										<div class="form-group">
+											<label class="col-form-label" for="datarecordDepartment">部门</label>
+											<div class="controls">
+												<input class="form-control" id="datarecordDepartment" type="text"  placeholder="部门"/>
 											</div>
 										</div>
 									</div>
@@ -159,6 +178,7 @@
 			$('#datarecordTypedetail').val('');
 			$('#datarecordExplain').val('');
 			$('#datarecordAdminname').val('');
+			$('#datarecordDepartment').val('');
 		}
 		// getFormdData
 		function getFormData() {
@@ -168,6 +188,7 @@
 			data.datarecordTypedetail = $('#datarecordTypedetail').val();
 			data.datarecordExplain = $('#datarecordExplain').val();
 			data.datarecordAdminname = $('#datarecordAdminname').val();
+			data.datarecordDepartment = $('#datarecordDepartment').val();
 
 			return data;
 		}
@@ -179,6 +200,8 @@
 			$('#datarecordTypedetail').val(data.datarecordTypedetail);
 			$('#datarecordExplain').val(data.datarecordExplain);
 			$('#datarecordAdminname').val(data.datarecordAdminname);
+			$('#datarecordDepartment').val(data.datarecordDepartment);
+			
 		}
 		// callback get id
 		function getRecordId(callback) {
@@ -301,8 +324,9 @@
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				htmlStr += '<tr><td>' + data[i].datarecordId + '</td>' +
-					'<td>' + data[i].datarecordAdminname + '</td>' +
+					'<td>' + data[i].datarecordDepartment + '</td>' +
 					'<td>' + getTypeName(data[i].datarecordType) + '</td>' +
+					'<td>' + data[i].datarecordAdminname + '</td>' +
 					'<td>' + data[i].datarecordTypedetail + '</td>' +
 					'<td>' + data[i].datarecordExplain + '</td>' +
 					'</tr>';

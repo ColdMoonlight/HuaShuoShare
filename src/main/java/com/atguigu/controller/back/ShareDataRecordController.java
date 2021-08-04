@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.ShareDataRecord;
-import com.atguigu.bean.ShareDemand;
 import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.atguigu.service.ShareDataRecordService;
@@ -104,15 +103,15 @@ public class ShareDataRecordController {
 	 */
 	@RequestMapping(value="/delete",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg delete(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareDemand ShareDemand){
+	public Msg delete(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareDataRecord ShareDataRecord){
 		
 		String adminPower = getAdminInfo(session);
 		if("0000".equals(adminPower)){
 			return Msg.success().add("resMsg", "请重新登陆").add("adminPower", adminPower);
 		}else{
-			int ShareDemandIdInt = ShareDemand.getTbShareDemandId();
+			int ShareDatarecordIdInt = ShareDataRecord.getDatarecordId();
 			//操作完毕,执行删除
-			shareDemandService.deleteByPrimaryKey(ShareDemandIdInt);
+			shareDataRecordService.deleteByPrimaryKey(ShareDatarecordIdInt);
 			return Msg.success().add("resMsg", "delete success").add("adminPower", adminPower);
 		}
 	}
@@ -148,17 +147,29 @@ public class ShareDataRecordController {
 		}
 	}
 	
-	/**3.0	zsh210115
+	/**5.0	zsh210115
 	 * 后台ShareDemand列表all-list数据
 	 * @return
 	 */
-	@RequestMapping(value="/getShareDemandListAll",method=RequestMethod.POST)
+	@RequestMapping(value="/getShareDataRecordDetailById",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg getShareDemandListAll(HttpSession session,HttpServletResponse rep,HttpServletRequest res) {
+	public Msg getShareDataRecordDetailById(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareDataRecord ShareDataRecord) {
 		
-		List<ShareDemand> ShareDemandList = shareDemandService.selectShareDemandlistAll();
+		Integer datarecordId = ShareDataRecord.getDatarecordId();
 		
-		return Msg.success().add("ShareDemandList", ShareDemandList);
+		ShareDataRecord shareDataRecordReq = new ShareDataRecord();
+		shareDataRecordReq.setDatarecordId(datarecordId);
+		List<ShareDataRecord> shareDataRecordResList =shareDataRecordService.selectShareDataRecordById(shareDataRecordReq);
+		ShareDataRecord shareDataRecordOne = new ShareDataRecord();
+		if(shareDataRecordResList.size()>0){
+			//如果用这个id查到,就拿出来.
+			shareDataRecordOne = shareDataRecordResList.get(0);
+		}else{
+			//如果用这个id没查到,就取出当前所有产品最新上的那款.
+			shareDataRecordResList = shareDataRecordService.selectShareDataRecordGetAll();
+			shareDataRecordOne = shareDataRecordResList.get(0);
+		}
+		return Msg.success().add("resMsg", "查看单个产品详情完毕").add("shareDataRecordOne", shareDataRecordOne);
 	}
-	
+
 }
