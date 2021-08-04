@@ -61,7 +61,7 @@
 											<label class="col-form-label" for="datarecordType">Type</label>
 											<div class="controls">
 												<select class="form-control" id="datarecordType" />
-													<option value="-1">请选择。。。</option>
+													<option value="-1">请选择...</option>
 													<option value="0">手机号</option>
 													<option value="1">邮箱</option>
 												</select>
@@ -94,10 +94,7 @@
 		</div>
 
 		<jsp:include page="common/backfooter.jsp" flush="true"></jsp:include>
-		<jsp:include page="modal/deleteModal.jsp" flush="true"></jsp:include>
 		<script type="text/javascript">
-		var hasCollectionList = false;
-		var hasProductList = false;
 		var isCreate = false;
 
 		// init
@@ -159,7 +156,7 @@
 		function getFormData() {
 			var data = {};
 			data.datarecordId = parseInt($('#datarecordId').val());
-			data.datarecordTypedetail = parseInt($('#datarecordType').val());
+			data.datarecordType = parseInt($('#datarecordType').val());
 			data.datarecordTypedetail = $('#datarecordTypedetail').val();
 			data.datarecordExplain = $('#datarecordExplain').val();
 
@@ -183,7 +180,7 @@
 				contentType: 'application/json',
 				success: function (data) {
 					if (data.code == 100) {
-						callback && callback(data.extend.mlbackActShowPro)
+						callback && callback(data.extend.ShareDataRecordRes)
 						toastr.success(data.extend.resMsg);
 					} else {
 						showInitBlock();
@@ -282,10 +279,19 @@
 		}
 		// init table-list
 		function renderTable(data) {
+			function getTypeName(type) {
+				if (''+type == '0') {
+					return '手机号';
+				}
+				if (''+type == '1') {
+					return '邮箱';
+				}
+				return '--';
+			}
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				htmlStr += '<tr><td>' + data[i].datarecordId + '</td>' +
-					'<td>' + data[i].datarecordType + '</td>' +
+					'<td>' + getTypeName(data[i].datarecordType) + '</td>' +
 					'<td>' + data[i].datarecordTypedetail + '</td>' +
 					'<td>' + data[i].datarecordExplain + '</td>' +
 					'</tr>';
