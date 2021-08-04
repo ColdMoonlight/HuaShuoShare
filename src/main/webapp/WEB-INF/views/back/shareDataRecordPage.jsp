@@ -57,7 +57,7 @@
 							<div class="left-panel col-lg-7 col-md-12">
 								<div class="card">
 									<div class="card-title">
-										<div class="card-title-name">General</div>
+										<div class="card-title-name">添加记录所需</div>
 									</div>
 									<div class="card-body">
 										<div class="form-group">
@@ -89,17 +89,17 @@
 											</div>
 										</div>
 										<!-- <div class="form-group">
-											<label class="col-form-label" for="datarecordType">部门</label>
+											<label class="col-form-label" for="datarecordDepartment">部门</label>
 											<div class="controls">
-												<select class="form-control" id="datarecordType" />
-													<option value="部门">请选择...</option>
+												<select class="form-control" id="datarecordDepartment" />
+													<option value="请选择">请选择...</option>
 													<option value="国际站">国际站</option>
-													<option value="国际站">亚马逊</option>
-													<option value="国际站">国际站</option>
-													<option value="1">独立站</option>
+													<option value="亚马逊">亚马逊</option>
+													<option value="独立站">国际站</option>
+													<option value="人事部">独立站</option>
 												</select>
 											</div>
-										</div>	 -->
+										</div> -->
 										<div class="form-group">
 											<label class="col-form-label" for="datarecordDepartment">部门</label>
 											<div class="controls">
