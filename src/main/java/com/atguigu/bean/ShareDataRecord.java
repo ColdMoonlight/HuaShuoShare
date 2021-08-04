@@ -13,6 +13,8 @@ public class ShareDataRecord {
     private Integer datarecordAdminid;
 
     private String datarecordAdminname;	//使用者
+    
+    private String datarecordDepartment;	//使用者
 
     private String datarecordCreatetime;
 
@@ -65,8 +67,16 @@ public class ShareDataRecord {
     public void setDatarecordAdminname(String datarecordAdminname) {
         this.datarecordAdminname = datarecordAdminname == null ? null : datarecordAdminname.trim();
     }
+    
+    public String getDatarecordDepartment() {
+		return datarecordDepartment;
+	}
 
-    public String getDatarecordCreatetime() {
+	public void setDatarecordDepartment(String datarecordDepartment) {
+		this.datarecordDepartment = datarecordDepartment == null ? null : datarecordDepartment.trim();
+	}
+
+	public String getDatarecordCreatetime() {
         return datarecordCreatetime;
     }
 
@@ -88,7 +98,7 @@ public class ShareDataRecord {
 
 	public ShareDataRecord(Integer datarecordId, Integer datarecordType, String datarecordTypedetail,
 			String datarecordExplain, Integer datarecordAdminid, String datarecordAdminname,
-			String datarecordCreatetime, String datarecordMotifytime) {
+			String datarecordDepartment, String datarecordCreatetime, String datarecordMotifytime) {
 		super();
 		this.datarecordId = datarecordId;
 		this.datarecordType = datarecordType;
@@ -96,6 +106,7 @@ public class ShareDataRecord {
 		this.datarecordExplain = datarecordExplain;
 		this.datarecordAdminid = datarecordAdminid;
 		this.datarecordAdminname = datarecordAdminname;
+		this.datarecordDepartment = datarecordDepartment;
 		this.datarecordCreatetime = datarecordCreatetime;
 		this.datarecordMotifytime = datarecordMotifytime;
 	}
@@ -105,8 +116,8 @@ public class ShareDataRecord {
 		return "ShareDataRecord [datarecordId=" + datarecordId + ", datarecordType=" + datarecordType
 				+ ", datarecordTypedetail=" + datarecordTypedetail + ", datarecordExplain=" + datarecordExplain
 				+ ", datarecordAdminid=" + datarecordAdminid + ", datarecordAdminname=" + datarecordAdminname
-				+ ", datarecordCreatetime=" + datarecordCreatetime + ", datarecordMotifytime=" + datarecordMotifytime
-				+ "]";
+				+ ", datarecordDepartment=" + datarecordDepartment + ", datarecordCreatetime=" + datarecordCreatetime
+				+ ", datarecordMotifytime=" + datarecordMotifytime + "]";
 	}
-    
+	
 }
