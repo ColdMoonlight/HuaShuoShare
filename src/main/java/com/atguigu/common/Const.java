@@ -20,8 +20,7 @@ public class Const {
     
     public static final Integer PAGE_NUM_SUPERCATE=30;
     //后台查询payinfo的pageNum
-//    public static final Integer PAGE_NUM_PAYINFO=50;
-    public static final Integer PAGE_NUM_PAYINFO=10;
+    public static final Integer PAGE_NUM_PAYINFO=50;
 	//客户前台查询order列表的pageNum
     public static final Integer PAGE_NUM_FrontOrderNum=50;
     //各种记录值的pageNum
