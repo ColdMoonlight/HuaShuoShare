@@ -88,24 +88,29 @@
 												<input class="form-control" id="datarecordAdminname" type="text"  placeholder="持有人"/>
 											</div>
 										</div>
-										<!-- <div class="form-group">
-											<label class="col-form-label" for="datarecordDepartment">部门</label>
-											<div class="controls">
-												<select class="form-control" id="datarecordDepartment" />
-													<option value="请选择">请选择...</option>
-													<option value="国际站">国际站</option>
-													<option value="亚马逊">亚马逊</option>
-													<option value="独立站">国际站</option>
-													<option value="人事部">独立站</option>
-												</select>
-											</div>
-										</div> -->
 										<div class="form-group">
-											<label class="col-form-label" for="datarecordDepartment">部门</label>
-											<div class="controls">
-												<input class="form-control" id="datarecordDepartment" type="text"  placeholder="部门"/>
-											</div>
-										</div>
+					                      <label class="col-form-label" for="datarecordDepartment">部门</label>
+					                      <div class="controls">
+					                        <select class="form-control" id="datarecordDepartment" placeholder="请选择"/>
+					                          <option value="">请选择...</option>
+					                          <option value="b编辑部">b编辑部</option>
+					                          <option value="c财务部">c财务部</option>
+					                          <option value="d独立站">d独立站</option>
+					                          <option value="g国际站">g国际站</option>
+					                          <option value="j技术部">j技术部</option>
+					                          <option value="r人事部">r人事部</option>
+					                          <option value="s设计部">s设计部</option>
+					                          <option value="s速卖通">s速卖通</option>
+					                          <option value="y亚马逊">y亚马逊</option>
+					                        </select>
+					                      </div>
+					                    </div>
+					                    <!-- <div class="form-group">
+					                      <label class="col-form-label" for="datarecordDepartment">部门</label>
+					                      <div class="controls">
+					                        <input class="form-control" id="datarecordDepartment" type="text"  placeholder="部门"/>
+					                      </div>
+					                    </div> -->
 									</div>
 								</div>
 							</div>
