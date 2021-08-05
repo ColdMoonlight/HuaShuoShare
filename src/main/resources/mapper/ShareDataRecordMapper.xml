@@ -148,7 +148,7 @@
   <!-- selectMlbackCouponGetAll -->
   <select id="selectShareDataRecordGetAll" parameterType="com.atguigu.bean.ShareDataRecord" resultMap="BaseResultMap">
     select *
-    from tb_share_datarecord order by dataRecord_type ,dataRecord_department desc
+    from tb_share_datarecord order by dataRecord_type ,dataRecord_department,dataRecord_id desc
   </select>
   
   <!-- selectShareDataRecordById -->
