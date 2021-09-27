@@ -63,7 +63,7 @@ public class ShareDataRecordController {
 //			//SysUsers对象为空
 //			return Msg.fail().add("resMsg", "session中adminuser对象为空");
 //		}else{
-			int PagNum = Const.PAGE_NUM_PAYINFO;
+			int PagNum = Const.PAGE_NUM_DataRecordNum;
 			PageHelper.startPage(pn, PagNum);
 			List<ShareDataRecord> shareDataRecordList = shareDataRecordService.selectShareDataRecordGetAll();
 			PageInfo page = new PageInfo(shareDataRecordList, PagNum);
