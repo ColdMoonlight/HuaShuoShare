@@ -2,17 +2,53 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.atguigu.dao.MlbackAdminMapper">
   <resultMap id="BaseResultMap" type="com.atguigu.bean.MlbackAdmin">
-    <constructor>
+    <!-- <constructor>
       <idArg column="admin_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="admin_account" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="admin_password" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="admin_operaterName" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="admin_power" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="admin_power_item_str" javaType="java.lang.String" jdbcType="VARCHAR" />
-    </constructor>
+      <arg column="admin_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="admin_department_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="admin_department_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="admin_department_idStr" javaType="java.lang.String"  jdbcType="VARCHAR"/>
+      <arg column="admin_department_nameStr" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="admin_shop_idStr" javaType="java.lang.String"  jdbcType="VARCHAR"/>
+      <arg column="admin_shop_nameStr" javaType="java.lang.String"  jdbcType="VARCHAR"/>
+      <arg column="admin_status" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <arg column="admin_menu_idStr" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="admin_menu_nameStr"  javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="admin_menu_urlStr" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="admin_createTime" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <arg column="admin_motifyTime" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    </constructor> -->
+    
+    <id column="admin_id" jdbcType="INTEGER" property="adminId" />
+    <result column="admin_account" jdbcType="VARCHAR" property="adminAccount" />
+    <result column="admin_password" jdbcType="VARCHAR"  property="adminPassword" />
+    <result column="admin_operaterName" jdbcType="VARCHAR"  property="adminOperatername" />
+    <result column="admin_power" jdbcType="VARCHAR"  property="adminPower" />
+    <result column="admin_power_item_str" jdbcType="VARCHAR" property="adminPowerItemStr" />
+    <result column="admin_name" jdbcType="VARCHAR" property="adminName" />
+    <result column="admin_department_id" jdbcType="INTEGER" property="adminDepartmentId" />
+    <result column="admin_department_name" jdbcType="VARCHAR" property="adminDepartmentName" />
+    <result column="admin_department_idStr" jdbcType="VARCHAR" property="adminDepartmentIdStr" />
+    <result column="admin_department_nameStr" jdbcType="VARCHAR" property="adminDepartmentNameStr" />
+    <result column="admin_shop_idStr" jdbcType="VARCHAR" property="adminShopIdStr" />
+    <result column="admin_shop_nameStr" jdbcType="VARCHAR" property="adminShopNameStr" />
+    <result column="admin_status" jdbcType="INTEGER" property="adminStatus" />
+    <result column="admin_menu_idStr" jdbcType="VARCHAR" property="adminMenuIdstr" />
+    <result column="admin_menu_nameStr" jdbcType="VARCHAR" property="adminMenuNamestr" />
+    <result column="admin_menu_urlStr" jdbcType="VARCHAR" property="adminMenuUrlstr" />
+    <result column="admin_createTime" jdbcType="VARCHAR" property="adminCreatetime" />
+    <result column="admin_motifyTime" jdbcType="VARCHAR" property="adminMotifytime" />
   </resultMap>
   <sql id="Base_Column_List">
-    admin_id, admin_account, admin_password, admin_operaterName, admin_power, admin_power_item_str
+    admin_id, admin_account, admin_password, admin_operaterName, admin_power, admin_power_item_str,
+    admin_name, admin_department_id, admin_department_name, admin_department_idStr, admin_department_nameStr, 
+    admin_shop_idStr, admin_shop_nameStr, admin_status, admin_menu_idStr, admin_menu_nameStr, 
+    admin_menu_urlStr, admin_createTime, admin_motifyTime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -26,9 +62,17 @@
   </delete>
   <insert id="insert" parameterType="com.atguigu.bean.MlbackAdmin">
     insert into tb_mlback_admin (admin_id, admin_account, admin_password, 
-      admin_operaterName, admin_power, admin_power_item_str)
+      admin_operaterName, admin_power, admin_power_item_str,admin_name, admin_department_id, 
+      admin_department_name, admin_department_idStr, admin_department_nameStr, admin_shop_idStr, 
+      admin_shop_nameStr, admin_status, admin_menu_idStr, admin_menu_nameStr, admin_menu_urlStr, 
+      admin_createTime, admin_motifyTime)
     values (#{adminId,jdbcType=INTEGER}, #{adminAccount,jdbcType=VARCHAR}, #{adminPassword,jdbcType=VARCHAR}, 
-      #{adminOperatername,jdbcType=VARCHAR}, #{adminPower,jdbcType=VARCHAR}, #{adminPowerItemStr,jdbcType=VARCHAR})
+      #{adminOperatername,jdbcType=VARCHAR}, #{adminPower,jdbcType=VARCHAR}, #{adminPowerItemStr,jdbcType=VARCHAR}, 
+      #{adminName,jdbcType=VARCHAR}, #{adminDepartmentId,jdbcType=INTEGER}, #{adminDepartmentName,jdbcType=VARCHAR}, 
+      #{adminDepartmentIdStr,jdbcType=VARCHAR}, #{adminDepartmentNameStr,jdbcType=VARCHAR}, 
+      #{adminShopIdStr,jdbcType=VARCHAR}, #{adminShopNameStr,jdbcType=VARCHAR}, #{adminStatus,jdbcType=INTEGER}, 
+      #{adminMenuIdstr,jdbcType=VARCHAR}, #{adminMenuNamestr,jdbcType=VARCHAR}, #{adminMenuUrlstr,jdbcType=VARCHAR}, 
+      #{adminCreatetime,jdbcType=VARCHAR}, #{adminMotifytime,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" useGeneratedKeys="true" keyProperty="adminId" parameterType="com.atguigu.bean.MlbackAdmin">
     insert into tb_mlback_admin
@@ -51,6 +95,45 @@
       <if test="adminPowerItemStr != null">
         admin_power_item_str,
       </if>
+      <if test="adminName != null">
+        admin_name,
+      </if>
+      <if test="adminDepartmentId != null">
+        admin_department_id,
+      </if>
+      <if test="adminDepartmentName != null">
+        admin_department_name,
+      </if>
+      <if test="adminDepartmentIdStr != null">
+        admin_department_idStr,
+      </if>
+      <if test="adminDepartmentNameStr != null">
+        admin_department_nameStr,
+      </if>
+      <if test="adminShopIdStr != null">
+        admin_shop_idStr,
+      </if>
+      <if test="adminShopNameStr != null">
+        admin_shop_nameStr,
+      </if>
+      <if test="adminStatus != null">
+        admin_status,
+      </if>
+      <if test="adminMenuIdstr != null">
+        admin_menu_idStr,
+      </if>
+      <if test="adminMenuNamestr != null">
+        admin_menu_nameStr,
+      </if>
+      <if test="adminMenuUrlstr != null">
+        admin_menu_urlStr,
+      </if>
+      <if test="adminCreatetime != null">
+        admin_createTime,
+      </if>
+      <if test="adminMotifytime != null">
+        admin_motifyTime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="adminId != null">
@@ -70,6 +153,45 @@
       </if>
       <if test="adminPowerItemStr != null">
         #{adminPowerItemStr,jdbcType=VARCHAR},
+      </if>
+      <if test="adminName != null">
+        #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminDepartmentId != null">
+        #{adminDepartmentId,jdbcType=INTEGER},
+      </if>
+      <if test="adminDepartmentName != null">
+        #{adminDepartmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminDepartmentIdStr != null">
+        #{adminDepartmentIdStr,jdbcType=VARCHAR},
+      </if>
+      <if test="adminDepartmentNameStr != null">
+        #{adminDepartmentNameStr,jdbcType=VARCHAR},
+      </if>
+      <if test="adminShopIdStr != null">
+        #{adminShopIdStr,jdbcType=VARCHAR},
+      </if>
+      <if test="adminShopNameStr != null">
+        #{adminShopNameStr,jdbcType=VARCHAR},
+      </if>
+      <if test="adminStatus != null">
+        #{adminStatus,jdbcType=INTEGER},
+      </if>
+      <if test="adminMenuIdstr != null">
+        #{adminMenuIdstr,jdbcType=VARCHAR},
+      </if>
+      <if test="adminMenuNamestr != null">
+        #{adminMenuNamestr,jdbcType=VARCHAR},
+      </if>
+      <if test="adminMenuUrlstr != null">
+        #{adminMenuUrlstr,jdbcType=VARCHAR},
+      </if>
+      <if test="adminCreatetime != null">
+        #{adminCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="adminMotifytime != null">
+        #{adminMotifytime,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -91,6 +213,45 @@
       <if test="adminPowerItemStr != null">
         admin_power_item_str = #{adminPowerItemStr,jdbcType=VARCHAR},
       </if>
+      <if test="adminName != null">
+        admin_name = #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminDepartmentId != null">
+        admin_department_id = #{adminDepartmentId,jdbcType=INTEGER},
+      </if>
+      <if test="adminDepartmentName != null">
+        admin_department_name = #{adminDepartmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminDepartmentIdStr != null">
+        admin_department_idStr = #{adminDepartmentIdStr,jdbcType=VARCHAR},
+      </if>
+      <if test="adminDepartmentNameStr != null">
+        admin_department_nameStr = #{adminDepartmentNameStr,jdbcType=VARCHAR},
+      </if>
+      <if test="adminShopIdStr != null">
+        admin_shop_idStr = #{adminShopIdStr,jdbcType=VARCHAR},
+      </if>
+      <if test="adminShopNameStr != null">
+        admin_shop_nameStr = #{adminShopNameStr,jdbcType=VARCHAR},
+      </if>
+      <if test="adminStatus != null">
+        admin_status = #{adminStatus,jdbcType=INTEGER},
+      </if>
+      <if test="adminMenuIdstr != null">
+        admin_menu_idStr = #{adminMenuIdstr,jdbcType=VARCHAR},
+      </if>
+      <if test="adminMenuNamestr != null">
+        admin_menu_nameStr = #{adminMenuNamestr,jdbcType=VARCHAR},
+      </if>
+      <if test="adminMenuUrlstr != null">
+        admin_menu_urlStr = #{adminMenuUrlstr,jdbcType=VARCHAR},
+      </if>
+      <if test="adminCreatetime != null">
+        admin_createTime = #{adminCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="adminMotifytime != null">
+        admin_motifyTime = #{adminMotifytime,jdbcType=VARCHAR},
+      </if>
     </set>
     where admin_id = #{adminId,jdbcType=INTEGER}
   </update>
@@ -100,7 +261,20 @@
       admin_password = #{adminPassword,jdbcType=VARCHAR},
       admin_operaterName = #{adminOperatername,jdbcType=VARCHAR},
       admin_power = #{adminPower,jdbcType=VARCHAR},
-      admin_power_item_str = #{adminPowerItemStr,jdbcType=VARCHAR}
+      admin_power_item_str = #{adminPowerItemStr,jdbcType=VARCHAR},
+      admin_name = #{adminName,jdbcType=VARCHAR},
+      admin_department_id = #{adminDepartmentId,jdbcType=INTEGER},
+      admin_department_name = #{adminDepartmentName,jdbcType=VARCHAR},
+      admin_department_idStr = #{adminDepartmentIdStr,jdbcType=VARCHAR},
+      admin_department_nameStr = #{adminDepartmentNameStr,jdbcType=VARCHAR},
+      admin_shop_idStr = #{adminShopIdStr,jdbcType=VARCHAR},
+      admin_shop_nameStr = #{adminShopNameStr,jdbcType=VARCHAR},
+      admin_status = #{adminStatus,jdbcType=INTEGER},
+      admin_menu_idStr = #{adminMenuIdstr,jdbcType=VARCHAR},
+      admin_menu_nameStr = #{adminMenuNamestr,jdbcType=VARCHAR},
+      admin_menu_urlStr = #{adminMenuUrlstr,jdbcType=VARCHAR},
+      admin_createTime = #{adminCreatetime,jdbcType=VARCHAR},
+      admin_motifyTime = #{adminMotifytime,jdbcType=VARCHAR}
     where admin_id = #{adminId,jdbcType=INTEGER}
   </update>
   
