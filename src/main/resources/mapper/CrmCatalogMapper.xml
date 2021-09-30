@@ -47,7 +47,7 @@
     where catalog_id = #{catalogId,jdbcType=INTEGER}
   </update>
   
-  <!-- insertSelective -->
+  <!-- insertSelective  -->
   <insert id="insertSelective" useGeneratedKeys="true" keyProperty="catalogId" parameterType="com.atguigu.bean.CrmCatalog">
     insert into tb_crm_catalog
     <trim prefix="(" suffix=")" suffixOverrides=",">
