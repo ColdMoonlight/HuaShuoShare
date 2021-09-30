@@ -51,7 +51,7 @@ public class ShareUpdateController {
 			if(updateId==null){
 				shareUpdate.setTbShareUpdateCreatetime(nowTime);
 				shareUpdate.setTbShareUpdateAdminid(mlbackAdmin.getAdminId());
-				shareUpdate.setTbShareUpdateAdminname(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
+				shareUpdate.setTbShareUpdateAdminname(mlbackAdmin.getAdminAccount()+"--"+mlbackAdmin.getAdminOperatername());
 				//无id,insert
 				shareUpdateService.insertSelective(shareUpdate);
 			}else{

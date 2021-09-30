@@ -3,7 +3,9 @@ package com.atguigu.bean;
 public class MlbackAdmin {
     private Integer adminId;
 
-    private String adminAccname;
+    //private String adminAccname;
+    
+    private String adminAccount;
 
     private String adminPassword;
 
@@ -13,9 +15,48 @@ public class MlbackAdmin {
     
     private String adminPowerItemStr;//具体都有哪些视图
     
-    public MlbackAdmin(Integer adminId, String adminAccname, String adminPassword, String adminOperatername, String adminPower,String adminPowerItemStr) {
+    
+    
+//    private Integer adminId;
+//
+//    private String adminAccount;
+//
+//    private String adminPassword;
+//
+//    private String adminName;
+//    
+//    private Integer adminDepartmentId;
+//
+//    private String adminDepartmentName;
+//
+//    private String adminDepartmentIdStr;
+//
+//    private String adminDepartmentNameStr;
+//
+//    private String adminShopIdStr;
+//
+//    private String adminShopNameStr;
+//
+//    private Integer adminStatus;
+//
+//    private String adminMenuIdstr;
+//
+//    private String adminMenuNamestr;
+//
+//    private String adminMenuUrlstr;
+//
+//    private String adminCreatetime;
+//
+//    private String adminMotifytime;
+    
+    
+    
+    
+    
+    
+    public MlbackAdmin(Integer adminId, String adminAccount, String adminPassword, String adminOperatername, String adminPower,String adminPowerItemStr) {
         this.adminId = adminId;
-        this.adminAccname = adminAccname;
+        this.adminAccount = adminAccount;
         this.adminPassword = adminPassword;
         this.adminOperatername = adminOperatername;
         this.adminPower = adminPower;
@@ -34,12 +75,12 @@ public class MlbackAdmin {
         this.adminId = adminId;
     }
 
-    public String getAdminAccname() {
-        return adminAccname;
+    public String getAdminAccount() {
+        return adminAccount;
     }
 
-    public void setAdminAccname(String adminAccname) {
-        this.adminAccname = adminAccname == null ? null : adminAccname.trim();
+    public void setAdminAccount(String adminAccount) {
+        this.adminAccount = adminAccount == null ? null : adminAccount.trim();
     }
 
     public String getAdminPassword() {
@@ -77,7 +118,7 @@ public class MlbackAdmin {
 	
 	@Override
 	public String toString() {
-		return "MlbackAdmin [adminId=" + adminId + ", adminAccname=" + adminAccname + ", adminPassword=" + adminPassword
+		return "MlbackAdmin [adminId=" + adminId + ", adminAccount=" + adminAccount + ", adminPassword=" + adminPassword
 				+ ", adminOperatername=" + adminOperatername + ", adminPower=" + adminPower + ", adminPowerItemStr="
 				+ adminPowerItemStr + "]";
 	}

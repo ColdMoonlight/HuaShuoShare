@@ -97,7 +97,7 @@ public class ShareImageInfoController {
 			//存储本条造作记录--新增文件夹名字
 			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
 			shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
-			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
+			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccount()+"--"+mlbackAdmin.getAdminOperatername());
 			shareOperationRecord.setOperationRecordDataType(0);
 			shareOperationRecord.setOperationRecordDataName("新建文件夹");
 			shareOperationRecord.setOperationRecordDesc("新建");
@@ -134,7 +134,7 @@ public class ShareImageInfoController {
 			//存储本条造作记录--新增文件夹名字
 			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
 			shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
-			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
+			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccount()+"--"+mlbackAdmin.getAdminOperatername());
 			shareOperationRecord.setOperationRecordDataType(shareImageInfo.getTbShareImageinfoType());
 			shareOperationRecord.setOperationRecordDataName(shareImageInfo.getTbShareImageinfoName());
 			shareOperationRecord.setOperationRecordDesc("更新");
@@ -171,7 +171,7 @@ public class ShareImageInfoController {
 			//存储本条造作记录--新增文件夹名字
 			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
 			shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
-			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
+			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccount()+"--"+mlbackAdmin.getAdminOperatername());
 			shareOperationRecord.setOperationRecordDataType(shareImageInfo.getTbShareImageinfoType());
 			shareOperationRecord.setOperationRecordDataName(shareImageInfo.getTbShareImageinfoName());
 			shareOperationRecord.setOperationRecordDesc("移动");
@@ -225,7 +225,7 @@ public class ShareImageInfoController {
 			String nowTime = DateUtil.strTime14s();
 			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
 			shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
-			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
+			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccount()+"--"+mlbackAdmin.getAdminOperatername());
 			shareOperationRecord.setOperationRecordDataType(shareImageInfoRes.getTbShareImageinfoType());
 			shareOperationRecord.setOperationRecordDataName(shareImageInfoRes.getTbShareImageinfoName());
 			shareOperationRecord.setOperationRecordDesc("删除");

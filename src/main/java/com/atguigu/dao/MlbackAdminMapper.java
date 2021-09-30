@@ -19,6 +19,6 @@ public interface MlbackAdminMapper {
     //查询管理员账户
     List<MlbackAdmin> selectMlbackAdmin(MlbackAdmin example);
     
-    int updateByAdminAccnameSelective(MlbackAdmin record);
+    int updateByAdminAccountSelective(MlbackAdmin record);
     
 }
