@@ -55,7 +55,7 @@ public class MlbackAdminController {
 			@RequestBody MlbackAdmin MlbackAdminReq){
 		//接收参数信息 
 		MlbackAdmin mlbackAdminGet = new MlbackAdmin();
-		mlbackAdminGet.setAdminAccname(MlbackAdminReq.getAdminAccname());
+		mlbackAdminGet.setAdminAccount(MlbackAdminReq.getAdminAccount());
 		List<MlbackAdmin> mlbackAdminGetresList = mlbackAdminService.selectMlbackAdmin(mlbackAdminGet);
 		if(!(mlbackAdminGetresList.size()>0)){
 			return Msg.fail().add("resMsg", "账号不存在");
@@ -66,13 +66,13 @@ public class MlbackAdminController {
 			//将登陆状态放入session对象
 			session.setAttribute("AdminUser", MlbackAdminListNameAndPwd.get(0));
 			System.out.println("CheakAdminUser--mlbackAdminGet:"+MlbackAdminListNameAndPwd.get(0).toString());
-			TokenCache.setKey(Const.TOKEN_PREFIX+MlbackAdminReq.getAdminAccname(), "String");
+			TokenCache.setKey(Const.TOKEN_PREFIX+MlbackAdminReq.getAdminAccount(), "String");
 			
 			
 			String nowTime = DateUtil.strTime14s();
 			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
 			shareOperationRecord.setOperationRecordAdminid(mlbackAdminGetresList.get(0).getAdminId());
-			shareOperationRecord.setOperationRecordAdminName(mlbackAdminGetresList.get(0).getAdminAccname()+"--"+mlbackAdminGetresList.get(0).getAdminOperatername());
+			shareOperationRecord.setOperationRecordAdminName(mlbackAdminGetresList.get(0).getAdminAccount()+"--"+mlbackAdminGetresList.get(0).getAdminOperatername());
 			shareOperationRecord.setOperationRecordDataType(0);
 			shareOperationRecord.setOperationRecordDataName("登录成功");
 			shareOperationRecord.setOperationRecordDesc("登录");
@@ -99,7 +99,7 @@ public class MlbackAdminController {
 		//1接收参数
 		//2用账户+旧密码查账户(查到,update新密码,没查到,旧密码不对)
 		MlbackAdmin mlbackAdminGet = new MlbackAdmin();
-		mlbackAdminGet.setAdminAccname(MlbackAdminReq.getAdminAccname());
+		mlbackAdminGet.setAdminAccount(MlbackAdminReq.getAdminAccount());
 		List<MlbackAdmin> mlbackAdminGetresList = mlbackAdminService.selectMlbackAdmin(mlbackAdminGet);
 		if(!(mlbackAdminGetresList.size()>0)){
 			return Msg.fail().add("resMsg", "账号不存在");
@@ -109,7 +109,7 @@ public class MlbackAdminController {
 		if(MlbackAdminListNameAndPwd.size()>0){
 			//mlbackAdminGet
 			mlbackAdminGet.setAdminPassword(MlbackAdminReq.getAdminOperatername());
-			mlbackAdminService.updateByAdminAccnameSelective(mlbackAdminGet);
+			mlbackAdminService.updateByAdminAccountSelective(mlbackAdminGet);
 			System.out.println("UpdateAdminUserInfo--mlbackAdminGet:"+MlbackAdminListNameAndPwd.get(0).toString());
 			session.setAttribute("AdminUser", MlbackAdminListNameAndPwd.get(0));
 			return Msg.success().add("resMsg", "密码修改成功");

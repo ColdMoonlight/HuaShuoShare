@@ -44,7 +44,7 @@
 										<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-user"></use>
 									</svg>
 								</span>
-								<input class="form-control" name="adminAccname" type="text" placeholder="Username">
+								<input class="form-control" name="adminAccount" type="text" placeholder="Username">
 							</div>
 							<div class="input-group">
 								<span class="input-group-addon">
@@ -76,7 +76,7 @@
 										<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-user"></use>
 									</svg>
 								</span>
-								<input class="form-control" name="adminAccname" type="text" placeholder="Username">
+								<input class="form-control" name="adminAccount" type="text" placeholder="Username">
 							</div>
 							<div class="input-group">
 								<span class="input-group-addon">

@@ -88,7 +88,7 @@ public class ImageUploadController {
 		//存储本条造作记录
 		ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
 		shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
-		shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
+		shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccount()+"--"+mlbackAdmin.getAdminOperatername());
 		shareOperationRecord.setOperationRecordDataType(1);
 		shareOperationRecord.setOperationRecordDataName(typeName);
 		shareOperationRecord.setOperationRecordDesc("上传");

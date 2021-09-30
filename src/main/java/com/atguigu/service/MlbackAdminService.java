@@ -44,8 +44,8 @@ public class MlbackAdminService {
 	 * @exception 查看全部用户信息
 	 * 
 	 * */
-	public int updateByAdminAccnameSelective(MlbackAdmin mlbackAdmin) {
-		int intReslut = mlbackAdminMapper.updateByAdminAccnameSelective(mlbackAdmin);
+	public int updateByAdminAccountSelective(MlbackAdmin mlbackAdmin) {
+		int intReslut = mlbackAdminMapper.updateByAdminAccountSelective(mlbackAdmin);
 		return intReslut;
 	}
 

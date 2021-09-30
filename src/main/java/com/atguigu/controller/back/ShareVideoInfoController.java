@@ -111,7 +111,7 @@ public class ShareVideoInfoController {
 			//存储本条造作记录
 			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
 			shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
-			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
+			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccount()+"--"+mlbackAdmin.getAdminOperatername());
 			shareOperationRecord.setOperationRecordDataType(0);
 			shareOperationRecord.setOperationRecordDataName("新建文件夹");
 			shareOperationRecord.setOperationRecordDesc("新建");
@@ -150,7 +150,7 @@ public class ShareVideoInfoController {
 			//存储本条造作记录
 			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
 			shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
-			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
+			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccount()+"--"+mlbackAdmin.getAdminOperatername());
 			Integer ifVideo = shareVideoInfo.getTbShareVideoinfoType();
 			if(ifVideo>0){
 				shareOperationRecord.setOperationRecordDataType(2);
@@ -190,7 +190,7 @@ public class ShareVideoInfoController {
 			//存储本条造作记录
 			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
 			shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
-			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
+			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccount()+"--"+mlbackAdmin.getAdminOperatername());
 			
 			Integer ifVideo = shareVideoInfo.getTbShareVideoinfoType();
 			if(ifVideo>0){
@@ -253,7 +253,7 @@ public class ShareVideoInfoController {
 			String nowTime = DateUtil.strTime14s();
 			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
 			shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
-			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
+			shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccount()+"--"+mlbackAdmin.getAdminOperatername());
 			Integer ifVideo = shareVideoInfoRes.getTbShareVideoinfoType();
 			if(ifVideo>0){
 				shareOperationRecord.setOperationRecordDataType(2);
@@ -376,7 +376,7 @@ public class ShareVideoInfoController {
 		//存储本条造作记录
 		ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
 		shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
-		shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
+		shareOperationRecord.setOperationRecordAdminName(mlbackAdmin.getAdminAccount()+"--"+mlbackAdmin.getAdminOperatername());
 		shareOperationRecord.setOperationRecordDataType(2);
 		shareOperationRecord.setOperationRecordDataName(entity.getTitleOrig()+entity.getType());
 		shareOperationRecord.setOperationRecordDesc("上传");

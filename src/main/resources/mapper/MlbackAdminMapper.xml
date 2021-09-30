@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.atguigu.bean.MlbackAdmin">
     <constructor>
       <idArg column="admin_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="admin_accName" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="admin_account" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="admin_password" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="admin_operaterName" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="admin_power" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -12,7 +12,7 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    admin_id, admin_accName, admin_password, admin_operaterName, admin_power, admin_power_item_str
+    admin_id, admin_account, admin_password, admin_operaterName, admin_power, admin_power_item_str
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -25,9 +25,9 @@
     where admin_id = #{adminId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.atguigu.bean.MlbackAdmin">
-    insert into tb_mlback_admin (admin_id, admin_accName, admin_password, 
+    insert into tb_mlback_admin (admin_id, admin_account, admin_password, 
       admin_operaterName, admin_power, admin_power_item_str)
-    values (#{adminId,jdbcType=INTEGER}, #{adminAccname,jdbcType=VARCHAR}, #{adminPassword,jdbcType=VARCHAR}, 
+    values (#{adminId,jdbcType=INTEGER}, #{adminAccount,jdbcType=VARCHAR}, #{adminPassword,jdbcType=VARCHAR}, 
       #{adminOperatername,jdbcType=VARCHAR}, #{adminPower,jdbcType=VARCHAR}, #{adminPowerItemStr,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" useGeneratedKeys="true" keyProperty="adminId" parameterType="com.atguigu.bean.MlbackAdmin">
@@ -36,8 +36,8 @@
       <if test="adminId != null">
         admin_id,
       </if>
-      <if test="adminAccname != null">
-        admin_accName,
+      <if test="adminAccount != null">
+        admin_account,
       </if>
       <if test="adminPassword != null">
         admin_password,
@@ -56,8 +56,8 @@
       <if test="adminId != null">
         #{adminId,jdbcType=INTEGER},
       </if>
-      <if test="adminAccname != null">
-        #{adminAccname,jdbcType=VARCHAR},
+      <if test="adminAccount != null">
+        #{adminAccount,jdbcType=VARCHAR},
       </if>
       <if test="adminPassword != null">
         #{adminPassword,jdbcType=VARCHAR},
@@ -76,8 +76,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.MlbackAdmin">
     update tb_mlback_admin
     <set>
-      <if test="adminAccname != null">
-        admin_accName = #{adminAccname,jdbcType=VARCHAR},
+      <if test="adminAccount != null">
+        admin_account = #{adminAccount,jdbcType=VARCHAR},
       </if>
       <if test="adminPassword != null">
         admin_password = #{adminPassword,jdbcType=VARCHAR},
@@ -96,7 +96,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MlbackAdmin">
     update tb_mlback_admin
-    set admin_accName = #{adminAccname,jdbcType=VARCHAR},
+    set admin_account = #{adminAccount,jdbcType=VARCHAR},
       admin_password = #{adminPassword,jdbcType=VARCHAR},
       admin_operaterName = #{adminOperatername,jdbcType=VARCHAR},
       admin_power = #{adminPower,jdbcType=VARCHAR},
@@ -108,13 +108,13 @@
   <select id="selectMlbackAdmin" parameterType="com.atguigu.bean.MlbackAdmin" resultMap="BaseResultMap">
     select *
     from tb_mlback_admin 
-    where admin_accName = #{adminAccname,jdbcType=VARCHAR} 
+    where admin_account = #{adminAccount,jdbcType=VARCHAR} 
     <if test="adminPassword != null">
         and admin_password = #{adminPassword,jdbcType=VARCHAR}
     </if>
   </select>
   
-  <update id="updateByAdminAccnameSelective" parameterType="com.atguigu.bean.MlbackAdmin">
+  <update id="updateByAdminAccountSelective" parameterType="com.atguigu.bean.MlbackAdmin">
     update tb_mlback_admin
     <set>
       <if test="adminPassword != null">
@@ -127,6 +127,6 @@
         admin_power = #{adminPower,jdbcType=VARCHAR},
       </if>
     </set>
-    where admin_accName = #{adminAccname,jdbcType=VARCHAR}
+    where admin_account = #{adminAccount,jdbcType=VARCHAR}
   </update>
 </mapper>

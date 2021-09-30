@@ -51,7 +51,7 @@ public class ShareDemandController {
 			if(demandId==null){
 				ShareDemand.setTbShareDemandCreatetime(nowTime);
 				ShareDemand.setTbShareDemandAdminid(mlbackAdmin.getAdminId());
-				ShareDemand.setTbShareDemandAdminname(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
+				ShareDemand.setTbShareDemandAdminname(mlbackAdmin.getAdminAccount()+"--"+mlbackAdmin.getAdminOperatername());
 				//无id,insert
 				shareDemandService.insertSelective(ShareDemand);
 			}else{

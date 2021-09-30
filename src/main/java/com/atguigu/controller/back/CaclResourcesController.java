@@ -49,7 +49,7 @@ public class CaclResourcesController {
 			//存储本条造作记录--新增文件夹名字
 			ShareOperationRecord shareOperationRecordReq = new ShareOperationRecord();
 			shareOperationRecordReq.setOperationRecordAdminid(mlbackAdmin.getAdminId());
-			shareOperationRecordReq.setOperationRecordAdminName(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
+			shareOperationRecordReq.setOperationRecordAdminName(mlbackAdmin.getAdminAccount()+"--"+mlbackAdmin.getAdminOperatername());
 			shareOperationRecordReq.setOperationRecordDataType(shareOperationRecordInto.getOperationRecordDataType());
 			shareOperationRecordReq.setOperationRecordDataName(shareOperationRecordInto.getOperationRecordDataName());
 			shareOperationRecordReq.setOperationRecordDesc("下载");
@@ -80,7 +80,7 @@ public class CaclResourcesController {
 			//存储本条造作记录--新增文件夹名字
 			ShareOperationRecord shareOperationRecordReq = new ShareOperationRecord();
 			shareOperationRecordReq.setOperationRecordAdminid(mlbackAdmin.getAdminId());
-			shareOperationRecordReq.setOperationRecordAdminName(mlbackAdmin.getAdminAccname()+"--"+mlbackAdmin.getAdminOperatername());
+			shareOperationRecordReq.setOperationRecordAdminName(mlbackAdmin.getAdminAccount()+"--"+mlbackAdmin.getAdminOperatername());
 			shareOperationRecordReq.setOperationRecordDataType(shareOperationRecordInto.getOperationRecordDataType());
 			shareOperationRecordReq.setOperationRecordDataName(shareOperationRecordInto.getOperationRecordDataName());
 			shareOperationRecordReq.setOperationRecordDesc("下载");
