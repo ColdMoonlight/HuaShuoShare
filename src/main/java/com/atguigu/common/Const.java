@@ -25,5 +25,7 @@ public class Const {
     public static final Integer PAGE_NUM_FrontOrderNum=50;
     //各种记录值的pageNum
     public static final Integer PAGE_NUM_ViewDetailNum=50;
+	//后台查询payinfo的pageNum
+    public static final Integer PAGE_NUM_DataRecordNum=30;
     
 }
