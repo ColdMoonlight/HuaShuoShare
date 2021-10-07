@@ -5,6 +5,23 @@
 	font-size: 1rem;
 	vertical-align: middle;
 }
+
+/* check radio/box */
+.form-check {
+    display: block;
+    min-height: 1.5rem;
+    padding-left: 1.5em;
+    margin-bottom: .125rem;
+}
+.form-check-input {
+    width: 1em;
+    height: 1em;
+    float: left;
+    margin-top: .25em;
+    margin-left: -1.5em!important;
+    vertical-align: top;
+}
+
 /* custom */
 .c-app {
 	background-color: #f4f6f8;
