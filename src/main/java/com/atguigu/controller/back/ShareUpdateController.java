@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.ShareUpdate;
+import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.atguigu.service.ShareUpdateService;
 import com.atguigu.service.ShareOperationRecordService;
@@ -36,8 +37,8 @@ public class ShareUpdateController {
 	@ResponseBody
 	public Msg initializaUpdateInfo(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareUpdate shareUpdate){
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
-		session.setAttribute("AdminUser", mlbackAdmin);
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+		session.setAttribute(Const.ADMIN_USER, mlbackAdmin);
 		
 		String adminPower = getAdminInfo(session);
 		if("0000".equals(adminPower)){
@@ -84,7 +85,7 @@ public class ShareUpdateController {
 	
 	public String getAdminInfo(HttpSession session) {
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 		
 		String adminPower = "0";
 		if(mlbackAdmin==null){

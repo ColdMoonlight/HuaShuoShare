@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.ShareImageLabel;
+import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.atguigu.service.ShareImageLabelService;
 import com.atguigu.utils.DateUtil;
@@ -32,7 +33,7 @@ public class ShareImageLabelController {
 	@RequestMapping("/toImageLabelPage")
 	public String toImageLabelPage(HttpSession session) throws Exception{
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 		if(mlbackAdmin==null){
 			//SysUsers对象为空
 			return "back/mlbackAdminLogin";
@@ -50,7 +51,7 @@ public class ShareImageLabelController {
 	@RequestMapping("/toImageLabelUploadPage")
 	public String toImageLabelUploadPage(HttpSession session) throws Exception{
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 		if(mlbackAdmin==null){
 			//SysUsers对象为空
 			return "back/mlbackAdminLogin";
@@ -68,7 +69,7 @@ public class ShareImageLabelController {
 	@RequestMapping("/toImageLabelDownloadPage")
 	public String toImageLabelDownloadPage(HttpSession session) throws Exception{
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 		if(mlbackAdmin==null){
 			//SysUsers对象为空
 			return "back/mlbackAdminLogin";

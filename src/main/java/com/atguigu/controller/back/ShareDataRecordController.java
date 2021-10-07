@@ -40,12 +40,12 @@ public class ShareDataRecordController {
 	@RequestMapping("/toShareDataRecordPage")
 	public String toShareDataRecordPage(HttpSession session) throws Exception{
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 		if(mlbackAdmin==null){
 			//SysUsers对象为空
 			return "back/mlbackAdminLogin";
 		}else{
-			session.setAttribute("AdminUser", mlbackAdmin);
+			session.setAttribute(Const.ADMIN_USER, mlbackAdmin);
 			return "back/shareDataRecordPage";
 		}
 	}
@@ -80,8 +80,8 @@ public class ShareDataRecordController {
 	@ResponseBody
 	public Msg initializaDataRecordInfo(HttpSession session,HttpServletResponse rep,HttpServletRequest res){
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
-		session.setAttribute("AdminUser", mlbackAdmin);
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+		session.setAttribute(Const.ADMIN_USER, mlbackAdmin);
 		
 		String adminPower = getAdminInfo(session);
 		if("0000".equals(adminPower)){

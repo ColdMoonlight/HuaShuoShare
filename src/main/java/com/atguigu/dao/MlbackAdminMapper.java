@@ -5,6 +5,7 @@ import java.util.List;
 import com.atguigu.bean.MlbackAdmin;
 
 public interface MlbackAdminMapper {
+	
     int deleteByPrimaryKey(Integer adminId);
 
     int insert(MlbackAdmin record);
@@ -21,4 +22,9 @@ public interface MlbackAdminMapper {
     
     int updateByAdminAccountSelective(MlbackAdmin record);
     
+  //根据条件查询用户
+    List<MlbackAdmin> selectMlbackAdminByParameter(MlbackAdmin record);
+    
+  //获取用户分页列表
+    List<MlbackAdmin> selectMlbackAdminByPage();
 }
