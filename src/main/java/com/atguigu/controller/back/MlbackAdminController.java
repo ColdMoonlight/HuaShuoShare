@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.ShareOperationRecord;
 import com.atguigu.common.Const;
@@ -18,6 +20,8 @@ import com.atguigu.common.TokenCache;
 import com.atguigu.service.MlbackAdminService;
 import com.atguigu.service.ShareOperationRecordService;
 import com.atguigu.utils.DateUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 @Controller
 @RequestMapping("/MlbackAdmin")
@@ -38,9 +42,114 @@ public class MlbackAdminController {
 	 * */
 	@RequestMapping("/exitIndex")
 	public String exitindex(HttpSession session) throws Exception{
-		session.removeAttribute("AdminUser");
+		session.removeAttribute(Const.ADMIN_USER);
 		session.invalidate();
 		return "back/mlbackAdminLogin";
+	}
+	
+	
+	/**
+	 * 2.0
+	 * @author 20210810
+	 * @param MlbackAdmin
+	 * @exception 创建新用户
+	 * */
+	@RequestMapping(value="/Add",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg insertSelective(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+			@RequestBody MlbackAdmin crmAdminReq){
+		//接收参数信息 
+		
+		//先查询账号是否重复
+		MlbackAdmin crmAdminRepeate = new MlbackAdmin();
+		crmAdminRepeate.setAdminAccount(crmAdminReq.getAdminAccount());
+		List<MlbackAdmin> crmAdminList = mlbackAdminService.selectMlbackAdminByParameter(crmAdminRepeate);
+		if(crmAdminList.size() >0){
+			return Msg.fail().add("resMsg", "账号重复");
+		}
+		String nowTime = DateUtil.strTime14s();
+		crmAdminReq.setAdminCreatetime(nowTime);
+		crmAdminReq.setAdminMotifytime(nowTime);
+		mlbackAdminService.insertSelective(crmAdminReq);
+		
+		if(crmAdminReq.getAdminId() != null){
+			return Msg.success().add("resMsg", "创建成功");
+		}else{
+			return Msg.fail().add("resMsg", "系统错误，请联系管理员");
+		}
+	}
+	
+	/**
+	 * 2.0
+	 * @author 20210810
+	 * @param MlbackAdmin
+	 * @exception 创建新用户
+	 * */
+	@RequestMapping(value="/Delete",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg delete(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+			@RequestBody MlbackAdmin crmAdminReq){
+		//接收参数信息 
+		String nowTime = DateUtil.strTime14s();
+		
+		MlbackAdmin crmAdminUpdate = new MlbackAdmin();
+		crmAdminUpdate.setAdminMotifytime(nowTime);
+		crmAdminUpdate.setAdminStatus(0);//失效
+		crmAdminUpdate.setAdminId(crmAdminReq.getAdminId());
+		mlbackAdminService.updateByPrimaryKeySelective(crmAdminUpdate);
+		
+		return Msg.success().add("resMsg", "删除成功");
+	}
+	
+	/**
+	 * 2.0
+	 * @author 20210810
+	 * @param MlbackAdmin
+	 * @exception 更新用户信息
+	 * */
+	@RequestMapping(value="/Update",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg updateByPrimaryKeySelective(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+			@RequestBody MlbackAdmin crmAdminReq){
+		//接收参数信息 
+		String nowTime = DateUtil.strTime14s();
+		crmAdminReq.setAdminMotifytime(nowTime);
+		mlbackAdminService.updateByPrimaryKeySelective(crmAdminReq);
+		return Msg.success().add("resMsg", "修改成功");
+	}
+	
+	/**
+	 * 2.0
+	 * @author 20210810
+	 * @param MlbackAdmin
+	 * @exception 查看单个用户
+	 * */
+	@RequestMapping(value="/GetOneAdminDetailById",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg GetOneAdminDetailById(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+			@RequestBody MlbackAdmin crmAdminReq){
+		
+		//通过id 查询单个用户详情
+		MlbackAdmin crmAdminRes = mlbackAdminService.selectByPrimaryKey(crmAdminReq.getAdminId());
+		return Msg.success().add("crmAdmin", crmAdminRes);
+		
+	}
+	
+	/**
+	 * 2.0
+	 * @author 20210810
+	 * @param CrmAdmin
+	 * @exception 获取用户分页列表
+	 * */
+	@RequestMapping(value="/GetMlbackAdminByPage",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getcrmCatalogByPage(@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session) {
+
+		int PagNum = Const.PAGE_NUM_DEFAULT;
+		PageHelper.startPage(pn, PagNum);
+		List<MlbackAdmin> crmAdminList = mlbackAdminService.selectMlbackAdminByPage();
+		PageInfo<MlbackAdmin> page = new PageInfo<MlbackAdmin>(crmAdminList, PagNum);
+		return Msg.success().add("pageInfo", page);
 	}
 	
 	/**
@@ -64,7 +173,7 @@ public class MlbackAdminController {
 		List<MlbackAdmin> MlbackAdminListNameAndPwd = mlbackAdminService.selectMlbackAdmin(mlbackAdminGet);
 		if(MlbackAdminListNameAndPwd.size()>0){
 			//将登陆状态放入session对象
-			session.setAttribute("AdminUser", MlbackAdminListNameAndPwd.get(0));
+			session.setAttribute(Const.ADMIN_USER, MlbackAdminListNameAndPwd.get(0));
 			System.out.println("CheakAdminUser--mlbackAdminGet:"+MlbackAdminListNameAndPwd.get(0).toString());
 			TokenCache.setKey(Const.TOKEN_PREFIX+MlbackAdminReq.getAdminAccount(), "String");
 			
@@ -111,7 +220,7 @@ public class MlbackAdminController {
 			mlbackAdminGet.setAdminPassword(MlbackAdminReq.getAdminOperatername());
 			mlbackAdminService.updateByAdminAccountSelective(mlbackAdminGet);
 			System.out.println("UpdateAdminUserInfo--mlbackAdminGet:"+MlbackAdminListNameAndPwd.get(0).toString());
-			session.setAttribute("AdminUser", MlbackAdminListNameAndPwd.get(0));
+			session.setAttribute(Const.ADMIN_USER, MlbackAdminListNameAndPwd.get(0));
 			return Msg.success().add("resMsg", "密码修改成功");
 		}else{
 			return Msg.fail().add("resMsg", "旧密码错误");
@@ -128,7 +237,7 @@ public class MlbackAdminController {
 	@ResponseBody
 	public Msg adminIfLogin(HttpServletResponse rep,HttpServletRequest res,HttpSession session){
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 		if(mlbackAdmin!=null){
 			System.out.println("mlbackAdmin:"+mlbackAdmin.toString());
 			return Msg.success().add("resMsg", "登陆中"+mlbackAdmin.toString());

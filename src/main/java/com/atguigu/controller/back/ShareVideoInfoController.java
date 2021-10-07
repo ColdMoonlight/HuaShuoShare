@@ -18,6 +18,7 @@ import com.atguigu.bean.FileEntity;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.ShareOperationRecord;
 import com.atguigu.bean.ShareVideoInfo;
+import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.atguigu.service.FileService;
 import com.atguigu.service.ShareOperationRecordService;
@@ -52,12 +53,12 @@ public class ShareVideoInfoController {
 	@RequestMapping("/toVideoInfoPage")
 	public String toVideoInfoPage(HttpSession session) throws Exception{
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 		if(mlbackAdmin==null){
 			//mlbackAdmin对象为空
 			return "back/mlbackAdminLogin";
 		}else{
-			session.setAttribute("AdminUser", mlbackAdmin);
+			session.setAttribute(Const.ADMIN_USER, mlbackAdmin);
 			return "back/videoInfoPage";
 		}
 	}
@@ -71,8 +72,8 @@ public class ShareVideoInfoController {
 	@ResponseBody
 	public Msg initializaFileNameInfo(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareVideoInfo shareVideoInfo){
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
-		session.setAttribute("AdminUser", mlbackAdmin);
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+		session.setAttribute(Const.ADMIN_USER, mlbackAdmin);
 		
 		String adminPower = getAdminInfo(session);
 		if("0000".equals(adminPower)){
@@ -132,8 +133,8 @@ public class ShareVideoInfoController {
 	@ResponseBody
 	public Msg updateFileName(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareVideoInfo shareVideoInfo){
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
-		session.setAttribute("AdminUser", mlbackAdmin);
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+		session.setAttribute(Const.ADMIN_USER, mlbackAdmin);
 		
 		String adminPower = getAdminInfo(session);
 		if("0000".equals(adminPower)){
@@ -174,8 +175,8 @@ public class ShareVideoInfoController {
 	@ResponseBody
 	public Msg removeFileLocal(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareVideoInfo shareVideoInfo){
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
-		session.setAttribute("AdminUser", mlbackAdmin);
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+		session.setAttribute(Const.ADMIN_USER, mlbackAdmin);
 		
 		String adminPower = getAdminInfo(session);
 		if("0000".equals(adminPower)){
@@ -249,7 +250,7 @@ public class ShareVideoInfoController {
 			List<ShareVideoInfo> shareVideoInfoList = shareVideoInfoService.selectShareVideoInfoById(shareVideoInfoReq);
 			ShareVideoInfo shareVideoInfoRes = shareVideoInfoList.get(0);
 			//存储本条造作记录--删除文件夹名字
-			MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+			MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 			String nowTime = DateUtil.strTime14s();
 			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
 			shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
@@ -273,7 +274,7 @@ public class ShareVideoInfoController {
 	
 	public String getAdminInfo(HttpSession session) {
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 		
 		String adminPower = "0";
 		if(mlbackAdmin==null){
@@ -339,7 +340,7 @@ public class ShareVideoInfoController {
 			HttpSession session,ModelMap map) {
 		
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 	    String message = "";
 	    FileEntity entity = new FileEntity();
 	    String logoPathDir = request.getParameter("shipin");

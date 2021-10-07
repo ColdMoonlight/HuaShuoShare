@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.ShareImageInfo;
 import com.atguigu.bean.ShareOperationRecord;
+import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.atguigu.service.ShareImageInfoService;
 import com.atguigu.service.ShareOperationRecordService;
@@ -37,12 +38,12 @@ public class ShareImageInfoController {
 	@RequestMapping("/toImageInfoPage")
 	public String toImageInfoPage(HttpSession session) throws Exception{
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 		if(mlbackAdmin==null){
 			//SysUsers对象为空
 			return "back/mlbackAdminLogin";
 		}else{
-			session.setAttribute("AdminUser", mlbackAdmin);
+			session.setAttribute(Const.ADMIN_USER, mlbackAdmin);
 			return "back/imageInfoPage";
 		}
 	}
@@ -56,8 +57,8 @@ public class ShareImageInfoController {
 	@ResponseBody
 	public Msg initializaFileNameInfo(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo){
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
-		session.setAttribute("AdminUser", mlbackAdmin);
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+		session.setAttribute(Const.ADMIN_USER, mlbackAdmin);
 		
 		String adminPower = getAdminInfo(session);
 		if("0000".equals(adminPower)){
@@ -116,8 +117,8 @@ public class ShareImageInfoController {
 	@ResponseBody
 	public Msg updateFileName(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo){
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
-		session.setAttribute("AdminUser", mlbackAdmin);
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+		session.setAttribute(Const.ADMIN_USER, mlbackAdmin);
 		
 		String adminPower = getAdminInfo(session);
 		if("0000".equals(adminPower)){
@@ -155,8 +156,8 @@ public class ShareImageInfoController {
 	@ResponseBody
 	public Msg removeFileLocal(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareImageInfo shareImageInfo){
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
-		session.setAttribute("AdminUser", mlbackAdmin);
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+		session.setAttribute(Const.ADMIN_USER, mlbackAdmin);
 		
 		String adminPower = getAdminInfo(session);
 		if("0000".equals(adminPower)){
@@ -221,7 +222,7 @@ public class ShareImageInfoController {
 			List<ShareImageInfo> shareImageInfoList = shareImageInfoService.selectShareImageInfoById(shareImageInfoReq);
 			ShareImageInfo shareImageInfoRes = shareImageInfoList.get(0);
 			//存储本条造作记录--删除文件夹名字
-			MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+			MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 			String nowTime = DateUtil.strTime14s();
 			ShareOperationRecord shareOperationRecord = new ShareOperationRecord();
 			shareOperationRecord.setOperationRecordAdminid(mlbackAdmin.getAdminId());
@@ -239,7 +240,7 @@ public class ShareImageInfoController {
 	
 	public String getAdminInfo(HttpSession session) {
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 		
 		String adminPower = "0";
 		if(mlbackAdmin==null){

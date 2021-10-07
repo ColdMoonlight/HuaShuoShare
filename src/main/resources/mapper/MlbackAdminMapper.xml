@@ -303,4 +303,26 @@
     </set>
     where admin_account = #{adminAccount,jdbcType=VARCHAR}
   </update>
+  
+  <!-- 分页查询全部selectMlbackAdminByPage -->
+  <select id="selectMlbackAdminByPage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_mlback_admin order by admin_status desc, admin_department_id,admin_id desc
+  </select>
+  
+  <!-- 多条件查询selectMlbackAdminByParameter -->
+  <select id="selectMlbackAdminByParameter" parameterType="com.atguigu.bean.MlbackAdmin" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_mlback_admin 
+    where admin_account = #{adminAccount,jdbcType=VARCHAR} 
+    <if test="adminPassword != null">
+        and admin_password = #{adminPassword,jdbcType=VARCHAR}
+    </if>
+    <if test="adminStatus != null">
+        and admin_status = #{adminStatus,jdbcType=INTEGER}
+      </if>
+  </select>
+  
 </mapper>
