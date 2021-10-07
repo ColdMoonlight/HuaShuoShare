@@ -12,168 +12,164 @@
 
 	<body class="c-app">
 		<jsp:include page="layout/backheader.jsp" flush="true"></jsp:include>
-		<jsp:include page="layout/backsidebar.jsp" flush="true"></jsp:include>
-		<div class="c-wrapper">
-			<div class="c-body">
-				<div class="c-main">
-					<div class="dashboard-left">
-						<div class="tree-box">
-							<div class="tree-block">
-								 <h3>Image</h3>
-								<div class="tree" data-type="image"></div>
-							</div>
-							<div class="tree-block">
-								 <h3>Video</h3>
-								<div class="tree" data-type="video"></div>
-							</div>
-						</div>
+		<div class="c-main">
+			<div class="dashboard-left">
+				<div class="tree-box">
+					<div class="tree-block">
+						 <h3>Image</h3>
+						<div class="tree" data-type="image"></div>
 					</div>
-					<div class="dashboard-right">
-						<div class="flex-grid">
-							<div class="dashboard-msg">
-								<h3 class="title">公告</h3>
-								<div class="btn-modal" id="btn-add-msg">我来通知一下</div>
-								<div class="body">
-									<div class="init-loading"></div>
-									<div class="msg-log-list"></div>
-									<div class="text-right" style="position: absolute; bottom: 1rem; right: 1rem; font-style: italic;">仅显示最近<b>&nbsp;&nbsp;5&nbsp;</b>条记录</div>
-								</div>
-							</div>
-							<div class="dashboard-need">
-								<h3 class="title">需求</h3>
-								<div class="btn-modal" id="btn-add-need">我有意见要提</div>
-								<div class="body">
-									<div class="init-loading"></div>
-									<div class="need-list"></div>
-									<div class="text-right" style="position: absolute; bottom: 1rem; right: 1rem; font-style: italic;">仅显示最近<b>&nbsp;&nbsp;5&nbsp;</b>条记录</div>
-								</div>
-							</div>
-						</div>
-						<div class="dashboard-anlysis">
-							<div class="dashboard-time">
-								<input hidden id="search-create-time" />
-								<input hidden id="search-confirm-time" />
-								<input class="form-control daterangetimepicker" id="search-time" type="text">
-							</div>
-
-							<div class="dashboard-cal">
-								<!-- cal left -->
-								<div class="dashboard-handle">
-									<div class="dashboard-cal-item">
-										<h4>文件夹</h4>
-										<div class="dashboard-cal-childs">									
-											<div class="dashboard-cal-child-item">
-												<span class="title">新建：</span>
-												<span class="text">--</span>
-											</div>
-
-											<div class="dashboard-cal-child-item">
-												<span class="title">更新：</span>
-												<span class="text">--</span>
-											</div>
-
-											<div class="dashboard-cal-child-item">
-												<span class="title">移动：</span>
-												<span class="text">--</span>
-											</div>
-
-											<div class="dashboard-cal-child-item">
-												<span class="title">删除：</span>
-												<span class="text">--</span>
-											</div>								
-										</div>
-									</div>
-
-									<div class="dashboard-cal-item">
-										<h4>图片</h4>
-										<div class="dashboard-cal-childs">								
-											<div class="dashboard-cal-child-item">
-												<span class="title">上传：</span>
-												<span class="text">--</span>
-											</div>
-
-											<div class="dashboard-cal-child-item">
-												<span class="title">下载：</span>
-												<span class="text">--</span>
-											</div>
-
-											<!-- <div class="dashboard-cal-child-item">
-												<span class="title">更新：</span>
-												<span class="text">--</span>
-											</div> -->
-
-											<div class="dashboard-cal-child-item">
-												<span class="title">移动：</span>
-												<span class="text">--</span>
-											</div>
-
-											<div class="dashboard-cal-child-item">
-												<span class="title">删除：</span>
-												<span class="text">--</span>
-											</div>
-										</div>
-									</div>
-
-									<div class="dashboard-cal-item">
-										<h4>视频</h4>
-										<div class="dashboard-cal-childs">
-											<div class="dashboard-cal-child-item">
-												<span class="title">上传：</span>
-												<span class="text">--</span>
-											</div>
-
-											<div class="dashboard-cal-child-item">
-												<span class="title">下载：</span>
-												<span class="text">--</span>
-											</div>
-
-											<!-- <div class="dashboard-cal-child-item">
-												<span class="title">更新：</span>
-												<span class="text">--</span>
-											</div> -->
-											
-											<div class="dashboard-cal-child-item">
-												<span class="title">移动：</span>
-												<span class="text">--</span>
-											</div>
-
-											<div class="dashboard-cal-child-item">
-												<span class="title">删除：</span>
-												<span class="text">--</span>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- cal-right -->
-								<div class="dashboard-visit">
-									<h4>用户访问(人/次)</h4>
-									<div class="dashboard-visit-count">--</div>
-								</div>
-							</div>
-						</div>
-						<!-- user-log list -->
-						<div class="user-log">
-							<h3 class="title">操作记录</h3>
-							<div class="body">
-								<ul class="user-log-list"></ul>
-								<div class="user-log-tip text-right hide" style="font-style: italic; padding: 0 1rem;">最多可查看<b>100</b>条记录，更多记录请联系技术人员</br>
-								</div>
-							</div>
-						</div>
+					<div class="tree-block">
+						 <h3>Video</h3>
+						<div class="tree" data-type="video"></div>
 					</div>
-				</div>
-				<!-- c-mask -->
-				<div class="c-mask hide">
-					<div class="spinner-border"></div>
 				</div>
 			</div>
-			<jsp:include page="layout/backfooter.jsp" flush="true"></jsp:include>
+			<div class="dashboard-right">
+				<div class="flex-grid">
+					<div class="dashboard-msg">
+						<h3 class="title">公告</h3>
+						<div class="btn-modal" id="btn-add-msg">我来通知一下</div>
+						<div class="body">
+							<div class="init-loading"></div>
+							<div class="msg-log-list"></div>
+							<div class="text-right" style="position: absolute; bottom: 1rem; right: 1rem; font-style: italic;">仅显示最近<b>&nbsp;&nbsp;5&nbsp;</b>条记录</div>
+						</div>
+					</div>
+					<div class="dashboard-need">
+						<h3 class="title">需求</h3>
+						<div class="btn-modal" id="btn-add-need">我有意见要提</div>
+						<div class="body">
+							<div class="init-loading"></div>
+							<div class="need-list"></div>
+							<div class="text-right" style="position: absolute; bottom: 1rem; right: 1rem; font-style: italic;">仅显示最近<b>&nbsp;&nbsp;5&nbsp;</b>条记录</div>
+						</div>
+					</div>
+				</div>
+				<div class="dashboard-anlysis">
+					<div class="dashboard-time">
+						<input hidden id="search-create-time" />
+						<input hidden id="search-confirm-time" />
+						<input class="form-control daterangetimepicker" id="search-time" type="text">
+					</div>
+
+					<div class="dashboard-cal">
+						<!-- cal left -->
+						<div class="dashboard-handle">
+							<div class="dashboard-cal-item">
+								<h4>文件夹</h4>
+								<div class="dashboard-cal-childs">									
+									<div class="dashboard-cal-child-item">
+										<span class="title">新建：</span>
+										<span class="text">--</span>
+									</div>
+
+									<div class="dashboard-cal-child-item">
+										<span class="title">更新：</span>
+										<span class="text">--</span>
+									</div>
+
+									<div class="dashboard-cal-child-item">
+										<span class="title">移动：</span>
+										<span class="text">--</span>
+									</div>
+
+									<div class="dashboard-cal-child-item">
+										<span class="title">删除：</span>
+										<span class="text">--</span>
+									</div>								
+								</div>
+							</div>
+
+							<div class="dashboard-cal-item">
+								<h4>图片</h4>
+								<div class="dashboard-cal-childs">								
+									<div class="dashboard-cal-child-item">
+										<span class="title">上传：</span>
+										<span class="text">--</span>
+									</div>
+
+									<div class="dashboard-cal-child-item">
+										<span class="title">下载：</span>
+										<span class="text">--</span>
+									</div>
+
+									<!-- <div class="dashboard-cal-child-item">
+										<span class="title">更新：</span>
+										<span class="text">--</span>
+									</div> -->
+
+									<div class="dashboard-cal-child-item">
+										<span class="title">移动：</span>
+										<span class="text">--</span>
+									</div>
+
+									<div class="dashboard-cal-child-item">
+										<span class="title">删除：</span>
+										<span class="text">--</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="dashboard-cal-item">
+								<h4>视频</h4>
+								<div class="dashboard-cal-childs">
+									<div class="dashboard-cal-child-item">
+										<span class="title">上传：</span>
+										<span class="text">--</span>
+									</div>
+
+									<div class="dashboard-cal-child-item">
+										<span class="title">下载：</span>
+										<span class="text">--</span>
+									</div>
+
+									<!-- <div class="dashboard-cal-child-item">
+										<span class="title">更新：</span>
+										<span class="text">--</span>
+									</div> -->
+									
+									<div class="dashboard-cal-child-item">
+										<span class="title">移动：</span>
+										<span class="text">--</span>
+									</div>
+
+									<div class="dashboard-cal-child-item">
+										<span class="title">删除：</span>
+										<span class="text">--</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- cal-right -->
+						<div class="dashboard-visit">
+							<h4>用户访问(人/次)</h4>
+							<div class="dashboard-visit-count">--</div>
+						</div>
+					</div>
+				</div>
+				<!-- user-log list -->
+				<div class="user-log">
+					<h3 class="title">操作记录</h3>
+					<div class="body">
+						<ul class="user-log-list"></ul>
+						<div class="user-log-tip text-right hide" style="font-style: italic; padding: 0 1rem;">最多可查看<b>100</b>条记录，更多记录请联系技术人员</br>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- c-mask -->
+			<div class="c-mask hide">
+				<div class="spinner-border"></div>
+			</div>
 		</div>
+		<jsp:include page="layout/backfooter.jsp" flush="true"></jsp:include>
 
 		<jsp:include page="modal/shareTipModal.jsp" flush="true"></jsp:include>
 		<jsp:include page="modal/shareNeedModal.jsp" flush="true"></jsp:include>
 
 		<jsp:include page="common/backfooter.jsp" flush="true"></jsp:include>
+		<jsp:include page="common/backsidebar.jsp"></jsp:include>
 		<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/moment.min.js"></script>
 		<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.js"></script>
 		<script>

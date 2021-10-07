@@ -11,119 +11,114 @@
 
 	<body class="c-app">
 		<jsp:include page="layout/backheader.jsp" flush="true"></jsp:include>
-		<jsp:include page="layout/backsidebar.jsp" flush="true"></jsp:include>
-		<div class="c-wrapper">
-			<div class="c-body">
-				<div class="c-main">
-					<div class="c-init">
-						<div class="c-option">
-							<span class="c-option-title">Record</span>
-							<button class="btn btn-primary btn-create">Create Record</button>
+		<div class="c-main">
+			<div class="c-init">
+				<div class="c-option">
+					<span class="c-option-title">Record</span>
+					<button class="btn btn-primary btn-create">Create Record</button>
+				</div>
+				<div class="c-table">
+					<div class="c-table-content">
+						<div class="c-table-table table-responsive-sm">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>id</th>
+										<th>部门</th>
+										<th>账号类型</th>
+										<th>持有人</th>
+										<th>账号明细</th>
+										<th>账号用途</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
 						</div>
-						<div class="c-table">
-							<div class="c-table-content">
-								<div class="c-table-table table-responsive-sm">
-									<table class="table">
-										<thead>
-											<tr>
-												<th>id</th>
-												<th>部门</th>
-												<th>账号类型</th>
-												<th>持有人</th>
-												<th>账号明细</th>
-												<th>账号用途</th>
-												<th>操作</th>
-											</tr>
-										</thead>
-										<tbody></tbody>
-									</table>
-								</div>
-								<div id="table-pagination"></div>
-							</div>
-						</div>
-					</div>
-					<!-- edit or create -->
-					<div class="c-create hide">
-						<div class="c-option">
-							<span class="c-option-title">Edit Record</span>
-							<div class="group">
-								<button class="btn btn-secondary btn-cancel">Cancel</button>
-								<button class="btn btn-primary btn-save">Save Record</button>
-							</div>
-						</div>
-						<div class="c-form row">
-							<input id="datarecordId" hidden>
-							<!-- left panel  -->
-							<div class="left-panel col-lg-7 col-md-12">
-								<div class="card">
-									<div class="card-title">
-										<div class="card-title-name">添加记录所需</div>
-									</div>
-									<div class="card-body">
-										<div class="form-group">
-											<label class="col-form-label" for="datarecordType">持有信息的类型(手机号/email)</label>
-											<div class="controls">
-												<select class="form-control" id="datarecordType" />
-													<option value="-1">请选择...</option>
-													<option value="0">手机号</option>
-													<option value="1">邮箱</option>
-												</select>
-											</div>
-										</div>										
-										<div class="form-group">
-											<label class="col-form-label" for="datarecordTypedetail">持有明细(手机号/email)</label>
-											<div class="controls">
-												<input class="form-control" id="datarecordTypedetail" type="text"  placeholder="手机号、邮箱号"/>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-form-label" for="datarecordExplain">绑定的位置</label>
-											<div class="controls">
-												<input class="form-control" id="datarecordExplain" type="text"  placeholder="用于哪里绑定"/>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-form-label" for="datarecordAdminname">持有人</label>
-											<div class="controls">
-												<input class="form-control" id="datarecordAdminname" type="text"  placeholder="持有人"/>
-											</div>
-										</div>
-										<div class="form-group">
-					                      <label class="col-form-label" for="datarecordDepartment">部门</label>
-					                      <div class="controls">
-					                        <select class="form-control" id="datarecordDepartment" placeholder="请选择"/>
-					                          <option value="">请选择...</option>
-					                          <option value="b编辑部">b编辑部</option>
-					                          <option value="c财务部">c财务部</option>
-					                          <option value="d独立站">d独立站</option>
-					                          <option value="g国际站">g国际站</option>
-					                          <option value="j技术部">j技术部</option>
-					                          <option value="r人事部">r人事部</option>
-					                          <option value="s设计部">s设计部</option>
-					                          <option value="s速卖通">s速卖通</option>
-					                          <option value="y亚马逊">y亚马逊</option>
-					                        </select>
-					                      </div>
-					                    </div>
-					                    <!-- <div class="form-group">
-					                      <label class="col-form-label" for="datarecordDepartment">部门</label>
-					                      <div class="controls">
-					                        <input class="form-control" id="datarecordDepartment" type="text"  placeholder="部门"/>
-					                      </div>
-					                    </div> -->
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- mask -->
-					<div class="c-mask">
-						<div class="spinner-border"></div>
+						<div id="table-pagination"></div>
 					</div>
 				</div>
 			</div>
-			<jsp:include page="layout/backfooter.jsp" flush="true"></jsp:include>
+			<!-- edit or create -->
+			<div class="c-create hide">
+				<div class="c-option">
+					<span class="c-option-title">Edit Record</span>
+					<div class="group">
+						<button class="btn btn-secondary btn-cancel">Cancel</button>
+						<button class="btn btn-primary btn-save">Save Record</button>
+					</div>
+				</div>
+				<div class="c-form row">
+					<input id="datarecordId" hidden>
+					<!-- left panel  -->
+					<div class="left-panel col-lg-7 col-md-12">
+						<div class="card">
+							<div class="card-title">
+								<div class="card-title-name">添加记录所需</div>
+							</div>
+							<div class="card-body">
+								<div class="form-group">
+									<label class="col-form-label" for="datarecordType">持有信息的类型(手机号/email)</label>
+									<div class="controls">
+										<select class="form-control" id="datarecordType" />
+											<option value="-1">请选择...</option>
+											<option value="0">手机号</option>
+											<option value="1">邮箱</option>
+										</select>
+									</div>
+								</div>										
+								<div class="form-group">
+									<label class="col-form-label" for="datarecordTypedetail">持有明细(手机号/email)</label>
+									<div class="controls">
+										<input class="form-control" id="datarecordTypedetail" type="text"  placeholder="手机号、邮箱号"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-form-label" for="datarecordExplain">绑定的位置</label>
+									<div class="controls">
+										<input class="form-control" id="datarecordExplain" type="text"  placeholder="用于哪里绑定"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-form-label" for="datarecordAdminname">持有人</label>
+									<div class="controls">
+										<input class="form-control" id="datarecordAdminname" type="text"  placeholder="持有人"/>
+									</div>
+								</div>
+								<div class="form-group">
+			                      <label class="col-form-label" for="datarecordDepartment">部门</label>
+			                      <div class="controls">
+			                        <select class="form-control" id="datarecordDepartment" placeholder="请选择"/>
+			                          <option value="">请选择...</option>
+			                          <option value="b编辑部">b编辑部</option>
+			                          <option value="c财务部">c财务部</option>
+			                          <option value="d独立站">d独立站</option>
+			                          <option value="g国际站">g国际站</option>
+			                          <option value="j技术部">j技术部</option>
+			                          <option value="r人事部">r人事部</option>
+			                          <option value="s设计部">s设计部</option>
+			                          <option value="s速卖通">s速卖通</option>
+			                          <option value="y亚马逊">y亚马逊</option>
+			                        </select>
+			                      </div>
+			                    </div>
+			                    <!-- <div class="form-group">
+			                      <label class="col-form-label" for="datarecordDepartment">部门</label>
+			                      <div class="controls">
+			                        <input class="form-control" id="datarecordDepartment" type="text"  placeholder="部门"/>
+			                      </div>
+			                    </div> -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- mask -->
+			<div class="c-mask">
+				<div class="spinner-border"></div>
+			</div>
 		</div>
+		<jsp:include page="layout/backfooter.jsp" flush="true"></jsp:include>
 
 		<jsp:include page="common/backfooter.jsp" flush="true"></jsp:include>
 		<script type="text/javascript">
