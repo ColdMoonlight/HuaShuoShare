@@ -48,9 +48,9 @@
 				</div>
 				<div class="dashboard-anlysis">
 					<div class="dashboard-time">
-						<input hidden id="search-create-time" />
-						<input hidden id="search-confirm-time" />
-						<input class="form-control daterangetimepicker" id="search-time" type="text">
+						<input hidden id="search-start-time" />
+						<input hidden id="search-end-time" />
+						<input class="form-control daterangetimepicker" id="search-time" type="text" placeholder="@exmaple 2020-01-01 00:00:00 - 2020-01-01 23:59:59">
 					</div>
 
 					<div class="dashboard-cal">
@@ -157,6 +157,51 @@
 						</div>
 					</div>
 				</div>
+				
+				<div class="row chart-n-item">
+				<div class="col-md-12 col-lg-12">
+					<div class="card">
+						<div class="card-chart card-pie" style="width: 50%; margin: 0 auto;"></div>
+						<div class="chart-noresult hide">该时间范围内，无可用数据...</div>
+						<div class="card-mask">
+							<div class="spinner-border"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 数据分析 -->
+			<div class="row chart-n-item">
+				<div class="col-md-12 col-lg-6">
+					<div class="card">
+						<div class="card-chart card-pie-2"></div>
+						<a href="${APP_PATH}/CrmProductSellInfo/ToCrmProductSellInfoAnalysePage" class="card-item-details">查看数据详情</a>
+						<div class="chart-noresult hide">该时间范围内，无可用数据...</div>
+						<div class="card-mask">
+							<div class="spinner-border"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12 col-lg-6">
+					<div class="card">
+						<div class="card-chart card-pie-3"></div>
+						<a href="${APP_PATH}/CrmProductSellInfo/ToCrmProductSellInfoAliExpressAnalysePage" class="card-item-details">查看数据详情</a>
+						<div class="chart-noresult hide">该时间范围内，无可用数据...</div>
+						<div class="card-mask">
+							<div class="spinner-border"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12 col-lg-6">
+					<div class="card">
+						<div class="card-chart card-pie-4"></div>
+						<a href="${APP_PATH}/CrmProductSellInfo/ToCrmProductSellInfoAlibabaAnalysePage" class="card-item-details">查看数据详情</a>
+						<div class="chart-noresult hide">该时间范围内，无可用数据...</div>
+						<div class="card-mask">
+							<div class="spinner-border"></div>
+						</div>
+					</div>
+				</div>
+			</div>
 			</div>
 			<!-- c-mask -->
 			<div class="c-mask hide">
@@ -172,6 +217,7 @@
 		<jsp:include page="common/backsidebar.jsp"></jsp:include>
 		<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/moment.min.js"></script>
 		<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.js"></script>
+		<script type="text/javascript" src="${APP_PATH}/static/back/lib/echarts/echarts.min.js"></script>
 		<script>
 			// get catelog data
 			function getCatelogData(type, callback) {
@@ -329,8 +375,8 @@
 					dataType: "json",
 					contentType: 'application/json',
 					data: JSON.stringify({
-						"operationRecordCreatetime": $('#search-create-time').val(),
-					    "operationRecordMotifyTime": $('#search-confirm-time').val()
+						"operationRecordCreatetime": $('#search-start-time').val(),
+					    "operationRecordMotifyTime": $('#search-end-time').val()
 					}),
 					async: false,
 					success: function (data) {
@@ -388,8 +434,8 @@
 					dataType: "json",
 					contentType: 'application/json',
 					data: JSON.stringify({
-						"operationRecordCreatetime": $('#search-create-time').val(),
-					    "operationRecordMotifyTime": $('#search-confirm-time').val()
+						"operationRecordCreatetime": $('#search-start-time').val(),
+					    "operationRecordMotifyTime": $('#search-end-time').val()
 					}),
 					success: function (data) {
 						if (data.code == 100) {
@@ -426,10 +472,11 @@
 	        
 	        // combine search for dashboard
 	        function searchTimeEvent(startTime, endTime) {
-	        	$('#search-create-time').val(startTime);
-				$('#search-confirm-time').val(endTime);
+	        	$('#search-start-time').val(startTime);
+				$('#search-end-time').val(endTime);
 				renderAlluserLogData();
 				generateUserLog();
+				generateChartWithData();
 	        }
 	        
 	        // 获取最新公告信息
@@ -548,16 +595,126 @@
 				});
 	        }
 
-	        // iniital tree dom
+			function generateChart($el, option) {
+				$el.css('height', 460);
+				var instance = echarts.init($el[0]);
+				instance.setOption(option);
+				return instance;
+			}
+
+			function generatePieChart($el, name) {			
+				$.ajax({
+					url: "${APP_PATH}/CrmProductSellInfo/GetAllProductSellInfoByRangeTime",
+					type: "post",
+					dataType: "json",
+					contentType: 'application/json',
+					data: JSON.stringify({
+						'productsellinfoProductselltime': $('#search-start-time').val(),
+						'productsellinfoMotifytime': $('#search-end-time').val(),
+					}),
+					success: function (data) {
+						if (data.code == 100) {
+							transformPieChart($el, data.extend.returnMsg, name, 15);
+						} else {
+							toastr.error(data.extend.resMsg);
+						}
+					},
+					error: function () {
+						toastr.error('Failed to get payinfo-data, please refresh the page to get again！');
+					}
+				});
+			}
+
+			function generatePieChanelChart($el, type, name) {			
+				$.ajax({
+					url: "${APP_PATH}/CrmProductSellInfo/GetProductSellInfoVoByRangeTimePlatformBrandName",
+					type: "post",
+					dataType: "json",
+					contentType: 'application/json',
+					data: JSON.stringify({
+						'productsellinfoPlatformName': type,
+						'productsellinfoProductselltime': $('#search-start-time').val(),
+						'productsellinfoMotifytime': $('#search-end-time').val(),
+					}),
+					success: function (data) {
+						if (data.code == 100) {
+							transformPieChart($el, data.extend.returnMsg, name, 15);
+						} else {
+							toastr.error(data.extend.resMsg);
+						}
+					},
+					error: function () {
+						toastr.error('Failed to get data, please refresh the page to get again！');
+					}
+				});
+			}
+
+			function transformPieChart($cardPie, data, name, len) {
+				var pieData = [];
+				len = len ? len : 10;
+				data.length && data.forEach(function(item, idx) {
+					if (idx < len) {
+						item.length && pieData.push({
+							value: item.length,
+							name: item[0].productsellinfoProductsku
+						});					
+					} else {
+						var curItem = pieData[len];
+						if (curItem) {
+							curItem.value += item.length;
+						} else {
+							pieData.push({
+								value: item.length,
+								name: "其他"
+							});
+						}
+					}
+				});
+
+				if (pieData.length) {
+					$cardPie.parent().find('.chart-noresult').addClass('hide');
+					var instance = generateChart($cardPie, {
+					    title: { text: name, left: 'center' },
+					    tooltip: { trigger: 'item', formatter: '{a}: {c} ({d}%)' },
+					    legend: {  orient: 'vertical', left: 'left', top: 'center' },
+					    series: [ { name: '数量', type: 'pie', radius: '50%', data: pieData } ]
+					});
+
+					chartInstance.push(instance);
+				} else {
+					$cardPie.parent().find('.chart-noresult').removeClass('hide');
+				}
+				$cardPie.parent().find(".card-mask").addClass('hide');
+			}
+			
+			function generateChartWithData() {
+				$('.card-mask').removeClass('hide');
+				/* all */
+				generatePieChart($('.card-pie'), '总销售（sku）');
+				generatePieChanelChart($('.card-pie-2'), 'brandWebsite', '独立站产品销售（sku）');
+				generatePieChanelChart($('.card-pie-3'), 'aliexpress', '速卖通产品销售（sku）');
+				generatePieChanelChart($('.card-pie-4'), 'alibaba', '国际站产品销售（sku）');
+			}
+
+	        // inital tree dom
 	        var date = new Date();
 			var ymd = date.getFullYear() + '-' + (date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate());
+			var chartInstance = [];
 
 	        generateTreeList();
 	        getAllTips();
 	        getAllNeeds();
-	        
+
 	        searchTimeEvent(ymd + ' 00:00:00', ymd + ' 23:59:59');	        
 			bindDateRangeEvent(searchTimeEvent);
+			// resize for chart
+			$(window).on('resize', function() {
+				if (chartInstance.length) {
+					chartInstance.forEach(function(item, idx) {
+						item.resize();
+					});
+				}
+			});
 			// tree arrow-dom event
 	        $(document.body).on('click', '.tree-item', function(e) {
 	            e.stopPropagation();

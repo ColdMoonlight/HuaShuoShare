@@ -57,6 +57,133 @@
 	min-height: 10rem;
     padding: 1rem;
 }
+
+/* search block  */
+.c-search {
+	position: relative;
+}
+.c-search>.c-icon {
+	position: absolute;
+	left: .6rem;
+    top: 1.1rem;
+    fill: #ccc;
+    font-size: 1.8rem;
+    z-index: 9;
+    cursor: pointer;
+}
+.c-search>.c-icon:hover {
+	fill: #e55353;
+}
+.c-search>.form-control {
+	display: flex;
+	padding-left: 2rem;
+	height: auto;
+}
+.c-search>.form-control input,
+.c-search>.form-control select {
+	border: none;
+	flex-grow: 1;
+	display: inline-block;
+	padding: .5rem;
+	border-color: #ccc;
+	outline: none;
+	box-shadow: 0 0 1px #3d3d3d;
+}
+.c-search>.form-control select {
+	margin-left: 1rem;
+	border-width: 2px;
+}
+.c-search>.form-control input:focus,
+.c-search>.form-control select:focus {
+	border-radius: .25rem;
+}
+
+/* table-tab */
+.c-table-tab {
+	display: flex;
+	box-shadow: 0 1px 1px 1px #ccc;
+}
+.c-table-tab-list {
+	display: flex;
+}
+.c-table-tab-item {
+	position: relative;
+	box-sizing: border-box;
+	padding: 1.2rem;
+	margin-right: .6rem;
+	cursor: pointer;
+}
+.c-table-tab-item:nth-of-type(1) {
+	margin-left: 1rem;
+}
+.c-table-tab-item.active::after {
+	position: absolute;
+	bottom: -2px;
+	left: 0;
+	content: '';
+	display: block;
+	width: 100%;
+	height: 2px;
+	background-color: #5c6ac4;
+}
+.c-table-tab-tempory .c-table-tab-item.active::after {
+	background-color: #3d3d3d;
+}
+.delete-table-tab-item:hover {
+	color: #2eb85c;
+}
+.delete-table-tab-item {
+	position: absolute;
+	top: .5rem;
+	right: .1rem;
+	display: inline-block;
+	width: 1.25rem;
+	height: 1.25rem;
+	text-align: center;
+	color: #ccc;
+	border-radius: 50%;
+}
+/* chart result */
+.card-mask {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 6;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.chart-noresult {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 3;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #fff;
+}
+.card-item-details {
+	position: absolute;
+	bottom: .5rem;
+	right: 1rem;
+	z-index: 9;
+	display: block;
+	padding: .5rem 1rem;
+}
+.card-chart {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+}
+.text-red {
+	color: #ff0000;
+}
 /* table title */
 .c-option {
 	display: flex;
@@ -94,6 +221,9 @@
 	line-height: 1rem;
 	color: #454f5b;
 	cursor: pointer;
+}
+.c-child-menu .c-sidebar-nav-link {
+	padding-left: 2rem;
 }
 .c-sidebar-nav-icon {
 	display: inline-block;

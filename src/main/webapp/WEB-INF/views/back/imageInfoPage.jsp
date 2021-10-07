@@ -12,7 +12,6 @@
 
 	<body class="c-app">
 		<jsp:include page="layout/backheader.jsp" flush="true"></jsp:include>
-		<jsp:include page="layout/backsidebar.jsp" flush="true"></jsp:include>
 		<div class="c-main">
 			<div class="folder">
 				<div class="folder-title">
@@ -57,6 +56,7 @@
 		<jsp:include page="layout/backfooter.jsp" flush="true"></jsp:include>
 
 		<jsp:include page="common/backfooter.jsp" flush="true"></jsp:include>
+		<jsp:include page="common/backsidebar.jsp"></jsp:include>
 
 		<jsp:include page="modal/renameModal.jsp" flush="true"></jsp:include>
 		<jsp:include page="modal/deleteModal.jsp" flush="true"></jsp:include>

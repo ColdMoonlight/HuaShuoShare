@@ -12,65 +12,61 @@
 
 <body class="c-app">
 	<jsp:include page="../layout/backheader.jsp" flush="true"></jsp:include>
-	<jsp:include page="../layout/backsidebar.jsp" flush="true"></jsp:include>
-	<div class="c-wrapper">
-		<div class="c-body">
-			<div class="c-main">
-				<div class="c-init">
-					<div class="c-option">
-						<span class="c-option-title">Download</span>
+	<div class="c-body">
+		<div class="c-main">
+			<div class="c-init">
+				<div class="c-option">
+					<span class="c-option-title">Download</span>
+				</div>
+				<div class="row">
+					<div class="form-group col-md-4">
+						<div class="controls">
+							<input hidden id="create-time" />
+							<input hidden id="confirm-time" />
+							<input class="form-control daterangetimepicker" type="text" />
+						</div>
 					</div>
-					<div class="row">
-						<div class="form-group col-md-4">
-							<div class="controls">
-								<input hidden id="create-time" />
-								<input hidden id="confirm-time" />
-								<input class="form-control daterangetimepicker" type="text" />
-							</div>
-						</div>
-						<div class="col-md-8">
-							<button class="btn btn-secondary" id="download-email">
-								<svg class="c-icon">
-									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-export"></use>
-								</svg>
-								<span>Export</span>
-							</button>
-						</div>
+					<div class="col-md-8">
+						<button class="btn btn-secondary" id="download-email">
+							<svg class="c-icon">
+								<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-export"></use>
+							</svg>
+							<span>Export</span>
+						</button>
 					</div>
 				</div>
-				<div class="c-init">
-					<div class="c-table">
-						<div class="c-table-header">
-							<div class="row">
-								
-								<div class="form-group col-md-12">
-									<div class="col-md-2">
-										<h3 style="font-size: 16px;">下载付款邮箱</h3>
-										<div class="c-upload-img" id="download_fk" style="width: 4rem; height: 4rem; padding: 1rem;">
-										  <svg class="c-icon" style="width: 2rem; height: 2rem;">
-										  	<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-downloadwd"></use>
-										  </svg>
-										</div>
+			</div>
+			<div class="c-init">
+				<div class="c-table">
+					<div class="c-table-header">
+						<div class="row">
+							
+							<div class="form-group col-md-12">
+								<div class="col-md-2">
+									<h3 style="font-size: 16px;">下载付款邮箱</h3>
+									<div class="c-upload-img" id="download_fk" style="width: 4rem; height: 4rem; padding: 1rem;">
+									  <svg class="c-icon" style="width: 2rem; height: 2rem;">
+									  	<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-downloadwd"></use>
+									  </svg>
 									</div>
-									<div class="col-md-2">
-										<h3 style="font-size: 16px;">下载地址邮箱</h3>
-										<div class="c-upload-img" id="download_dz" style="width: 4rem; height: 4rem; padding: 1rem;">
-										  <svg class="c-icon" style="width: 2rem; height: 2rem;">
-										  	<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-downloadwd"></use>
-										  </svg>
-										</div>
+								</div>
+								<div class="col-md-2">
+									<h3 style="font-size: 16px;">下载地址邮箱</h3>
+									<div class="c-upload-img" id="download_dz" style="width: 4rem; height: 4rem; padding: 1rem;">
+									  <svg class="c-icon" style="width: 2rem; height: 2rem;">
+									  	<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-downloadwd"></use>
+									  </svg>
 									</div>
-									<div class="col-md-2">
-										<h3 style="font-size: 16px;">下载新用户邮箱</h3>
-										<div class="c-upload-img" id="download_xyh" style="width: 4rem; height: 4rem; padding: 1rem;">
-										  <svg class="c-icon" style="width: 2rem; height: 2rem;">
-										  	<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-downloadwd"></use>
-										  </svg>
-										</div>
+								</div>
+								<div class="col-md-2">
+									<h3 style="font-size: 16px;">下载新用户邮箱</h3>
+									<div class="c-upload-img" id="download_xyh" style="width: 4rem; height: 4rem; padding: 1rem;">
+									  <svg class="c-icon" style="width: 2rem; height: 2rem;">
+									  	<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-downloadwd"></use>
+									  </svg>
 									</div>
-								</div>	
-								
-							</div>
+								</div>
+							</div>	
 							
 						</div>
 						
@@ -79,11 +75,13 @@
 				</div>
 				
 			</div>
+			
 		</div>
-		<jsp:include page="../layout/backfooter.jsp" flush="true"></jsp:include>
 	</div>
+	<jsp:include page="../layout/backfooter.jsp" flush="true"></jsp:include>
 
 	<jsp:include page="../common/backfooter.jsp" flush="true"></jsp:include>
+		<jsp:include page="../common/backsidebar.jsp"></jsp:include>
 
 	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/moment.min.js"></script>
 	<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.js"></script>

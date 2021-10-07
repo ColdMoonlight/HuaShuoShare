@@ -49,13 +49,12 @@ function renderSideBarMenu(data) {
 				'</a>' +
 			'</li>';
 		firstArrData.forEach(function(item, idx) {
-			menuHtml += '<li class="c-sidebar-nav-item' + (secondMapData && secondMapData[idx].length ? ' c-sidebar-nav-dropdown-toggle' : '') +'">' +
-				'<a class="c-sidebar-nav-link" href="'+ (secondMapData && secondMapData[idx].length ? 'javascript:void(0);' : '${APP_PATH}/'+ item.catalogUrl) +'">' +
+			menuHtml += '<li class="c-sidebar-nav-item">' +
+				'<a class="c-sidebar-nav-link' + (secondMapData && secondMapData[idx].length ? ' c-sidebar-nav-dropdown-toggle' : '') +'" href="'+ (secondMapData && secondMapData[idx].length ? 'javascript:void(0);' : '${APP_PATH}/'+ item.catalogUrl) +'">' +
 					'<svg class="c-sidebar-nav-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-cursor"></use></svg>' +
 					'<span class="c-text">'+ item.catalogName +'</span>' +
 				'</a>' +
 				(generateSecondMenu(secondMapData && secondMapData[idx])) +
-				(secondMapData && secondMapData[idx].length ? '<div class="icon"></div>' : '') +
 			'</li>';
 
 			checkMenuHtml += '<tr><td>' +
@@ -101,7 +100,7 @@ function addSidebarEvent() {
 		$SIDEBAR_MENU.find('li ul').slideUp();
 	}
 
-	$SIDEBAR_MENU.find('.c-sidebar-nav-dropdown-toggle .icon').on('click', function (e) {
+	$SIDEBAR_MENU.find('.c-sidebar-nav-dropdown-toggle').on('click', function (e) {
 		var $li = $(this).parent();
 
 		if ($li.is('.active')) {

@@ -121,6 +121,7 @@
 		<jsp:include page="layout/backfooter.jsp" flush="true"></jsp:include>
 
 		<jsp:include page="common/backfooter.jsp" flush="true"></jsp:include>
+		<jsp:include page="common/backsidebar.jsp"></jsp:include>
 		<script type="text/javascript">
 		var isCreate = false;
 
