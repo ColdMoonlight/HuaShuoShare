@@ -38,7 +38,7 @@ public class CrmProductSellEcppController {
 		MlbackAdmin crmAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 		if(crmAdmin==null){
 			//SysUsers对象为空
-			return "back/crmAdminLogin";
+			return "back/mlbackAdminLogin";
 		}else{
 			return "back/crmProductSellEcppPage";
 		}

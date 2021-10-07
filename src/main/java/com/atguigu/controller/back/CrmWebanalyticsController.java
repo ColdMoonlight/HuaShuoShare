@@ -41,7 +41,7 @@ public class CrmWebanalyticsController {
 		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 		if(mlbackAdmin==null){
 			//SysUsers对象为空
-			return "back/crmAdminLogin";
+			return "back/mlbackAdminLogin";
 		}else{
 			return "back/crmWebanalyticsPage";
 		}
@@ -56,7 +56,7 @@ public class CrmWebanalyticsController {
 	    MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 	    if(mlbackAdmin==null){
 	      //SysUsers对象为空
-	      return "back/crmAdminLogin";
+	      return "back/mlbackAdminLogin";
 	    }else{
 	      return "back/crmWebanalyticsDetailPage";
 	    }

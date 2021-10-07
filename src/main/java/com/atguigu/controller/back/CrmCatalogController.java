@@ -53,7 +53,7 @@ public class CrmCatalogController {
 	public String exitindex(HttpSession session) throws Exception{
 		session.removeAttribute(Const.ADMIN_USER);
 		session.invalidate();
-		return "back/crmAdminLogin";
+		return "back/mlbackAdminLogin";
 	}
 	
 	/**
@@ -67,7 +67,7 @@ public class CrmCatalogController {
 		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 		if(mlbackAdmin==null){
 			//SysUsers对象为空
-			return "back/crmAdminLogin";
+			return "back/mlbackAdminLogin";
 		}else{
 			return "back/crmCatalogPage";
 		}

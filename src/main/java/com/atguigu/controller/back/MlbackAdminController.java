@@ -47,6 +47,21 @@ public class MlbackAdminController {
 		return "back/mlbackAdminLogin";
 	}
 	
+	/**
+	 * 20211007
+	 * MlbackAdmin 首页
+	 * */
+	@RequestMapping("/ToMlbackAdminPage")
+	public String toCrmWebanalyticsPage(HttpSession session) throws Exception{
+		
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+		if(mlbackAdmin==null){
+			//SysUsers对象为空
+			return "back/mlbackAdminLogin";
+		}else{
+			return "back/mlbackAdminPage";
+		}
+	}
 	
 	/**
 	 * 2.0
