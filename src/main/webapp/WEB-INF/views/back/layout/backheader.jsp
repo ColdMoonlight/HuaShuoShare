@@ -39,3 +39,6 @@
 		</div>
     </div>
 </div>
+<div id="sidebar-menu" class="c-sidebar"></div>
+	<div class="c-wrapper">
+		<div class="c-body">

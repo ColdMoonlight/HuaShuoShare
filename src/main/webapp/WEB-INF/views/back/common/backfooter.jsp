@@ -41,6 +41,7 @@ d.withCredentials&&""!==k&&k!==m?XDomainRequest||void 0:XMLHttpRequest}return d}
 g[0];g=g[1];var r=h&&0===h.left&&0===h.right&&0===h.top&&0===h.bottom;h&&0===h.width&&0===h.height&&!r?(c.length||!g||document.getElementById(g)||(c=""),f[b].hasAttribute("href")&&f[b].setAttributeNS("http://www.w3.org/1999/xlink","xlink:href",a),c.length&&(a=e[c],!0!==a&&setTimeout(l({useEl:f[b],base:c,hash:g}),0),void 0===a&&(g=u(c),void 0!==g&&(a=new g,e[c]=a,a.onload=p(a),a.onerror=n(a),a.ontimeout=n(a),a.open("GET",c),a.send(),q+=1)))):r?c.length&&e[c]&&setTimeout(l({useEl:f[b],base:c,
 hash:g}),0):void 0===e[c]?e[c]=!0:e[c].onload&&(e[c].abort(),delete e[c].onload,e[c]=!0)}f="";q+=1;d()};var p=function(){window.removeEventListener("load",p,!1);l=setTimeout(n,0)};"complete"!==document.readyState?window.addEventListener("load",p,!1):p()}})();
 </script>
+
 <!-- custom -->
 <script>
 	/* button spinner*/
@@ -54,42 +55,7 @@ hash:g}),0):void 0===e[c]?e[c]=!0:e[c].onload&&(e[c].abort(),delete e[c].onload,
 		$(self).find('.spinner-text').show();
 		$(self).find('.spinner-border').hide();
 	}
-	// Sidebar
-	function init_sidebar() {
-		var closeMenu = function () {
-			$SIDEBAR_MENU.find('li').removeClass('active');
-			$SIDEBAR_MENU.find('li ul').slideUp();
-		}
-	
-		$SIDEBAR_MENU.find('a').on('click', function (e) {
-			var $li = $(this).parent();
-			if ($li.is('.active')) {
-				$li.removeClass('active');
-				$('ul:first', $li).slideUp();
-			} else {
-				closeMenu();
-				$li.addClass('active');
-				$('ul:first', $li).slideDown();
-			}
-			new PerfectScrollbar('#sidebar-menu', {
-				wheelSpeed: 2,
-				wheelPropagation: true,
-				minScrollbarLength: 20
-			});
-		});
-	
-		// setting current page -> navItem
-		$SIDEBAR_MENU.find('a[href="' + CURRENT_URL + '"]').parent('li').addClass('current-page');
-		$SIDEBAR_MENU.find('a').filter(function () {
-			return this.href == CURRENT_URL;
-		}).parent('li').addClass('current-page').parents('ul').slideDown(function () {
-			new PerfectScrollbar('#sidebar-menu', {
-				wheelSpeed: 2,
-				wheelPropagation: true,
-				minScrollbarLength: 20
-			});
-		}).parent().addClass('active');
-	}
+
 	// check login status
 	function checkSession(callback) {
 		$('.c-mask').removeClass('hide');
@@ -123,6 +89,7 @@ hash:g}),0):void 0===e[c]?e[c]=!0:e[c].onload&&(e[c].abort(),delete e[c].onload,
 			timePicker24Hour: true,
 			timePickerSeconds: true,
 			showWeekNumbers: true,
+			autoUpdateInput: false,
 			locale: {
 				format: format,
 			},
@@ -139,8 +106,53 @@ hash:g}),0):void 0===e[c]?e[c]=!0:e[c].onload&&(e[c].abort(),delete e[c].onload,
 			var endTime = moment(new Date(end)).format(format);
 			callback && callback(startTime, endTime, this);
 		});
+		$('.daterangetimepicker').on('apply.daterangepicker', function(ev, picker) {
+            $(this).val(picker.startDate.format(format) + ' - ' + picker.endDate.format(format));
+        });
+
+        $('.daterangetimepicker').on('cancel.daterangepicker', function(ev, picker) {
+            $(this).val('');
+            $('#search-start-time').val('');
+			$('#search-end-time').val('');
+        });
 	}
-	
+	// timepicker
+	function bindDateTimepicker() {
+		$('.datetimepicker').daterangepicker({
+			singleDatePicker: true,
+			timePicker: true,
+			timePicker24Hour: true,
+			timePickerSeconds: true,
+			showWeekNumbers: true,
+			locale: {
+				format: format,
+			},
+		});
+	}
+
+	// intitial date
+	function initDate() {
+		return moment(new Date()).format(format);
+	}
+	function getMilliseconds(value) {
+		return moment(value, format).utc().valueOf();
+	}
+	function getYears(value) {
+		return moment(value).year();
+	}
+	function getMonths(value) {
+		return moment(value).month() + 1;
+	}
+	function getDays(value) {
+		return moment(value).dates();
+	}
+	function getHours(value) {
+		return moment(value).hours();
+	}
+	function isLeapYear(value) {
+		return moment([value]).isLeapYear();
+	}
+
 	/* pageNum */
 	function getPageNum() {
 		return storage.getItem('pageNum') || 1
@@ -231,21 +243,124 @@ hash:g}),0):void 0===e[c]?e[c]=!0:e[c].onload&&(e[c].abort(),delete e[c].onload,
 		}
 	}
 
-	// initvar
-	var CURRENT_URL = window.location.href.split('#')[0],
-		$SIDEBAR_MENU = $('#sidebar-menu'),
-		format = 'YYYY-MM-DD HH:mm:ss';
-	var storage = window.localStorage;
-	init_sidebar();
-	/* c-menu event */
-	$('.c-menu').on('click', function() {
-		var $sidebarMenu = $('#sidebar-menu');
-		if ($sidebarMenu.hasClass('show')) {
-			$sidebarMenu.removeClass('show').removeAttr('style');
-		} else {
-			$sidebarMenu.addClass('show').css('left', 0);
+	/* table tab list for storage */
+	function renderTabItems() {
+		var products = getStorageList(),
+			len = products.length,
+			htmlStr = '',
+			activeNum = parseInt(getActiveItemNum());
+
+		if (len > 0) {
+			for (var i = 0; i < len; i += 1) {
+				var $item = createTableTabItem(products[i]);
+				$item.attr('data-idx', i+1);
+
+				if (activeNum == i + 1) {
+					$item.addClass('active')
+				}
+
+				htmlStr += $item[0].outerHTML;
+			}
+
+			$('.c-table-tab-list').append(htmlStr);
 		}
-	});
+		// check activeItem exsits or not.
+		if ($('.c-table-tab-item.active').length < 1) {
+			$('.c-table-tab-item').eq(0).addClass('active');
+		}
+
+		getTabSearchData($('.c-table-tab-item.active'));
+	}
+	// check new item
+	function checkNewItem(val) {
+		var storageList = getStorageList();
+		if (storageList.length >= 6) {
+			// save-search-item num <= 6
+			toastr.info('You can add up to six search records！');
+			return true;
+		}
+			
+		var filterArr = storageList.filter(function(item) {
+			if (JSON.stringify(val) === JSON.stringify(item)) {
+				return item;
+			}
+		});
+
+		if (filterArr.length > 0) {
+			toastr.info('You can not add it repeatedly！');
+			return true;
+		}
+		return false;
+	}
+	// initial activeItem
+	function initActiveItemNum() {
+		$('.c-table-tab-tempory').html('');
+		$('.c-table-tab-item').removeClass('active').eq(0).addClass('active');
+		// setActiveItemNum(0);
+		// setPageNum(1);
+	}
+	// add table tab item
+	function addTableTabItem(val, idx) {
+		var $tableTabItem = createTableTabItem(val).addClass('active');
+		$('.c-table-tab-item').removeClass('active');
+		idx && $tableTabItem.attr('data-idx', idx);
+		$('.c-table-tab-list').append($tableTabItem);
+	}
+	// generate table tab item
+	function createTableTabItem(val) {
+		var textArr = [];
+		for (var key in val) {
+			val[key] && isNaN(val[key]) && textArr.push(val[key]);
+		}
+
+		return $('<div class="c-table-tab-item">' + textArr.join("-") + '<div class="delete-table-tab-item c-icon">x</div></div>').attr('data-val', JSON.stringify(val));
+	}
+	// delete table tab item
+	function deleteTableTabItem(e) {
+		e.stopPropagation();
+		var targetEl = $(e.target),
+			parentEl = targetEl.parent('.c-table-tab-item'),
+			itemVal = $(parentEl).data('val');
+
+		deleteStorageItem(itemVal);
+		$(parentEl).remove();
+
+		$('.c-table-tab-item').eq(0).addClass('active');
+		getTabSearchData($('.c-table-tab-item').eq(0));
+	}
+	// get storage list
+	function getStorageList() {
+		return JSON.parse(storage.getItem(storageName)) || [];
+	}
+	// delete one storage
+	function deleteStorageItem(name) {
+		var oldStorageList = getStorageList();
+		var newStorageList = oldStorageList.filter(function (item) {
+			if (JSON.stringify(item) != JSON.stringify(name)) return item;
+		});
+		storage.setItem(storageName, JSON.stringify(newStorageList));
+		setActiveItemNum(0);
+	}
+	// add one storage
+	function addStorageItem(name) {
+		var storageList = getStorageList();
+		storageList.push(name);
+		storage.setItem(storageName, JSON.stringify(storageList));
+		setActiveItemNum(storageList.length);
+	}
+	// tab active-item cache get
+	function getActiveItemNum() {
+		return storage.getItem('itemNum') || 0;
+	}
+	// tab active-item cache set
+	function setActiveItemNum(num) {
+		storage.setItem('itemNum', num);
+	}
+	
+	// initvar
+	var format = 'YYYY-MM-DD HH:mm:ss';
+	var storage = window.localStorage;
+
 	window.addEventListener("beforeunload", function(e) {
 		// initial page-num
 		setPageNum(1);

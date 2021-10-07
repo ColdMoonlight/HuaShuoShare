@@ -4,9 +4,9 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>独立站产品销售数据</title>
+		<title>渠道分析</title>
 		<jsp:include page="common/backheader.jsp" flush="true"></jsp:include>
-		<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">
+		<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">	
 	</head>
 
 	<body class="c-app">
@@ -16,13 +16,13 @@
 			<div class="c-tab-container">
 				<div class="c-init">
 					<div class="c-option">
-						<span class="c-option-title">产品销售数据</span>
+						<span class="c-option-title">渠道</span>
 						<button class="btn btn-primary btn-create">创建</button>
 					</div>
 					<div class="c-excel-btns" style="margin-top: 1rem">
 						<button class="btn btn-secondary" id="btn-export-tpl">导出模板</button>
 						<button class="btn btn-info" id="btn-import-data">批量导入</button>
-						<!-- <button class="btn btn-primary" id="btn-export-data">导出数据</button> -->
+						<button class="btn btn-primary" id="btn-export-data">导出数据</button>
 					</div>
 					<div class="c-table">
 						<div class="c-table-table table-responsive-sm">
@@ -31,12 +31,14 @@
 									<tr>
 										<th>id</th>
 										<th>网站</th>
-										<th>单号</th>
-										<th>产品sku</th>
-										<th>产品名称</th>
-										<th>数量</th>
-										<th>产品实价</th>
-										<th>销售时间</th>
+										<th>渠道</th>
+										<th>投入</th>
+										<th>产出</th>
+										<th>成交订单</th>
+										<th>流量</th>
+										<th>用户总数</th>
+										<th>新用户数</th>
+										<th>时间</th>
 										<th>操作</th>
 									</tr>
 								</thead>
@@ -49,7 +51,7 @@
 				<!-- edit or create -->
 				<div class="c-create hide">
 					<div class="c-option">
-						<span class="c-option-title">创建产品销售数据</span>
+						<span class="c-option-title">创建渠道</span>
 						<div class="group">
 							<button class="btn btn-secondary btn-cancel">取消</button>
 							<button class="btn btn-primary btn-save">保存</button>
@@ -57,7 +59,7 @@
 					</div>
 					<div class="c-form">
 						<div class="row">
-							<input id="productsellinfoId" hidden>
+							<input id="webanalyticsId" hidden>
 							<!-- left panel  -->
 							<div class="left-panel col-lg-7 col-md-12">
 								<div class="card">
@@ -66,95 +68,75 @@
 									</div>
 									<div class="card-body">
 										<div class="form-group">
-											<label class="col-form-label" for="productsellinfoProducttype">产品类别</label>
+											<label class="col-form-label" for="webanalyticsChannelinvestmoney">投入</label>
 											<div class="controls">
-												<input class="form-control" id="productsellinfoProducttype" />
+												<input class="form-control" id="webanalyticsChannelinvestmoney" />
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-form-label" for="productsellinfoProductid">产品id</label>
+											<label class="col-form-label" for="webanalyticsChannelsellmoney">产出</label>
 											<div class="controls">
-												<input class="form-control" id="productsellinfoProductid" type="number" min="0" />
+												<input class="form-control" id="webanalyticsChannelsellmoney" type="text" />
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-form-label" for="productsellinfoProductname">产品名称</label>
+											<label class="col-form-label" for="webanalyticsChannelflowlnum">流量</label>
 											<div class="controls">
-												<input class="form-control" id="productsellinfoProductname" />
+												<input class="form-control" id="webanalyticsChannelflowlnum" />
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-form-label" for="productsellinfoProductsku">产品sku</label>
+											<label class="col-form-label" for="webanalyticsChannelsellnum">成交单数</label>
 											<div class="controls">
-												<input class="form-control" id="productsellinfoProductsku" type="text" />
+												<input class="form-control" id="webanalyticsChannelsellnum" type="text" />
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-form-label" for="productsellinfoProductsku">数量</label>
+											<label class="col-form-label" for="webanalyticsChannelintousernum">用户总数</label>
 											<div class="controls">
-												<input class="form-control" id="productsellinfoProductsellnum" type="text" />
+												<input class="form-control" id="webanalyticsChannelintousernum" />
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-form-label" for="productsellinfoProductmarkprice">产品标价</label>
+											<label class="col-form-label" for="webanalyticsChannelintousernewnum">新用户数</label>
 											<div class="controls">
-												<input class="form-control" id="productsellinfoProductmarkprice" type="number" min="0" />
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-form-label" for="productsellinfoProductrealprice">产品实价</label>
-											<div class="controls">
-												<input class="form-control" id="productsellinfoProductrealprice" type="number" min="0" />
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-form-label" for="productsellinfoCouponprice">优惠金额</label>
-											<div class="controls">
-												<input class="form-control" id="productsellinfoCouponprice" type="number" min="0" />
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-form-label" for="productsellinfoCouponcode">优惠券</label>
-											<div class="controls">
-												<input class="form-control" id="productsellinfoCouponcode" />
+												<input class="form-control" id="webanalyticsChannelintousernewnum" type="text" />
 											</div>
 										</div>
 									</div>
 								</div>
-								
-							</div>
-							<!-- right panel  -->
-							<div class="right-panel col-lg-5 col-md-12">							
-								<!-- product or subject -->
-								<div class="card">
-									<div class="card-title">
-										<div class="card-title-name">归属（网站 & 单号）</div>
-									</div>
-									<div class="card-body">									
-										<div class="form-group">
-											<label class="col-form-label" for="productsellinfoBrandname">网站</label>
-											<div class="controls">
-												<input class="form-control" id="productsellinfoBrandname" />
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-form-label" for="productsellinfoPlatenum">单号</label>
-											<div class="controls">
-												<input class="form-control" id="productsellinfoPlatenum" type="text" />
-											</div>
-										</div>
-									</div>
-								</div>
-								
 								<div class="card">
 									<div class="card-title">
 										<div class="card-title-name">时间</div>
 									</div>
 									<div class="card-body">									
 										<div class="form-group">
-											<label class="col-form-label" for=productsellinfoProductselltime>销售时间</label>
+											<label class="col-form-label" for="webanalyticsCreatetime">时间</label>
 											<div class="controls">
-												<input type="text" class="form-control datetimepicker" id="productsellinfoProductselltime" placeholder="@exmaple 2020-01-01 12:00:00" autocomplete="off"  />
+												<input type="text" class="form-control datetimepicker" id="webanalyticsCreatetime" placeholder="@exmaple 2020-01-01 12:00:00" autocomplete="off"  />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- right panel  -->
+							<div class="right-panel col-lg-5 col-md-12">							
+								<!-- product or subject -->
+								<div class="card">
+									<div class="card-title">
+										<div class="card-title-name">归属（渠道 & 网站）</div>
+									</div>
+									<div class="card-body">									
+										<div class="form-group">
+											<label class="col-form-label" for="webanalyticsBrandname">网站</label>
+											<div class="controls">
+												<input class="form-control" id="webanalyticsBrandname" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-form-label" for="webanalyticsChannelname">渠道</label>
+											<div class="controls">
+												<input class="form-control" id="webanalyticsChannelname" type="text" />
 											</div>
 										</div>
 									</div>
@@ -188,7 +170,7 @@
 		bindDateRangeEvent(function(startTime, endTime) {
 			$('#search-start-time').val(startTime);
 			$('#search-end-time').val(endTime);
-		}); 
+		});
 		bindDateTimepicker();
 
 		$(document.body).on('click', '#table-pagination li', function (e) { // pagination a-click
@@ -196,31 +178,31 @@
 		});
 		// create collection
 		$('.btn-create').on('click', function () {
-			$('.c-create .c-option-title').text('创建产品销售数据');
+			$('.c-create .c-option-title').text('创建渠道');
 
 			// init formData
 			resetFormData();
 			showCreateBlock();
 			isCreate = true;
 		});
-		// edit block 
+		// edit block
 		$(document.body).on('click', '.btn-edit', function (e) {
-			var productsellinfoId = $(this).data('id');
-			getOneBlockData({productsellinfoId: productsellinfoId}, function(resData) {
+			var webanalyticsId = $(this).data('id');
+			getOneBlockData({webanalyticsId: webanalyticsId}, function(resData) {
 				isUpdate = true;
-			 	$('.c-create .c-option-title').text('编辑产品销售数据');
+			 	$('.c-create .c-option-title').text('编辑渠道');
 				showCreateBlock();
 				initFormData(resData);
 			});			
 		});
 		// delete block
 		$(document.body).on('click', '.btn-delete', function (e) {
-			var productsellinfoId = parseInt($(this).data('id'));
-			$('#deleteModal').find('.modal-title').html('删除产品销售数据！');
+			var webanalyticsId = parseInt($(this).data('id'));
+			$('#deleteModal').find('.modal-title').html('删除渠道！');
 			$('#deleteModal').modal('show');
 			$('#deleteModal .btn-ok').one('click', function () {
 				deleteOneBlockData({
-					productsellinfoId: productsellinfoId,
+					webanalyticsId: webanalyticsId,
 				}, function() {
 					getAllBlockData();
 				});
@@ -258,13 +240,13 @@
 		});
 		// import/export callback
 		$('#btn-export-tpl').on('click', function() {
-			window.location.href = '${APP_PATH}/ExcelImport/ExportProductSellInfoImportDemo';
+			window.location.href = '${APP_PATH}/ExcelImport/ExportWebanalyticsImportDemo';
 		});
 		$('#btn-import-data').on('click', function() {
 			function importExcelData(reqData) {
 				$('.c-mask').show();
 				$.ajax({
-					url: "${APP_PATH}/ExcelImport/ImportProductSellInfo",
+					url: "${APP_PATH}/ExcelImport/ImportWebanalytics",
 					type: "post",
 					data: reqData,
 					processData: false,
@@ -301,12 +283,12 @@
 			var ymd = date.getFullYear() + '-' + (date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate());
 
 			initDateRage(ymd + ' 00:00:00', ymd + ' 23:59:59');
-			$('#datetimerangeModal').find('.modal-title').html("导出数据").end().modal('show');
+			$('#datetimerangeModal').find('.modal-title').html("导出渠道数据").end().modal('show');
 		});
 		$('#datetimerangeModal .btn-ok').on('click', function() {
 			var startTime = $('#startTime').val(),
 				endTime = $('#endTime').val();
-			window.location.href = '${APP_PATH}/ExcleDownload/exportProductSellInfo?webanalyticsCreatetime='+ startTime +'&webanalyticsMotifytime=' + endTime;
+			window.location.href = '${APP_PATH}/ExcleDownload/exportWebanalyticsInfo?webanalyticsCreatetime='+ startTime +'&webanalyticsMotifytime=' + endTime;
 			setTimeout(function(){ $('#datetimerangeModal').modal('hide'); },0);
 		});
 		function showCreateBlock() {
@@ -320,71 +302,59 @@
 		// handle formData
 		// reset data
 		function resetFormData() {
-			$('#productsellinfoId').val('');
+			$('#webanalyticsId').val('');
+			$('#webanalyticsChannelinvestmoney').val('');
+			$('#webanalyticsChannelsellmoney').val('');
+			$('#webanalyticsChannelsellnum').val('');
+			$('#webanalyticsChannelflowlnum').val('');
+			$('#webanalyticsChannelintousernum').val('');
+			$('#webanalyticsChannelintousernewnum').val('');
+
+			$('#webanalyticsCreatetime').val('');
 			
-			$('#productsellinfoBrandname').val('');
-			$('#productsellinfoPlatenum').val('');
-			
-			$('#productsellinfoProducttype').val('');
-			$('#productsellinfoProductid').val('');
-			$('#productsellinfoProductname').val('');
-			$('#productsellinfoProductsku').val('');
-			$('#productsellinfoProductsellnum').val('');
-			$('#productsellinfoProductmarkprice').val('');
-			$('#productsellinfoProductrealprice').val('');
-			$('#productsellinfoCouponprice').val('');
-			$('#productsellinfoCouponcode').val('');
-			
-			$('#productsellinfoProductselltime').val('');
+			$('#webanalyticsBrandname').val('');
+			$('#webanalyticsChannelname').val('');
 		}
 		// getFormdData
 		function getFormData() {
 			var data = {};
-			data.productsellinfoId = parseInt($('#productsellinfoId').val());
-			
-			data.productsellinfoBrandname = $('#productsellinfoBrandname').val();
-			data.productsellinfoPlatenum = $('#productsellinfoPlatenum').val();
-			
-			data.productsellinfoProducttype = $('#productsellinfoProducttype').val();
-			data.productsellinfoProductid = $('#productsellinfoProductid').val();
-			data.productsellinfoProductname = $('#productsellinfoProductname').val();
-			data.productsellinfoProductsku = $('#productsellinfoProductsku').val();
-			data.productsellinfoProductsellnum = $('#productsellinfoProductsellnum').val();
-			data.productsellinfoProductmarkprice = $('#productsellinfoProductmarkprice').val();
-			data.productsellinfoProductrealprice = $('#productsellinfoProductrealprice').val();
-			data.productsellinfoCouponprice = $('#productsellinfoCouponprice').val();
-			data.productsellinfoCouponcode = $('#productsellinfoCouponcode').val();
-			
-			data.productsellinfoProductselltime = $('#productsellinfoProductselltime').val();
+			data.webanalyticsId = parseInt($('#webanalyticsId').val());
+			data.webanalyticsChannelinvestmoney = $('#webanalyticsChannelinvestmoney').val();
+			data.webanalyticsChannelsellmoney = $('#webanalyticsChannelsellmoney').val();
+			data.webanalyticsChannelsellnum = $('#webanalyticsChannelsellnum').val();
+			data.webanalyticsChannelflowlnum = $('#webanalyticsChannelflowlnum').val();
+			data.webanalyticsChannelintousernum = $('#webanalyticsChannelintousernum').val();
+			data.webanalyticsChannelintousernewnum = $('#webanalyticsChannelintousernewnum').val();
+
+			data.webanalyticsCreatetime = $('#webanalyticsCreatetime').val();
+
+			data.webanalyticsBrandname = $('#webanalyticsBrandname').val();
+			data.webanalyticsChannelname = $('#webanalyticsChannelname').val();
 
 			return data;
 		}
 		// initFormData
 		function initFormData(data) {
 			// init
-			$('#productsellinfoId').val(data.productsellinfoId);
+			$('#webanalyticsId').val(data.webanalyticsId);
+			$('#webanalyticsChannelinvestmoney').val(data.webanalyticsChannelinvestmoney);
+			$('#webanalyticsChannelsellmoney').val(data.webanalyticsChannelsellmoney);
+			$('#webanalyticsChannelsellnum').val(data.webanalyticsChannelsellnum);
+			$('#webanalyticsChannelflowlnum').val(data.webanalyticsChannelflowlnum);
+			$('#webanalyticsChannelintousernum').val(data.webanalyticsChannelintousernum);
+			$('#webanalyticsChannelintousernewnum').val(data.webanalyticsChannelintousernewnum);
 			
-			$('#productsellinfoBrandname').val(data.productsellinfoBrandname);
-			$('#productsellinfoPlatenum').val(data.productsellinfoPlatenum);
-			
-			$('#productsellinfoProducttype').val(data.productsellinfoProducttype);
-			$('#productsellinfoProductid').val(data.productsellinfoProductid);
-			$('#productsellinfoProductname').val(data.productsellinfoProductname);
-			$('#productsellinfoProductsku').val(data.productsellinfoProductsku);
-			$('#productsellinfoProductsellnum').val(data.productsellinfoProductsellnum);
-			$('#productsellinfoProductmarkprice').val(data.productsellinfoProductmarkprice);
-			$('#productsellinfoProductrealprice').val(data.productsellinfoProductrealprice);
-			$('#productsellinfoCouponprice').val(data.productsellinfoCouponprice);
-			$('#productsellinfoCouponcode').val(data.productsellinfoCouponcode);
-			
-			$('#productsellinfoProductselltime').val(data.productsellinfoProductselltime);
+			$('#webanalyticsCreatetime').val(data.webanalyticsCreatetime);
+
+			$('#webanalyticsChannelname').val(data.webanalyticsChannelname);
+			$('#webanalyticsBrandname').val(data.webanalyticsBrandname);
 		}
 		// callback get all data
 		function getAllBlockData() {
 			$('.c-mask').show();
 			var formData = 'pn=' + getPageNum();
 			$.ajax({
-				url: "${APP_PATH}/CrmProductSellInfo/GetProductSellInfoByPage",
+				url: "${APP_PATH}/CrmWebanalytics/GetCrmWebanalyticsByPage",
 				type: "post",
 				data: formData,
 				success: function (data) {
@@ -397,31 +367,7 @@
 					}
 				},
 				error: function () {
-					toastr.error('Failed to get ProductSellInfo table-list, please refresh the page to get again!');
-				},
-				complete: function () {
-					$('.c-mask').hide();
-				}
-			});
-		}
-	    //  callback get all
-		function getProductSellInfo(val) {
-			$('.c-mask').show();
-			$.ajax({
-				url: "${APP_PATH}/CrmProductSellInfo/GetProductSellInfoByPage",
-				type: "post",
-				data: "pn=" + getPageNum(),
-				success: function (data) {
-					if (data.code == 100) {
-						renderTable(data.extend.pageInfo.list);
-						renderTablePagination(data.extend.pageInfo);
-						toastr.success(data.extend.resMsg);
-					} else {
-						toastr.error(data.extend.resMsg);
-					}
-				},
-				error: function () {
-					toastr.error('Failed to get ProductSellInfo table-list, please refresh the page to get again!');
+					toastr.error('Failed to get Analytics table-list, please refresh the page to get again!');
 				},
 				complete: function () {
 					$('.c-mask').hide();
@@ -432,14 +378,14 @@
 		function getOneBlockData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/CrmProductSellInfo/GetOneProductSellInfoDetailById",
+				url: "${APP_PATH}/CrmWebanalytics/GetOneCrmWebanalyticsDetailById",
 				type: "post",
 				dataType: "json",
 				contentType: 'application/json',
 				data: JSON.stringify(reqData),
 				success: function (data) {
 					if (data.code == 100) {
-						callback(data.extend.crmProductSellInfo);
+						callback(data.extend.crmWebanalytics);
 						toastr.success(data.extend.resMsg);
 					} else {
 						toastr.error(data.extend.resMsg);
@@ -457,7 +403,7 @@
 		function insertOneBlockData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/CrmProductSellInfo/Add",
+				url: "${APP_PATH}/CrmWebanalytics/Add",
 				type: "post",
 				cache: false,
 				dataType: "json",
@@ -483,7 +429,7 @@
 		function updateOneBlockData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/CrmProductSellInfo/Update",
+				url: "${APP_PATH}/CrmWebanalytics/Update",
 				type: "post",
 				cache: false,
 				dataType: "json",
@@ -509,7 +455,7 @@
 		function deleteOneBlockData(reqData, callback) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/CrmProductSellInfo/Delete",
+				url: "${APP_PATH}/CrmWebanalytics/Delete",
 				type: "post",
 				cache: false,
 				dataType: "json",
@@ -532,26 +478,27 @@
 				}
 			});
 		}
-		
 		// init table-list
 		function renderTable(data) {
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
-				htmlStr += '<tr><td>' + data[i].productsellinfoId + '</td>' +
-					'<td>' + (data[i].productsellinfoBrandname || '--') + '</td>' +
-					'<td>' + (data[i].productsellinfoPlatenum || '--') + '</td>' +
-					'<td>' + (data[i].productsellinfoProductsku || '--') + '</td>' +
-					'<td><div class="text-overflow" title="' + data[i].productsellinfoProductname + '">' + (data[i].productsellinfoProductname || '--') + '</div></td>' +
-					'<td>' + (data[i].productsellinfoProductsellnum || '--') + '</td>' +
-					'<td>' + (data[i].productsellinfoProductrealprice || '--') + '</td>' +
-					'<td>' + (data[i].productsellinfoProductselltime || '--') + '</td>' +
+				htmlStr += '<tr><td>' + data[i].webanalyticsId + '</td>' +
+					'<td>' + data[i].webanalyticsBrandname + '</td>' +
+					'<td>' + data[i].webanalyticsChannelname + '</td>' +
+					'<td>' + data[i].webanalyticsChannelinvestmoney + '</td>' +
+					'<td>' + data[i].webanalyticsChannelsellmoney + '</td>' +
+					'<td>' + data[i].webanalyticsChannelsellnum + '</td>' +
+					'<td>' + data[i].webanalyticsChannelflowlnum + '</td>' +
+					'<td>' + data[i].webanalyticsChannelintousernum + '</td>' +
+					'<td>' + data[i].webanalyticsChannelintousernewnum + '</td>' +
+					'<td>' + data[i].webanalyticsCreatetime + '</td>' +					
 					'<td>' +
-						'<button class="btn btn-primary btn-edit" data-id="' + data[i].productsellinfoId + '">' +
+						'<button class="btn btn-primary btn-edit" data-id="' + data[i].webanalyticsId + '">' +
 							'<svg class="c-icon">' +
 								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-pencil"></use>' +
 							'</svg>' +
 						'</button>' +
-						'<button class="btn btn-danger btn-delete" data-id="' + data[i].productsellinfoId + '">' +
+						'<button class="btn btn-danger btn-delete" data-id="' + data[i].webanalyticsId + '">' +
 							'<svg class="c-icon">' +
 								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>' +
 							'</svg>' +
@@ -559,18 +506,6 @@
 					'</td></tr>';
 			}
 			$('.c-table-table tbody').html(htmlStr);
-		}
-		// get Data for table
-		function getTabSearchData($this) {
-			var dataVal = $this.data('val');
-			if (dataVal && dataVal.ProductSellInfo) {
-				//$('#coupon-name').val(dataVal.coupon || '');
-				//getSearchProductSellInfoData();
-			} else {
-				//$('#coupon-name').val('');
-				initActiveItemNum();
-				getProductSellInfo();
-			}
 		}
 		</script>
 	</body>

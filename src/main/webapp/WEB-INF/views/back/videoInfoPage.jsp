@@ -12,55 +12,51 @@
 
 	<body class="c-app">
 		<jsp:include page="layout/backheader.jsp" flush="true"></jsp:include>
-		<jsp:include page="layout/backsidebar.jsp" flush="true"></jsp:include>
-		<div class="c-wrapper">
-			<div class="c-body">
-				<div class="c-main">
-					<div class="folder">
-						<div class="folder-title">
-							<div class="folder-left">
-								<div class="folder-tab">
-									<div class="folder-back">&lt; 返回上一级</div>
-									<div class="folder-fresh">刷新</div>
-								</div>
-								<div class="folder-nav">
-									<div class="folder-nav-item">我的网盘  &gt;</div>
-									<div class="folder-nav-list"></div>
-								</div>
-							</div>
-							<div class="folder-center">
-								<div class="btn btn-primary hide folder-create">新建文件夹</div>
-								<div class="btn btn-secondary hide folder-upload">上传</div>
-								<div class="btn btn-success hide folder-move-ok">确认移动到当前目录</div>
-							</div>
-							<div class="folder-right">
-								<div class="folder-layout" title="列表展示"></div>
-							</div>
+		<div class="c-main">
+			<div class="folder">
+				<div class="folder-title">
+					<div class="folder-left">
+						<div class="folder-tab">
+							<div class="folder-back">&lt; 返回上一级</div>
+							<div class="folder-fresh">刷新</div>
 						</div>
-						<div class="folder-body">
-							<div class="folder-thead">
-								<div class="folder-tr">
-									<div class="folder-td">文件名</div>
-									<div class="folder-td">修改时间</div>
-									<div class="folder-td"></div>
-								</div>
-							</div>
-							<div class="folder-tbody-container">
-								<div class="folder-tbody"></div>
-							</div>
-							<div class="folder-pagination"></div>
+						<div class="folder-nav">
+							<div class="folder-nav-item">我的网盘  &gt;</div>
+							<div class="folder-nav-list"></div>
 						</div>
 					</div>
+					<div class="folder-center">
+						<div class="btn btn-primary hide folder-create">新建文件夹</div>
+						<div class="btn btn-secondary hide folder-upload">上传</div>
+						<div class="btn btn-success hide folder-move-ok">确认移动到当前目录</div>
+					</div>
+					<div class="folder-right">
+						<div class="folder-layout" title="列表展示"></div>
+					</div>
 				</div>
-				<!-- c-mask -->
-				<div class="c-mask hide">
-					<div class="spinner-border"></div>
+				<div class="folder-body">
+					<div class="folder-thead">
+						<div class="folder-tr">
+							<div class="folder-td">文件名</div>
+							<div class="folder-td">修改时间</div>
+							<div class="folder-td"></div>
+						</div>
+					</div>
+					<div class="folder-tbody-container">
+						<div class="folder-tbody"></div>
+					</div>
+					<div class="folder-pagination"></div>
 				</div>
 			</div>
-			<jsp:include page="layout/backfooter.jsp" flush="true"></jsp:include>
+			<!-- c-mask -->
+			<div class="c-mask hide">
+				<div class="spinner-border"></div>
+			</div>
 		</div>
+		<jsp:include page="layout/backfooter.jsp" flush="true"></jsp:include>
 
 		<jsp:include page="common/backfooter.jsp" flush="true"></jsp:include>
+		<jsp:include page="common/backsidebar.jsp"></jsp:include>
 
 		<jsp:include page="modal/renameModal.jsp" flush="true"></jsp:include>
 		<jsp:include page="modal/deleteModal.jsp" flush="true"></jsp:include>
