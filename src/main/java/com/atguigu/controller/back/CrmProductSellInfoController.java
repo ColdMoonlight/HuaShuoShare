@@ -44,7 +44,7 @@ public class CrmProductSellInfoController {
 		MlbackAdmin crmAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 		if(crmAdmin==null){
 			//SysUsers对象为空
-			return "back/crmAdminLogin";
+			return "back/mlbackAdminLogin";
 		}else{
 			return "back/crmProductSellInfoPage";
 		}
@@ -60,7 +60,7 @@ public class CrmProductSellInfoController {
 		MlbackAdmin crmAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 		if(crmAdmin==null){
 			//SysUsers对象为空
-			return "back/crmAdminLogin";
+			return "back/mlbackAdminLogin";
 		}else{
 			return "back/crmProductSellInfoAnalysePage";
 		}
@@ -79,7 +79,7 @@ public class CrmProductSellInfoController {
 		MlbackAdmin crmAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 		if(crmAdmin==null){
 			//SysUsers对象为空
-			return "back/crmAdminLogin";
+			return "back/mlbackAdminLogin";
 		}else{
 			return "back/crmProductSellInfoAliExpressPage";
 		}
@@ -98,7 +98,7 @@ public class CrmProductSellInfoController {
 		MlbackAdmin crmAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 		if(crmAdmin==null){
 			//SysUsers对象为空
-			return "back/crmAdminLogin";
+			return "back/mlbackAdminLogin";
 		}else{
 			return "back/crmProductSellInfoAliExpressAnalysePage";
 		}
@@ -117,7 +117,7 @@ public class CrmProductSellInfoController {
 		MlbackAdmin crmAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 		if(crmAdmin==null){
 			//SysUsers对象为空
-			return "back/crmAdminLogin";
+			return "back/mlbackAdminLogin";
 		}else{
 			return "back/crmProductSellInfoAlibabaAnalysePage";
 		}
@@ -136,7 +136,7 @@ public class CrmProductSellInfoController {
 		MlbackAdmin crmAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 		if(crmAdmin==null){
 			//SysUsers对象为空
-			return "back/crmAdminLogin";
+			return "back/mlbackAdminLogin";
 		}else{
 			return "back/crmProductSellInfoAlibabaPage";
 		}
