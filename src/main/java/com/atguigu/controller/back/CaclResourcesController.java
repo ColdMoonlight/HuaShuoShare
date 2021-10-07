@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.MlbackAdmin;
 import com.atguigu.bean.ShareOperationRecord;
+import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.atguigu.service.ShareImageInfoService;
 import com.atguigu.service.ShareOperationRecordService;
@@ -37,8 +38,8 @@ public class CaclResourcesController {
 	@ResponseBody
 	public Msg caclDownloadImg(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareOperationRecord shareOperationRecordInto){
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
-		session.setAttribute("AdminUser", mlbackAdmin);
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+		session.setAttribute(Const.ADMIN_USER, mlbackAdmin);
 		
 		String adminPower = getAdminInfo(session);
 		if("0000".equals(adminPower)){
@@ -68,8 +69,8 @@ public class CaclResourcesController {
 	@ResponseBody
 	public Msg caclDownloadVideo(HttpSession session,HttpServletResponse rep,HttpServletRequest res,@RequestBody ShareOperationRecord shareOperationRecordInto){
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
-		session.setAttribute("AdminUser", mlbackAdmin);
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+		session.setAttribute(Const.ADMIN_USER, mlbackAdmin);
 		
 		String adminPower = getAdminInfo(session);
 		if("0000".equals(adminPower)){
@@ -91,7 +92,7 @@ public class CaclResourcesController {
 	}
 	
 	public String getAdminInfo(HttpSession session) {
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 		String adminPower = "0";
 		if(mlbackAdmin==null){
 			return "0000";

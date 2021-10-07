@@ -21,6 +21,7 @@ import com.atguigu.bean.EmailPayPalRetuenSuccess;
 import com.atguigu.bean.EmailPaySuccess;
 import com.atguigu.bean.EmailUser;
 import com.atguigu.bean.MlbackAdmin;
+import com.atguigu.common.Const;
 import com.atguigu.service.EmailAddressService;
 import com.atguigu.service.EmailNoneedService;
 import com.atguigu.service.EmailPayPalRetuenSuccessService;
@@ -55,7 +56,7 @@ public class EmailUpDownController {
 	@RequestMapping("/DownloadPage")
 	public String DownloadPage(HttpSession session) throws Exception{
 		
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute("AdminUser");
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 		if(mlbackAdmin==null){
 			//SysUsers对象为空
 			return "back/mlbackAdminLogin";
