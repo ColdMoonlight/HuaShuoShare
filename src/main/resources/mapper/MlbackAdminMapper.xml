@@ -41,6 +41,7 @@
     <result column="admin_menu_idStr" jdbcType="VARCHAR" property="adminMenuIdstr" />
     <result column="admin_menu_nameStr" jdbcType="VARCHAR" property="adminMenuNamestr" />
     <result column="admin_menu_urlStr" jdbcType="VARCHAR" property="adminMenuUrlstr" />
+    <result column="admin_homePage_idStr" jdbcType="VARCHAR" property="adminHomePageIdstr" />
     <result column="admin_createTime" jdbcType="VARCHAR" property="adminCreatetime" />
     <result column="admin_motifyTime" jdbcType="VARCHAR" property="adminMotifytime" />
   </resultMap>
@@ -48,7 +49,7 @@
     admin_id, admin_account, admin_password, admin_operaterName, admin_power, admin_power_item_str,
     admin_name, admin_department_id, admin_department_name, admin_department_idStr, admin_department_nameStr, 
     admin_shop_idStr, admin_shop_nameStr, admin_status, admin_menu_idStr, admin_menu_nameStr, 
-    admin_menu_urlStr, admin_createTime, admin_motifyTime
+    admin_menu_urlStr, admin_homePage_idStr, admin_createTime, admin_motifyTime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -64,14 +65,14 @@
     insert into tb_mlback_admin (admin_id, admin_account, admin_password, 
       admin_operaterName, admin_power, admin_power_item_str,admin_name, admin_department_id, 
       admin_department_name, admin_department_idStr, admin_department_nameStr, admin_shop_idStr, 
-      admin_shop_nameStr, admin_status, admin_menu_idStr, admin_menu_nameStr, admin_menu_urlStr, 
+      admin_shop_nameStr, admin_status, admin_menu_idStr, admin_menu_nameStr, admin_menu_urlStr, admin_homePage_idStr,  
       admin_createTime, admin_motifyTime)
     values (#{adminId,jdbcType=INTEGER}, #{adminAccount,jdbcType=VARCHAR}, #{adminPassword,jdbcType=VARCHAR}, 
       #{adminOperatername,jdbcType=VARCHAR}, #{adminPower,jdbcType=VARCHAR}, #{adminPowerItemStr,jdbcType=VARCHAR}, 
       #{adminName,jdbcType=VARCHAR}, #{adminDepartmentId,jdbcType=INTEGER}, #{adminDepartmentName,jdbcType=VARCHAR}, 
       #{adminDepartmentIdStr,jdbcType=VARCHAR}, #{adminDepartmentNameStr,jdbcType=VARCHAR}, 
       #{adminShopIdStr,jdbcType=VARCHAR}, #{adminShopNameStr,jdbcType=VARCHAR}, #{adminStatus,jdbcType=INTEGER}, 
-      #{adminMenuIdstr,jdbcType=VARCHAR}, #{adminMenuNamestr,jdbcType=VARCHAR}, #{adminMenuUrlstr,jdbcType=VARCHAR}, 
+      #{adminMenuIdstr,jdbcType=VARCHAR}, #{adminMenuNamestr,jdbcType=VARCHAR}, #{adminMenuUrlstr,jdbcType=VARCHAR}, #{adminHomePageIdstr,jdbcType=VARCHAR}, 
       #{adminCreatetime,jdbcType=VARCHAR}, #{adminMotifytime,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" useGeneratedKeys="true" keyProperty="adminId" parameterType="com.atguigu.bean.MlbackAdmin">
@@ -127,6 +128,9 @@
       </if>
       <if test="adminMenuUrlstr != null">
         admin_menu_urlStr,
+      </if>
+      <if test="adminHomePageIdstr != null">
+        admin_homePage_idStr,
       </if>
       <if test="adminCreatetime != null">
         admin_createTime,
@@ -187,6 +191,9 @@
       <if test="adminMenuUrlstr != null">
         #{adminMenuUrlstr,jdbcType=VARCHAR},
       </if>
+      <if test="adminHomePageIdstr != null">
+        #{adminHomePageIdstr,jdbcType=VARCHAR},
+      </if>
       <if test="adminCreatetime != null">
         #{adminCreatetime,jdbcType=VARCHAR},
       </if>
@@ -246,6 +253,9 @@
       <if test="adminMenuUrlstr != null">
         admin_menu_urlStr = #{adminMenuUrlstr,jdbcType=VARCHAR},
       </if>
+      <if test="adminHomePageIdstr != null">
+        admin_homePage_idStr = #{adminHomePageIdstr,jdbcType=VARCHAR},
+      </if>
       <if test="adminCreatetime != null">
         admin_createTime = #{adminCreatetime,jdbcType=VARCHAR},
       </if>
@@ -273,6 +283,7 @@
       admin_menu_idStr = #{adminMenuIdstr,jdbcType=VARCHAR},
       admin_menu_nameStr = #{adminMenuNamestr,jdbcType=VARCHAR},
       admin_menu_urlStr = #{adminMenuUrlstr,jdbcType=VARCHAR},
+      admin_homePage_idStr = #{adminHomePageIdstr,jdbcType=VARCHAR},
       admin_createTime = #{adminCreatetime,jdbcType=VARCHAR},
       admin_motifyTime = #{adminMotifytime,jdbcType=VARCHAR}
     where admin_id = #{adminId,jdbcType=INTEGER}

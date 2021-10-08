@@ -28,8 +28,8 @@ public class BackHomeController {
 	 * zsh 200730
 	 * 中控台首页
 	 * */
-	@RequestMapping("/BackHomePage")
-	public String backHome(HttpSession session) throws Exception{
+	@RequestMapping("/BackHomePageOne")
+	public String backHomeOne(HttpSession session) throws Exception{
 		
 		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
 		if(mlbackAdmin==null){
@@ -37,6 +37,22 @@ public class BackHomeController {
 			return "back/mlbackAdminLogin";
 		}else{
 			return "back/mlbackHomePage";
+		}
+	}
+	
+	/**
+	 * zsh 200730
+	 * 中控台首页
+	 * */
+	@RequestMapping("/BackHomePageTwo")
+	public String backHomeTwo(HttpSession session) throws Exception{
+		
+		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
+		if(mlbackAdmin==null){
+			//SysUsers对象为空
+			return "back/mlbackAdminLogin";
+		}else{
+			return "back/crmHomePage";
 		}
 	}
 
