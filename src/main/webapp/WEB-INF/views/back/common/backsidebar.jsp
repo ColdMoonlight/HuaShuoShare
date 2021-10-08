@@ -41,7 +41,7 @@ function renderSideBarMenu(data) {
 	if (firstArrData.length) {
 		menuHtml = '<ul class="c-sidebar-nav">';
 		menuHtml +=	'<li class="c-sidebar-nav-item">' +
-				'<a class="c-sidebar-nav-link" href="${APP_PATH}/BackHome/BackHomePage">' +
+				'<a class="c-sidebar-nav-link" href="${APP_PATH}/BackHome/BackHomePageOne">' +
 					'<svg class="c-sidebar-nav-icon">' +
 						'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-speedometer"></use>' +
 					'</svg>' +
