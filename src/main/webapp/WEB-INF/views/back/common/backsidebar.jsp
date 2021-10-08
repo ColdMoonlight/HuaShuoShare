@@ -40,14 +40,6 @@ function renderSideBarMenu(data) {
 	var menuHtml, checkMenuHtml;
 	if (firstArrData.length) {
 		menuHtml = '<ul class="c-sidebar-nav">';
-		menuHtml +=	'<li class="c-sidebar-nav-item">' +
-				'<a class="c-sidebar-nav-link" href="${APP_PATH}/BackHome/BackHomePageOne">' +
-					'<svg class="c-sidebar-nav-icon">' +
-						'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-speedometer"></use>' +
-					'</svg>' +
-					'<span class="c-text">Dashboard</span>' +
-				'</a>' +
-			'</li>';
 		firstArrData.forEach(function(item, idx) {
 			menuHtml += '<li class="c-sidebar-nav-item">' +
 				'<a class="c-sidebar-nav-link' + (secondMapData && secondMapData[idx].length ? ' c-sidebar-nav-dropdown-toggle' : '') +'" href="'+ (secondMapData && secondMapData[idx].length ? 'javascript:void(0);' : '${APP_PATH}/'+ item.catalogUrl) +'">' +
@@ -68,7 +60,7 @@ function renderSideBarMenu(data) {
 	} else {
 		menuHtml = '没有目录数据...';
 	}
-	$SIDEBAR_MENU.html(menuHtml);
+	$SIDEBAR_MENU.find('.c-sidebar-other').html(menuHtml);
 	$('.menu-checkbox tbody').html(checkMenuHtml);
 	!isInitMenu && addSidebarEvent();
 }
