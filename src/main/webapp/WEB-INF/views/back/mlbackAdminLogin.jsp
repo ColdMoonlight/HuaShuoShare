@@ -131,7 +131,7 @@
 					if (data.code == 100) {
 						toastr.success(data.extend.resMsg + ', The jump will take place later。');
 						setTimeout(function() {
-							window.location.href = '${APP_PATH }/BackHome/BackHomePage';
+							window.location.href = '${APP_PATH }/BackHome/BackHomePageOne';
 						}, 100);
 					} else {
 						toastr.error(data.extend.resMsg);

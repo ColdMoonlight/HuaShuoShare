@@ -36,6 +36,8 @@ public class MlbackAdmin {
     private String adminMenuNamestr;
 
     private String adminMenuUrlstr;
+    
+    private String adminHomePageIdstr;
 
     private String adminCreatetime;
 
@@ -86,7 +88,7 @@ public class MlbackAdmin {
 	}
 
 	public void setAdminPowerItemStr(String adminPowerItemStr) {
-		this.adminPowerItemStr = adminOperatername == null ? null : adminOperatername.trim();
+		this.adminPowerItemStr = adminPowerItemStr == null ? null : adminPowerItemStr.trim();
 	}
 	
 	public String getAdminName() {
@@ -177,6 +179,14 @@ public class MlbackAdmin {
 		this.adminMenuUrlstr = adminMenuUrlstr;
 	}
 
+	public String getAdminHomePageIdstr() {
+		return adminHomePageIdstr;
+	}
+
+	public void setAdminHomePageIdstr(String adminHomePageIdstr) {
+		this.adminHomePageIdstr = adminHomePageIdstr;
+	}
+
 	public String getAdminCreatetime() {
 		return adminCreatetime;
 	}
@@ -201,7 +211,8 @@ public class MlbackAdmin {
 			String adminPower, String adminPowerItemStr, String adminName, Integer adminDepartmentId,
 			String adminDepartmentName, String adminDepartmentIdStr, String adminDepartmentNameStr,
 			String adminShopIdStr, String adminShopNameStr, Integer adminStatus, String adminMenuIdstr,
-			String adminMenuNamestr, String adminMenuUrlstr, String adminCreatetime, String adminMotifytime) {
+			String adminMenuNamestr, String adminMenuUrlstr, String adminHomePageIdstr, String adminCreatetime,
+			String adminMotifytime) {
 		super();
 		this.adminId = adminId;
 		this.adminAccount = adminAccount;
@@ -220,6 +231,7 @@ public class MlbackAdmin {
 		this.adminMenuIdstr = adminMenuIdstr;
 		this.adminMenuNamestr = adminMenuNamestr;
 		this.adminMenuUrlstr = adminMenuUrlstr;
+		this.adminHomePageIdstr = adminHomePageIdstr;
 		this.adminCreatetime = adminCreatetime;
 		this.adminMotifytime = adminMotifytime;
 	}
@@ -228,7 +240,14 @@ public class MlbackAdmin {
 	public String toString() {
 		return "MlbackAdmin [adminId=" + adminId + ", adminAccount=" + adminAccount + ", adminPassword=" + adminPassword
 				+ ", adminOperatername=" + adminOperatername + ", adminPower=" + adminPower + ", adminPowerItemStr="
-				+ adminPowerItemStr + "]";
+				+ adminPowerItemStr + ", adminName=" + adminName + ", adminDepartmentId=" + adminDepartmentId
+				+ ", adminDepartmentName=" + adminDepartmentName + ", adminDepartmentIdStr=" + adminDepartmentIdStr
+				+ ", adminDepartmentNameStr=" + adminDepartmentNameStr + ", adminShopIdStr=" + adminShopIdStr
+				+ ", adminShopNameStr=" + adminShopNameStr + ", adminStatus=" + adminStatus + ", adminMenuIdstr="
+				+ adminMenuIdstr + ", adminMenuNamestr=" + adminMenuNamestr + ", adminMenuUrlstr=" + adminMenuUrlstr
+				+ ", adminHomePageIdstr=" + adminHomePageIdstr + ", adminCreatetime=" + adminCreatetime
+				+ ", adminMotifytime=" + adminMotifytime + "]";
 	}
+
     
 }
